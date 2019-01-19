@@ -30,7 +30,7 @@ class Canvas : UIView {
     
 }
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     
     let canvas:Canvas = {
@@ -50,6 +50,21 @@ class ViewController: UIViewController {
         return imageView
     } ()
     
+    let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
+        // cannot reference self in closure
+//        tableView.dataSource = self
+//        tableView.delegate = self
+        
+       
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    } ()
+    
+     private let myArray: NSArray = ["First","Second","Third"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -57,6 +72,10 @@ class ViewController: UIViewController {
         // stack views
         view.addSubview(photoView)
         view.addSubview(canvas)
+        
+        view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
         
         setupLayout()
 
@@ -76,7 +95,12 @@ class ViewController: UIViewController {
         canvas.leadingAnchor.constraint(equalTo: photoView.leadingAnchor).isActive = true
         canvas.trailingAnchor.constraint(equalTo: photoView.trailingAnchor).isActive = true
         
-
+        tableView.topAnchor.constraint(equalTo: photoView.bottomAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: photoView.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: photoView.trailingAnchor).isActive = true
+        
+        
         
         
         // this two works together
@@ -85,5 +109,19 @@ class ViewController: UIViewController {
     }
     
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Num: \(indexPath.row)")
+        print("Value: \(myArray[indexPath.row])")
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return myArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath as IndexPath)
+        cell.textLabel!.text = "\(myArray[indexPath.row])"
+        return cell
+    }
 }
 
