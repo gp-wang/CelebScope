@@ -15,7 +15,6 @@ class Canvas : UIView {
         guard let context = UIGraphicsGetCurrentContext() else { return }
         
         
-        
         let startPoint = CGPoint(x: 0, y: 0)
         let endPoint = CGPoint(x:100  , y: 100)
         
@@ -27,6 +26,8 @@ class Canvas : UIView {
         
         context.strokePath()
     }
+    
+    
 }
 
 class ViewController: UIViewController {
@@ -35,6 +36,7 @@ class ViewController: UIViewController {
     let canvas:Canvas = {
         let canvas = Canvas()
         canvas.backgroundColor = UIColor.black
+        canvas.translatesAutoresizingMaskIntoConstraints=false
         canvas.alpha = 0.2
         return canvas
     } ()
@@ -42,7 +44,7 @@ class ViewController: UIViewController {
     let photoView: UIImageView = {
         let imageView = UIImageView()
             
-        imageView.image =     UIImage(imageLiteralResourceName: "hongjinbao")
+        imageView.image = UIImage(imageLiteralResourceName: "hongjinbao")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -62,16 +64,24 @@ class ViewController: UIViewController {
     }
     
     private func setupLayout() {
-        
-        canvas.frame = view.frame
-        
-        
+
         
         photoView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        photoView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        photoView.heightAnchor.constraint(equalTo: view.widthAnchor,   multiplier: 1.333).isActive = true
         photoView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        
         photoView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        
+        canvas.topAnchor.constraint(equalTo: photoView.topAnchor).isActive = true
+        canvas.bottomAnchor.constraint(equalTo: photoView.bottomAnchor).isActive = true
+        canvas.leadingAnchor.constraint(equalTo: photoView.leadingAnchor).isActive = true
+        canvas.trailingAnchor.constraint(equalTo: photoView.trailingAnchor).isActive = true
+        
+
+        
+        
+        // this two works together
+//        photoView.frame = view.frame
+//        canvas.frame = photoView.frame
     }
     
 
