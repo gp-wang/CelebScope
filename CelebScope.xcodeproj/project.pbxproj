@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		58DBD3B7B638811B9BF86FBC /* Pods_CelebScope.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F3A852C3FDFCA8C4D3F4596 /* Pods_CelebScope.framework */; };
 		6B31D2B721F38D55000CFA44 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B31D2B621F38D55000CFA44 /* AppDelegate.swift */; };
 		6B31D2B921F38D55000CFA44 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B31D2B821F38D55000CFA44 /* ViewController.swift */; };
 		6B31D2BC21F38D55000CFA44 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B31D2BA21F38D55000CFA44 /* Main.storyboard */; };
@@ -15,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F3A852C3FDFCA8C4D3F4596 /* Pods_CelebScope.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CelebScope.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		67DD99CA98060D4C52BE8DDC /* Pods-CelebScope.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CelebScope.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CelebScope/Pods-CelebScope.debug.xcconfig"; sourceTree = "<group>"; };
 		6B31D2B321F38D55000CFA44 /* CelebScope.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CelebScope.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B31D2B621F38D55000CFA44 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6B31D2B821F38D55000CFA44 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +25,7 @@
 		6B31D2BD21F38D58000CFA44 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6B31D2C021F38D58000CFA44 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6B31D2C221F38D58000CFA44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7FAD4386502BE94F314821F2 /* Pods-CelebScope.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CelebScope.release.xcconfig"; path = "Pods/Target Support Files/Pods-CelebScope/Pods-CelebScope.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58DBD3B7B638811B9BF86FBC /* Pods_CelebScope.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0BDA207D80BA0CF913CA6DD1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				67DD99CA98060D4C52BE8DDC /* Pods-CelebScope.debug.xcconfig */,
+				7FAD4386502BE94F314821F2 /* Pods-CelebScope.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		38412B87F39AA4F34ACA931F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1F3A852C3FDFCA8C4D3F4596 /* Pods_CelebScope.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		6B31D2AA21F38D55000CFA44 = {
 			isa = PBXGroup;
 			children = (
 				6B31D2B521F38D55000CFA44 /* CelebScope */,
 				6B31D2B421F38D55000CFA44 /* Products */,
+				0BDA207D80BA0CF913CA6DD1 /* Pods */,
+				38412B87F39AA4F34ACA931F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,9 +95,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6B31D2C521F38D58000CFA44 /* Build configuration list for PBXNativeTarget "CelebScope" */;
 			buildPhases = (
+				24F9A9EB88289B02EBA0BFC0 /* [CP] Check Pods Manifest.lock */,
 				6B31D2AF21F38D55000CFA44 /* Sources */,
 				6B31D2B021F38D55000CFA44 /* Frameworks */,
 				6B31D2B121F38D55000CFA44 /* Resources */,
+				374738C0BA2405C62F179D67 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -129,6 +155,53 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		24F9A9EB88289B02EBA0BFC0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CelebScope-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		374738C0BA2405C62F179D67 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-CelebScope/Pods-CelebScope-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/FaceCropper/FaceCropper.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FaceCropper.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CelebScope/Pods-CelebScope-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6B31D2AF21F38D55000CFA44 /* Sources */ = {
@@ -280,6 +353,7 @@
 		};
 		6B31D2C621F38D58000CFA44 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 67DD99CA98060D4C52BE8DDC /* Pods-CelebScope.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -298,6 +372,7 @@
 		};
 		6B31D2C721F38D58000CFA44 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7FAD4386502BE94F314821F2 /* Pods-CelebScope.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
