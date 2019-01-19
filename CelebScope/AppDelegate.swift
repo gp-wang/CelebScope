@@ -15,7 +15,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        
+        // gw: manual set up root view controller (to replace storyboard)
+//        https://www.youtube.com/watch?v=up-YD3rZeJA
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        
+        let flowLayout = UICollectionViewFlowLayout()
+        
+        let customCollectionViewController = ViewController(collectionViewLayout: flowLayout)
+        window?.rootViewController = UINavigationController(rootViewController: customCollectionViewController)
+        
+        
         return true
     }
 

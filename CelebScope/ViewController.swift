@@ -8,31 +8,11 @@
 
 import UIKit
 
-class Canvas : UIView {
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        
-        guard let context = UIGraphicsGetCurrentContext() else { return }
-        
-        
-        let startPoint = CGPoint(x: 0, y: 0)
-        let endPoint = CGPoint(x:100  , y: 100)
-        
-        context.setStrokeColor(UIColor.red.cgColor)
-        context.setLineWidth(7)
-        
-        context.move(to: startPoint)
-        context.addLine(to: endPoint)
-        
-        context.strokePath()
-    }
-    
-    
-}
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    
+class ViewController: UICollectionViewController {
+
+    let collectionViewCellIdentifier = "MyCollectionViewCellIdentifier"
     let canvas:Canvas = {
         let canvas = Canvas()
         canvas.backgroundColor = UIColor.black
@@ -50,18 +30,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return imageView
     } ()
     
-    let tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
-        // cannot reference self in closure
-//        tableView.dataSource = self
-//        tableView.delegate = self
-        
-       
-        
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        return tableView
-    } ()
     
      private let myArray: NSArray = ["First","Second","Third"]
     
@@ -73,9 +41,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         view.addSubview(photoView)
         view.addSubview(canvas)
         
-        view.addSubview(tableView)
-        tableView.delegate = self
-        tableView.dataSource = self
+        collectionView?.backgroundColor = UIColor.white
+        collectionView?.translatesAutoresizingMaskIntoConstraints = false
+        
+        collectionView?.register(PersonCollectionViewCell.self, forCellWithReuseIdentifier: collectionViewCellIdentifier)
+
         
         setupLayout()
 
@@ -95,10 +65,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         canvas.leadingAnchor.constraint(equalTo: photoView.leadingAnchor).isActive = true
         canvas.trailingAnchor.constraint(equalTo: photoView.trailingAnchor).isActive = true
         
-        tableView.topAnchor.constraint(equalTo: photoView.bottomAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: photoView.leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: photoView.trailingAnchor).isActive = true
+        collectionView?.topAnchor.constraint(equalTo: photoView.bottomAnchor).isActive = true
+        collectionView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        collectionView?.leadingAnchor.constraint(equalTo: photoView.leadingAnchor).isActive = true
+        collectionView?.trailingAnchor.constraint(equalTo: photoView.trailingAnchor).isActive = true
         
         
         
@@ -108,20 +78,42 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //        canvas.frame = photoView.frame
     }
     
+    
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Num: \(indexPath.row)")
-        print("Value: \(myArray[indexPath.row])")
-    }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myArray.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath as IndexPath)
-        cell.textLabel!.text = "\(myArray[indexPath.row])"
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.collectionViewCellIdentifier, for: indexPath)
         return cell
     }
+    
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+   
+    
+    func collectionView(_ collectionView: UICollectionView,
+                                layout collectionViewLayout: UICollectionViewLayout,
+                                sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 100, height: 200)
+    }
+    
+    
+    
+
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        print("Num: \(indexPath.row)")
+//        print("Value: \(myArray[indexPath.row])")
+//    }
+//
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return myArray.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath as IndexPath)
+//        cell.textLabel!.text = "\(myArray[indexPath.row])"
+//        return cell
+//    }
 }
 
