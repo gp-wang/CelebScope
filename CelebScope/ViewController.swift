@@ -9,8 +9,7 @@
 import UIKit
 
 
-
-class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class ViewController: UICollectionViewController{
 
     let collectionViewCellIdentifier = "MyCollectionViewCellIdentifier"
     let canvas:Canvas = {
@@ -71,11 +70,6 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         collectionView?.trailingAnchor.constraint(equalTo: photoView.trailingAnchor).isActive = true
         
         
-        
-        
-        // this two works together
-//        photoView.frame = view.frame
-//        canvas.frame = photoView.frame
     }
     
     
@@ -92,11 +86,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
    
     
-    func collectionView(_ collectionView: UICollectionView,
-                                layout collectionViewLayout: UICollectionViewLayout,
-                                sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 200, height: 200)
-    }
+  
     
     
 
@@ -105,4 +95,15 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     
     
+}
+
+
+extension ViewController : UICollectionViewDelegateFlowLayout {
+    
+    // set item size 
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 200, height: 200)
+    }
 }

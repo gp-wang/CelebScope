@@ -25,6 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let flowLayout = UICollectionViewFlowLayout()
         // set 1 x N scroll view horizontally. (otherwise it will fold down to 2nd row)
         flowLayout.scrollDirection = .horizontal
+        
+        // alternatively set this using delegate method: UICollectionViewDelegateFlowLayout.collectionView(_:layout:sizeForItemAt)
         // flowLayout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 200)
         let customCollectionViewController = ViewController(collectionViewLayout: flowLayout)
         
