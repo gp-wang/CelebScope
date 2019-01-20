@@ -23,10 +23,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         let flowLayout = UICollectionViewFlowLayout()
-        
+        // set 1 x N scroll view horizontally. (otherwise it will fold down to 2nd row)
+        flowLayout.scrollDirection = .horizontal
+        // flowLayout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 200)
         let customCollectionViewController = ViewController(collectionViewLayout: flowLayout)
-        window?.rootViewController = UINavigationController(rootViewController: customCollectionViewController)
         
+//        let facesFlowLayout = FacesFlowLayout()
+//        let customCollectionViewController = ViewController(collectionViewLayout: facesFlowLayout)
+
+        
+        // gw: I don't know why we need this nav VC here
+        //window?.rootViewController = UINavigationController(rootViewController: customCollectionViewController)
+       
+        window?.rootViewController = customCollectionViewController
         
         return true
     }
