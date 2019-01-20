@@ -32,6 +32,10 @@ class ViewController: UICollectionViewController{
     
      private let myArray: NSArray = ["First","Second","Third"]
     
+    var portraitConstraints = [NSLayoutConstraint]()
+    
+    var landscapeConstraints = [NSLayoutConstraint]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -48,28 +52,96 @@ class ViewController: UICollectionViewController{
         
         setupLayout()
 
+        // initial adjusting orientation
+        let deviceOrientation = UIDevice.current.orientation
+        DispatchQueue.main.async {
+            self.adjustLayout(for: deviceOrientation)
+        }
         
+    }
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        let deviceOrientation = UIDevice.current.orientation
+        DispatchQueue.main.async {
+            self.adjustLayout(for: deviceOrientation)
+        }
     }
     
     private func setupLayout() {
 
+        // MARK: - portraint constraints
+        guard let collectionView = collectionView else {
+             NSLog("failed to unwrap collectionView")
+            return
+            
+        }
+        portraitConstraints.append(photoView.topAnchor.constraint(equalTo: view.topAnchor))
+        portraitConstraints.append(photoView.heightAnchor.constraint(equalTo: view.widthAnchor,   multiplier: 1.333))
+        portraitConstraints.append(photoView.leadingAnchor.constraint(equalTo: view.leadingAnchor))
+        portraitConstraints.append(photoView.trailingAnchor.constraint(equalTo: view.trailingAnchor))
         
-        photoView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        photoView.heightAnchor.constraint(equalTo: view.widthAnchor,   multiplier: 1.333).isActive = true
-        photoView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        photoView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        portraitConstraints.append(canvas.topAnchor.constraint(equalTo: photoView.topAnchor))
+        portraitConstraints.append(canvas.bottomAnchor.constraint(equalTo: photoView.bottomAnchor))
+        portraitConstraints.append(canvas.leadingAnchor.constraint(equalTo: photoView.leadingAnchor))
+        portraitConstraints.append(canvas.trailingAnchor.constraint(equalTo: photoView.trailingAnchor))
         
-        canvas.topAnchor.constraint(equalTo: photoView.topAnchor).isActive = true
-        canvas.bottomAnchor.constraint(equalTo: photoView.bottomAnchor).isActive = true
-        canvas.leadingAnchor.constraint(equalTo: photoView.leadingAnchor).isActive = true
-        canvas.trailingAnchor.constraint(equalTo: photoView.trailingAnchor).isActive = true
+        portraitConstraints.append(collectionView.topAnchor.constraint(equalTo: photoView.bottomAnchor))
+        portraitConstraints.append(collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor))
+        portraitConstraints.append(collectionView.leadingAnchor.constraint(equalTo: photoView.leadingAnchor))
+        portraitConstraints.append(collectionView.trailingAnchor.constraint(equalTo: photoView.trailingAnchor))
         
-        collectionView?.topAnchor.constraint(equalTo: photoView.bottomAnchor).isActive = true
-        collectionView?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        collectionView?.leadingAnchor.constraint(equalTo: photoView.leadingAnchor).isActive = true
-        collectionView?.trailingAnchor.constraint(equalTo: photoView.trailingAnchor).isActive = true
+        // MARK: - portraint constraints
+       
+        landscapeConstraints.append(photoView.topAnchor.constraint(equalTo: view.topAnchor))
+        landscapeConstraints.append(photoView.widthAnchor.constraint(equalTo: view.heightAnchor,   multiplier: 1.333))
+        landscapeConstraints.append(photoView.leadingAnchor.constraint(equalTo: view.leadingAnchor))
+        landscapeConstraints.append(photoView.trailingAnchor.constraint(equalTo: view.trailingAnchor))
         
+        landscapeConstraints.append(canvas.topAnchor.constraint(equalTo: photoView.topAnchor))
+        landscapeConstraints.append(canvas.bottomAnchor.constraint(equalTo: photoView.bottomAnchor))
+        landscapeConstraints.append(canvas.leadingAnchor.constraint(equalTo: photoView.leadingAnchor))
+        landscapeConstraints.append(canvas.trailingAnchor.constraint(equalTo: photoView.trailingAnchor))
         
+        landscapeConstraints.append(collectionView.topAnchor.constraint(equalTo: view.topAnchor))
+        landscapeConstraints.append(collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor))
+        landscapeConstraints.append(collectionView.leadingAnchor.constraint(equalTo: photoView.trailingAnchor))
+        landscapeConstraints.append(collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor))
+        
+    }
+    
+    private func adjustLayout(for deviceOrientation: UIDeviceOrientation) {
+        guard let collectionViewFlowLayout =  collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+            NSLog("failed to convert layout as flow layout")
+            
+            return
+            
+        }
+        
+        if deviceOrientation.isLandscape {
+            for constraint in landscapeConstraints {
+                constraint.isActive = true
+            }
+            
+            for constraint in portraitConstraints {
+                constraint.isActive = false
+            }
+            // not working if set here
+            collectionViewFlowLayout.scrollDirection = .vertical
+            
+            
+        } else {
+            for constraint in landscapeConstraints {
+                constraint.isActive = false
+            }
+            
+            for constraint in portraitConstraints {
+                constraint.isActive = true
+            }
+            
+            collectionViewFlowLayout.scrollDirection = .horizontal
+        }
+        
+        self.collectionView?.collectionViewLayout.invalidateLayout()
     }
     
 }
