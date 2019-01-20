@@ -98,6 +98,8 @@ extension ViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 200, height: 200)
+        
+        // gw: to force one row, height need to be smaller than flow height
+        return CGSize(width: 200, height: collectionView.bounds.height)
     }
 }
