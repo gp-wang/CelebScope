@@ -37,7 +37,10 @@ class ViewController: UICollectionViewController{
     var landscapeConstraints = [NSLayoutConstraint]()
     
     override func loadView() {
-        <#code#>
+        super.loadView()
+        
+        setupLayout()
+        
     }
     
     override func viewDidLoad() {
@@ -54,7 +57,7 @@ class ViewController: UICollectionViewController{
         collectionView?.register(PersonCollectionViewCell.self, forCellWithReuseIdentifier: collectionViewCellIdentifier)
 
         
-        setupLayout()
+        
 
         // initial adjusting orientation
         
@@ -131,10 +134,22 @@ class ViewController: UICollectionViewController{
         
         // MARK: - landscape constraints
        
-        landscapeConstraints.append(photoView.topAnchor.constraint(equalTo: view.topAnchor))
-        landscapeConstraints.append(photoView.bottomAnchor.constraint(equalTo: view.bottomAnchor))
-        landscapeConstraints.append(photoView.widthAnchor.constraint(equalTo: view.heightAnchor,   multiplier: 1.333))
-        landscapeConstraints.append(photoView.leadingAnchor.constraint(equalTo: view.leadingAnchor))
+        let photo_top_l = photoView.topAnchor.constraint(equalTo: view.topAnchor)
+        photo_top_l.identifier = "photo_top_l"
+        landscapeConstraints.append(photo_top_l)
+        
+        let photo_bot_l = photoView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        photo_bot_l.identifier = "photo_bot_l"
+        landscapeConstraints.append(photo_bot_l)
+        
+        let photo_wh_raio_l = photoView.widthAnchor.constraint(equalTo: view.heightAnchor,   multiplier: 1.333)
+        photo_wh_raio_l.identifier = "photo_wh_raio_l"
+        landscapeConstraints.append(photo_wh_raio_l)
+        
+        let photo_lead_l = photoView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        photo_lead_l.identifier = "photo_lead_l"
+        landscapeConstraints.append(photo_lead_l)
+
         
         
 //        landscapeConstraints.append(canvas.topAnchor.constraint(equalTo: photoView.topAnchor))
@@ -142,10 +157,23 @@ class ViewController: UICollectionViewController{
 //        landscapeConstraints.append(canvas.leadingAnchor.constraint(equalTo: photoView.leadingAnchor))
 //        landscapeConstraints.append(canvas.trailingAnchor.constraint(equalTo: photoView.trailingAnchor))
 //
-        landscapeConstraints.append(collectionView.topAnchor.constraint(equalTo: view.topAnchor))
-        landscapeConstraints.append(collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor))
-        landscapeConstraints.append(collectionView.leadingAnchor.constraint(equalTo: photoView.trailingAnchor))
-        landscapeConstraints.append(collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor))
+  
+        let coll_top_l = collectionView.topAnchor.constraint(equalTo: view.topAnchor)
+        coll_top_l.identifier = "coll_top_l"
+        landscapeConstraints.append(coll_top_l)
+        
+        
+        let coll_bot_l = collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        coll_bot_l.identifier = "coll_bot_l"
+        landscapeConstraints.append(coll_bot_l)
+        
+        let coll_lead_l = collectionView.leadingAnchor.constraint(equalTo: photoView.trailingAnchor)
+        coll_lead_l.identifier = "coll_lead_l"
+        landscapeConstraints.append(coll_lead_l)
+
+        let coll_trail_l = collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        coll_trail_l.identifier = "coll_trail_l"
+        landscapeConstraints.append(coll_trail_l)
         
         for constraint in landscapeConstraints {
             constraint.isActive = false
@@ -219,6 +247,14 @@ class ViewController: UICollectionViewController{
        // }
         
         self.collectionView?.collectionViewLayout.invalidateLayout()
+    }
+    
+    // MARK: - trait collections
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        self.adjustLayout()
     }
     
 }
