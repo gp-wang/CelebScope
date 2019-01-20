@@ -68,17 +68,20 @@ class ViewController: UICollectionViewController{
         
     }
     
+    // MARK: - trait collections
+    // TODO: needs more understanding and research on which appriopriate lifecycle to use
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        self.adjustLayout()
+    }
+    
 //    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-//        
-//        
-//        
+//
 //        self.adjustLayout()
-//        
+//
 //    }
     
-    //    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-    //        self.setupLayout()
-    //    }
     
     
     private func adjustLayout() {
@@ -88,9 +91,6 @@ class ViewController: UICollectionViewController{
             return
             
         }
-        
-        
-        
         
         if UIDevice.current.orientation.isLandscape {
             
@@ -103,7 +103,11 @@ class ViewController: UICollectionViewController{
             
             
             collectionViewFlowLayout.scrollDirection = .vertical
-            
+            // main queue likely needed to wait for correct size of bounds
+            // gw: verified working
+            DispatchQueue.main.async {
+                collectionViewFlowLayout.itemSize = CGSize(width: self.collectionView.bounds.width, height: self.collectionView.bounds.width)
+            }
             
         } else {
             
@@ -113,6 +117,9 @@ class ViewController: UICollectionViewController{
             
             
             collectionViewFlowLayout.scrollDirection = .horizontal
+            DispatchQueue.main.async {
+             collectionViewFlowLayout.itemSize = CGSize(width: self.collectionView.bounds.height, height: self.collectionView.bounds.height)
+            }
         }
         
         DispatchQueue.main.async {
@@ -120,13 +127,6 @@ class ViewController: UICollectionViewController{
         }
     }
     
-    // MARK: - trait collections
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        self.adjustLayout()
-    }
     
     private func setupLayout() {
         
@@ -248,14 +248,14 @@ extension ViewController {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-extension ViewController : UICollectionViewDelegateFlowLayout {
-    
-    // set item size 
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        // gw: to force one row, height need to be smaller than flow height
-        return CGSize(width: 200, height: collectionView.bounds.height)
-    }
-}
+//extension ViewController : UICollectionViewDelegateFlowLayout {
+//
+//    // set item size
+//    func collectionView(_ collectionView: UICollectionView,
+//                        layout collectionViewLayout: UICollectionViewLayout,
+//                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+//
+//        // gw: to force one row, height need to be smaller than flow height
+//        return CGSize(width: 200, height: collectionView.bounds.height)
+//    }
+//}
