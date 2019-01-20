@@ -69,7 +69,7 @@ class ViewController: UICollectionViewController{
     
     private func setupLayout() {
 
-        // MARK: - portraint constraints
+        // MARK: - portrait constraints
         guard let collectionView = collectionView else {
              NSLog("failed to unwrap collectionView")
             return
@@ -87,10 +87,10 @@ class ViewController: UICollectionViewController{
         
         portraitConstraints.append(collectionView.topAnchor.constraint(equalTo: photoView.bottomAnchor))
         portraitConstraints.append(collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor))
-        portraitConstraints.append(collectionView.leadingAnchor.constraint(equalTo: photoView.leadingAnchor))
-        portraitConstraints.append(collectionView.trailingAnchor.constraint(equalTo: photoView.trailingAnchor))
+        portraitConstraints.append(collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor))
+        portraitConstraints.append(collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor))
         
-        // MARK: - portraint constraints
+        // MARK: - landscape constraints
        
         landscapeConstraints.append(photoView.topAnchor.constraint(equalTo: view.topAnchor))
         landscapeConstraints.append(photoView.widthAnchor.constraint(equalTo: view.heightAnchor,   multiplier: 1.333))
@@ -107,6 +107,7 @@ class ViewController: UICollectionViewController{
         landscapeConstraints.append(collectionView.leadingAnchor.constraint(equalTo: photoView.trailingAnchor))
         landscapeConstraints.append(collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor))
         
+        
     }
     
     private func adjustLayout(for deviceOrientation: UIDeviceOrientation) {
@@ -117,13 +118,19 @@ class ViewController: UICollectionViewController{
             
         }
         
+        print("gw: deviceOrientation.isLandscape: \(deviceOrientation.isLandscape)")
+        
         if deviceOrientation.isLandscape {
             for constraint in landscapeConstraints {
+                
                 constraint.isActive = true
+                print("gw: enable: \(constraint)")
             }
             
             for constraint in portraitConstraints {
+               
                 constraint.isActive = false
+                 print("gw: disable: \(constraint)")
             }
             // not working if set here
             collectionViewFlowLayout.scrollDirection = .vertical
@@ -131,11 +138,15 @@ class ViewController: UICollectionViewController{
             
         } else {
             for constraint in landscapeConstraints {
+                
                 constraint.isActive = false
+                print("gw: disable: \(constraint)")
             }
             
             for constraint in portraitConstraints {
+                
                 constraint.isActive = true
+                print("gw: enable: \(constraint)")
             }
             
             collectionViewFlowLayout.scrollDirection = .horizontal
