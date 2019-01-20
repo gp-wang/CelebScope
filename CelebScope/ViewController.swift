@@ -72,8 +72,11 @@ class ViewController: UICollectionViewController{
         
     }
     
-    
+}
 
+
+// MARK: - UICollectionViewDataSource
+extension ViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.collectionViewCellIdentifier, for: indexPath)
@@ -84,20 +87,11 @@ class ViewController: UICollectionViewController{
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 13
     }
-   
-    
-  
-    
-    
-
-    
-    
-    
     
     
 }
 
-
+// MARK: - UICollectionViewDelegateFlowLayout
 extension ViewController : UICollectionViewDelegateFlowLayout {
     
     // set item size 
