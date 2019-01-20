@@ -10,7 +10,7 @@ import UIKit
 
 
 class ViewController: UICollectionViewController{
-
+    
     let collectionViewCellIdentifier = "MyCollectionViewCellIdentifier"
     let canvas:Canvas = {
         let canvas = Canvas()
@@ -22,7 +22,7 @@ class ViewController: UICollectionViewController{
     
     let photoView: UIImageView = {
         let imageView = UIImageView()
-            
+        
         imageView.image = UIImage(imageLiteralResourceName: "hongjinbao")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
@@ -30,7 +30,7 @@ class ViewController: UICollectionViewController{
     } ()
     
     
-     private let myArray: NSArray = ["First","Second","Third"]
+    private let myArray: NSArray = ["First","Second","Third"]
     
     var portraitConstraints = [NSLayoutConstraint]()
     
@@ -49,46 +49,94 @@ class ViewController: UICollectionViewController{
         
         // stack views
         view.addSubview(photoView)
-//        view.addSubview(canvas)
+        
+        // little trick to bring inherent collectionView to front
+        view.bringSubviewToFront(self.collectionView)
         
         collectionView?.backgroundColor = UIColor.white
         collectionView?.translatesAutoresizingMaskIntoConstraints = false
         
         collectionView?.register(PersonCollectionViewCell.self, forCellWithReuseIdentifier: collectionViewCellIdentifier)
-
         
         
-
         // initial adjusting orientation
         
         DispatchQueue.main.async {
-
+            
             self.adjustLayout()
         }
         
     }
     
-    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-
-
-
-            self.adjustLayout()
-
-    }
-    
-//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-//        self.setupLayout()
+//    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+//        
+//        
+//        
+//        self.adjustLayout()
+//        
 //    }
     
-    private func setupLayout() {
-
-        // MARK: - portrait constraints
-        guard let collectionView = collectionView else {
-             NSLog("failed to unwrap collectionView")
+    //    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    //        self.setupLayout()
+    //    }
+    
+    
+    private func adjustLayout() {
+        guard let collectionViewFlowLayout =  collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+            NSLog("failed to convert layout as flow layout")
+            
             return
             
         }
-
+        
+        
+        
+        
+        if UIDevice.current.orientation.isLandscape {
+            
+            print("gw: adjusting to landscape")
+            // gw: note: always disable previous rules first, then do enabling new rules
+            // implications: if you enable new rule first, you will have a short time period with conflicting rules
+            NSLayoutConstraint.deactivate(self.portraitConstraints)
+            NSLayoutConstraint.activate(self.landscapeConstraints)
+            
+            
+            
+            collectionViewFlowLayout.scrollDirection = .vertical
+            
+            
+        } else {
+            
+            print("gw: adjusting to portrait")
+            NSLayoutConstraint.deactivate(self.landscapeConstraints)
+            NSLayoutConstraint.activate(self.portraitConstraints)
+            
+            
+            collectionViewFlowLayout.scrollDirection = .horizontal
+        }
+        
+        DispatchQueue.main.async {
+            self.collectionView?.collectionViewLayout.invalidateLayout()
+        }
+    }
+    
+    // MARK: - trait collections
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        self.adjustLayout()
+    }
+    
+    private func setupLayout() {
+        
+        // MARK: - portrait constraints
+        guard let collectionView = collectionView else {
+            NSLog("failed to unwrap collectionView")
+            return
+            
+        }
+        
         let photo_top_p = photoView.topAnchor.constraint(equalTo: view.topAnchor)
         photo_top_p.identifier = "photo_top_p"
         portraitConstraints.append(photo_top_p)
@@ -105,10 +153,10 @@ class ViewController: UICollectionViewController{
         photo_trail_p.identifier = "photo_trail_p"
         portraitConstraints.append(photo_trail_p)
         
-//        portraitConstraints.append(canvas.topAnchor.constraint(equalTo: photoView.topAnchor))
-//        portraitConstraints.append(canvas.bottomAnchor.constraint(equalTo: photoView.bottomAnchor))
-//        portraitConstraints.append(canvas.leadingAnchor.constraint(equalTo: photoView.leadingAnchor))
-//        portraitConstraints.append(canvas.trailingAnchor.constraint(equalTo: photoView.trailingAnchor))
+        //        portraitConstraints.append(canvas.topAnchor.constraint(equalTo: photoView.topAnchor))
+        //        portraitConstraints.append(canvas.bottomAnchor.constraint(equalTo: photoView.bottomAnchor))
+        //        portraitConstraints.append(canvas.leadingAnchor.constraint(equalTo: photoView.leadingAnchor))
+        //        portraitConstraints.append(canvas.trailingAnchor.constraint(equalTo: photoView.trailingAnchor))
         
         let coll_top_p = collectionView.topAnchor.constraint(equalTo: photoView.bottomAnchor)
         coll_top_p.identifier = "coll_top_p"
@@ -133,7 +181,7 @@ class ViewController: UICollectionViewController{
         }
         
         // MARK: - landscape constraints
-       
+        
         let photo_top_l = photoView.topAnchor.constraint(equalTo: view.topAnchor)
         photo_top_l.identifier = "photo_top_l"
         landscapeConstraints.append(photo_top_l)
@@ -149,15 +197,15 @@ class ViewController: UICollectionViewController{
         let photo_lead_l = photoView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         photo_lead_l.identifier = "photo_lead_l"
         landscapeConstraints.append(photo_lead_l)
-
         
         
-//        landscapeConstraints.append(canvas.topAnchor.constraint(equalTo: photoView.topAnchor))
-//        landscapeConstraints.append(canvas.bottomAnchor.constraint(equalTo: photoView.bottomAnchor))
-//        landscapeConstraints.append(canvas.leadingAnchor.constraint(equalTo: photoView.leadingAnchor))
-//        landscapeConstraints.append(canvas.trailingAnchor.constraint(equalTo: photoView.trailingAnchor))
-//
-  
+        
+        //        landscapeConstraints.append(canvas.topAnchor.constraint(equalTo: photoView.topAnchor))
+        //        landscapeConstraints.append(canvas.bottomAnchor.constraint(equalTo: photoView.bottomAnchor))
+        //        landscapeConstraints.append(canvas.leadingAnchor.constraint(equalTo: photoView.leadingAnchor))
+        //        landscapeConstraints.append(canvas.trailingAnchor.constraint(equalTo: photoView.trailingAnchor))
+        //
+        
         let coll_top_l = collectionView.topAnchor.constraint(equalTo: view.topAnchor)
         coll_top_l.identifier = "coll_top_l"
         landscapeConstraints.append(coll_top_l)
@@ -170,93 +218,16 @@ class ViewController: UICollectionViewController{
         let coll_lead_l = collectionView.leadingAnchor.constraint(equalTo: photoView.trailingAnchor)
         coll_lead_l.identifier = "coll_lead_l"
         landscapeConstraints.append(coll_lead_l)
-
+        
         let coll_trail_l = collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         coll_trail_l.identifier = "coll_trail_l"
         landscapeConstraints.append(coll_trail_l)
         
         for constraint in landscapeConstraints {
             constraint.isActive = false
-             //print("landscapeConstraint: \(constraint)")
+            //print("landscapeConstraint: \(constraint)")
         }
     }
-    
-    private func adjustLayout() {
-        guard let collectionViewFlowLayout =  collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
-            NSLog("failed to convert layout as flow layout")
-            
-            return
-            
-        }
-        
-        
-        for constraint in self.portraitConstraints {
-            constraint.isActive = false
-            //print("before: portraitConstraints: \(constraint)")
-        }
-        
-        for constraint in self.landscapeConstraints {
-            constraint.isActive = false
-            //print("before: landscapeConstraint: \(constraint)")
-        }
-        
-        
-       // DispatchQueue.main.async {
-            if UIDevice.current.orientation.isLandscape {
-                // gw: note: always disable previous rules first, then do enabling new rules
-                // implications: if you enable new rule first, you will have a short time period with conflicting rules
-                
-                
-                for constraint in self.landscapeConstraints {
-                    constraint.isActive = true
-                }
-                
-                for constraint in self.portraitConstraints {
-                    //print("after: portraitConstraints: \(constraint)")
-                }
-                
-                for constraint in self.landscapeConstraints {
-                    //print("after: landscapeConstraint: \(constraint)")
-                }
-                
-                
-                
-                // not working if set here
-                
-                collectionViewFlowLayout.scrollDirection = .vertical
-                
-                
-            } else {
-               
-                for constraint in self.portraitConstraints {
-                    constraint.isActive = true
-                }
-                
-                for constraint in self.portraitConstraints {
-                    //print("after: portraitConstraints: \(constraint)")
-                }
-                
-                for constraint in self.landscapeConstraints {
-                    //print("after: landscapeConstraint: \(constraint)")
-                }
-                
-                
-                
-                collectionViewFlowLayout.scrollDirection = .horizontal
-            }
-       // }
-        
-        self.collectionView?.collectionViewLayout.invalidateLayout()
-    }
-    
-    // MARK: - trait collections
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        self.adjustLayout()
-    }
-    
 }
 
 
