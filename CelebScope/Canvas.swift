@@ -10,14 +10,18 @@ import UIKit
 
 
 class Canvas : UIView {
+    
+    
+    public var startPoint : CGPoint = CGPoint.zero
+    public var endPoint : CGPoint = CGPoint.zero
+    
+    
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
         guard let context = UIGraphicsGetCurrentContext() else { return }
         
         
-        let startPoint = CGPoint(x: 0, y: 0)
-        let endPoint = CGPoint(x:100  , y: 100)
         
         context.setStrokeColor(UIColor.red.cgColor)
         context.setLineWidth(7)

@@ -11,6 +11,7 @@ import UIKit
 
 class ViewController: UICollectionViewController{
     
+    
     let collectionViewCellIdentifier = "MyCollectionViewCellIdentifier"
     let canvas:Canvas = {
         let canvas = Canvas()
@@ -49,6 +50,15 @@ class ViewController: UICollectionViewController{
         
         // stack views
         view.addSubview(photoView)
+        view.addSubview(canvas)
+        
+        DispatchQueue.main.async {
+            self.canvas.startPoint = CGPoint.zero
+            self.canvas.endPoint = CGPoint(x: self.canvas.bounds.width / 2.0, y: self.canvas.bounds.height)
+            
+            self.canvas.setNeedsDisplay()
+        }
+        
         
         // little trick to bring inherent collectionView to front
         view.bringSubviewToFront(self.collectionView)
@@ -99,9 +109,7 @@ class ViewController: UICollectionViewController{
             // implications: if you enable new rule first, you will have a short time period with conflicting rules
             NSLayoutConstraint.deactivate(self.portraitConstraints)
             NSLayoutConstraint.activate(self.landscapeConstraints)
-            
-            
-            
+
             collectionViewFlowLayout.scrollDirection = .vertical
             // main queue likely needed to wait for correct size of bounds
             // gw: verified working
@@ -153,10 +161,23 @@ class ViewController: UICollectionViewController{
         photo_trail_p.identifier = "photo_trail_p"
         portraitConstraints.append(photo_trail_p)
         
-        //        portraitConstraints.append(canvas.topAnchor.constraint(equalTo: photoView.topAnchor))
-        //        portraitConstraints.append(canvas.bottomAnchor.constraint(equalTo: photoView.bottomAnchor))
-        //        portraitConstraints.append(canvas.leadingAnchor.constraint(equalTo: photoView.leadingAnchor))
-        //        portraitConstraints.append(canvas.trailingAnchor.constraint(equalTo: photoView.trailingAnchor))
+        let canvas_top_p = canvas.topAnchor.constraint(equalTo: photoView.topAnchor)
+        canvas_top_p.identifier = "canvas_top_p"
+        portraitConstraints.append(canvas_top_p)
+        
+        let canvas_bot_p = canvas.bottomAnchor.constraint(equalTo: photoView.bottomAnchor)
+        canvas_bot_p.identifier = "canvas_bot_p"
+         portraitConstraints.append(canvas_bot_p)
+        
+        
+        let canvas_lead_p = canvas.leadingAnchor.constraint(equalTo: photoView.leadingAnchor)
+        canvas_lead_p.identifier = "canvas_lead_p"
+         portraitConstraints.append(canvas_lead_p)
+        
+        
+        let canvas_trail_p = canvas.trailingAnchor.constraint(equalTo: photoView.trailingAnchor)
+        canvas_trail_p.identifier = "canvas_trail_p"
+         portraitConstraints.append(canvas_trail_p)
         
         let coll_top_p = collectionView.topAnchor.constraint(equalTo: photoView.bottomAnchor)
         coll_top_p.identifier = "coll_top_p"
@@ -199,12 +220,21 @@ class ViewController: UICollectionViewController{
         landscapeConstraints.append(photo_lead_l)
         
         
+        let canvas_top_l = canvas.topAnchor.constraint(equalTo: photoView.topAnchor)
+        canvas_top_l.identifier = "canvas_top_l"
+         landscapeConstraints.append(canvas_top_l)
         
-        //        landscapeConstraints.append(canvas.topAnchor.constraint(equalTo: photoView.topAnchor))
-        //        landscapeConstraints.append(canvas.bottomAnchor.constraint(equalTo: photoView.bottomAnchor))
-        //        landscapeConstraints.append(canvas.leadingAnchor.constraint(equalTo: photoView.leadingAnchor))
-        //        landscapeConstraints.append(canvas.trailingAnchor.constraint(equalTo: photoView.trailingAnchor))
-        //
+        let canvas_bot_l = canvas.bottomAnchor.constraint(equalTo: photoView.bottomAnchor)
+        canvas_bot_l.identifier = "canvas_bot_l"
+        landscapeConstraints.append(canvas_bot_l)
+        
+        let canvas_lead_l = canvas.leadingAnchor.constraint(equalTo: photoView.leadingAnchor)
+        canvas_lead_l.identifier = "canvas_lead_l"
+        landscapeConstraints.append(canvas_lead_l)
+        
+        let canvas_trail_l = canvas.trailingAnchor.constraint(equalTo: photoView.trailingAnchor)
+        canvas_trail_l.identifier = "canvas_trail_l"
+        landscapeConstraints.append(canvas_trail_l)
         
         let coll_top_l = collectionView.topAnchor.constraint(equalTo: view.topAnchor)
         coll_top_l.identifier = "coll_top_l"
@@ -259,3 +289,17 @@ extension ViewController {
 //        return CGSize(width: 200, height: collectionView.bounds.height)
 //    }
 //}
+
+// MARK: - scrollView update location
+
+extension ViewController {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        DispatchQueue.main.async {
+            self.canvas.startPoint = CGPoint.zero
+            self.canvas.endPoint = CGPoint(x: -scrollView.contentOffset.x, y: self.canvas.bounds.height)
+            
+            self.canvas.setNeedsDisplay()
+        }
+
+    }
+}
