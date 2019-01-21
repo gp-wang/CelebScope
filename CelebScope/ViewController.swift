@@ -24,7 +24,7 @@ class ViewController: UICollectionViewController{
     let photoView: UIImageView = {
         let imageView = UIImageView()
         
-        imageView.image = UIImage(imageLiteralResourceName: "hongjinbao")
+        imageView.image = UIImage(imageLiteralResourceName: "kelly") // cross point at pixel: 700 x 650, total size: 1200 x 1500
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -61,7 +61,11 @@ class ViewController: UICollectionViewController{
     // gw notes: use the correct lifecyle, instead of dispatch main
     override func viewDidAppear(_ animated: Bool) {
         
-        self.canvas.pairs.append((CGPoint.zero,CGPoint(x: self.canvas.bounds.width / 2.0, y: self.canvas.bounds.height)
+        
+        let nose = photoView.convertPoint(fromImagePoint: CGPoint(x: 700, y: 650))
+        
+        print("converted nose point is \(nose)")
+        self.canvas.pairs.append((nose,CGPoint(x: self.canvas.bounds.width / 2.0, y: self.canvas.bounds.height)
         ))
        
         self.canvas.setNeedsDisplay()
