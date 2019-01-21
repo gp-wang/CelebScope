@@ -30,28 +30,22 @@ class ViewController: UICollectionViewController{
         return imageView
     } ()
     
-    
-    private let myArray: NSArray = ["First","Second","Third"]
+    // convenience flag of scroll direction of collection view
+    var isVerticalScroll : Bool?
     
     var portraitConstraints = [NSLayoutConstraint]()
     
     var landscapeConstraints = [NSLayoutConstraint]()
     
-    override func loadView() {
-        super.loadView()
-        
-        setupLayout()
-        
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
+  
         // stack views
         view.addSubview(photoView)
         view.addSubview(canvas)
-        
+        setupLayoutConstraints()
 
         
         // little trick to bring inherent collectionView to front
@@ -101,7 +95,7 @@ class ViewController: UICollectionViewController{
         }
         
         if UIDevice.current.orientation.isLandscape {
-            
+            self.isVerticalScroll = true
             print("gw: adjusting to landscape")
             // gw: note: always disable previous rules first, then do enabling new rules
             // implications: if you enable new rule first, you will have a short time period with conflicting rules
@@ -116,7 +110,7 @@ class ViewController: UICollectionViewController{
             }
             
         } else {
-            
+            self.isVerticalScroll = false
             print("gw: adjusting to portrait")
             NSLayoutConstraint.deactivate(self.landscapeConstraints)
             NSLayoutConstraint.activate(self.portraitConstraints)
@@ -134,7 +128,74 @@ class ViewController: UICollectionViewController{
     }
     
     
-    private func setupLayout() {
+    
+}
+
+
+// MARK: - UICollectionViewDataSource
+extension ViewController {
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.collectionViewCellIdentifier, for: indexPath)
+        return cell
+    }
+    
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 13
+    }
+    
+    
+}
+
+
+// MARK: - UICollectionViewDelegateFlowLayout
+//extension ViewController : UICollectionViewDelegateFlowLayout {
+//
+//    // set item size
+//    func collectionView(_ collectionView: UICollectionView,
+//                        layout collectionViewLayout: UICollectionViewLayout,
+//                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+//
+//        // gw: to force one row, height need to be smaller than flow height
+//        return CGSize(width: 200, height: collectionView.bounds.height)
+//    }
+//}
+
+
+// MARK: - scrollView update location
+extension ViewController {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        guard let isVerticalScroll = self.isVerticalScroll else {
+            print("should have a scrool direction")
+            return
+        }
+        
+        DispatchQueue.main.async {
+            
+            for (idx, pair ) in self.canvas.pairs.enumerated() {
+                var (startPoint, endPoint) = pair
+                
+                if  isVerticalScroll {
+                    // endPoint = CGPoint(x: endPoint.x, y: -scrollView.contentOffset.y) // don't use this as it relies on prev state of x being correct
+                    endPoint = CGPoint(x: self.canvas.bounds.width, y: -scrollView.contentOffset.y)
+                } else {
+                    endPoint = CGPoint(x:-scrollView.contentOffset.x, y: self.canvas.bounds.height)
+                }
+                // replace item at index
+                self.canvas.pairs[idx] = (startPoint, endPoint)
+            }
+            self.canvas.setNeedsDisplay()
+        }
+
+    }
+}
+
+
+// MARK: - Setup Layout constraints
+extension ViewController {
+    private func setupLayoutConstraints() {
         
         // MARK: - portrait constraints
         guard let collectionView = collectionView else {
@@ -165,17 +226,17 @@ class ViewController: UICollectionViewController{
         
         let canvas_bot_p = canvas.bottomAnchor.constraint(equalTo: photoView.bottomAnchor)
         canvas_bot_p.identifier = "canvas_bot_p"
-         portraitConstraints.append(canvas_bot_p)
+        portraitConstraints.append(canvas_bot_p)
         
         
         let canvas_lead_p = canvas.leadingAnchor.constraint(equalTo: photoView.leadingAnchor)
         canvas_lead_p.identifier = "canvas_lead_p"
-         portraitConstraints.append(canvas_lead_p)
+        portraitConstraints.append(canvas_lead_p)
         
         
         let canvas_trail_p = canvas.trailingAnchor.constraint(equalTo: photoView.trailingAnchor)
         canvas_trail_p.identifier = "canvas_trail_p"
-         portraitConstraints.append(canvas_trail_p)
+        portraitConstraints.append(canvas_trail_p)
         
         let coll_top_p = collectionView.topAnchor.constraint(equalTo: photoView.bottomAnchor)
         coll_top_p.identifier = "coll_top_p"
@@ -220,7 +281,7 @@ class ViewController: UICollectionViewController{
         
         let canvas_top_l = canvas.topAnchor.constraint(equalTo: photoView.topAnchor)
         canvas_top_l.identifier = "canvas_top_l"
-         landscapeConstraints.append(canvas_top_l)
+        landscapeConstraints.append(canvas_top_l)
         
         let canvas_bot_l = canvas.bottomAnchor.constraint(equalTo: photoView.bottomAnchor)
         canvas_bot_l.identifier = "canvas_bot_l"
@@ -255,54 +316,5 @@ class ViewController: UICollectionViewController{
             constraint.isActive = false
             //print("landscapeConstraint: \(constraint)")
         }
-    }
-}
-
-
-// MARK: - UICollectionViewDataSource
-extension ViewController {
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.collectionViewCellIdentifier, for: indexPath)
-        return cell
-    }
-    
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 13
-    }
-    
-    
-}
-
-// MARK: - UICollectionViewDelegateFlowLayout
-//extension ViewController : UICollectionViewDelegateFlowLayout {
-//
-//    // set item size
-//    func collectionView(_ collectionView: UICollectionView,
-//                        layout collectionViewLayout: UICollectionViewLayout,
-//                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-//
-//        // gw: to force one row, height need to be smaller than flow height
-//        return CGSize(width: 200, height: collectionView.bounds.height)
-//    }
-//}
-
-// MARK: - scrollView update location
-
-extension ViewController {
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        DispatchQueue.main.async {
-            
-            for (idx, pair ) in self.canvas.pairs.enumerated() {
-                var (startPoint, endPoint) = pair
-                
-                endPoint = CGPoint(x:-scrollView.contentOffset.x, y: endPoint.y)
-                
-                self.canvas.pairs[idx] = (startPoint, endPoint)
-            }
-            self.canvas.setNeedsDisplay()
-        }
-
     }
 }
