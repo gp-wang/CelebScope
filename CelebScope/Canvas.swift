@@ -12,8 +12,10 @@ import UIKit
 class Canvas : UIView {
     
     
-    public var startPoint : CGPoint = CGPoint.zero
-    public var endPoint : CGPoint = CGPoint.zero
+   
+     public var pairs = [(CGPoint, CGPoint)] ()
+    
+
     
     
     override func draw(_ rect: CGRect) {
@@ -21,15 +23,16 @@ class Canvas : UIView {
         
         guard let context = UIGraphicsGetCurrentContext() else { return }
         
+        for (startPoint, endPoint) in pairs {
         
-        
-        context.setStrokeColor(UIColor.red.cgColor)
-        context.setLineWidth(7)
-        
-        context.move(to: startPoint)
-        context.addLine(to: endPoint)
-        
-        context.strokePath()
+            context.setStrokeColor(UIColor.red.cgColor)
+            context.setLineWidth(7)
+            
+            context.move(to: startPoint)
+            context.addLine(to: endPoint)
+            
+            context.strokePath()
+        }
     }
     
     

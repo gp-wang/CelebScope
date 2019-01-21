@@ -52,13 +52,7 @@ class ViewController: UICollectionViewController{
         view.addSubview(photoView)
         view.addSubview(canvas)
         
-        DispatchQueue.main.async {
-            self.canvas.startPoint = CGPoint.zero
-            self.canvas.endPoint = CGPoint(x: self.canvas.bounds.width / 2.0, y: self.canvas.bounds.height)
-            
-            self.canvas.setNeedsDisplay()
-        }
-        
+
         
         // little trick to bring inherent collectionView to front
         view.bringSubviewToFront(self.collectionView)
@@ -68,14 +62,18 @@ class ViewController: UICollectionViewController{
         
         collectionView?.register(PersonCollectionViewCell.self, forCellWithReuseIdentifier: collectionViewCellIdentifier)
         
+    }
+    
+    // gw notes: use the correct lifecyle, instead of dispatch main
+    override func viewDidAppear(_ animated: Bool) {
         
+        self.canvas.pairs.append((CGPoint.zero,CGPoint(x: self.canvas.bounds.width / 2.0, y: self.canvas.bounds.height)
+        ))
+       
+        self.canvas.setNeedsDisplay()
         // initial adjusting orientation
         
-        DispatchQueue.main.async {
-            
-            self.adjustLayout()
-        }
-        
+        self.adjustLayout()
     }
     
     // MARK: - trait collections
@@ -295,9 +293,14 @@ extension ViewController {
 extension ViewController {
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         DispatchQueue.main.async {
-            self.canvas.startPoint = CGPoint.zero
-            self.canvas.endPoint = CGPoint(x: -scrollView.contentOffset.x, y: self.canvas.bounds.height)
             
+            for (idx, pair ) in self.canvas.pairs.enumerated() {
+                var (startPoint, endPoint) = pair
+                
+                endPoint = CGPoint(x:-scrollView.contentOffset.x, y: endPoint.y)
+                
+                self.canvas.pairs[idx] = (startPoint, endPoint)
+            }
             self.canvas.setNeedsDisplay()
         }
 
