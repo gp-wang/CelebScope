@@ -162,6 +162,8 @@ class ViewController: UICollectionViewController{
         
         DispatchQueue.main.async {
             
+            
+            
             self.canvas.pairs.removeAll()
             
             // gw: likely no need to place in dispatch main because at this calling time (scrollView did scroll), these frames are guaranteed to exist
@@ -186,7 +188,7 @@ class ViewController: UICollectionViewController{
                 
             }
             
-            self.canvas.setNeedsDisplay()
+             self.canvas.setNeedsDisplay()
         }
     }
 
