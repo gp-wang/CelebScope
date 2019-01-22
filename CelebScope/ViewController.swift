@@ -37,7 +37,26 @@ class ViewController: UICollectionViewController{
     
     var landscapeConstraints = [NSLayoutConstraint]()
     
-
+    var visibleCellIndices = [IndexPath]()
+    
+    // TODO:
+    // var faceLocationsInCgImage = [CGPoint]()
+    var faceLocationsInCgImage : [CGPoint] = [
+    
+        CGPoint(x: 100, y: 100),
+        CGPoint(x: 700, y: 100),
+        CGPoint(x: 1100, y: 100),
+        
+        CGPoint(x: 100, y: 650),
+        CGPoint(x: 700, y: 650),
+        CGPoint(x: 1100, y: 650),
+        
+        CGPoint(x: 100, y: 1400),
+        CGPoint(x: 700, y: 1400),
+        CGPoint(x: 1100, y: 1400),
+        
+    ]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -146,7 +165,7 @@ extension ViewController {
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 13
+        return 9
     }
     
     
@@ -175,21 +194,34 @@ extension ViewController {
             print("should have a scrool direction")
             return
         }
+    
         
         DispatchQueue.main.async {
-            
-            for (idx, pair ) in self.canvas.pairs.enumerated() {
-                var (startPoint, endPoint) = pair
-                
-                if  isVerticalScroll {
-                    // endPoint = CGPoint(x: endPoint.x, y: -scrollView.contentOffset.y) // don't use this as it relies on prev state of x being correct
-                    endPoint = CGPoint(x: self.canvas.bounds.width, y: -scrollView.contentOffset.y)
+
+            self.canvas.pairs.removeAll()
+
+            // gw: likely no need to place in dispatch main because at this calling time (scrollView did scroll), these frames are guaranteed to exist
+            // gw: because scrolling changes visible cells, we need to do canvas.pairs update in this lifecycle as well
+
+            for (i,cell) in self.collectionView.visibleCells.enumerated() {
+
+                // assume only one section
+                let index_in_all_cells = self.collectionView.indexPathsForVisibleItems[i].row
+                let startPoint = self.photoView.convertPoint(fromImagePoint:  self.faceLocationsInCgImage[index_in_all_cells])
+
+                var endPoint = CGPoint.zero
+                // flag for orientation determination
+                if isVerticalScroll {
+                    endPoint = self.collectionView.convert(cell.frame.origin, to: self.canvas)
+
                 } else {
-                    endPoint = CGPoint(x:-scrollView.contentOffset.x, y: self.canvas.bounds.height)
+                    endPoint = self.collectionView.convert(cell.frame.origin, to: self.canvas)
                 }
-                // replace item at index
-                self.canvas.pairs[idx] = (startPoint, endPoint)
+
+                self.canvas.pairs.append((startPoint, endPoint))
+
             }
+
             self.canvas.setNeedsDisplay()
         }
 
