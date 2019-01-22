@@ -80,16 +80,7 @@ class ViewController: UICollectionViewController{
     // gw notes: use the correct lifecyle, instead of dispatch main
     override func viewDidAppear(_ animated: Bool) {
         
-        
-        let nose = photoView.convertPoint(fromImagePoint: CGPoint(x: 700, y: 650))
-        
-        print("converted nose point is \(nose)")
-        self.canvas.pairs.append((nose,CGPoint(x: self.canvas.bounds.width / 2.0, y: self.canvas.bounds.height)
-        ))
-       
-        self.canvas.setNeedsDisplay()
-        // initial adjusting orientation
-        
+        // initial drawing
         self.adjustLayout()
         self.updateAnnotation()
     }
@@ -108,9 +99,7 @@ class ViewController: UICollectionViewController{
 //        self.adjustLayout()
 //
 //    }
-    
-    
-    
+
     private func adjustLayout() {
         guard let collectionViewFlowLayout =  collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
             NSLog("failed to convert layout as flow layout")
@@ -139,8 +128,7 @@ class ViewController: UICollectionViewController{
             print("gw: adjusting to portrait")
             NSLayoutConstraint.deactivate(self.landscapeConstraints)
             NSLayoutConstraint.activate(self.portraitConstraints)
-            
-            
+
             collectionViewFlowLayout.scrollDirection = .horizontal
             DispatchQueue.main.async {
              collectionViewFlowLayout.itemSize = CGSize(width: self.collectionView.bounds.height, height: self.collectionView.bounds.height)
@@ -161,9 +149,7 @@ class ViewController: UICollectionViewController{
         }
         
         DispatchQueue.main.async {
-            
-            
-            
+
             self.canvas.pairs.removeAll()
             
             // gw: likely no need to place in dispatch main because at this calling time (scrollView did scroll), these frames are guaranteed to exist
@@ -184,7 +170,7 @@ class ViewController: UICollectionViewController{
                     endPoint = endPoint.applying(CGAffineTransform(translationX: cell.bounds.width / 2, y: 0   ))
                 }
                 
-                self.canvas.pairs.append((startPoint, endPoint))
+                self.canvas.pairs.append((startPoint, endPoint, isVerticalScroll))
                 
             }
             
