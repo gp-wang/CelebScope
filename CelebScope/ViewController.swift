@@ -164,10 +164,16 @@ class ViewController: UICollectionViewController{
                 var endPoint = self.collectionView.convert(cell.frame.origin, to: self.canvas)
                 // flag for orientation determination
                 if isVerticalScroll {
-                    endPoint = endPoint.applying(CGAffineTransform(translationX: cell.bounds.height / 2, y: 0   ))
+                    // -1 to ensure point still lies within bounds
+                    endPoint = endPoint.applying(CGAffineTransform(translationX: -1, y: cell.bounds.height / 2   ))
                     
                 } else {
-                    endPoint = endPoint.applying(CGAffineTransform(translationX: cell.bounds.width / 2, y: 0   ))
+                    endPoint = endPoint.applying(CGAffineTransform(translationX: cell.bounds.width / 2 , y:  -1  ))
+                }
+                
+                // if endpoint not in canvas bounds, skip it
+                if !(self.canvas.bounds.contains(endPoint)) {
+                    continue
                 }
                 
                 // whether the annotation line is going to span horizontally
