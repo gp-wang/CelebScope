@@ -91,6 +91,7 @@ class ViewController: UICollectionViewController{
         // initial adjusting orientation
         
         self.adjustLayout()
+        self.updateAnnotation()
     }
     
     // MARK: - trait collections
@@ -99,6 +100,7 @@ class ViewController: UICollectionViewController{
         super.traitCollectionDidChange(previousTraitCollection)
         
         self.adjustLayout()
+        self.updateAnnotation()
     }
     
 //    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -151,6 +153,44 @@ class ViewController: UICollectionViewController{
     }
     
     
+    private func updateAnnotation() {
+        
+        guard let isVerticalScroll = self.isVerticalScroll else {
+            print("should have a scrool direction")
+            return
+        }
+        
+        DispatchQueue.main.async {
+            
+            self.canvas.pairs.removeAll()
+            
+            // gw: likely no need to place in dispatch main because at this calling time (scrollView did scroll), these frames are guaranteed to exist
+            // gw: because scrolling changes visible cells, we need to do canvas.pairs update in this lifecycle as well
+            
+            for (i,cell) in self.collectionView.visibleCells.enumerated() {
+                
+                // assume only one section
+                let index_in_all_cells = self.collectionView.indexPathsForVisibleItems[i].row
+                let startPoint = self.photoView.convertPoint(fromImagePoint:  self.faceLocationsInCgImage[index_in_all_cells])
+                
+                var endPoint = self.collectionView.convert(cell.frame.origin, to: self.canvas)
+                // flag for orientation determination
+                if isVerticalScroll {
+                    endPoint = endPoint.applying(CGAffineTransform(translationX: cell.bounds.height / 2, y: 0   ))
+                    
+                } else {
+                    endPoint = endPoint.applying(CGAffineTransform(translationX: cell.bounds.width / 2, y: 0   ))
+                }
+                
+                self.canvas.pairs.append((startPoint, endPoint))
+                
+            }
+            
+            self.canvas.setNeedsDisplay()
+        }
+    }
+
+    
     
 }
 
@@ -188,42 +228,11 @@ extension ViewController {
 
 // MARK: - scrollView update location
 extension ViewController {
+    
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        guard let isVerticalScroll = self.isVerticalScroll else {
-            print("should have a scrool direction")
-            return
-        }
     
         
-        DispatchQueue.main.async {
-
-            self.canvas.pairs.removeAll()
-
-            // gw: likely no need to place in dispatch main because at this calling time (scrollView did scroll), these frames are guaranteed to exist
-            // gw: because scrolling changes visible cells, we need to do canvas.pairs update in this lifecycle as well
-
-            for (i,cell) in self.collectionView.visibleCells.enumerated() {
-
-                // assume only one section
-                let index_in_all_cells = self.collectionView.indexPathsForVisibleItems[i].row
-                let startPoint = self.photoView.convertPoint(fromImagePoint:  self.faceLocationsInCgImage[index_in_all_cells])
-
-                var endPoint = CGPoint.zero
-                // flag for orientation determination
-                if isVerticalScroll {
-                    endPoint = self.collectionView.convert(cell.frame.origin, to: self.canvas)
-
-                } else {
-                    endPoint = self.collectionView.convert(cell.frame.origin, to: self.canvas)
-                }
-
-                self.canvas.pairs.append((startPoint, endPoint))
-
-            }
-
-            self.canvas.setNeedsDisplay()
-        }
+        self.updateAnnotation()
 
     }
 }
