@@ -170,7 +170,10 @@ class ViewController: UICollectionViewController{
                     endPoint = endPoint.applying(CGAffineTransform(translationX: cell.bounds.width / 2, y: 0   ))
                 }
                 
-                self.canvas.pairs.append((startPoint, endPoint, isVerticalScroll))
+                // whether the annotation line is going to span horizontally
+                let spanHorizontally : Bool = isVerticalScroll
+                
+                self.canvas.pairs.append((startPoint, endPoint, spanHorizontally))
                 
             }
             

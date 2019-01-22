@@ -8,14 +8,15 @@
 import CoreGraphics
 
 // generate an data structure to be used for drawing annotation line from face location in PhotoView to People Table view cell
-func generateAnnotationPoints(_ beginPosition: CGPoint, _ endPosition: CGPoint, _ isVertical : Bool) -> [CGPoint] {
+func generateAnnotationPoints(_ beginPosition: CGPoint, _ endPosition: CGPoint, _ spanHoriozntally : Bool) -> [CGPoint] {
     
-    if (isVertical) {
+    if (spanHoriozntally) {
+        
         // x, y of the turning point
-        let x_turn = endPosition.x
-        let y_turn = min(endPosition.y,
+        let y_turn = endPosition.y
+        let x_turn = min(endPosition.x,
                          
-                         beginPosition.y + abs(endPosition.x - beginPosition.x)
+                         beginPosition.x + abs(endPosition.y - beginPosition.y)
             
         )
         
@@ -26,10 +27,10 @@ func generateAnnotationPoints(_ beginPosition: CGPoint, _ endPosition: CGPoint, 
         ]
     } else {
         // x, y of the turning point
-        let y_turn = endPosition.y
-        let x_turn = min(endPosition.x,
+        let x_turn = endPosition.x
+        let y_turn = min(endPosition.y,
                          
-                         beginPosition.x + abs(endPosition.y - beginPosition.y)
+                         beginPosition.y + abs(endPosition.x - beginPosition.x)
             
         )
         

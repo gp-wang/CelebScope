@@ -13,7 +13,7 @@ class Canvas : UIView {
     
     
    
-     public var pairs = [(CGPoint, CGPoint)] ()
+     public var pairs = [(CGPoint, CGPoint, Bool)] ()
     
 
     
@@ -23,14 +23,21 @@ class Canvas : UIView {
         
         guard let context = UIGraphicsGetCurrentContext() else { return }
         
-        for (startPoint, endPoint) in pairs {
+        for (startPoint, endPoint, isVertical) in pairs {
         
+            let pathPoints = generateAnnotationPoints(startPoint, endPoint, isVertical)
+            
             context.setStrokeColor(UIColor.red.cgColor)
             context.setLineWidth(7)
             
-            context.move(to: startPoint)
-            context.addLine(to: endPoint)
-            
+            for (idx, point) in pathPoints.enumerated() {
+                if idx == 0 {
+                    context.move(to: point)
+                } else {
+                    context.addLine(to: point)
+                }
+            }
+
             context.strokePath()
         }
     }
