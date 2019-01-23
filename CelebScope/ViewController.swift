@@ -162,11 +162,12 @@ class ViewController: UICollectionViewController{
                 let startPoint = self.photoView.convertPoint(fromImagePoint:  self.faceLocationsInCgImage[index_in_all_cells])
                 
                 var endPoint = self.collectionView.convert(cell.frame.origin, to: self.canvas)
+                
+                // translate by half the side length to point to middle point
                 // flag for orientation determination
                 if isVerticalScroll {
                     // -1 to ensure point still lies within bounds
                     endPoint = endPoint.applying(CGAffineTransform(translationX: -1, y: cell.bounds.height / 2   ))
-                    
                 } else {
                     endPoint = endPoint.applying(CGAffineTransform(translationX: cell.bounds.width / 2 , y:  -1  ))
                 }
