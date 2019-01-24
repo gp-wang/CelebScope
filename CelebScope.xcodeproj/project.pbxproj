@@ -33,6 +33,7 @@
 		6B31D2CE21F3ED41000CFA44 /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
 		6B354CD321F617DE00C6176C /* UIImageViewPointConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewPointConversion.swift; sourceTree = "<group>"; };
 		6B354CD521F61ABA00C6176C /* Kayla_Person-small.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Kayla_Person-small.jpg"; sourceTree = "<group>"; };
+		6BD4741821FA456E00163D0C /* ZoomableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ZoomableImageView.swift; path = ../../ZoomableImageViewExperiment/ZoomableImageViewExperiment/ZoomableImageView.swift; sourceTree = "<group>"; };
 		6BFE4D9021F9A18200B7A50D /* PersonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCollectionViewCell.swift; sourceTree = "<group>"; };
 		6BFE4D9221F9FA0C00B7A50D /* CustomScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScrollView.swift; sourceTree = "<group>"; };
 		E998B2AEA450FAAEF3CB026C /* Pods-CelebScope.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CelebScope.release.xcconfig"; path = "Pods/Target Support Files/Pods-CelebScope/Pods-CelebScope.release.xcconfig"; sourceTree = "<group>"; };
@@ -88,6 +89,7 @@
 		6B31D2B521F38D55000CFA44 /* CelebScope */ = {
 			isa = PBXGroup;
 			children = (
+				6BD4741821FA456E00163D0C /* ZoomableImageView.swift */,
 				6B31D2B621F38D55000CFA44 /* AppDelegate.swift */,
 				6B31D2B821F38D55000CFA44 /* ViewController.swift */,
 				6B31D2BD21F38D58000CFA44 /* Assets.xcassets */,
