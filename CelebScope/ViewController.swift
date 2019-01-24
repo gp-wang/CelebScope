@@ -30,6 +30,8 @@ class ViewController: UICollectionViewController{
         return imageView
     } ()
     
+    var scrollView: UIScrollView? // defer instantiation because we need a frame
+    
     // convenience flag of scroll direction of collection view
     var isVerticalScroll : Bool?
     
@@ -62,8 +64,10 @@ class ViewController: UICollectionViewController{
         super.viewDidLoad()
   
         // stack views
+        self.scrollView = UIScrollView(frame: view.frame)
         view.addSubview(photoView)
         view.addSubview(canvas)
+        view.addSubview(scrollView!)
         setupLayoutConstraints()
 
         
@@ -80,8 +84,16 @@ class ViewController: UICollectionViewController{
     // gw notes: use the correct lifecyle, instead of dispatch main
     override func viewDidAppear(_ animated: Bool) {
         
+
+        
         // initial drawing
         self.adjustLayout()
+        
+        // gw: wait for above adjustment to finish photoView's frame
+        DispatchQueue.main.async {
+            self.scrollView?.frame = self.photoView.frame
+        }
+        
         self.updateAnnotation()
     }
     
