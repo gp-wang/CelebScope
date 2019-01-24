@@ -21,14 +21,9 @@ class ViewController: UICollectionViewController{
         return canvas
     } ()
     
-    let photoView: UIImageView = {
-        let imageView = UIImageView()
-        
-        imageView.image = UIImage(imageLiteralResourceName: "kelly") // cross point at pixel: 700 x 650, total size: 1200 x 1500
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    } ()
+  
+    
+    let zoomableImageView  = ZoomableImageView()
     
     var scrollView: UIScrollView? // defer instantiation because we need a frame
     
@@ -65,9 +60,12 @@ class ViewController: UICollectionViewController{
   
         // stack views
         self.scrollView = UIScrollView(frame: view.frame)
-        view.addSubview(photoView)
+        view.addSubview(zoomableImageView)
+        zoomableImageView.delegate = self
+        
         view.addSubview(canvas)
         view.addSubview(scrollView!)
+        
         setupLayoutConstraints()
 
         
@@ -91,7 +89,10 @@ class ViewController: UICollectionViewController{
         
         // gw: wait for above adjustment to finish photoView's frame
         DispatchQueue.main.async {
-            self.scrollView?.frame = self.photoView.frame
+            self.scrollView?.frame = self.zoomableImageView.frame
+            
+            let image = UIImage(imageLiteralResourceName: "kelly")
+            self.zoomableImageView.setImage(image: image)
         }
         
         self.updateAnnotation()
@@ -155,49 +156,49 @@ class ViewController: UICollectionViewController{
     
     private func updateAnnotation() {
         
-        guard let isVerticalScroll = self.isVerticalScroll else {
-            print("should have a scrool direction")
-            return
-        }
-        
-        DispatchQueue.main.async {
-
-            self.canvas.pairs.removeAll()
-            
-            // gw: likely no need to place in dispatch main because at this calling time (scrollView did scroll), these frames are guaranteed to exist
-            // gw: because scrolling changes visible cells, we need to do canvas.pairs update in this lifecycle as well
-            
-            for (i,cell) in self.collectionView.visibleCells.enumerated() {
-                
-                // assume only one section
-                let index_in_all_cells = self.collectionView.indexPathsForVisibleItems[i].row
-                let startPoint = self.photoView.convertPoint(fromImagePoint:  self.faceLocationsInCgImage[index_in_all_cells])
-                
-                var endPoint = self.collectionView.convert(cell.frame.origin, to: self.canvas)
-                
-                // translate by half the side length to point to middle point
-                // flag for orientation determination
-                if isVerticalScroll {
-                    // -1 to ensure point still lies within bounds
-                    endPoint = endPoint.applying(CGAffineTransform(translationX: -1, y: cell.bounds.height / 2   ))
-                } else {
-                    endPoint = endPoint.applying(CGAffineTransform(translationX: cell.bounds.width / 2 , y:  -1  ))
-                }
-                
-                // if endpoint not in canvas bounds, skip it
-                if !(self.canvas.bounds.contains(endPoint)) {
-                    continue
-                }
-                
-                // whether the annotation line is going to span horizontally
-                let spanHorizontally : Bool = isVerticalScroll
-                
-                self.canvas.pairs.append((startPoint, endPoint, spanHorizontally))
-                
-            }
-            
-             self.canvas.setNeedsDisplay()
-        }
+//        guard let isVerticalScroll = self.isVerticalScroll else {
+//            print("should have a scrool direction")
+//            return
+//        }
+//        
+//        DispatchQueue.main.async {
+//
+//            self.canvas.pairs.removeAll()
+//            
+//            // gw: likely no need to place in dispatch main because at this calling time (scrollView did scroll), these frames are guaranteed to exist
+//            // gw: because scrolling changes visible cells, we need to do canvas.pairs update in this lifecycle as well
+//            
+//            for (i,cell) in self.collectionView.visibleCells.enumerated() {
+//                
+//                // assume only one section
+//                let index_in_all_cells = self.collectionView.indexPathsForVisibleItems[i].row
+//                let startPoint = self.photoView.convertPoint(fromImagePoint:  self.faceLocationsInCgImage[index_in_all_cells])
+//                
+//                var endPoint = self.collectionView.convert(cell.frame.origin, to: self.canvas)
+//                
+//                // translate by half the side length to point to middle point
+//                // flag for orientation determination
+//                if isVerticalScroll {
+//                    // -1 to ensure point still lies within bounds
+//                    endPoint = endPoint.applying(CGAffineTransform(translationX: -1, y: cell.bounds.height / 2   ))
+//                } else {
+//                    endPoint = endPoint.applying(CGAffineTransform(translationX: cell.bounds.width / 2 , y:  -1  ))
+//                }
+//                
+//                // if endpoint not in canvas bounds, skip it
+//                if !(self.canvas.bounds.contains(endPoint)) {
+//                    continue
+//                }
+//                
+//                // whether the annotation line is going to span horizontally
+//                let spanHorizontally : Bool = isVerticalScroll
+//                
+//                self.canvas.pairs.append((startPoint, endPoint, spanHorizontally))
+//                
+//            }
+//            
+//             self.canvas.setNeedsDisplay()
+//        }
     }
 
     
@@ -236,15 +237,28 @@ extension ViewController {
 //}
 
 
-// MARK: - scrollView update location
+// MARK: - scrollView(name list) update location
 extension ViewController {
     
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    //override func scrollViewDidScroll(_ scrollView: UIScrollView) {
     
         
-        self.updateAnnotation()
+        //self.updateAnnotation()
 
+    //}
+}
+
+// MARK: - scrollView (zoomable Image View)
+extension ViewController {
+    
+    override func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        print("scale factor is: \(scrollView.zoomScale)")
     }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print("content offset is: \(scrollView.contentOffset)")
+    }
+    
 }
 
 
@@ -259,41 +273,41 @@ extension ViewController {
             
         }
         
-        let photo_top_p = photoView.topAnchor.constraint(equalTo: view.topAnchor)
+        let photo_top_p = zoomableImageView.topAnchor.constraint(equalTo: view.topAnchor)
         photo_top_p.identifier = "photo_top_p"
         portraitConstraints.append(photo_top_p)
         
-        let photo_hw_ratio_p = photoView.heightAnchor.constraint(equalTo: view.widthAnchor,   multiplier: 1.333)
+        let photo_hw_ratio_p = zoomableImageView.heightAnchor.constraint(equalTo: view.widthAnchor,   multiplier: 1.333)
         photo_hw_ratio_p.identifier = "photo_hw_ratio_p"
         portraitConstraints.append(photo_hw_ratio_p)
         
-        let photo_lead_p = photoView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let photo_lead_p = zoomableImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         photo_lead_p.identifier = "photo_lead_p"
         portraitConstraints.append(photo_lead_p)
         
-        let photo_trail_p = photoView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let photo_trail_p = zoomableImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         photo_trail_p.identifier = "photo_trail_p"
         portraitConstraints.append(photo_trail_p)
         
-        let canvas_top_p = canvas.topAnchor.constraint(equalTo: photoView.topAnchor)
+        let canvas_top_p = canvas.topAnchor.constraint(equalTo: zoomableImageView.topAnchor)
         canvas_top_p.identifier = "canvas_top_p"
         portraitConstraints.append(canvas_top_p)
         
-        let canvas_bot_p = canvas.bottomAnchor.constraint(equalTo: photoView.bottomAnchor)
+        let canvas_bot_p = canvas.bottomAnchor.constraint(equalTo: zoomableImageView.bottomAnchor)
         canvas_bot_p.identifier = "canvas_bot_p"
         portraitConstraints.append(canvas_bot_p)
         
         
-        let canvas_lead_p = canvas.leadingAnchor.constraint(equalTo: photoView.leadingAnchor)
+        let canvas_lead_p = canvas.leadingAnchor.constraint(equalTo: zoomableImageView.leadingAnchor)
         canvas_lead_p.identifier = "canvas_lead_p"
         portraitConstraints.append(canvas_lead_p)
         
         
-        let canvas_trail_p = canvas.trailingAnchor.constraint(equalTo: photoView.trailingAnchor)
+        let canvas_trail_p = canvas.trailingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor)
         canvas_trail_p.identifier = "canvas_trail_p"
         portraitConstraints.append(canvas_trail_p)
         
-        let coll_top_p = collectionView.topAnchor.constraint(equalTo: photoView.bottomAnchor)
+        let coll_top_p = collectionView.topAnchor.constraint(equalTo: zoomableImageView.bottomAnchor)
         coll_top_p.identifier = "coll_top_p"
         portraitConstraints.append(coll_top_p)
         
@@ -317,36 +331,36 @@ extension ViewController {
         
         // MARK: - landscape constraints
         
-        let photo_top_l = photoView.topAnchor.constraint(equalTo: view.topAnchor)
+        let photo_top_l = zoomableImageView.topAnchor.constraint(equalTo: view.topAnchor)
         photo_top_l.identifier = "photo_top_l"
         landscapeConstraints.append(photo_top_l)
         
-        let photo_bot_l = photoView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let photo_bot_l = zoomableImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         photo_bot_l.identifier = "photo_bot_l"
         landscapeConstraints.append(photo_bot_l)
         
-        let photo_wh_raio_l = photoView.widthAnchor.constraint(equalTo: view.heightAnchor,   multiplier: 1.333)
+        let photo_wh_raio_l = zoomableImageView.widthAnchor.constraint(equalTo: view.heightAnchor,   multiplier: 1.333)
         photo_wh_raio_l.identifier = "photo_wh_raio_l"
         landscapeConstraints.append(photo_wh_raio_l)
         
-        let photo_lead_l = photoView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let photo_lead_l = zoomableImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         photo_lead_l.identifier = "photo_lead_l"
         landscapeConstraints.append(photo_lead_l)
         
         
-        let canvas_top_l = canvas.topAnchor.constraint(equalTo: photoView.topAnchor)
+        let canvas_top_l = canvas.topAnchor.constraint(equalTo: zoomableImageView.topAnchor)
         canvas_top_l.identifier = "canvas_top_l"
         landscapeConstraints.append(canvas_top_l)
         
-        let canvas_bot_l = canvas.bottomAnchor.constraint(equalTo: photoView.bottomAnchor)
+        let canvas_bot_l = canvas.bottomAnchor.constraint(equalTo: zoomableImageView.bottomAnchor)
         canvas_bot_l.identifier = "canvas_bot_l"
         landscapeConstraints.append(canvas_bot_l)
         
-        let canvas_lead_l = canvas.leadingAnchor.constraint(equalTo: photoView.leadingAnchor)
+        let canvas_lead_l = canvas.leadingAnchor.constraint(equalTo: zoomableImageView.leadingAnchor)
         canvas_lead_l.identifier = "canvas_lead_l"
         landscapeConstraints.append(canvas_lead_l)
         
-        let canvas_trail_l = canvas.trailingAnchor.constraint(equalTo: photoView.trailingAnchor)
+        let canvas_trail_l = canvas.trailingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor)
         canvas_trail_l.identifier = "canvas_trail_l"
         landscapeConstraints.append(canvas_trail_l)
         
@@ -359,7 +373,7 @@ extension ViewController {
         coll_bot_l.identifier = "coll_bot_l"
         landscapeConstraints.append(coll_bot_l)
         
-        let coll_lead_l = collectionView.leadingAnchor.constraint(equalTo: photoView.trailingAnchor)
+        let coll_lead_l = collectionView.leadingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor)
         coll_lead_l.identifier = "coll_lead_l"
         landscapeConstraints.append(coll_lead_l)
         
