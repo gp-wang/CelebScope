@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class ZoomableImageView: UIScrollView {
     
     private struct Constants {
@@ -42,6 +40,8 @@ class ZoomableImageView: UIScrollView {
         self.zoomScale = scaleFitZoomScale
         
         
+        
+        
     }
     
     
@@ -56,6 +56,8 @@ class ZoomableImageView: UIScrollView {
         addSubview(imageView)
         
         
+        self.delegate = self
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -64,4 +66,22 @@ class ZoomableImageView: UIScrollView {
     
     
     
+}
+
+
+
+extension ZoomableImageView: UIScrollViewDelegate {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        // print("scale factor is: \(scrollView.zoomScale)")
+        return imageView
+    }
+    
+    
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        print("scale factor is: \(scrollView.zoomScale)")
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print("content offset is: \(scrollView.contentOffset)")
+    }
 }

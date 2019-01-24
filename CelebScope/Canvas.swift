@@ -63,5 +63,12 @@ class Canvas : UIView {
 //        }
     }
     
+    // For passing touches from an overlay view to the views underneath,
+    // https://stackoverflow.com/questions/3834301/ios-forward-all-touches-through-a-view
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        print("Passing all touches to the next view (if any), in the view stack.")
+        return false
+    }
+    
     
 }

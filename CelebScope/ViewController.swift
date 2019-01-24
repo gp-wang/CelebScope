@@ -60,11 +60,14 @@ class ViewController: UICollectionViewController{
   
         // stack views
         self.scrollView = UIScrollView(frame: view.frame)
-        view.addSubview(zoomableImageView)
-        zoomableImageView.delegate = self
+        self.scrollView?.delegate = self
         
-        view.addSubview(canvas)
         view.addSubview(scrollView!)
+        view.addSubview(zoomableImageView)
+        zoomableImageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(canvas)
+        
+        
         
         setupLayoutConstraints()
 
@@ -76,6 +79,8 @@ class ViewController: UICollectionViewController{
         collectionView?.translatesAutoresizingMaskIntoConstraints = false
         
         collectionView?.register(PersonCollectionViewCell.self, forCellWithReuseIdentifier: collectionViewCellIdentifier)
+        
+        
         
     }
     
@@ -240,26 +245,26 @@ extension ViewController {
 // MARK: - scrollView(name list) update location
 extension ViewController {
     
-    //override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
     
         
-        //self.updateAnnotation()
+        self.updateAnnotation()
 
-    //}
+    }
 }
 
 // MARK: - scrollView (zoomable Image View)
-extension ViewController {
-    
-    override func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        print("scale factor is: \(scrollView.zoomScale)")
-    }
-    
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("content offset is: \(scrollView.contentOffset)")
-    }
-    
-}
+//extension ViewController {
+//
+//    override func scrollViewDidZoom(_ scrollView: UIScrollView) {
+//        print("scale factor is: \(scrollView.zoomScale)")
+//    }
+//
+//    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        print("content offset is: \(scrollView.contentOffset)")
+//    }
+//
+//}
 
 
 // MARK: - Setup Layout constraints
