@@ -114,12 +114,13 @@ class ViewController: UICollectionViewController{
             let image = UIImage(imageLiteralResourceName: "team")
             self.zoomableImageView.setImage(image: image)
             
-//            for faceBbox in self.faces {
-//                self.zoomableImageView.zoom(to: faceBbox, with: Constants.contentSpanRatio, animated: true)
-//                sleep(3)
-//            }
+            
+          
         }
-        
+//        for faceBbox in self.faces {
+//            self.zoomableImageView.zoom(to: faceBbox, with: Constants.contentSpanRatio, animated: true)
+//            sleep(3)
+//        }
         self.updateAnnotation()
         
         
@@ -417,5 +418,36 @@ extension ViewController {
             constraint.isActive = false
             //print("landscapeConstraint: \(constraint)")
         }
+    }
+    
+    
+    func setupZoomableImageViewLayout() {
+        self.zoomableImageView.imageView.translatesAutoresizingMaskIntoConstraints = false
+        self.zoomableImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        let img_lead = self.zoomableImageView.imageView.leadingAnchor.constraint(equalTo: self.zoomableImageView.leadingAnchor)
+        img_lead.identifier = "img_lead"
+        
+        let img_trail = self.zoomableImageView.imageView.trailingAnchor.constraint(equalTo: self.zoomableImageView.trailingAnchor)
+        img_trail.identifier = "img_trail"
+        
+        let img_top = self.zoomableImageView.imageView.topAnchor.constraint(equalTo: self.zoomableImageView.topAnchor)
+        img_top.identifier = "img_top"
+        
+        
+        let img_bot = self.zoomableImageView.imageView.bottomAnchor.constraint(equalTo: self.zoomableImageView.bottomAnchor)
+        img_bot.identifier = "img_bot"
+        
+        for constraint in [
+            img_lead, img_trail, img_top, img_bot
+            ] {
+                constraint.isActive = true
+        }
+        
+        self.zoomableImageView.imageView.addConstraints([
+            img_lead, img_trail, img_top, img_bot
+            ])
+        
     }
 }

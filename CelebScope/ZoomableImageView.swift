@@ -78,8 +78,12 @@ class ZoomableImageView: UIScrollView {
         minimumZoomScale = Constants.minimumZoomScale
         maximumZoomScale = Constants.maximumZoomScale
         
+        
         addSubview(imageView)
         
+        // use auto layout
+        
+        //setupLayout()
         
         self.delegate = self
         
@@ -89,7 +93,35 @@ class ZoomableImageView: UIScrollView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+//    func setupLayout() {
+//        imageView.translatesAutoresizingMaskIntoConstraints = false
+//        self.translatesAutoresizingMaskIntoConstraints = false
+//
+//
+//        let img_lead = imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor)
+//        img_lead.identifier = "img_lead"
+//
+//        let img_trail = imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+//        img_trail.identifier = "img_trail"
+//
+//        let img_top = imageView.topAnchor.constraint(equalTo: self.topAnchor)
+//        img_top.identifier = "img_top"
+//
+//
+//        let img_bot = imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+//        img_bot.identifier = "img_bot"
+//
+//        for constraint in [
+//            img_lead, img_trail, img_top, img_bot
+//            ] {
+//                constraint.isActive = true
+//        }
+//
+//        imageView.addConstraints([
+//            img_lead, img_trail, img_top, img_bot
+//            ])
+//
+//    }
     
 }
 
