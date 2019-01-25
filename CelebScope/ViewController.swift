@@ -78,6 +78,7 @@ class ViewController:  UIViewController {
         // already moved inside zoomableImageView
         // zoomableImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(canvas)
+        view.addSubview(detailPagedVC.view)
         
         
         
@@ -389,50 +390,53 @@ extension ViewController {
             NSLog("failed to unwrap self.peopleCollectionVC.collectionView")
             return
         }
-        let pageControl = self.detailPagedVC.pageControl
+        guard let pageView = self.detailPagedVC.view else {
+            NSLog("failed to unwrap self.detailPagedVC.view ")
+            return
+        }
         
       
         // MARK: - portrait constraints
-        let page_top_p = collectionView.topAnchor.constraint(equalTo: collectionView.topAnchor)
+        let page_top_p = pageView.topAnchor.constraint(equalTo: collectionView.topAnchor)
         page_top_p.identifier = "page_top_p"
         page_top_p.isActive = false
         portraitConstraints.append(page_top_p)
         
         
-        let page_bot_p = collectionView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
+        let page_bot_p = pageView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
         page_bot_p.identifier = "page_bot_p"
         page_bot_p.isActive = false
         portraitConstraints.append(page_bot_p)
         
-        let page_lead_p = collectionView.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor)
+        let page_lead_p = pageView.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor)
         page_lead_p.identifier = "page_lead_p"
         page_lead_p.isActive = false
         portraitConstraints.append(page_lead_p)
         
-        let page_trail_p = collectionView.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor)
+        let page_trail_p = pageView.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor)
         page_trail_p.identifier = "page_trail_p"
         page_trail_p.isActive = false
         portraitConstraints.append(page_trail_p)
         
         // MARK: - landscape constraints
         
-        let page_top_l = collectionView.topAnchor.constraint(equalTo: collectionView.topAnchor)
+        let page_top_l = pageView.topAnchor.constraint(equalTo: collectionView.topAnchor)
         page_top_l.identifier = "page_top_l"
         page_top_l.isActive = false
         landscapeConstraints.append(page_top_l)
         
         
-        let page_bot_l = collectionView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
+        let page_bot_l = pageView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
         page_bot_l.identifier = "page_bot_l"
         page_bot_l.isActive = false
         landscapeConstraints.append(page_bot_l)
         
-        let page_lead_l = collectionView.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor)
+        let page_lead_l = pageView.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor)
         page_lead_l.identifier = "page_lead_l"
         page_lead_l.isActive = false
         landscapeConstraints.append(page_lead_l)
         
-        let page_trail_l = collectionView.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor)
+        let page_trail_l = pageView.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor)
         page_trail_l.identifier = "page_trail_l"
         page_trail_l.isActive = false
         landscapeConstraints.append(page_trail_l)

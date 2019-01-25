@@ -48,8 +48,8 @@ class PeoplePageViewController: UIPageViewController {
         self.pageControl.numberOfPages = self.pages.count
         self.pageControl.currentPage = initialPage
         
-        // gw: modified
-        // self.view.addSubview(self.pageControl)
+        
+        self.view.addSubview(self.pageControl)
         
         self.pageControl.translatesAutoresizingMaskIntoConstraints = false
         setupInternalLayoutConstraints()
