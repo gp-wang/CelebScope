@@ -46,9 +46,9 @@ class ViewController:  UIViewController {
     
     
     // gw: for the person details view
-    let detailPagedVC: UIPageViewController = UIPageViewController()
-        var pages = [UIViewController]()
-    let pageControl = UIPageControl()
+    let detailPagedVC = PeoplePageViewController()
+    // var pages = [UIViewController]()
+    // let pageControl = UIPageControl()
     
   
     
@@ -202,7 +202,15 @@ class ViewController:  UIViewController {
 
 // MARK: - Setup Layout constraints
 extension ViewController {
+    
     private func setupLayoutConstraints() {
+       setupPhotoViewConstraints()
+        setupCanvasConstraints()
+        setupCollectionViewConstraints()
+        setupPageViewConstraints()
+    }
+    
+    private func setupPhotoViewConstraints() {
         
         // convinence vars
         let zoomableImageView = self.zoomableImageVC.zoomableImageView
@@ -212,120 +220,222 @@ extension ViewController {
         }
         
         // MARK: - portrait constraints
-
+        
         
         let photo_top_p = zoomableImageView.topAnchor.constraint(equalTo: view.topAnchor)
         photo_top_p.identifier = "photo_top_p"
+        photo_top_p.isActive = false
         portraitConstraints.append(photo_top_p)
         
         let photo_hw_ratio_p = zoomableImageView.heightAnchor.constraint(equalTo: view.widthAnchor,   multiplier: 1.333)
         photo_hw_ratio_p.identifier = "photo_hw_ratio_p"
+        photo_hw_ratio_p.isActive = false
         portraitConstraints.append(photo_hw_ratio_p)
         
         let photo_lead_p = zoomableImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         photo_lead_p.identifier = "photo_lead_p"
+        photo_lead_p.isActive = false
         portraitConstraints.append(photo_lead_p)
         
         let photo_trail_p = zoomableImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         photo_trail_p.identifier = "photo_trail_p"
+        photo_trail_p.isActive = false
         portraitConstraints.append(photo_trail_p)
+      
         
-        let canvas_top_p = canvas.topAnchor.constraint(equalTo: zoomableImageView.topAnchor)
-        canvas_top_p.identifier = "canvas_top_p"
-        portraitConstraints.append(canvas_top_p)
-        
-        let canvas_bot_p = canvas.bottomAnchor.constraint(equalTo: zoomableImageView.bottomAnchor)
-        canvas_bot_p.identifier = "canvas_bot_p"
-        portraitConstraints.append(canvas_bot_p)
-        
-        
-        let canvas_lead_p = canvas.leadingAnchor.constraint(equalTo: zoomableImageView.leadingAnchor)
-        canvas_lead_p.identifier = "canvas_lead_p"
-        portraitConstraints.append(canvas_lead_p)
-        
-        
-        let canvas_trail_p = canvas.trailingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor)
-        canvas_trail_p.identifier = "canvas_trail_p"
-        portraitConstraints.append(canvas_trail_p)
-        
-        let coll_top_p = collectionView.topAnchor.constraint(equalTo: zoomableImageView.bottomAnchor)
-        coll_top_p.identifier = "coll_top_p"
-        portraitConstraints.append(coll_top_p)
-        
-        
-        let coll_bot_p = collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        coll_bot_p.identifier = "coll_bot_p"
-        portraitConstraints.append(coll_bot_p)
-        
-        let coll_lead_p = collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        coll_lead_p.identifier = "coll_lead_p"
-        portraitConstraints.append(coll_lead_p)
-        
-        let coll_trail_p = collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        coll_trail_p.identifier = "coll_trail_p"
-        portraitConstraints.append(coll_trail_p)
-        
-        for constraint in portraitConstraints {
-            constraint.isActive = false
-            //print("portraitConstraint: \(constraint)")
-        }
         
         // MARK: - landscape constraints
         
         let photo_top_l = zoomableImageView.topAnchor.constraint(equalTo: view.topAnchor)
         photo_top_l.identifier = "photo_top_l"
+        photo_top_l.isActive = false
         landscapeConstraints.append(photo_top_l)
         
         let photo_bot_l = zoomableImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         photo_bot_l.identifier = "photo_bot_l"
+        photo_bot_l.isActive = false
         landscapeConstraints.append(photo_bot_l)
         
         let photo_wh_raio_l = zoomableImageView.widthAnchor.constraint(equalTo: view.heightAnchor,   multiplier: 1.333)
         photo_wh_raio_l.identifier = "photo_wh_raio_l"
+        photo_wh_raio_l.isActive = false
         landscapeConstraints.append(photo_wh_raio_l)
         
         let photo_lead_l = zoomableImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         photo_lead_l.identifier = "photo_lead_l"
+        photo_lead_l.isActive = false
         landscapeConstraints.append(photo_lead_l)
         
         
+    }
+    
+    private func setupCanvasConstraints() {
+        
+        // convinence vars
+        let zoomableImageView = self.zoomableImageVC.zoomableImageView
+        guard let collectionView = self.peopleCollectionVC.collectionView else {
+            NSLog("failed to unwrap self.peopleCollectionVC.collectionView")
+            return
+        }
+        
+        // MARK: - portrait constraints
+        let canvas_top_p = canvas.topAnchor.constraint(equalTo: zoomableImageView.topAnchor)
+        canvas_top_p.identifier = "canvas_top_p"
+        canvas_top_p.isActive = false
+        portraitConstraints.append(canvas_top_p)
+        
+        let canvas_bot_p = canvas.bottomAnchor.constraint(equalTo: zoomableImageView.bottomAnchor)
+        canvas_bot_p.identifier = "canvas_bot_p"
+        canvas_bot_p.isActive = false
+        portraitConstraints.append(canvas_bot_p)
+        
+        
+        let canvas_lead_p = canvas.leadingAnchor.constraint(equalTo: zoomableImageView.leadingAnchor)
+        canvas_lead_p.identifier = "canvas_lead_p"
+        canvas_lead_p.isActive = false
+        portraitConstraints.append(canvas_lead_p)
+        
+        
+        let canvas_trail_p = canvas.trailingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor)
+        canvas_trail_p.identifier = "canvas_trail_p"
+        canvas_trail_p.isActive = false
+        portraitConstraints.append(canvas_trail_p)
+        
+        // MARK: - landscape constraints
+        
         let canvas_top_l = canvas.topAnchor.constraint(equalTo: zoomableImageView.topAnchor)
         canvas_top_l.identifier = "canvas_top_l"
+        canvas_top_l.isActive = false
         landscapeConstraints.append(canvas_top_l)
         
         let canvas_bot_l = canvas.bottomAnchor.constraint(equalTo: zoomableImageView.bottomAnchor)
         canvas_bot_l.identifier = "canvas_bot_l"
+        canvas_bot_l.isActive = false
         landscapeConstraints.append(canvas_bot_l)
         
         let canvas_lead_l = canvas.leadingAnchor.constraint(equalTo: zoomableImageView.leadingAnchor)
         canvas_lead_l.identifier = "canvas_lead_l"
+        canvas_lead_l.isActive = false
         landscapeConstraints.append(canvas_lead_l)
         
         let canvas_trail_l = canvas.trailingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor)
         canvas_trail_l.identifier = "canvas_trail_l"
+        canvas_trail_l.isActive = false
         landscapeConstraints.append(canvas_trail_l)
+        
+    }
+    
+    private func setupCollectionViewConstraints() {
+        
+        // convinence vars
+        let zoomableImageView = self.zoomableImageVC.zoomableImageView
+        guard let collectionView = self.peopleCollectionVC.collectionView else {
+            NSLog("failed to unwrap self.peopleCollectionVC.collectionView")
+            return
+        }
+        
+        // MARK: - portrait constraints
+        let coll_top_p = collectionView.topAnchor.constraint(equalTo: zoomableImageView.bottomAnchor)
+        coll_top_p.identifier = "coll_top_p"
+        coll_top_p.isActive = false
+        portraitConstraints.append(coll_top_p)
+        
+        
+        let coll_bot_p = collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        coll_bot_p.identifier = "coll_bot_p"
+        coll_bot_p.isActive = false
+        portraitConstraints.append(coll_bot_p)
+        
+        let coll_lead_p = collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        coll_lead_p.identifier = "coll_lead_p"
+        coll_lead_p.isActive = false
+        portraitConstraints.append(coll_lead_p)
+        
+        let coll_trail_p = collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        coll_trail_p.identifier = "coll_trail_p"
+        coll_trail_p.isActive = false
+        portraitConstraints.append(coll_trail_p)
+        
+        // MARK: - landscape constraints
         
         let coll_top_l = collectionView.topAnchor.constraint(equalTo: view.topAnchor)
         coll_top_l.identifier = "coll_top_l"
+        coll_top_l.isActive = false
         landscapeConstraints.append(coll_top_l)
         
         
         let coll_bot_l = collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         coll_bot_l.identifier = "coll_bot_l"
+        coll_bot_l.isActive = false
         landscapeConstraints.append(coll_bot_l)
         
         let coll_lead_l = collectionView.leadingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor)
         coll_lead_l.identifier = "coll_lead_l"
+        coll_lead_l.isActive = false
         landscapeConstraints.append(coll_lead_l)
         
         let coll_trail_l = collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         coll_trail_l.identifier = "coll_trail_l"
+        coll_trail_l.isActive = false
         landscapeConstraints.append(coll_trail_l)
         
-        for constraint in landscapeConstraints {
-            constraint.isActive = false
-            //print("landscapeConstraint: \(constraint)")
+    }
+    
+    private func setupPageViewConstraints() {
+        
+        // convinence vars
+        let zoomableImageView = self.zoomableImageVC.zoomableImageView
+        guard let collectionView = self.peopleCollectionVC.collectionView else {
+            NSLog("failed to unwrap self.peopleCollectionVC.collectionView")
+            return
         }
+        let pageControl = self.detailPagedVC.pageControl
+        
+      
+        // MARK: - portrait constraints
+        let page_top_p = collectionView.topAnchor.constraint(equalTo: collectionView.topAnchor)
+        page_top_p.identifier = "page_top_p"
+        page_top_p.isActive = false
+        portraitConstraints.append(page_top_p)
+        
+        
+        let page_bot_p = collectionView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
+        page_bot_p.identifier = "page_bot_p"
+        page_bot_p.isActive = false
+        portraitConstraints.append(page_bot_p)
+        
+        let page_lead_p = collectionView.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor)
+        page_lead_p.identifier = "page_lead_p"
+        page_lead_p.isActive = false
+        portraitConstraints.append(page_lead_p)
+        
+        let page_trail_p = collectionView.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor)
+        page_trail_p.identifier = "page_trail_p"
+        page_trail_p.isActive = false
+        portraitConstraints.append(page_trail_p)
+        
+        // MARK: - landscape constraints
+        
+        let page_top_l = collectionView.topAnchor.constraint(equalTo: collectionView.topAnchor)
+        page_top_l.identifier = "page_top_l"
+        page_top_l.isActive = false
+        landscapeConstraints.append(page_top_l)
+        
+        
+        let page_bot_l = collectionView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
+        page_bot_l.identifier = "page_bot_l"
+        page_bot_l.isActive = false
+        landscapeConstraints.append(page_bot_l)
+        
+        let page_lead_l = collectionView.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor)
+        page_lead_l.identifier = "page_lead_l"
+        page_lead_l.isActive = false
+        landscapeConstraints.append(page_lead_l)
+        
+        let page_trail_l = collectionView.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor)
+        page_trail_l.identifier = "page_trail_l"
+        page_trail_l.isActive = false
+        landscapeConstraints.append(page_trail_l)
     }
     
 
