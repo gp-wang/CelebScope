@@ -22,13 +22,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-        let flowLayout = UICollectionViewFlowLayout()
+        //gw: moved to VC
+        //let flowLayout = UICollectionViewFlowLayout()
         // set 1 x N scroll view horizontally. (otherwise it will fold down to 2nd row)
-        flowLayout.scrollDirection = .horizontal
+        //flowLayout.scrollDirection = .horizontal
         
         // alternatively set this using delegate method: UICollectionViewDelegateFlowLayout.collectionView(_:layout:sizeForItemAt)
         // flowLayout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 200)
-        let customCollectionViewController = ViewController(collectionViewLayout: flowLayout)
+        let customCollectionViewController = ViewController()
         
 //        let facesFlowLayout = FacesFlowLayout()
 //        let customCollectionViewController = ViewController(collectionViewLayout: facesFlowLayout)

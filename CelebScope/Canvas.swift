@@ -8,9 +8,29 @@
 
 import UIKit
 
+// gw: inherit UIImageView instead of UIView to use convenience method of converting point
+// gw: anyway, this canvas's whole purpose is to overlaying and labeling for the UIImageView (photoView) beneath it
+class Canvas : UIImageView {
 
-class Canvas : UIView {
+
+    // gw: Input for face locations
+    var faceLocationsInCgImage : [CGPoint] = [
+        
+        CGPoint(x: 100, y: 100),
+        CGPoint(x: 700, y: 100),
+        CGPoint(x: 1100, y: 100),
+        
+        CGPoint(x: 100, y: 650),
+        CGPoint(x: 700, y: 650),
+        CGPoint(x: 1100, y: 650),
+        
+        CGPoint(x: 100, y: 1400),
+        CGPoint(x: 700, y: 1400),
+        CGPoint(x: 1100, y: 1400),
+        
+        ]
     
+    // gw: Input for draw method
     public var pairs = [(CGPoint, CGPoint, Bool)] ()
     
     override func draw(_ rect: CGRect) {
@@ -71,4 +91,70 @@ class Canvas : UIView {
     }
     
     
+    
+    private func updateAnnotation(scrollView: UIScrollView) {
+        
+        guard let collectionView = scrollView as? UICollectionView,
+            let collectionViewFlowLayout =  collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+                NSLog("failed to convert scrollView to collectionView or layout as flow layout")
+                
+                return
+                
+        }
+        //                guard let isVerticalScroll = self.isVerticalScroll else {
+        //                    print("should have a scrool direction")
+        //                    return
+        //                }
+        
+        DispatchQueue.main.async {
+            
+            let isVerticalScroll = collectionViewFlowLayout.scrollDirection == .vertical
+            
+            self.pairs.removeAll()
+            
+            // gw: likely no need to place in dispatch main because at this calling time (scrollView did scroll), these frames are guaranteed to exist
+            // gw: because scrolling changes visible cells, we need to do canvas.pairs update in this lifecycle as well
+            
+            for (i,cell) in collectionView.visibleCells.enumerated() {
+                
+                // assume only one section
+                let index_in_all_cells = collectionView.indexPathsForVisibleItems[i].row
+                let startPoint = self.convertPoint(fromImagePoint:  self.faceLocationsInCgImage[index_in_all_cells])
+                
+                var endPoint = collectionView.convert(cell.frame.origin, to: self)
+                
+                // translate by half the side length to point to middle point
+                // flag for orientation determination
+                if isVerticalScroll {
+                    // -1 to ensure point still lies within bounds
+                    endPoint = endPoint.applying(CGAffineTransform(translationX: -1, y: cell.bounds.height / 2   ))
+                } else {
+                    endPoint = endPoint.applying(CGAffineTransform(translationX: cell.bounds.width / 2 , y:  -1  ))
+                }
+                
+                // if endpoint not in canvas bounds, skip it
+                if !(self.bounds.contains(endPoint)) {
+                    continue
+                }
+                
+                // whether the annotation line is going to span horizontally
+                let spanHorizontally : Bool = isVerticalScroll
+                
+                self.pairs.append((startPoint, endPoint, spanHorizontally))
+                
+            }
+            
+            self.setNeedsDisplay()
+        }
+    }
+    
+}
+
+extension Canvas : UIScrollViewDelegate {
+    // gw: note, the action you want to take in this event need access the canvas, so you'd better make canvas the delegate
+    // here the scrollView is the people collection scrollview
+    // here the canvas is the overlaying annotation layer on top of photoView
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.updateAnnotation(scrollView: scrollView)
+    }
 }

@@ -9,16 +9,13 @@
 import UIKit
 
 
-class ViewController:  UICollectionViewController {
+class ViewController:  UIViewController {
     private struct Constants {
         
         // the ratio of the content (e..g face) taken inside the entire view
         static let contentSpanRatio: CGFloat = 0.8
     }
-    
-    
-    
-    let collectionViewCellIdentifier = "MyCollectionViewCellIdentifier"
+
     let canvas:Canvas = {
         let canvas = Canvas()
         canvas.backgroundColor = UIColor.black
@@ -27,7 +24,20 @@ class ViewController:  UICollectionViewController {
         return canvas
     } ()
     
-  
+    // gw: for the person details view
+    let pageVC: UIPageViewController = UIPageViewController()
+
+    
+    // gw: for the person list view
+    let collectionVC: UICollectionViewController = {
+        let _flowLayout = UICollectionViewFlowLayout()
+        // set 1 x N scroll view horizontally. (otherwise it will fold down to 2nd row)
+        _flowLayout.scrollDirection = .horizontal
+        return UICollectionViewController(collectionViewLayout: _flowLayout)
+    } ()
+    
+    // gw: for the photo view
+    let zoomableImageVC = ZoomableImageViewController()
     
     let zoomableImageView  = ZoomableImageView()
     
@@ -46,23 +56,7 @@ class ViewController:  UICollectionViewController {
     var pages = [UIViewController]()
     let pageControl = UIPageControl()
     
-    // TODO:
-    // var faceLocationsInCgImage = [CGPoint]()
-    var faceLocationsInCgImage : [CGPoint] = [
-    
-        CGPoint(x: 100, y: 100),
-        CGPoint(x: 700, y: 100),
-        CGPoint(x: 1100, y: 100),
-        
-        CGPoint(x: 100, y: 650),
-        CGPoint(x: 700, y: 650),
-        CGPoint(x: 1100, y: 650),
-        
-        CGPoint(x: 100, y: 1400),
-        CGPoint(x: 700, y: 1400),
-        CGPoint(x: 1100, y: 1400),
-        
-    ]
+  
     
     // manually marked face bbox in team.jpg
     var faces : [CGRect] = [
@@ -79,7 +73,7 @@ class ViewController:  UICollectionViewController {
   
         // stack views
         self.scrollView = UIScrollView(frame: view.frame)
-        self.scrollView?.delegate = self
+        self.scrollView?.delegate = canvas
         
         view.addSubview(scrollView!)
         view.addSubview(zoomableImageView)
@@ -196,73 +190,12 @@ class ViewController:  UICollectionViewController {
     }
     
     
-    private func updateAnnotation() {
-        
-//        guard let isVerticalScroll = self.isVerticalScroll else {
-//            print("should have a scrool direction")
-//            return
-//        }
-//        
-//        DispatchQueue.main.async {
-//
-//            self.canvas.pairs.removeAll()
-//            
-//            // gw: likely no need to place in dispatch main because at this calling time (scrollView did scroll), these frames are guaranteed to exist
-//            // gw: because scrolling changes visible cells, we need to do canvas.pairs update in this lifecycle as well
-//            
-//            for (i,cell) in self.collectionView.visibleCells.enumerated() {
-//                
-//                // assume only one section
-//                let index_in_all_cells = self.collectionView.indexPathsForVisibleItems[i].row
-//                let startPoint = self.photoView.convertPoint(fromImagePoint:  self.faceLocationsInCgImage[index_in_all_cells])
-//                
-//                var endPoint = self.collectionView.convert(cell.frame.origin, to: self.canvas)
-//                
-//                // translate by half the side length to point to middle point
-//                // flag for orientation determination
-//                if isVerticalScroll {
-//                    // -1 to ensure point still lies within bounds
-//                    endPoint = endPoint.applying(CGAffineTransform(translationX: -1, y: cell.bounds.height / 2   ))
-//                } else {
-//                    endPoint = endPoint.applying(CGAffineTransform(translationX: cell.bounds.width / 2 , y:  -1  ))
-//                }
-//                
-//                // if endpoint not in canvas bounds, skip it
-//                if !(self.canvas.bounds.contains(endPoint)) {
-//                    continue
-//                }
-//                
-//                // whether the annotation line is going to span horizontally
-//                let spanHorizontally : Bool = isVerticalScroll
-//                
-//                self.canvas.pairs.append((startPoint, endPoint, spanHorizontally))
-//                
-//            }
-//            
-//             self.canvas.setNeedsDisplay()
-//        }
-    }
 
     
     
 }
 
 
-// MARK: - UICollectionViewDataSource
-extension ViewController {
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.collectionViewCellIdentifier, for: indexPath)
-        return cell
-    }
-    
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 9
-    }
-    
-    
-}
 
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -279,16 +212,7 @@ extension ViewController {
 //}
 
 
-// MARK: - scrollView(name list) update location
-extension ViewController {
-    
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    
-        
-        self.updateAnnotation()
 
-    }
-}
 
 // MARK: - scrollView (zoomable Image View)
 //extension ViewController {
@@ -430,33 +354,5 @@ extension ViewController {
     }
     
 
-    func setupZoomableImageViewLayout() {
-        self.zoomableImageView.imageView.translatesAutoresizingMaskIntoConstraints = false
-        self.zoomableImageView.translatesAutoresizingMaskIntoConstraints = false
-
-
-        let img_lead = self.zoomableImageView.imageView.leadingAnchor.constraint(equalTo: self.zoomableImageView.leadingAnchor)
-        img_lead.identifier = "img_lead"
-
-        let img_trail = self.zoomableImageView.imageView.trailingAnchor.constraint(equalTo: self.zoomableImageView.trailingAnchor)
-        img_trail.identifier = "img_trail"
-
-        let img_top = self.zoomableImageView.imageView.topAnchor.constraint(equalTo: self.zoomableImageView.topAnchor)
-        img_top.identifier = "img_top"
-
-
-        let img_bot = self.zoomableImageView.imageView.bottomAnchor.constraint(equalTo: self.zoomableImageView.bottomAnchor)
-        img_bot.identifier = "img_bot"
-
-        for constraint in [
-            img_lead, img_trail, img_top, img_bot
-            ] {
-                constraint.isActive = true
-        }
-
-        self.zoomableImageView.imageView.addConstraints([
-            img_lead, img_trail, img_top, img_bot
-            ])
-
-    }
+   
 }
