@@ -72,9 +72,12 @@ class ViewController:  UIViewController {
         super.viewDidLoad()
   
         // stack views
-        peopleCollectionVC.scrollView = UIScrollView(frame: view.frame)
-        peopleCollectionVC.scrollView?.delegate = canvas
+//        peopleCollectionVC.scrollView = UIScrollView(frame: view.frame)
+//        peopleCollectionVC.scrollView?.delegate = canvas
         
+        
+        // gw: setting up view hierachy across multiple VC's, (should be OK per: )
+        // https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/TheViewControllerHierarchy.html
         view.addSubview(peopleCollectionVC.scrollView!)
         view.addSubview(zoomableImageVC.zoomableImageView)
         // zoomableImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -87,12 +90,12 @@ class ViewController:  UIViewController {
         // setupZoomableImageViewLayout()
         
         // little trick to bring inherent collectionView to front
-        view.bringSubviewToFront(self.collectionView)
+        view.bringSubviewToFront(self.peopleCollectionVC.collectionView)
         
-        collectionView?.backgroundColor = UIColor.white
-        collectionView?.translatesAutoresizingMaskIntoConstraints = false
+        peopleCollectionVC.collectionView?.backgroundColor = UIColor.white
+        peopleCollectionVC.collectionView?.translatesAutoresizingMaskIntoConstraints = false
         
-        collectionView?.register(PersonCollectionViewCell.self, forCellWithReuseIdentifier: collectionViewCellIdentifier)
+        peopleCollectionVC.collectionView?.register(PersonCollectionViewCell.self, forCellWithReuseIdentifier: peopleCollectionVC.collectionViewCellIdentifier)
         
         
         // -- page control
@@ -112,19 +115,19 @@ class ViewController:  UIViewController {
         
         // gw: wait for above adjustment to finish photoView's frame
         DispatchQueue.main.async {
-            self.scrollView?.frame = self.zoomableImageView.frame
+            
             
             let image = UIImage(imageLiteralResourceName: "team")
-            self.zoomableImageView.setImage(image: image)
+            self.zoomableImageVC.zoomableImageView.setImage(image: image)
             
-            
+            //self.updateAnnotation()
           
         }
 //        for faceBbox in self.faces {
 //            self.zoomableImageView.zoom(to: faceBbox, with: Constants.contentSpanRatio, animated: true)
 //            sleep(3)
 //        }
-        self.updateAnnotation()
+        
         
         
     }
@@ -135,11 +138,11 @@ class ViewController:  UIViewController {
         super.traitCollectionDidChange(previousTraitCollection)
         
         self.adjustLayout()
-        self.updateAnnotation()
+        //self.updateAnnotation()
         
         // need to wait for adjust layout settle
         DispatchQueue.main.async {
-            self.zoomableImageView.fitImage()
+            self.zoomableImageVC.zoomableImageView.fitImage()
         }
     }
     
@@ -150,15 +153,15 @@ class ViewController:  UIViewController {
 //    }
 
     private func adjustLayout() {
-        guard let collectionViewFlowLayout =  collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+        guard let collectionViewFlowLayout =  self.peopleCollectionVC.collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
             NSLog("failed to convert layout as flow layout")
             
             return
             
         }
-        
+        var isVerticalScroll = false
         if UIDevice.current.orientation.isLandscape {
-            self.isVerticalScroll = true
+            isVerticalScroll = true
             print("gw: adjusting to landscape")
             // gw: note: always disable previous rules first, then do enabling new rules
             // implications: if you enable new rule first, you will have a short time period with conflicting rules
@@ -173,7 +176,7 @@ class ViewController:  UIViewController {
             }
             
         } else {
-            self.isVerticalScroll = false
+            isVerticalScroll = false
             print("gw: adjusting to portrait")
             NSLayoutConstraint.deactivate(self.landscapeConstraints)
             NSLayoutConstraint.activate(self.portraitConstraints)
@@ -185,7 +188,7 @@ class ViewController:  UIViewController {
         }
         
         DispatchQueue.main.async {
-            self.collectionView?.collectionViewLayout.invalidateLayout()
+            self.peopleCollectionVC.collectionView?.collectionViewLayout.invalidateLayout()
         }
     }
     
@@ -205,15 +208,15 @@ class ViewController:  UIViewController {
 extension ViewController {
     private func setupLayoutConstraints() {
         
-        // MARK: - portrait constraints
-        guard let collectionView = collectionView else {
-            NSLog("failed to unwrap collectionView")
+        // convinence vars
+        let zoomableImageView = self.zoomableImageVC.zoomableImageView
+        guard let collectionView = self.peopleCollectionVC.collectionView else {
+            NSLog("failed to unwrap self.peopleCollectionVC.collectionView")
             return
-            
         }
         
-        let zoomableImageView = self.zoomableImageVC.zoomableImageView
-        let collectionView = self.peopleCollectionVC.scrollView
+        // MARK: - portrait constraints
+
         
         let photo_top_p = zoomableImageView.topAnchor.constraint(equalTo: view.topAnchor)
         photo_top_p.identifier = "photo_top_p"
