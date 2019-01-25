@@ -40,7 +40,7 @@ class ZoomableImageView: UIScrollView {
         zoom(to: newRect, animated: animated)
     }
     
-    // gw: must be called to complete a setting
+   // fit image to frame
     public func fitImage() {
         guard let image = self.imageView.image else {return}
         let scaleFitZoomScale: CGFloat = min(
@@ -53,6 +53,7 @@ class ZoomableImageView: UIScrollView {
         self.zoomScale = scaleFitZoomScale
     }
     
+     // gw: must be called to complete a setting
     public func setImage(image: UIImage) {
         imageView.image = image
         
