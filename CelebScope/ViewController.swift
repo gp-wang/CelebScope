@@ -89,7 +89,7 @@ class ViewController: UICollectionViewController{
         
         
         self.setupLayoutConstraints()
-        zoomableImageView.setupLayoutConstraints()
+        // zoomableImageView.setupLayoutConstraints()
         // setupZoomableImageViewLayout()
         
         // little trick to bring inherent collectionView to front

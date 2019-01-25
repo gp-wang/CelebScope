@@ -82,8 +82,7 @@ class ZoomableImageView: UIScrollView {
         addSubview(imageView)
         
         // use auto layout
-        
-        //setupLayout()
+        setupLayoutConstraints()
         
         self.delegate = self
         
