@@ -42,6 +42,10 @@ class ViewController: UICollectionViewController{
     
     var visibleCellIndices = [IndexPath]()
     
+    
+    var pages = [UIViewController]()
+    let pageControl = UIPageControl()
+    
     // TODO:
     // var faceLocationsInCgImage = [CGPoint]()
     var faceLocationsInCgImage : [CGPoint] = [
@@ -94,6 +98,10 @@ class ViewController: UICollectionViewController{
         collectionView?.translatesAutoresizingMaskIntoConstraints = false
         
         collectionView?.register(PersonCollectionViewCell.self, forCellWithReuseIdentifier: collectionViewCellIdentifier)
+        
+        
+        // -- page control
+        
         
         
         
