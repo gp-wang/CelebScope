@@ -83,13 +83,14 @@ class ViewController: UICollectionViewController{
         
         view.addSubview(scrollView!)
         view.addSubview(zoomableImageView)
-        zoomableImageView.translatesAutoresizingMaskIntoConstraints = false
+        // zoomableImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(canvas)
         
         
         
-        setupLayoutConstraints()
-
+        self.setupLayoutConstraints()
+        zoomableImageView.setupLayoutConstraints()
+        // setupZoomableImageViewLayout()
         
         // little trick to bring inherent collectionView to front
         view.bringSubviewToFront(self.collectionView)
@@ -428,34 +429,34 @@ extension ViewController {
         }
     }
     
-    
+
     func setupZoomableImageViewLayout() {
         self.zoomableImageView.imageView.translatesAutoresizingMaskIntoConstraints = false
         self.zoomableImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        
+
+
         let img_lead = self.zoomableImageView.imageView.leadingAnchor.constraint(equalTo: self.zoomableImageView.leadingAnchor)
         img_lead.identifier = "img_lead"
-        
+
         let img_trail = self.zoomableImageView.imageView.trailingAnchor.constraint(equalTo: self.zoomableImageView.trailingAnchor)
         img_trail.identifier = "img_trail"
-        
+
         let img_top = self.zoomableImageView.imageView.topAnchor.constraint(equalTo: self.zoomableImageView.topAnchor)
         img_top.identifier = "img_top"
-        
-        
+
+
         let img_bot = self.zoomableImageView.imageView.bottomAnchor.constraint(equalTo: self.zoomableImageView.bottomAnchor)
         img_bot.identifier = "img_bot"
-        
+
         for constraint in [
             img_lead, img_trail, img_top, img_bot
             ] {
                 constraint.isActive = true
         }
-        
+
         self.zoomableImageView.imageView.addConstraints([
             img_lead, img_trail, img_top, img_bot
             ])
-        
+
     }
 }
