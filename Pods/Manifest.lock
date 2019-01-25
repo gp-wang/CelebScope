@@ -1,0 +1,16 @@
+PODS:
+  - FaceCropper (1.0.0)
+
+DEPENDENCIES:
+  - FaceCropper (from `~/workspace/FaceCropper`)
+
+EXTERNAL SOURCES:
+  FaceCropper:
+    :path: "~/workspace/FaceCropper"
+
+SPEC CHECKSUMS:
+  FaceCropper: de6d44d3b53f5264cfbd139b2f043d86a39730bb
+
+PODFILE CHECKSUM: 482a95844beace6afd97e19f6ed8b511bf68446c
+
+COCOAPODS: 1.5.3

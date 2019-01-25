@@ -1,0 +1,637 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		27DF189B5506288758606AFEC027F6CB /* FaceCropper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3846643A5B39DF20B4859877822E4DBB /* FaceCropper.swift */; };
+		47107E144F0EDA5BEC88446C34F0B4C9 /* Pods-CelebScope-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 82ACA3C6F2024D70ED037113DF171961 /* Pods-CelebScope-dummy.m */; };
+		63B0E16AFB41FCACF1416CF2C76DAEF3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B309FE113AF30DFA127596BC6DB56A9 /* Foundation.framework */; };
+		6BD18D168A7015F2D56B90CA03BDEE7E /* FaceCropper-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1263745E5F88B1434B20557EBFE2CE6E /* FaceCropper-dummy.m */; };
+		6E34269C1BB309FE5327B541AFCC8E03 /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED5FB1104EE81B4E3A7D5AD204A7184C /* Vision.framework */; };
+		9741456157D3D33BBF9CB464DCB8C063 /* FaceCropper-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 82384C715612B25EBB62BD772B205FAA /* FaceCropper-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BB2026E76A1C30C9540981A0038C1ABD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B309FE113AF30DFA127596BC6DB56A9 /* Foundation.framework */; };
+		C19313A5F4F3560B95F13D37C92812FB /* Pods-CelebScope-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A5D7742B9BE1E1C8B656595D25A4A61 /* Pods-CelebScope-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4F568BCEF8A802211DE0144772E540B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF785FF55FA4A8F10520061092C67796 /* UIKit.framework */; };
+		E371D9B685BC4169AD4F79F61496889C /* CroppedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9F3AF01F106E6147A5C3B358EE56C9 /* CroppedImage.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5D23090327E68D3102E109830838B54B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A44AB805D22F7902A5103530FE9C599F;
+			remoteInfo = FaceCropper;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0E62B1863EEBC59D96233A99F2E9E43E /* FaceCropper-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FaceCropper-prefix.pch"; sourceTree = "<group>"; };
+		1263745E5F88B1434B20557EBFE2CE6E /* FaceCropper-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FaceCropper-dummy.m"; sourceTree = "<group>"; };
+		221FD1EF4857ACD38097639B6D8A678E /* FaceCropper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FaceCropper.framework; path = FaceCropper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2DF3F3D8D10CAC6654E91187C362372B /* Pods-CelebScope-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CelebScope-acknowledgements.markdown"; sourceTree = "<group>"; };
+		35CFE7D4121107C6832C81FAAED7D223 /* Pods_CelebScope.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_CelebScope.framework; path = "Pods-CelebScope.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3846643A5B39DF20B4859877822E4DBB /* FaceCropper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FaceCropper.swift; path = FaceCropper/Classes/FaceCropper.swift; sourceTree = "<group>"; };
+		3B9F3AF01F106E6147A5C3B358EE56C9 /* CroppedImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CroppedImage.swift; path = FaceCropper/Classes/CroppedImage.swift; sourceTree = "<group>"; };
+		4B309FE113AF30DFA127596BC6DB56A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		5AE09C022A413E60E07CB12EAF0F7C3B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6267AF51A9CCE25D226CB465D2C5F42D /* Pods-CelebScope.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CelebScope.release.xcconfig"; sourceTree = "<group>"; };
+		660595D5785830FF438B17D3289DC8ED /* Pods-CelebScope-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CelebScope-acknowledgements.plist"; sourceTree = "<group>"; };
+		7DF6C462B0A74F2E2B97A739BDE21F32 /* Pods-CelebScope.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CelebScope.debug.xcconfig"; sourceTree = "<group>"; };
+		82384C715612B25EBB62BD772B205FAA /* FaceCropper-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FaceCropper-umbrella.h"; sourceTree = "<group>"; };
+		82ACA3C6F2024D70ED037113DF171961 /* Pods-CelebScope-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CelebScope-dummy.m"; sourceTree = "<group>"; };
+		92ADABF774D9A6EB62E77BF36D651587 /* Pods-CelebScope-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CelebScope-frameworks.sh"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93F46BAB652797B02F9FD4AEBDFA48C9 /* FaceCropper.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = FaceCropper.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		94C4CC61CB0B4DEDC0CD75C1E58E40B5 /* Pods-CelebScope.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-CelebScope.modulemap"; sourceTree = "<group>"; };
+		9A5D7742B9BE1E1C8B656595D25A4A61 /* Pods-CelebScope-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CelebScope-umbrella.h"; sourceTree = "<group>"; };
+		B0C2A291D1C086E817C978A533AD079B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		C573791E26AB4242645A175A96E2E7B0 /* FaceCropper.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = FaceCropper.modulemap; sourceTree = "<group>"; };
+		CF785FF55FA4A8F10520061092C67796 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		D3AE2FB8CD1FB81977AB0F122A08FFEC /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		D5E3AB8BCF496D0315ACB383FAF02335 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1CEE32EE02725D9EB415D7DACD02004 /* Pods-CelebScope-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CelebScope-resources.sh"; sourceTree = "<group>"; };
+		ED5FB1104EE81B4E3A7D5AD204A7184C /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Vision.framework; sourceTree = DEVELOPER_DIR; };
+		F841E41631830049C078DA6BA6B55A66 /* FaceCropper.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FaceCropper.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C225369035FEA476CCE41311A1C19D46 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63B0E16AFB41FCACF1416CF2C76DAEF3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C5D2384EF35782823FE13F4BCC05DA63 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB2026E76A1C30C9540981A0038C1ABD /* Foundation.framework in Frameworks */,
+				C4F568BCEF8A802211DE0144772E540B /* UIKit.framework in Frameworks */,
+				6E34269C1BB309FE5327B541AFCC8E03 /* Vision.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		122DA2E5084A4393C29BE363C764795C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F4B41C41E9EF05C8C8691894F7CB02D0 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		266FC0894EDD8440895EE1BD8A12FCB8 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				93F46BAB652797B02F9FD4AEBDFA48C9 /* FaceCropper.podspec */,
+				B0C2A291D1C086E817C978A533AD079B /* LICENSE */,
+				D3AE2FB8CD1FB81977AB0F122A08FFEC /* README.md */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
+		2E0353271A42F99AC8A584680BC26517 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				D59321E4F12C5438C642C8B9BDB1F3D2 /* Pods-CelebScope */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		48460B65E20A767C1F09E5D059158153 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				C573791E26AB4242645A175A96E2E7B0 /* FaceCropper.modulemap */,
+				F841E41631830049C078DA6BA6B55A66 /* FaceCropper.xcconfig */,
+				1263745E5F88B1434B20557EBFE2CE6E /* FaceCropper-dummy.m */,
+				0E62B1863EEBC59D96233A99F2E9E43E /* FaceCropper-prefix.pch */,
+				82384C715612B25EBB62BD772B205FAA /* FaceCropper-umbrella.h */,
+				D5E3AB8BCF496D0315ACB383FAF02335 /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "../CelebScope/Pods/Target Support Files/FaceCropper";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				C34FF85C5B9D80D8B91952B3AF8E5485 /* Development Pods */,
+				122DA2E5084A4393C29BE363C764795C /* Frameworks */,
+				A31C60AB1F201CE539969CFD5C7B0543 /* Products */,
+				2E0353271A42F99AC8A584680BC26517 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		85CAACF1231934F03682914B3146525D /* FaceCropper */ = {
+			isa = PBXGroup;
+			children = (
+				3B9F3AF01F106E6147A5C3B358EE56C9 /* CroppedImage.swift */,
+				3846643A5B39DF20B4859877822E4DBB /* FaceCropper.swift */,
+				266FC0894EDD8440895EE1BD8A12FCB8 /* Pod */,
+				48460B65E20A767C1F09E5D059158153 /* Support Files */,
+			);
+			name = FaceCropper;
+			path = /Users/gaopengwang/workspace/FaceCropper;
+			sourceTree = "<absolute>";
+		};
+		A31C60AB1F201CE539969CFD5C7B0543 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				221FD1EF4857ACD38097639B6D8A678E /* FaceCropper.framework */,
+				35CFE7D4121107C6832C81FAAED7D223 /* Pods_CelebScope.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C34FF85C5B9D80D8B91952B3AF8E5485 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				85CAACF1231934F03682914B3146525D /* FaceCropper */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		D59321E4F12C5438C642C8B9BDB1F3D2 /* Pods-CelebScope */ = {
+			isa = PBXGroup;
+			children = (
+				5AE09C022A413E60E07CB12EAF0F7C3B /* Info.plist */,
+				94C4CC61CB0B4DEDC0CD75C1E58E40B5 /* Pods-CelebScope.modulemap */,
+				2DF3F3D8D10CAC6654E91187C362372B /* Pods-CelebScope-acknowledgements.markdown */,
+				660595D5785830FF438B17D3289DC8ED /* Pods-CelebScope-acknowledgements.plist */,
+				82ACA3C6F2024D70ED037113DF171961 /* Pods-CelebScope-dummy.m */,
+				92ADABF774D9A6EB62E77BF36D651587 /* Pods-CelebScope-frameworks.sh */,
+				E1CEE32EE02725D9EB415D7DACD02004 /* Pods-CelebScope-resources.sh */,
+				9A5D7742B9BE1E1C8B656595D25A4A61 /* Pods-CelebScope-umbrella.h */,
+				7DF6C462B0A74F2E2B97A739BDE21F32 /* Pods-CelebScope.debug.xcconfig */,
+				6267AF51A9CCE25D226CB465D2C5F42D /* Pods-CelebScope.release.xcconfig */,
+			);
+			name = "Pods-CelebScope";
+			path = "Target Support Files/Pods-CelebScope";
+			sourceTree = "<group>";
+		};
+		F4B41C41E9EF05C8C8691894F7CB02D0 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				4B309FE113AF30DFA127596BC6DB56A9 /* Foundation.framework */,
+				CF785FF55FA4A8F10520061092C67796 /* UIKit.framework */,
+				ED5FB1104EE81B4E3A7D5AD204A7184C /* Vision.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		570F836A6859B78C5FDE98BA6830FA61 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C19313A5F4F3560B95F13D37C92812FB /* Pods-CelebScope-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3E8B314E79AB81D91C69D14838DB62F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9741456157D3D33BBF9CB464DCB8C063 /* FaceCropper-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		A44AB805D22F7902A5103530FE9C599F /* FaceCropper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D67703FC2B43B9AE8694DC79C4ADDF12 /* Build configuration list for PBXNativeTarget "FaceCropper" */;
+			buildPhases = (
+				D3E8B314E79AB81D91C69D14838DB62F /* Headers */,
+				85FADB22F424C5140A97F8FA5F8923FF /* Sources */,
+				C5D2384EF35782823FE13F4BCC05DA63 /* Frameworks */,
+				5D89CE6BACC07B4B9057B73F69FE3C35 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FaceCropper;
+			productName = FaceCropper;
+			productReference = 221FD1EF4857ACD38097639B6D8A678E /* FaceCropper.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D9CB3830828CB5087D796164583D7EF3 /* Pods-CelebScope */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 989C4DDB63C13A97AA554519C6F423DF /* Build configuration list for PBXNativeTarget "Pods-CelebScope" */;
+			buildPhases = (
+				570F836A6859B78C5FDE98BA6830FA61 /* Headers */,
+				8480D54563021F6E10DE602C53AF2B82 /* Sources */,
+				C225369035FEA476CCE41311A1C19D46 /* Frameworks */,
+				C2FA0A377713D94CB5811DB0FEDAC5FA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FB63D3F643736B048EABEC7F2B4F1B07 /* PBXTargetDependency */,
+			);
+			name = "Pods-CelebScope";
+			productName = "Pods-CelebScope";
+			productReference = 35CFE7D4121107C6832C81FAAED7D223 /* Pods_CelebScope.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = A31C60AB1F201CE539969CFD5C7B0543 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A44AB805D22F7902A5103530FE9C599F /* FaceCropper */,
+				D9CB3830828CB5087D796164583D7EF3 /* Pods-CelebScope */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5D89CE6BACC07B4B9057B73F69FE3C35 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C2FA0A377713D94CB5811DB0FEDAC5FA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8480D54563021F6E10DE602C53AF2B82 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				47107E144F0EDA5BEC88446C34F0B4C9 /* Pods-CelebScope-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		85FADB22F424C5140A97F8FA5F8923FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E371D9B685BC4169AD4F79F61496889C /* CroppedImage.swift in Sources */,
+				6BD18D168A7015F2D56B90CA03BDEE7E /* FaceCropper-dummy.m in Sources */,
+				27DF189B5506288758606AFEC027F6CB /* FaceCropper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FB63D3F643736B048EABEC7F2B4F1B07 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FaceCropper;
+			target = A44AB805D22F7902A5103530FE9C599F /* FaceCropper */;
+			targetProxy = 5D23090327E68D3102E109830838B54B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0AA3B91655AF95B1F49159CD8085CD89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		1B04CBD627D51BC37942930117C9BC75 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7DF6C462B0A74F2E2B97A739BDE21F32 /* Pods-CelebScope.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-CelebScope/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-CelebScope/Pods-CelebScope.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		8000995DA02063BF3777393CD52061DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 4.2;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		92F09241D26B038163B631FA47044A16 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F841E41631830049C078DA6BA6B55A66 /* FaceCropper.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/FaceCropper/FaceCropper-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/FaceCropper/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/FaceCropper/FaceCropper.modulemap";
+				PRODUCT_MODULE_NAME = FaceCropper;
+				PRODUCT_NAME = FaceCropper;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		CF9CCF7E9F409A04AAD29CFF8C64D9FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F841E41631830049C078DA6BA6B55A66 /* FaceCropper.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/FaceCropper/FaceCropper-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/FaceCropper/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/FaceCropper/FaceCropper.modulemap";
+				PRODUCT_MODULE_NAME = FaceCropper;
+				PRODUCT_NAME = FaceCropper;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		F1D70C045A95F8FCEEDEA1FE9E20FEDA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6267AF51A9CCE25D226CB465D2C5F42D /* Pods-CelebScope.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-CelebScope/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-CelebScope/Pods-CelebScope.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0AA3B91655AF95B1F49159CD8085CD89 /* Debug */,
+				8000995DA02063BF3777393CD52061DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		989C4DDB63C13A97AA554519C6F423DF /* Build configuration list for PBXNativeTarget "Pods-CelebScope" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B04CBD627D51BC37942930117C9BC75 /* Debug */,
+				F1D70C045A95F8FCEEDEA1FE9E20FEDA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D67703FC2B43B9AE8694DC79C4ADDF12 /* Build configuration list for PBXNativeTarget "FaceCropper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CF9CCF7E9F409A04AAD29CFF8C64D9FD /* Debug */,
+				92F09241D26B038163B631FA47044A16 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

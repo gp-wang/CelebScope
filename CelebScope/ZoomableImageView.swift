@@ -1,25 +1,58 @@
-//
-//  ZoomableImageView.swift
-//  CelebScope
-//
-//  Created by Gaopeng Wang on 1/24/19.
-//  Copyright © 2019 Gaopeng Wang. All rights reserved.
-//
-
 import UIKit
 
 class ZoomableImageView: UIScrollView {
     
     private struct Constants {
         static let minimumZoomScale: CGFloat = 0.5;
-        static let  maximumZoomScale: CGFloat = 6.0;
+        static let maximumZoomScale: CGFloat = 6.0;
+        
+        // the ratio of the content (e..g face) taken inside the entire view
+        static let contentSpanRatio: CGFloat = 0.8
     }
     
     
     // public so that delegate can access
     public let imageView = UIImageView()
     
+    
+    // zoom to rect with specified ratio
+    public func zoom(to rect: CGRect, with ratio: CGFloat, animated: Bool) {
+        
+        let oldWidth = rect.width
+        let oldHeight = rect.height
+        
+        let oldCenter = rect.origin.applying(CGAffineTransform(translationX: oldWidth / 2.0, y: oldHeight / 2.0))
+        
+        
+        // gw: note, the ratio is percentation of content span that should show up in frame, so if ratio is 0.8, your newRect should be larger ( * 1/0.8) to zoom to
+        
+        let newWidth = rect.width / ratio
+        let newHeight = rect.height / ratio
+        
+        
+        
+        let newOrigin = CGPoint(x: oldCenter.x - newWidth / 2.0,
+                                y: oldCenter.y - newHeight / 2.0)
+        
+        let newRect = CGRect(x: newOrigin.x, y: newOrigin.y, width: newWidth, height: newHeight)
+        
+        
+        zoom(to: newRect, animated: animated)
+    }
+    
     // gw: must be called to complete a setting
+    public func fitImage() {
+        guard let image = self.imageView.image else {return}
+        let scaleFitZoomScale: CGFloat = min(
+            self.frame.width / image.size.width ,
+            self.frame.height / image.size.height
+        )
+        
+        
+        // reset scale and offset on each resetting of image
+        self.zoomScale = scaleFitZoomScale
+    }
+    
     public func setImage(image: UIImage) {
         imageView.image = image
         
@@ -30,17 +63,8 @@ class ZoomableImageView: UIScrollView {
         self.contentSize = image.size
         
         
-        let scaleFitZoomScale: CGFloat = min(
-            self.frame.width / image.size.width ,
-            self.frame.height / image.size.height
-        )
-        
-        
-        // reset scale and offset on each resetting of image
-        self.zoomScale = scaleFitZoomScale
-        
-        
-        
+        fitImage()
+
         
     }
     

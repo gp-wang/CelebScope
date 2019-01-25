@@ -10,6 +10,12 @@ import UIKit
 
 
 class ViewController: UICollectionViewController{
+    private struct Constants {
+        
+        // the ratio of the content (e..g face) taken inside the entire view
+        static let contentSpanRatio: CGFloat = 0.8
+    }
+    
     
     
     let collectionViewCellIdentifier = "MyCollectionViewCellIdentifier"
@@ -54,6 +60,15 @@ class ViewController: UICollectionViewController{
         
     ]
     
+    // manually marked face bbox in team.jpg
+    var faces : [CGRect] = [
+        CGRect(x: 46, y: 32, width: 140, height: 140), // Jeniffer Lawrence
+        CGRect(x: 215, y: 156, width: 141, height: 141), // Ellen
+        CGRect(x: 337, y: 172, width: 187, height: 187), // the Man
+        CGRect(x: 524, y: 109, width: 118, height: 118), // the other Man
+    
+    ]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,11 +111,18 @@ class ViewController: UICollectionViewController{
         DispatchQueue.main.async {
             self.scrollView?.frame = self.zoomableImageView.frame
             
-            let image = UIImage(imageLiteralResourceName: "kelly")
+            let image = UIImage(imageLiteralResourceName: "team")
             self.zoomableImageView.setImage(image: image)
+            
+//            for faceBbox in self.faces {
+//                self.zoomableImageView.zoom(to: faceBbox, with: Constants.contentSpanRatio, animated: true)
+//                sleep(3)
+//            }
         }
         
         self.updateAnnotation()
+        
+        
     }
     
     // MARK: - trait collections
@@ -110,6 +132,11 @@ class ViewController: UICollectionViewController{
         
         self.adjustLayout()
         self.updateAnnotation()
+        
+        // need to wait for adjust layout settle
+        DispatchQueue.main.async {
+            self.zoomableImageView.fitImage()
+        }
     }
     
 //    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
