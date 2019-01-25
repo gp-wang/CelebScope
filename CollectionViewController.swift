@@ -14,6 +14,8 @@ class CollectionViewController: UIViewController {
 
      let collectionViewCellIdentifier = "MyCollectionViewCellIdentifier"
     
+    public var scrollView: UIScrollView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

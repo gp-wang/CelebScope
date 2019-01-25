@@ -16,6 +16,7 @@ class ViewController:  UIViewController {
         static let contentSpanRatio: CGFloat = 0.8
     }
 
+    // canva's VC is this main VC
     let canvas:Canvas = {
         let canvas = Canvas()
         canvas.backgroundColor = UIColor.black
@@ -25,26 +26,25 @@ class ViewController:  UIViewController {
     } ()
     
     // gw: for the person details view
-    let pageVC: UIPageViewController = UIPageViewController()
+    let detailPagedVC: UIPageViewController = UIPageViewController()
 
     
     // gw: for the person list view
-    let collectionVC: UICollectionViewController = {
+    let peopleCollectionVC: CollectionViewController = {
         let _flowLayout = UICollectionViewFlowLayout()
         // set 1 x N scroll view horizontally. (otherwise it will fold down to 2nd row)
         _flowLayout.scrollDirection = .horizontal
-        return UICollectionViewController(collectionViewLayout: _flowLayout)
+        return CollectionViewController(collectionViewLayout: _flowLayout)
     } ()
     
     // gw: for the photo view
     let zoomableImageVC = ZoomableImageViewController()
     
-    let zoomableImageView  = ZoomableImageView()
     
-    var scrollView: UIScrollView? // defer instantiation because we need a frame
     
-    // convenience flag of scroll direction of collection view
-    var isVerticalScroll : Bool?
+    // defer instantiation because we need a frame
+    
+
     
     var portraitConstraints = [NSLayoutConstraint]()
     
@@ -72,11 +72,11 @@ class ViewController:  UIViewController {
         super.viewDidLoad()
   
         // stack views
-        self.scrollView = UIScrollView(frame: view.frame)
-        self.scrollView?.delegate = canvas
+        peopleCollectionVC.scrollView = UIScrollView(frame: view.frame)
+        peopleCollectionVC.scrollView?.delegate = canvas
         
-        view.addSubview(scrollView!)
-        view.addSubview(zoomableImageView)
+        view.addSubview(peopleCollectionVC.scrollView!)
+        view.addSubview(zoomableImageVC.zoomableImageView)
         // zoomableImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(canvas)
         
@@ -198,34 +198,7 @@ class ViewController:  UIViewController {
 
 
 
-// MARK: - UICollectionViewDelegateFlowLayout
-//extension ViewController : UICollectionViewDelegateFlowLayout {
-//
-//    // set item size
-//    func collectionView(_ collectionView: UICollectionView,
-//                        layout collectionViewLayout: UICollectionViewLayout,
-//                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-//
-//        // gw: to force one row, height need to be smaller than flow height
-//        return CGSize(width: 200, height: collectionView.bounds.height)
-//    }
-//}
 
-
-
-
-// MARK: - scrollView (zoomable Image View)
-//extension ViewController {
-//
-//    override func scrollViewDidZoom(_ scrollView: UIScrollView) {
-//        print("scale factor is: \(scrollView.zoomScale)")
-//    }
-//
-//    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        print("content offset is: \(scrollView.contentOffset)")
-//    }
-//
-//}
 
 
 // MARK: - Setup Layout constraints
@@ -238,6 +211,9 @@ extension ViewController {
             return
             
         }
+        
+        let zoomableImageView = self.zoomableImageVC.zoomableImageView
+        let collectionView = self.peopleCollectionVC.scrollView
         
         let photo_top_p = zoomableImageView.topAnchor.constraint(equalTo: view.topAnchor)
         photo_top_p.identifier = "photo_top_p"

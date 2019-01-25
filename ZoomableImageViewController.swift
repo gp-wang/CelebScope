@@ -12,6 +12,8 @@ import UIKit
 // gw: dedicated VC for the photoView
 class ZoomableImageViewController: UIViewController {
 
+    let zoomableImageView  = ZoomableImageView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
