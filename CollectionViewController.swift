@@ -14,7 +14,7 @@ class CollectionViewController: UICollectionViewController {
 
      let collectionViewCellIdentifier = "MyCollectionViewCellIdentifier"
     
-    public var scrollView: UIScrollView?
+    // MARK: gw: we use the implicit member "collectionView?" of UICollectionViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()

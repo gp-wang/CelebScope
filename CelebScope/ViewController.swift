@@ -78,8 +78,9 @@ class ViewController:  UIViewController {
         
         // gw: setting up view hierachy across multiple VC's, (should be OK per: )
         // https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/TheViewControllerHierarchy.html
-        view.addSubview(peopleCollectionVC.scrollView!)
+        view.addSubview(peopleCollectionVC.collectionView!)
         view.addSubview(zoomableImageVC.zoomableImageView)
+        // already moved inside zoomableImageView
         // zoomableImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(canvas)
         
@@ -172,7 +173,7 @@ class ViewController:  UIViewController {
             // main queue likely needed to wait for correct size of bounds
             // gw: verified working
             DispatchQueue.main.async {
-                collectionViewFlowLayout.itemSize = CGSize(width: self.collectionView.bounds.width, height: self.collectionView.bounds.width)
+                collectionViewFlowLayout.itemSize = CGSize(width: self.peopleCollectionVC.collectionView.bounds.width, height: self.peopleCollectionVC.collectionView.bounds.width)
             }
             
         } else {
@@ -183,7 +184,7 @@ class ViewController:  UIViewController {
 
             collectionViewFlowLayout.scrollDirection = .horizontal
             DispatchQueue.main.async {
-             collectionViewFlowLayout.itemSize = CGSize(width: self.collectionView.bounds.height, height: self.collectionView.bounds.height)
+             collectionViewFlowLayout.itemSize = CGSize(width: self.peopleCollectionVC.collectionView.bounds.height, height: self.peopleCollectionVC.collectionView.bounds.height)
             }
         }
         

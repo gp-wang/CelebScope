@@ -92,6 +92,18 @@ class Canvas : UIImageView {
     
     
     
+ 
+    
+}
+
+extension Canvas : UIScrollViewDelegate {
+    // gw: note, the action you want to take in this event need access the canvas, so you'd better make canvas the delegate
+    // here the scrollView is the people collection scrollview
+    // here the canvas is the overlaying annotation layer on top of photoView
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.updateAnnotation(scrollView: scrollView)
+    }
+    
     private func updateAnnotation(scrollView: UIScrollView) {
         
         guard let collectionView = scrollView as? UICollectionView,
@@ -146,15 +158,5 @@ class Canvas : UIImageView {
             
             self.setNeedsDisplay()
         }
-    }
-    
-}
-
-extension Canvas : UIScrollViewDelegate {
-    // gw: note, the action you want to take in this event need access the canvas, so you'd better make canvas the delegate
-    // here the scrollView is the people collection scrollview
-    // here the canvas is the overlaying annotation layer on top of photoView
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.updateAnnotation(scrollView: scrollView)
     }
 }
