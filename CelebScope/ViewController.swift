@@ -25,10 +25,7 @@ class ViewController:  UIViewController {
         return canvas
     } ()
     
-    // gw: for the person details view
-    let detailPagedVC: UIPageViewController = UIPageViewController()
 
-    
     // gw: for the person list view
     let peopleCollectionVC: CollectionViewController = {
         let _flowLayout = UICollectionViewFlowLayout()
@@ -41,19 +38,16 @@ class ViewController:  UIViewController {
     let zoomableImageVC = ZoomableImageViewController()
     
     
-    
-    // defer instantiation because we need a frame
-    
 
-    
+    // Auto Layout
     var portraitConstraints = [NSLayoutConstraint]()
-    
     var landscapeConstraints = [NSLayoutConstraint]()
     
-    var visibleCellIndices = [IndexPath]()
     
     
-    var pages = [UIViewController]()
+    // gw: for the person details view
+    let detailPagedVC: UIPageViewController = UIPageViewController()
+        var pages = [UIViewController]()
     let pageControl = UIPageControl()
     
   
@@ -78,6 +72,7 @@ class ViewController:  UIViewController {
         
         // gw: setting up view hierachy across multiple VC's, (should be OK per: )
         // https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/TheViewControllerHierarchy.html
+        // also note we set the autolayout constraints in this main VC
         view.addSubview(peopleCollectionVC.collectionView!)
         view.addSubview(zoomableImageVC.zoomableImageView)
         // already moved inside zoomableImageView
