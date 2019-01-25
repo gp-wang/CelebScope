@@ -9,7 +9,7 @@
 import UIKit
 
 
-class ViewController: UICollectionViewController{
+class ViewController:  UICollectionViewController {
     private struct Constants {
         
         // the ratio of the content (e..g face) taken inside the entire view
