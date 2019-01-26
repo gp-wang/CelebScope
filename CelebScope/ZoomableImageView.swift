@@ -43,14 +43,37 @@ class ZoomableImageView: UIScrollView {
    // fit image to frame
     public func fitImage() {
         guard let image = self.imageView.image else {return}
-        let scaleFitZoomScale: CGFloat = min(
-            self.frame.width / image.size.width ,
-            self.frame.height / image.size.height
-        )
         
+        let ratioWidth = self.frame.width / image.size.width
+        let ratioHeight = self.frame.height / image.size.height
         
+        var isVertical = false
+        var scale: CGFloat = 0.0
+        var offset: CGPoint = .zero
+        
+        if ratioHeight < ratioWidth {
+            isVertical = true
+            scale = ratioHeight
+            
+            offset = CGPoint(x: 0, y: (self.contentSize.height - self.bounds.height) / 2 )
+            
+        } else {
+            isVertical = false
+            scale = ratioWidth
+            
+            offset = CGPoint(x: (self.contentSize.width - self.bounds.width) / 2, y: 0 )
+        }
+        
+      
+
+
         // reset scale and offset on each resetting of image
-        self.zoomScale = scaleFitZoomScale
+        self.zoomScale = scale
+        
+        // gw: TODO: tricky for offset
+        //self.contentOffset = offset
+        
+        
     }
     
      // gw: must be called to complete a setting
