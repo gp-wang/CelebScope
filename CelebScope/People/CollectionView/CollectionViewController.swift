@@ -16,6 +16,18 @@ class CollectionViewController: UICollectionViewController {
     
     // MARK: gw: we use the implicit member "collectionView?" of UICollectionViewController
     
+    override init(collectionViewLayout: UICollectionViewLayout) {
+        super.init(collectionViewLayout: collectionViewLayout)
+        
+        collectionView.backgroundColor = UIColor.white
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.register(PersonCollectionViewCell.self, forCellWithReuseIdentifier: collectionViewCellIdentifier)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

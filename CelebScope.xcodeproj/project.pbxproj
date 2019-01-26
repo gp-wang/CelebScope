@@ -21,7 +21,6 @@
 		6B31D2C121F38D58000CFA44 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B31D2BF21F38D58000CFA44 /* LaunchScreen.storyboard */; };
 		6B31D2CF21F3ED41000CFA44 /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B31D2CE21F3ED41000CFA44 /* Canvas.swift */; };
 		6B354CD421F617DE00C6176C /* UIImageViewPointConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B354CD321F617DE00C6176C /* UIImageViewPointConversion.swift */; };
-		6B354CD621F61ABA00C6176C /* Kayla_Person-small.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6B354CD521F61ABA00C6176C /* Kayla_Person-small.jpg */; };
 		6BD4741A21FA468400163D0C /* ZoomableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD4741921FA468400163D0C /* ZoomableImageView.swift */; };
 		6BFE4D9121F9A18200B7A50D /* PersonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFE4D9021F9A18200B7A50D /* PersonCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -44,7 +43,6 @@
 		6B31D2C221F38D58000CFA44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6B31D2CE21F3ED41000CFA44 /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
 		6B354CD321F617DE00C6176C /* UIImageViewPointConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewPointConversion.swift; sourceTree = "<group>"; };
-		6B354CD521F61ABA00C6176C /* Kayla_Person-small.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Kayla_Person-small.jpg"; sourceTree = "<group>"; };
 		6BD4741921FA468400163D0C /* ZoomableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableImageView.swift; sourceTree = "<group>"; };
 		6BFE4D9021F9A18200B7A50D /* PersonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCollectionViewCell.swift; sourceTree = "<group>"; };
 		E998B2AEA450FAAEF3CB026C /* Pods-CelebScope.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CelebScope.release.xcconfig"; path = "Pods/Target Support Files/Pods-CelebScope/Pods-CelebScope.release.xcconfig"; sourceTree = "<group>"; };
@@ -166,7 +164,6 @@
 				6B31D2B621F38D55000CFA44 /* AppDelegate.swift */,
 				6B31D2B821F38D55000CFA44 /* ViewController.swift */,
 				6B31D2BD21F38D58000CFA44 /* Assets.xcassets */,
-				6B354CD521F61ABA00C6176C /* Kayla_Person-small.jpg */,
 				6B31D2BF21F38D58000CFA44 /* LaunchScreen.storyboard */,
 				6B31D2C221F38D58000CFA44 /* Info.plist */,
 				6B2AF15C21FC2B09005F39EE /* Canvas */,
@@ -238,7 +235,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B31D2C121F38D58000CFA44 /* LaunchScreen.storyboard in Resources */,
-				6B354CD621F61ABA00C6176C /* Kayla_Person-small.jpg in Resources */,
 				6B31D2BE21F38D58000CFA44 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

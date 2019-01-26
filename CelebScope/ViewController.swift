@@ -66,11 +66,6 @@ class ViewController:  UIViewController {
         
         // MARK: - further setup of field properties
         
-        peopleCollectionVC.collectionView?.backgroundColor = UIColor.white
-        peopleCollectionVC.collectionView?.translatesAutoresizingMaskIntoConstraints = false
-        peopleCollectionVC.collectionView?.register(PersonCollectionViewCell.self, forCellWithReuseIdentifier: peopleCollectionVC.collectionViewCellIdentifier)
-        
-        
         detailPagedVC.delegate = self
         
         // stack views
@@ -102,21 +97,17 @@ class ViewController:  UIViewController {
     
     // gw notes: use the correct lifecyle, instead of dispatch main
     override func viewDidAppear(_ animated: Bool) {
-        
 
-        
         // initial drawing
         self.adjustLayout()
         
         // gw: wait for above adjustment to finish photoView's frame
+        // TODO: can this be unwrapped?
         DispatchQueue.main.async {
-            
-            
             let image = UIImage(imageLiteralResourceName: "team")
             self.zoomableImageVC.zoomableImageView.setImage(image: image)
             
             //self.updateAnnotation()
-          
         }
 
     }
@@ -180,10 +171,6 @@ class ViewController:  UIViewController {
             self.peopleCollectionVC.collectionView?.collectionViewLayout.invalidateLayout()
         }
     }
-    
-    
-
-    
     
 }
 
