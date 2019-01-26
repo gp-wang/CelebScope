@@ -58,43 +58,45 @@ class ViewController:  UIViewController {
     ]
     
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-  
+    // MARK: - Constructor
+    
+     init() {
+        super.init(nibName: nil
+            , bundle: nil)
+        
+        // MARK: - further setup of field properties
+        
+        peopleCollectionVC.collectionView?.backgroundColor = UIColor.white
+        peopleCollectionVC.collectionView?.translatesAutoresizingMaskIntoConstraints = false
+        peopleCollectionVC.collectionView?.register(PersonCollectionViewCell.self, forCellWithReuseIdentifier: peopleCollectionVC.collectionViewCellIdentifier)
+        
+        
+        detailPagedVC.delegate = self
+        
         // stack views
-//        peopleCollectionVC.scrollView = UIScrollView(frame: view.frame)
-//        peopleCollectionVC.scrollView?.delegate = canvas
-        
-        
         // gw: setting up view hierachy across multiple VC's, (should be OK per: )
         // https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/TheViewControllerHierarchy.html
         // also note we set the autolayout constraints in this main VC
         view.addSubview(peopleCollectionVC.collectionView!)
         view.addSubview(zoomableImageVC.zoomableImageView)
-        // already moved inside zoomableImageView
-        // zoomableImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(canvas)
         view.addSubview(detailPagedVC.view)
         
         self.setupLayoutConstraints()
-        // zoomableImageView.setupLayoutConstraints()
-        // setupZoomableImageViewLayout()
+   
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         // little trick to bring inherent collectionView to front
         //view.bringSubviewToFront(self.peopleCollectionVC.collectionView)
         view.bringSubviewToFront(detailPagedVC.view)
-        
-        peopleCollectionVC.collectionView?.backgroundColor = UIColor.white
-        peopleCollectionVC.collectionView?.translatesAutoresizingMaskIntoConstraints = false
-        
-        peopleCollectionVC.collectionView?.register(PersonCollectionViewCell.self, forCellWithReuseIdentifier: peopleCollectionVC.collectionViewCellIdentifier)
-        
-        
-        // -- page control
-        
-        
-        
-        
+
     }
     
     // gw notes: use the correct lifecyle, instead of dispatch main
@@ -437,4 +439,22 @@ extension ViewController {
     
 
    
+}
+
+
+extension ViewController: UIPageViewControllerDelegate {
+    
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        
+        // set the pageControl.currentPage to the index of the current viewController in pages
+        if let viewControllers = pageViewController.viewControllers {
+            if let viewControllerIndex = self.detailPagedVC.pages.index(of: viewControllers[0]) {
+                self.detailPagedVC.pageControl.currentPage = viewControllerIndex
+                print("didFinishAnimating: \(viewControllerIndex)")
+            }
+        }
+        
+        
+    }
 }

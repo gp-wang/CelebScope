@@ -28,7 +28,8 @@ class PeoplePageViewController: UIPageViewController {
         super.init(transitionStyle: .pageCurl, navigationOrientation: .horizontal)
         
         self.dataSource = self
-        self.delegate = self
+        //gw: moved to main VC
+        //self.delegate = self
         let initialPage = 0
         let page1 = ViewController1()
         let page2 = ViewController2()
@@ -87,6 +88,10 @@ extension PeoplePageViewController: UIPageViewControllerDataSource {
                 return self.pages[viewControllerIndex - 1]
             }
         }
+        
+        print("viewControllerBefore")
+        
+
         return nil
     }
     
@@ -101,20 +106,28 @@ extension PeoplePageViewController: UIPageViewControllerDataSource {
                 return self.pages.first
             }
         }
+        
+        print("viewControllerAfter")
         return nil
     }
 }
 
 
 // MARK: - UIPageViewControllerDelegate
-extension PeoplePageViewController: UIPageViewControllerDelegate {
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        
-        // set the pageControl.currentPage to the index of the current viewController in pages
-        if let viewControllers = pageViewController.viewControllers {
-            if let viewControllerIndex = self.pages.index(of: viewControllers[0]) {
-                self.pageControl.currentPage = viewControllerIndex
-            }
-        }
-    }
-}
+// gw: moved to main View Controller because we need to act on zoomableImageView
+//extension PeoplePageViewController: UIPageViewControllerDelegate {
+//
+//    
+//    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+//        
+//        // set the pageControl.currentPage to the index of the current viewController in pages
+//        if let viewControllers = pageViewController.viewControllers {
+//            if let viewControllerIndex = self.pages.index(of: viewControllers[0]) {
+//                self.pageControl.currentPage = viewControllerIndex
+//                print("didFinishAnimating: \(viewControllerIndex)")
+//            }
+//        }
+//        
+//        
+//    }
+//}
