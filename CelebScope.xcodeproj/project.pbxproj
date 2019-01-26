@@ -118,7 +118,6 @@
 			isa = PBXGroup;
 			children = (
 				6B20977B21FB76F30066CDD8 /* ZoomableImageViewController.swift */,
-				6B354CD321F617DE00C6176C /* UIImageViewPointConversion.swift */,
 				6BD4741921FA468400163D0C /* ZoomableImageView.swift */,
 			);
 			path = Image;
@@ -127,6 +126,7 @@
 		6B2AF15B21FC2AFC005F39EE /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				6B354CD321F617DE00C6176C /* UIImageViewPointConversion.swift */,
 				6B2574AF21F75EB30039FAC9 /* Utils.swift */,
 			);
 			path = Utils;
