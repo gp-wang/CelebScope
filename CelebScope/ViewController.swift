@@ -96,6 +96,7 @@ class ViewController:  UIViewController {
         // little trick to bring inherent collectionView to front
         //view.bringSubviewToFront(self.peopleCollectionVC.collectionView)
         view.bringSubviewToFront(detailPagedVC.view)
+        view.bringSubviewToFront(zoomableImageVC.zoomableImageView)
 
     }
     
@@ -117,11 +118,7 @@ class ViewController:  UIViewController {
             //self.updateAnnotation()
           
         }
-//        for faceBbox in self.faces {
-//            self.zoomableImageView.zoom(to: faceBbox, with: Constants.contentSpanRatio, animated: true)
-//            sleep(3)
-//        }
-        
+
     }
     
     // MARK: - trait collections

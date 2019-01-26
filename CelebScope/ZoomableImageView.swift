@@ -73,6 +73,15 @@ class ZoomableImageView: UIScrollView {
         // gw: TODO: tricky for offset
         //self.contentOffset = offset
         
+        let imageViewSize = imageView.frame.size
+        let scrollViewSize = self.bounds.size
+        
+        let verticalPadding = imageViewSize.height < scrollViewSize.height ? (scrollViewSize.height - imageViewSize.height) / 2 : 0
+        let horizontalPadding = imageViewSize.width < scrollViewSize.width ? (scrollViewSize.width - imageViewSize.width) / 2 : 0
+        
+        self.contentInset = UIEdgeInsets(top: verticalPadding, left: horizontalPadding, bottom: verticalPadding, right: horizontalPadding)
+
+        
         
     }
     
