@@ -29,9 +29,9 @@
 /* Begin PBXFileReference section */
 		1F3A852C3FDFCA8C4D3F4596 /* Pods_CelebScope.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CelebScope.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B1B0E475A139E229783DBDB /* Pods-CelebScope.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CelebScope.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CelebScope/Pods-CelebScope.debug.xcconfig"; sourceTree = "<group>"; };
-		6B20976F21FB5E9A0066CDD8 /* ViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController1.swift; path = PageControl/ViewController1.swift; sourceTree = "<group>"; };
-		6B20977121FB5EC20066CDD8 /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController2.swift; path = PageControl/ViewController2.swift; sourceTree = "<group>"; };
-		6B20977521FB5EF40066CDD8 /* ViewController3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController3.swift; path = PageControl/ViewController3.swift; sourceTree = "<group>"; };
+		6B20976F21FB5E9A0066CDD8 /* ViewController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController1.swift; sourceTree = "<group>"; };
+		6B20977121FB5EC20066CDD8 /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
+		6B20977521FB5EF40066CDD8 /* ViewController3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController3.swift; sourceTree = "<group>"; };
 		6B20977921FB76B10066CDD8 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		6B20977B21FB76F30066CDD8 /* ZoomableImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableImageViewController.swift; sourceTree = "<group>"; };
 		6B20977F21FBC20C0066CDD8 /* PeoplePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeoplePageViewController.swift; sourceTree = "<group>"; };
@@ -79,15 +79,72 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6B31D2AA21F38D55000CFA44 = {
+		6B2AF15621FC2912005F39EE /* Pages */ = {
 			isa = PBXGroup;
 			children = (
-				6B20977F21FBC20C0066CDD8 /* PeoplePageViewController.swift */,
-				6B20977B21FB76F30066CDD8 /* ZoomableImageViewController.swift */,
-				6B20977921FB76B10066CDD8 /* CollectionViewController.swift */,
 				6B20977521FB5EF40066CDD8 /* ViewController3.swift */,
 				6B20977121FB5EC20066CDD8 /* ViewController2.swift */,
 				6B20976F21FB5E9A0066CDD8 /* ViewController1.swift */,
+			);
+			path = Pages;
+			sourceTree = "<group>";
+		};
+		6B2AF15721FC2949005F39EE /* People */ = {
+			isa = PBXGroup;
+			children = (
+				6B2AF15921FC2ABB005F39EE /* CollectionView */,
+				6B2AF15821FC2A88005F39EE /* PagedView */,
+			);
+			path = People;
+			sourceTree = "<group>";
+		};
+		6B2AF15821FC2A88005F39EE /* PagedView */ = {
+			isa = PBXGroup;
+			children = (
+				6B20977F21FBC20C0066CDD8 /* PeoplePageViewController.swift */,
+				6B2AF15621FC2912005F39EE /* Pages */,
+			);
+			path = PagedView;
+			sourceTree = "<group>";
+		};
+		6B2AF15921FC2ABB005F39EE /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				6B20977921FB76B10066CDD8 /* CollectionViewController.swift */,
+				6BFE4D9021F9A18200B7A50D /* PersonCollectionViewCell.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		6B2AF15A21FC2ACE005F39EE /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				6B20977B21FB76F30066CDD8 /* ZoomableImageViewController.swift */,
+				6B354CD321F617DE00C6176C /* UIImageViewPointConversion.swift */,
+				6BD4741921FA468400163D0C /* ZoomableImageView.swift */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+		6B2AF15B21FC2AFC005F39EE /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6B2574AF21F75EB30039FAC9 /* Utils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		6B2AF15C21FC2B09005F39EE /* Canvas */ = {
+			isa = PBXGroup;
+			children = (
+				6B31D2CE21F3ED41000CFA44 /* Canvas.swift */,
+			);
+			path = Canvas;
+			sourceTree = "<group>";
+		};
+		6B31D2AA21F38D55000CFA44 = {
+			isa = PBXGroup;
+			children = (
 				6B31D2B521F38D55000CFA44 /* CelebScope */,
 				6B31D2B421F38D55000CFA44 /* Products */,
 				0BDA207D80BA0CF913CA6DD1 /* Pods */,
@@ -112,11 +169,10 @@
 				6B354CD521F61ABA00C6176C /* Kayla_Person-small.jpg */,
 				6B31D2BF21F38D58000CFA44 /* LaunchScreen.storyboard */,
 				6B31D2C221F38D58000CFA44 /* Info.plist */,
-				6B31D2CE21F3ED41000CFA44 /* Canvas.swift */,
-				6B354CD321F617DE00C6176C /* UIImageViewPointConversion.swift */,
-				6B2574AF21F75EB30039FAC9 /* Utils.swift */,
-				6BFE4D9021F9A18200B7A50D /* PersonCollectionViewCell.swift */,
-				6BD4741921FA468400163D0C /* ZoomableImageView.swift */,
+				6B2AF15C21FC2B09005F39EE /* Canvas */,
+				6B2AF15B21FC2AFC005F39EE /* Utils */,
+				6B2AF15721FC2949005F39EE /* People */,
+				6B2AF15A21FC2ACE005F39EE /* Image */,
 			);
 			path = CelebScope;
 			sourceTree = "<group>";
