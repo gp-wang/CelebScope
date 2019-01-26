@@ -25,7 +25,7 @@ class ViewController:  UIViewController {
         return canvas
     } ()
     
-
+    
     // gw: for the person list view
     let peopleCollectionVC: CollectionViewController = {
         let _flowLayout = UICollectionViewFlowLayout()
@@ -37,12 +37,9 @@ class ViewController:  UIViewController {
     // gw: for the photo view
     let zoomableImageVC = ZoomableImageViewController()
     
-    
-
     // Auto Layout
     var portraitConstraints = [NSLayoutConstraint]()
     var landscapeConstraints = [NSLayoutConstraint]()
-    
     
     
     // gw: for the person details view
@@ -50,7 +47,6 @@ class ViewController:  UIViewController {
     // var pages = [UIViewController]()
     // let pageControl = UIPageControl()
     
-  
     
     // manually marked face bbox in team.jpg
     var faces : [CGRect] = [
@@ -79,8 +75,6 @@ class ViewController:  UIViewController {
         // zoomableImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(canvas)
         view.addSubview(detailPagedVC.view)
-        
-        
         
         self.setupLayoutConstraints()
         // zoomableImageView.setupLayoutConstraints()
@@ -124,8 +118,6 @@ class ViewController:  UIViewController {
 //            self.zoomableImageView.zoom(to: faceBbox, with: Constants.contentSpanRatio, animated: true)
 //            sleep(3)
 //        }
-        
-        
         
     }
     
@@ -205,7 +197,7 @@ class ViewController:  UIViewController {
 extension ViewController {
     
     private func setupLayoutConstraints() {
-       setupPhotoViewConstraints()
+        setupPhotoViewConstraints()
         setupCanvasConstraints()
         setupCollectionViewConstraints()
         setupPageViewConstraints()

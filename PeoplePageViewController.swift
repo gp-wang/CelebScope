@@ -50,7 +50,8 @@ class PeoplePageViewController: UIPageViewController {
         
         
         self.view.addSubview(self.pageControl)
-        
+
+        self.view.translatesAutoresizingMaskIntoConstraints = false         // gw: note to add this
         self.pageControl.translatesAutoresizingMaskIntoConstraints = false
         setupInternalLayoutConstraints()
         
