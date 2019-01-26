@@ -3,20 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		27DF189B5506288758606AFEC027F6CB /* FaceCropper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3846643A5B39DF20B4859877822E4DBB /* FaceCropper.swift */; };
 		47107E144F0EDA5BEC88446C34F0B4C9 /* Pods-CelebScope-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 82ACA3C6F2024D70ED037113DF171961 /* Pods-CelebScope-dummy.m */; };
 		63B0E16AFB41FCACF1416CF2C76DAEF3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B309FE113AF30DFA127596BC6DB56A9 /* Foundation.framework */; };
+		6B2AF16B21FCCAB9005F39EE /* Face.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2AF16A21FCCAB9005F39EE /* Face.swift */; };
 		6BD18D168A7015F2D56B90CA03BDEE7E /* FaceCropper-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1263745E5F88B1434B20557EBFE2CE6E /* FaceCropper-dummy.m */; };
 		6E34269C1BB309FE5327B541AFCC8E03 /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED5FB1104EE81B4E3A7D5AD204A7184C /* Vision.framework */; };
 		9741456157D3D33BBF9CB464DCB8C063 /* FaceCropper-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 82384C715612B25EBB62BD772B205FAA /* FaceCropper-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BB2026E76A1C30C9540981A0038C1ABD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B309FE113AF30DFA127596BC6DB56A9 /* Foundation.framework */; };
 		C19313A5F4F3560B95F13D37C92812FB /* Pods-CelebScope-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A5D7742B9BE1E1C8B656595D25A4A61 /* Pods-CelebScope-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4F568BCEF8A802211DE0144772E540B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF785FF55FA4A8F10520061092C67796 /* UIKit.framework */; };
-		E371D9B685BC4169AD4F79F61496889C /* CroppedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9F3AF01F106E6147A5C3B358EE56C9 /* CroppedImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,27 +32,27 @@
 /* Begin PBXFileReference section */
 		0E62B1863EEBC59D96233A99F2E9E43E /* FaceCropper-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FaceCropper-prefix.pch"; sourceTree = "<group>"; };
 		1263745E5F88B1434B20557EBFE2CE6E /* FaceCropper-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FaceCropper-dummy.m"; sourceTree = "<group>"; };
-		221FD1EF4857ACD38097639B6D8A678E /* FaceCropper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FaceCropper.framework; path = FaceCropper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		221FD1EF4857ACD38097639B6D8A678E /* FaceCropper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FaceCropper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DF3F3D8D10CAC6654E91187C362372B /* Pods-CelebScope-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CelebScope-acknowledgements.markdown"; sourceTree = "<group>"; };
-		35CFE7D4121107C6832C81FAAED7D223 /* Pods_CelebScope.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_CelebScope.framework; path = "Pods-CelebScope.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		35CFE7D4121107C6832C81FAAED7D223 /* Pods_CelebScope.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CelebScope.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3846643A5B39DF20B4859877822E4DBB /* FaceCropper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FaceCropper.swift; path = FaceCropper/Classes/FaceCropper.swift; sourceTree = "<group>"; };
-		3B9F3AF01F106E6147A5C3B358EE56C9 /* CroppedImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CroppedImage.swift; path = FaceCropper/Classes/CroppedImage.swift; sourceTree = "<group>"; };
 		4B309FE113AF30DFA127596BC6DB56A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		5AE09C022A413E60E07CB12EAF0F7C3B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6267AF51A9CCE25D226CB465D2C5F42D /* Pods-CelebScope.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CelebScope.release.xcconfig"; sourceTree = "<group>"; };
 		660595D5785830FF438B17D3289DC8ED /* Pods-CelebScope-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CelebScope-acknowledgements.plist"; sourceTree = "<group>"; };
+		6B2AF16A21FCCAB9005F39EE /* Face.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Face.swift; path = FaceCropper/Classes/Face.swift; sourceTree = "<group>"; };
 		7DF6C462B0A74F2E2B97A739BDE21F32 /* Pods-CelebScope.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CelebScope.debug.xcconfig"; sourceTree = "<group>"; };
 		82384C715612B25EBB62BD772B205FAA /* FaceCropper-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FaceCropper-umbrella.h"; sourceTree = "<group>"; };
 		82ACA3C6F2024D70ED037113DF171961 /* Pods-CelebScope-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CelebScope-dummy.m"; sourceTree = "<group>"; };
 		92ADABF774D9A6EB62E77BF36D651587 /* Pods-CelebScope-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CelebScope-frameworks.sh"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		93F46BAB652797B02F9FD4AEBDFA48C9 /* FaceCropper.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = FaceCropper.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93F46BAB652797B02F9FD4AEBDFA48C9 /* FaceCropper.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = FaceCropper.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		94C4CC61CB0B4DEDC0CD75C1E58E40B5 /* Pods-CelebScope.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-CelebScope.modulemap"; sourceTree = "<group>"; };
 		9A5D7742B9BE1E1C8B656595D25A4A61 /* Pods-CelebScope-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CelebScope-umbrella.h"; sourceTree = "<group>"; };
-		B0C2A291D1C086E817C978A533AD079B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		B0C2A291D1C086E817C978A533AD079B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		C573791E26AB4242645A175A96E2E7B0 /* FaceCropper.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = FaceCropper.modulemap; sourceTree = "<group>"; };
 		CF785FF55FA4A8F10520061092C67796 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		D3AE2FB8CD1FB81977AB0F122A08FFEC /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		D3AE2FB8CD1FB81977AB0F122A08FFEC /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D5E3AB8BCF496D0315ACB383FAF02335 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1CEE32EE02725D9EB415D7DACD02004 /* Pods-CelebScope-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CelebScope-resources.sh"; sourceTree = "<group>"; };
 		ED5FB1104EE81B4E3A7D5AD204A7184C /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Vision.framework; sourceTree = DEVELOPER_DIR; };
@@ -135,7 +135,7 @@
 		85CAACF1231934F03682914B3146525D /* FaceCropper */ = {
 			isa = PBXGroup;
 			children = (
-				3B9F3AF01F106E6147A5C3B358EE56C9 /* CroppedImage.swift */,
+				6B2AF16A21FCCAB9005F39EE /* Face.swift */,
 				3846643A5B39DF20B4859877822E4DBB /* FaceCropper.swift */,
 				266FC0894EDD8440895EE1BD8A12FCB8 /* Pod */,
 				48460B65E20A767C1F09E5D059158153 /* Support Files */,
@@ -305,8 +305,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E371D9B685BC4169AD4F79F61496889C /* CroppedImage.swift in Sources */,
 				6BD18D168A7015F2D56B90CA03BDEE7E /* FaceCropper-dummy.m in Sources */,
+				6B2AF16B21FCCAB9005F39EE /* Face.swift in Sources */,
 				27DF189B5506288758606AFEC027F6CB /* FaceCropper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -407,11 +407,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-CelebScope/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-CelebScope/Pods-CelebScope.modulemap";
 				OTHER_LDFLAGS = "";
@@ -482,8 +478,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};
@@ -507,11 +502,7 @@
 				INFOPLIST_FILE = "Target Support Files/FaceCropper/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/FaceCropper/FaceCropper.modulemap";
 				PRODUCT_MODULE_NAME = FaceCropper;
 				PRODUCT_NAME = FaceCropper;
@@ -544,11 +535,7 @@
 				INFOPLIST_FILE = "Target Support Files/FaceCropper/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/FaceCropper/FaceCropper.modulemap";
 				PRODUCT_MODULE_NAME = FaceCropper;
 				PRODUCT_NAME = FaceCropper;
@@ -580,11 +567,7 @@
 				INFOPLIST_FILE = "Target Support Files/Pods-CelebScope/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-CelebScope/Pods-CelebScope.modulemap";
 				OTHER_LDFLAGS = "";

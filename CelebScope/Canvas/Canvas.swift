@@ -105,7 +105,7 @@ extension Canvas : UIScrollViewDelegate {
     }
     
     private func updateAnnotation(scrollView: UIScrollView) {
-        
+        //TODO: need to check whether both ends are visible
         guard let collectionView = scrollView as? UICollectionView,
             let collectionViewFlowLayout =  collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
                 NSLog("failed to convert scrollView to collectionView or layout as flow layout")

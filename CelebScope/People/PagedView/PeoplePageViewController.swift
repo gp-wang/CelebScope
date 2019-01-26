@@ -12,6 +12,8 @@ import UIKit
 
 class PeoplePageViewController: UIPageViewController {
     
+
+    
     var pages = [UIViewController]()
     let pageControl = UIPageControl()
     
