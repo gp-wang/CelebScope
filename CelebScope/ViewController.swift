@@ -49,6 +49,8 @@ class ViewController:  UIViewController {
     // let pageControl = UIPageControl()
     
     
+    
+    var identificationResults: [Identification] = []
    
     
     
@@ -87,18 +89,20 @@ class ViewController:  UIViewController {
         
         let dummyCGImage = UIImage(imageLiteralResourceName: "kelly").cgImage!
         
-        var identificationResults: [Identification] = [
+        identificationResults = [
             Identification(face: Face(boundingBox: CGRect(x: 46, y: 32, width: 140, height: 140),
                                       image: dummyCGImage.copy()!), person: Person(id: 0, name: "J.Law")),
             
             Identification(face: Face(boundingBox: CGRect(x: 215, y: 156, width: 141, height: 141),
-                                      image: CGImage.copy(dummyCGImage)!), person: Person(id: 0, name: "Ellen")),
+                                      image: dummyCGImage.copy()!), person: Person(id: 0, name: "Ellen")),
             Identification(face: Face(boundingBox: CGRect(x: 337, y: 172, width: 187, height: 187),
-                                      image: CGImage.copy(dummyCGImage)!), person: Person(id: 0, name: "The Man")),
+                                      image: dummyCGImage.copy()!), person: Person(id: 0, name: "The Man")),
             Identification(face: Face(boundingBox:  CGRect(x: 524, y: 109, width: 118, height: 118),
-                                      image: CGImage.copy(dummyCGImage)!), person: Person(id: 0, name: "The Other Man")),
+                                      image: dummyCGImage.copy()!), person: Person(id: 0, name: "The Other Man")),
         
         ]
+        
+        detailPagedVC.populate(identificationResults: identificationResults)
    
     }
     
@@ -453,11 +457,11 @@ extension ViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
         // set the pageControl.currentPage to the index of the current viewController in pages
-        if let viewControllers = pageViewController.viewControllers {
+        if let viewControllers = pageViewController.viewControllers as? [SinglePersonPageViewController] {
             if let viewControllerIndex = self.detailPagedVC.pages.index(of: viewControllers[0]) {
                 self.detailPagedVC.pageControl.currentPage = viewControllerIndex
                 print("didFinishAnimating: \(viewControllerIndex)")
-                self.zoomableImageVC.zoomableImageView.zoom(to: self.faces[viewControllerIndex], with: Constants.contentSpanRatio, animated: true)
+                self.zoomableImageVC.zoomableImageView.zoom(to: self.identificationResults[viewControllerIndex].face.rect, with: Constants.contentSpanRatio, animated: true)
             }
         }
         

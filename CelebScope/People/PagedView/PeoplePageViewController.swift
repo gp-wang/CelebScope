@@ -15,7 +15,20 @@ class PeoplePageViewController: UIPageViewController {
 
     
     var pages = [SinglePersonPageViewController]()
-    let pageControl = UIPageControl()
+    let pageControl: UIPageControl = {
+        let _pageControl = UIPageControl()
+        
+        // pageControl
+        // gw: modified
+        // self.pageControl.frame = CGRect()
+        _pageControl.currentPageIndicatorTintColor = UIColor.black
+        _pageControl.pageIndicatorTintColor = UIColor.lightGray
+        _pageControl.numberOfPages = 0 // don't forget to update in populate()
+        _pageControl.translatesAutoresizingMaskIntoConstraints = false
+        
+        return _pageControl
+    } ()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +45,9 @@ class PeoplePageViewController: UIPageViewController {
         }
         
         let initialPage = 0
+        setViewControllers([pages[initialPage]], direction: .forward, animated: true, completion: nil)
         self.pageControl.currentPage = initialPage
+        self.pageControl.numberOfPages = pages.count
     }
     
     
@@ -46,20 +61,12 @@ class PeoplePageViewController: UIPageViewController {
         //gw: moved to main VC
         //self.delegate = self
 
-        
-        // pageControl
-        // gw: modified
-        // self.pageControl.frame = CGRect()
-        self.pageControl.currentPageIndicatorTintColor = UIColor.black
-        self.pageControl.pageIndicatorTintColor = UIColor.lightGray
-        self.pageControl.numberOfPages = self.pages.count
-       
-        
+   
         
         self.view.addSubview(self.pageControl)
 
         self.view.translatesAutoresizingMaskIntoConstraints = false         // gw: note to add this
-        self.pageControl.translatesAutoresizingMaskIntoConstraints = false
+        
         setupInternalLayoutConstraints()
         
         
@@ -85,7 +92,7 @@ extension PeoplePageViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
-        if let viewControllerIndex = self.pages.index(of: viewController) {
+        if let viewControllers = self.pages as? [UIViewController], let viewControllerIndex = viewControllers.index(of: viewController) {
             if viewControllerIndex == 0 {
                 // wrap to last page in array
                 return self.pages.last
@@ -103,7 +110,7 @@ extension PeoplePageViewController: UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
-        if let viewControllerIndex = self.pages.index(of: viewController) {
+        if let viewControllers = self.pages as? [UIViewController], let viewControllerIndex = viewControllers.index(of: viewController) {
             if viewControllerIndex < self.pages.count - 1 {
                 // go to next page in array
                 return self.pages[viewControllerIndex + 1]

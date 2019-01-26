@@ -7,7 +7,7 @@
 //
 import Foundation
 
-class Person {
+public class Person {
     let id: Int
     let name: String
     
@@ -20,7 +20,7 @@ class Person {
     
     // MARK: - constructors
     
-    init(id: Int, name: String, avartar: URL? = nil, birthDate: Date? = nil,
+    public init(id: Int, name: String, avartar: URL? = nil, birthDate: Date? = nil,
          birthPlace: String? = nil, imdbId: String? = nil,  bio: String? = nil) {
         self.id = id
         self.name = name
