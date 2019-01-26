@@ -77,14 +77,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6B2AF15621FC2912005F39EE /* Pages */ = {
-			isa = PBXGroup;
-			children = (
-				6B20976F21FB5E9A0066CDD8 /* SinglePersonPageViewController.swift */,
-			);
-			path = Pages;
-			sourceTree = "<group>";
-		};
 		6B2AF15721FC2949005F39EE /* People */ = {
 			isa = PBXGroup;
 			children = (
@@ -99,7 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				6B20977F21FBC20C0066CDD8 /* PeoplePageViewController.swift */,
-				6B2AF15621FC2912005F39EE /* Pages */,
+				6B20976F21FB5E9A0066CDD8 /* SinglePersonPageViewController.swift */,
 			);
 			path = PagedView;
 			sourceTree = "<group>";
