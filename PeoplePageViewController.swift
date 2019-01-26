@@ -25,7 +25,7 @@ class PeoplePageViewController: UIPageViewController {
     init() {
         
         // gw: has to use this constructor because super.init() does not exists, the param here is for dummy purpose
-        super.init(transitionStyle: .pageCurl, navigationOrientation: .vertical)
+        super.init(transitionStyle: .pageCurl, navigationOrientation: .horizontal)
         
         self.dataSource = self
         self.delegate = self

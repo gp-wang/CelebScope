@@ -81,7 +81,8 @@ class ViewController:  UIViewController {
         // setupZoomableImageViewLayout()
         
         // little trick to bring inherent collectionView to front
-        view.bringSubviewToFront(self.peopleCollectionVC.collectionView)
+        //view.bringSubviewToFront(self.peopleCollectionVC.collectionView)
+        view.bringSubviewToFront(detailPagedVC.view)
         
         peopleCollectionVC.collectionView?.backgroundColor = UIColor.white
         peopleCollectionVC.collectionView?.translatesAutoresizingMaskIntoConstraints = false
