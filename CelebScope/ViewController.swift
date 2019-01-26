@@ -452,6 +452,7 @@ extension ViewController: UIPageViewControllerDelegate {
             if let viewControllerIndex = self.detailPagedVC.pages.index(of: viewControllers[0]) {
                 self.detailPagedVC.pageControl.currentPage = viewControllerIndex
                 print("didFinishAnimating: \(viewControllerIndex)")
+                self.zoomableImageVC.zoomableImageView.zoom(to: self.faces[viewControllerIndex], with: Constants.contentSpanRatio, animated: true)
             }
         }
         
