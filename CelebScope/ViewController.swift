@@ -8,6 +8,7 @@
 
 import UIKit
 
+import FaceCropper
 
 class ViewController:  UIViewController {
     private struct Constants {
@@ -48,14 +49,7 @@ class ViewController:  UIViewController {
     // let pageControl = UIPageControl()
     
     
-    // manually marked face bbox in team.jpg
-    var faces : [CGRect] = [
-        CGRect(x: 46, y: 32, width: 140, height: 140), // Jeniffer Lawrence
-        CGRect(x: 215, y: 156, width: 141, height: 141), // Ellen
-        CGRect(x: 337, y: 172, width: 187, height: 187), // the Man
-        CGRect(x: 524, y: 109, width: 118, height: 118), // the other Man
-    
-    ]
+   
     
     
     // MARK: - Constructor
@@ -78,6 +72,33 @@ class ViewController:  UIViewController {
         view.addSubview(detailPagedVC.view)
         
         self.setupLayoutConstraints()
+        
+        
+        // -- dummy
+        
+        // manually marked face bbox in team.jpg
+        var faces : [CGRect] = [
+            CGRect(x: 46, y: 32, width: 140, height: 140), // Jeniffer Lawrence
+            CGRect(x: 215, y: 156, width: 141, height: 141), // Ellen
+            CGRect(x: 337, y: 172, width: 187, height: 187), // the Man
+            CGRect(x: 524, y: 109, width: 118, height: 118), // the other Man
+            
+        ]
+        
+        let dummyCGImage = UIImage(imageLiteralResourceName: "kelly").cgImage!
+        
+        var identificationResults: [Identification] = [
+            Identification(face: Face(boundingBox: CGRect(x: 46, y: 32, width: 140, height: 140),
+                                      image: dummyCGImage.copy()!), person: Person(id: 0, name: "J.Law")),
+            
+            Identification(face: Face(boundingBox: CGRect(x: 215, y: 156, width: 141, height: 141),
+                                      image: CGImage.copy(dummyCGImage)!), person: Person(id: 0, name: "Ellen")),
+            Identification(face: Face(boundingBox: CGRect(x: 337, y: 172, width: 187, height: 187),
+                                      image: CGImage.copy(dummyCGImage)!), person: Person(id: 0, name: "The Man")),
+            Identification(face: Face(boundingBox:  CGRect(x: 524, y: 109, width: 118, height: 118),
+                                      image: CGImage.copy(dummyCGImage)!), person: Person(id: 0, name: "The Other Man")),
+        
+        ]
    
     }
     

@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import FaceCropper
 
-// a matching between a Face (from photo) and a Person (from your backend server known people set)
+// a face identification result between a Face (from photo) and a Person (from your backend server known people set)
 class Identification {
     
     let face: Face
