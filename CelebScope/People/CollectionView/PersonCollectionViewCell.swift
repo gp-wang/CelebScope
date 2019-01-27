@@ -52,7 +52,8 @@ class PersonCollectionViewCell: UICollectionViewCell {
         _label.backgroundColor = UIColor.green
         _label.lineBreakMode = .byWordWrapping
         _label.adjustsFontSizeToFitWidth = true
-        _label.numberOfLines = 1
+        _label.textAlignment = .center
+        _label.numberOfLines = 2
         
         return _label
     } ()
@@ -168,8 +169,8 @@ class PersonCollectionViewCell: UICollectionViewCell {
         
         // nameLabel
         var nameLabelWrapper_V = NSLayoutConstraint.constraints(
-            //withVisualFormat: "V:[croppedFaceView]-[nameLabel]-|",
-            withVisualFormat: "V:[croppedFaceView]-[nameLabelWrapperView]-|",
+            //withVisualFormat: "V:|-[nameLabel]-|",
+            withVisualFormat: "V:[croppedFaceView]-[nameLabelWrapperView]|", // gw: has to reduce padding, otherwise full name won't show
             metrics: nil,
             //options: []
             views: views)
