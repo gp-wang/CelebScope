@@ -17,34 +17,43 @@ class SinglePersonPageViewController: UIViewController {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .red
+        imageView.contentMode = .scaleAspectFit
         return imageView
     } ()
+    
     let nameLabel: UILabel = {
         let _label = UILabel()
         _label.translatesAutoresizingMaskIntoConstraints = false
         _label.backgroundColor = .red
-        _label.text = "Xxxxxxxxx"
+        _label.font = UIFont.preferredFont(forTextStyle: .headline)
         return _label
     } ()
+    
     let professionLabel: UILabel = {
         let _label = UILabel()
         _label.translatesAutoresizingMaskIntoConstraints = false
         _label.backgroundColor = .red
-        _label.text = "Xxxxxxxxx"
+        _label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         return _label
     } ()
+    
     let bioLabel: UILabel = {
         let _label = UILabel()
         _label.translatesAutoresizingMaskIntoConstraints = false
         _label.backgroundColor = .red
-        _label.text = "Xxxxxxxxx Xxxxxxxxx Xxxxxxxxx Xxxxxxxxx Xxxxxxxxx Xxxxxxxxx Xxxxxxxxx"
+        _label.font = UIFont.preferredFont(forTextStyle: .body)
+        _label.lineBreakMode = .byWordWrapping
+        _label.numberOfLines = 4
         return _label
     } ()
+    
     let birthDeathDateLabel: UILabel = {
         let _label = UILabel()
         _label.translatesAutoresizingMaskIntoConstraints = false
         _label.backgroundColor = .red
-        _label.text = "Xxxxxxxxx"
+        _label.font = UIFont.preferredFont(forTextStyle: .footnote)
+        _label.textAlignment = .right   // first line,
+        
         return _label
     } ()
     
@@ -58,14 +67,12 @@ class SinglePersonPageViewController: UIViewController {
         avartarView.image = faceIdentification.person.avartar?.copy() as? UIImage
         
         nameLabel.text = faceIdentification.person.name
-        nameLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         
         professionLabel.text = faceIdentification.person.profession
-        professionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        
         
         bioLabel.text = faceIdentification.person.bio ?? ""
-        bioLabel.font = UIFont.preferredFont(forTextStyle: .body)
-        
+ 
         var birthDeathDateStr = ""
         if let _birthDate = faceIdentification.person.birthDate {
             birthDeathDateStr = Utils.yearFormatter.string(from:_birthDate) + " - "
@@ -74,7 +81,7 @@ class SinglePersonPageViewController: UIViewController {
             }
         }
         birthDeathDateLabel.text = birthDeathDateStr
-        birthDeathDateLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+ 
         
         view.addSubview(avartarView)
         view.addSubview(nameLabel)
@@ -101,7 +108,7 @@ class SinglePersonPageViewController: UIViewController {
             "nameLabel": nameLabel,
             "professionLabel": professionLabel,
             "bioLabel": bioLabel,
-            "birthDateLabel": birthDeathDateLabel
+            "birthDeathDateLabel": birthDeathDateLabel
             ]
         
 
@@ -119,22 +126,24 @@ class SinglePersonPageViewController: UIViewController {
             avartarView.widthAnchor.constraint(equalTo: avartarView.heightAnchor, multiplier: avartarImageWHRatio),
             avartarView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             //---- labels horizontal
-            nameLabel.leadingAnchor.constraint(equalTo: avartarView.trailingAnchor, constant: 20),
+            //nameLabel.leadingAnchor.constraint(equalTo: avartarView.trailingAnchor, constant: 20),
             professionLabel.leadingAnchor.constraint(equalTo: avartarView.trailingAnchor, constant: 20),
-            birthDeathDateLabel.leadingAnchor.constraint(equalTo: avartarView.trailingAnchor, constant: 20),
+            //birthDeathDateLabel.leadingAnchor.constraint(equalTo: avartarView.trailingAnchor, constant: 20),
             bioLabel.leadingAnchor.constraint(equalTo: avartarView.trailingAnchor, constant: 20),
             
-            nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            //nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             professionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            birthDeathDateLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            //birthDeathDateLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             bioLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             
             //---- labels vertical
             nameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+            birthDeathDateLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
             
             professionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
-            birthDeathDateLabel.topAnchor.constraint(equalTo: professionLabel.bottomAnchor, constant: 10),
-            bioLabel.topAnchor.constraint(equalTo: birthDeathDateLabel.bottomAnchor, constant: 10),
+            
+            bioLabel.topAnchor.constraint(equalTo: professionLabel.bottomAnchor, constant: 10),
+            bioLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 20),
             bioLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
             
         ]
@@ -146,11 +155,11 @@ class SinglePersonPageViewController: UIViewController {
 //            views: views)
 //        allConstraints += labelVerticalConstrains
         
-//        let labelHorizontalConstrains = NSLayoutConstraint.constraints(
-//            withVisualFormat: "H:|-20-[]-20-|",
-//            metrics: nil,
-//            views: views)
-//        allConstraints += labelHorizontalConstrains
+        let labelHorizontalConstrains = NSLayoutConstraint.constraints(
+            withVisualFormat: "H:|-20-[nameLabel]-15-[birthDeathDateLabel]-20-|",
+            metrics: nil,
+            views: views)
+        allConstraints += labelHorizontalConstrains
 
 
         NSLayoutConstraint.activate(allConstraints)
