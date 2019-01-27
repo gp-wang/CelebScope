@@ -37,7 +37,7 @@ class SinglePersonPageViewController: UIViewController {
         let _label = UILabel()
         _label.translatesAutoresizingMaskIntoConstraints = false
         _label.backgroundColor = .red
-        _label.text = "Xxxxxxxxx"
+        _label.text = "Xxxxxxxxx Xxxxxxxxx Xxxxxxxxx Xxxxxxxxx Xxxxxxxxx Xxxxxxxxx Xxxxxxxxx"
         return _label
     } ()
     let birthDateLabel: UILabel = {
@@ -54,7 +54,21 @@ class SinglePersonPageViewController: UIViewController {
         self.identification = faceIdentification
         // gw: boilerplate
         super.init(nibName: nil, bundle: nil)
-
+        
+        avartarView.image = faceIdentification.person.avartar?.copy() as? UIImage
+        nameLabel.text = faceIdentification.person.name
+        professionLabel.text = faceIdentification.person.profession
+        bioLabel.text = faceIdentification.person.bio ?? ""
+        if let _birthDate = faceIdentification.person.birthDate {
+            birthDateLabel.text = Utils.yearFormatter.string(from:_birthDate)
+        }
+        
+        
+        view.addSubview(avartarView)
+        view.addSubview(nameLabel)
+        view.addSubview(professionLabel)
+        view.addSubview(bioLabel)
+        view.addSubview(birthDateLabel)
         
         // label
 //        self.view.addSubview(labelInst)
@@ -79,11 +93,38 @@ class SinglePersonPageViewController: UIViewController {
             ]
         
 
-        var allConstraints: [NSLayoutConstraint] = []
+        
+        var avartarImageWHRatio: CGFloat = 214.0 / 317.0  // default avartar ratio in imdb celeb page
+        if let _avartarImage = avartarView.image {
+            avartarImageWHRatio = _avartarImage.size.width / _avartarImage.size.height
+        }
+        var allConstraints: [NSLayoutConstraint] = [
+            
+            
+            
+            avartarView.topAnchor.constraint(equalTo: view.topAnchor),
+            avartarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            avartarView.widthAnchor.constraint(equalTo: avartarView.heightAnchor, multiplier: avartarImageWHRatio),
+            avartarView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            //---- labels horizontal
+            nameLabel.leadingAnchor.constraint(equalTo: avartarView.trailingAnchor, constant: 20),
+            professionLabel.leadingAnchor.constraint(equalTo: avartarView.trailingAnchor, constant: 20),
+            bioLabel.leadingAnchor.constraint(equalTo: avartarView.trailingAnchor, constant: 20),
+            birthDateLabel.leadingAnchor.constraint(equalTo: avartarView.trailingAnchor, constant: 20),
+            //---- labels vertical
+            nameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            professionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 20),
+            bioLabel.topAnchor.constraint(equalTo: professionLabel.bottomAnchor, constant: 20),
+            birthDateLabel.topAnchor.constraint(equalTo: bioLabel.bottomAnchor, constant: 20),
+        ]
+        
       
-        
-        
-        
+//        let labelVerticalConstrains = NSLayoutConstraint.constraints(
+//            withVisualFormat: "V:|-20-[nameLabel]-15-[professionLabel]-15-[bioLabel]-15-[birthDateLabel]-15-|",
+//            metrics: nil,
+//            views: views)
+//        allConstraints += labelVerticalConstrains
+
 
         NSLayoutConstraint.activate(allConstraints)
 
