@@ -72,6 +72,7 @@ class ViewController:  UIViewController {
         view.addSubview(zoomableImageVC.zoomableImageView)
         view.addSubview(canvas)
         view.addSubview(detailPagedVC.view)
+        detailPagedVC.view.isHidden = true
         
         self.setupLayoutConstraints()
         
