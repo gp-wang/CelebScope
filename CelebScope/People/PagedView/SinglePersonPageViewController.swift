@@ -40,7 +40,7 @@ class SinglePersonPageViewController: UIViewController {
         _label.text = "Xxxxxxxxx Xxxxxxxxx Xxxxxxxxx Xxxxxxxxx Xxxxxxxxx Xxxxxxxxx Xxxxxxxxx"
         return _label
     } ()
-    let birthDateLabel: UILabel = {
+    let birthDeathDateLabel: UILabel = {
         let _label = UILabel()
         _label.translatesAutoresizingMaskIntoConstraints = false
         _label.backgroundColor = .red
@@ -56,19 +56,31 @@ class SinglePersonPageViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         avartarView.image = faceIdentification.person.avartar?.copy() as? UIImage
-        nameLabel.text = faceIdentification.person.name
-        professionLabel.text = faceIdentification.person.profession
-        bioLabel.text = faceIdentification.person.bio ?? ""
-        if let _birthDate = faceIdentification.person.birthDate {
-            birthDateLabel.text = Utils.yearFormatter.string(from:_birthDate)
-        }
         
+        nameLabel.text = faceIdentification.person.name
+        nameLabel.font = UIFont.preferredFont(forTextStyle: .headline)
+        
+        professionLabel.text = faceIdentification.person.profession
+        professionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        
+        bioLabel.text = faceIdentification.person.bio ?? ""
+        bioLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        
+        var birthDeathDateStr = ""
+        if let _birthDate = faceIdentification.person.birthDate {
+            birthDeathDateStr = Utils.yearFormatter.string(from:_birthDate) + " - "
+            if let _deathDate = faceIdentification.person.deathDate {
+                birthDeathDateStr += Utils.yearFormatter.string(from:_deathDate)
+            }
+        }
+        birthDeathDateLabel.text = birthDeathDateStr
+        birthDeathDateLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         
         view.addSubview(avartarView)
         view.addSubview(nameLabel)
         view.addSubview(professionLabel)
         view.addSubview(bioLabel)
-        view.addSubview(birthDateLabel)
+        view.addSubview(birthDeathDateLabel)
         
         // label
 //        self.view.addSubview(labelInst)
@@ -89,7 +101,7 @@ class SinglePersonPageViewController: UIViewController {
             "nameLabel": nameLabel,
             "professionLabel": professionLabel,
             "bioLabel": bioLabel,
-            "birthDateLabel": birthDateLabel
+            "birthDateLabel": birthDeathDateLabel
             ]
         
 
@@ -109,21 +121,36 @@ class SinglePersonPageViewController: UIViewController {
             //---- labels horizontal
             nameLabel.leadingAnchor.constraint(equalTo: avartarView.trailingAnchor, constant: 20),
             professionLabel.leadingAnchor.constraint(equalTo: avartarView.trailingAnchor, constant: 20),
+            birthDeathDateLabel.leadingAnchor.constraint(equalTo: avartarView.trailingAnchor, constant: 20),
             bioLabel.leadingAnchor.constraint(equalTo: avartarView.trailingAnchor, constant: 20),
-            birthDateLabel.leadingAnchor.constraint(equalTo: avartarView.trailingAnchor, constant: 20),
+            
+            nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            professionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            birthDeathDateLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            bioLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            
             //---- labels vertical
-            nameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
-            professionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 20),
-            bioLabel.topAnchor.constraint(equalTo: professionLabel.bottomAnchor, constant: 20),
-            birthDateLabel.topAnchor.constraint(equalTo: bioLabel.bottomAnchor, constant: 20),
+            nameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+            
+            professionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
+            birthDeathDateLabel.topAnchor.constraint(equalTo: professionLabel.bottomAnchor, constant: 10),
+            bioLabel.topAnchor.constraint(equalTo: birthDeathDateLabel.bottomAnchor, constant: 10),
+            bioLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
+            
         ]
         
       
 //        let labelVerticalConstrains = NSLayoutConstraint.constraints(
-//            withVisualFormat: "V:|-20-[nameLabel]-15-[professionLabel]-15-[bioLabel]-15-[birthDateLabel]-15-|",
+//            withVisualFormat: "V:|-10-[nameLabel]-10-[professionLabel]-10-[bioLabel]-10-[birthDateLabel]-10-|",
 //            metrics: nil,
 //            views: views)
 //        allConstraints += labelVerticalConstrains
+        
+//        let labelHorizontalConstrains = NSLayoutConstraint.constraints(
+//            withVisualFormat: "H:|-20-[]-20-|",
+//            metrics: nil,
+//            views: views)
+//        allConstraints += labelHorizontalConstrains
 
 
         NSLayoutConstraint.activate(allConstraints)

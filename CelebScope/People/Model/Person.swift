@@ -14,6 +14,7 @@ public class Person {
     
     let avartar: UIImage?
     let birthDate: Date?
+    let deathDate: Date?
     let birthPlace: String?
     let imdbId: String?
     let bio: String?
@@ -21,12 +22,13 @@ public class Person {
     
     // MARK: - constructors
     
-    public init(id: Int, name: String, avartar: UIImage? = nil, birthDate: Date? = nil,
+    public init(id: Int, name: String, avartar: UIImage? = nil, birthDate: Date? = nil, deathDate: Date? = nil,
                 birthPlace: String? = nil, imdbId: String? = nil,  bio: String? = nil, profession: String? = nil) {
         self.id = id
         self.name = name
         self.avartar = avartar
         self.birthDate = birthDate
+        self.deathDate = deathDate
         self.birthPlace = birthPlace
         self.imdbId = imdbId
         self.bio = bio

@@ -234,13 +234,13 @@ extension ViewController {
         // MARK: - portrait constraints
         
         
-        let photo_top_p = zoomableImageView.topAnchor.constraint(equalTo: view.topAnchor)
+        let photo_top_p = zoomableImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         photo_top_p.identifier = "photo_top_p"
         photo_top_p.isActive = false
         portraitConstraints.append(photo_top_p)
 
         // !deprecated: use fixed coll view hw ratio instead
-//        let photo_hw_ratio_p = zoomableImageView.heightAnchor.constraint(equalTo: view.widthAnchor,   multiplier: 1.333)
+//        let photo_hw_ratio_p = zoomableImageView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor,   multiplier: 1.333)
 //        photo_hw_ratio_p.identifier = "photo_hw_ratio_p"
 //        photo_hw_ratio_p.isActive = false
 //        portraitConstraints.append(photo_hw_ratio_p)
@@ -249,12 +249,12 @@ extension ViewController {
         photo_bot_p.isActive = false
         portraitConstraints.append(photo_bot_p)
         
-        let photo_lead_p = zoomableImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let photo_lead_p = zoomableImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
         photo_lead_p.identifier = "photo_lead_p"
         photo_lead_p.isActive = false
         portraitConstraints.append(photo_lead_p)
         
-        let photo_trail_p = zoomableImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let photo_trail_p = zoomableImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         photo_trail_p.identifier = "photo_trail_p"
         photo_trail_p.isActive = false
         portraitConstraints.append(photo_trail_p)
@@ -263,23 +263,23 @@ extension ViewController {
         
         // MARK: - landscape constraints
         
-        let photo_top_l = zoomableImageView.topAnchor.constraint(equalTo: view.topAnchor)
+        let photo_top_l = zoomableImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         photo_top_l.identifier = "photo_top_l"
         photo_top_l.isActive = false
         landscapeConstraints.append(photo_top_l)
         
-        let photo_bot_l = zoomableImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let photo_bot_l = zoomableImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         photo_bot_l.identifier = "photo_bot_l"
         photo_bot_l.isActive = false
         landscapeConstraints.append(photo_bot_l)
         
-        let photo_lead_l = zoomableImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let photo_lead_l = zoomableImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
         photo_lead_l.identifier = "photo_lead_l"
         photo_lead_l.isActive = false
         landscapeConstraints.append(photo_lead_l)
         
         // !deprecated: use fixed coll view hw ratio instead
-        //        let photo_wh_raio_l = zoomableImageView.widthAnchor.constraint(equalTo: view.heightAnchor,   multiplier: 1.333)
+        //        let photo_wh_raio_l = zoomableImageView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor,   multiplier: 1.333)
         //        photo_wh_raio_l.identifier = "photo_wh_raio_l"
         //        photo_wh_raio_l.isActive = false
         //        landscapeConstraints.append(photo_wh_raio_l)
@@ -361,36 +361,36 @@ extension ViewController {
 //        coll_top_p.identifier = "coll_top_p"
 //        coll_top_p.isActive = false
 //        portraitConstraints.append(coll_top_p)
-        let coll_hw_ratio_p = collectionView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.444)
+        let coll_hw_ratio_p = collectionView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.444)
         coll_hw_ratio_p.identifier = "coll_hw_ratio_p"
         coll_hw_ratio_p.isActive = false
         portraitConstraints.append(coll_hw_ratio_p)
         
         
-        let coll_bot_p = collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let coll_bot_p = collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         coll_bot_p.identifier = "coll_bot_p"
         coll_bot_p.isActive = false
         portraitConstraints.append(coll_bot_p)
         
-        let coll_lead_p = collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        let coll_lead_p = collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
         coll_lead_p.identifier = "coll_lead_p"
         coll_lead_p.isActive = false
         portraitConstraints.append(coll_lead_p)
         
-        let coll_trail_p = collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let coll_trail_p = collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         coll_trail_p.identifier = "coll_trail_p"
         coll_trail_p.isActive = false
         portraitConstraints.append(coll_trail_p)
         
         // MARK: - landscape constraints
         
-        let coll_top_l = collectionView.topAnchor.constraint(equalTo: view.topAnchor)
+        let coll_top_l = collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         coll_top_l.identifier = "coll_top_l"
         coll_top_l.isActive = false
         landscapeConstraints.append(coll_top_l)
         
         
-        let coll_bot_l = collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let coll_bot_l = collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         coll_bot_l.identifier = "coll_bot_l"
         coll_bot_l.isActive = false
         landscapeConstraints.append(coll_bot_l)
@@ -400,12 +400,12 @@ extension ViewController {
 //        coll_lead_l.identifier = "coll_lead_l"
 //        coll_lead_l.isActive = false
 //        landscapeConstraints.append(coll_lead_l)
-        let coll_hw_ratio_l = collectionView.widthAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.444)
+        let coll_hw_ratio_l = collectionView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.444)
         coll_hw_ratio_l.identifier = "coll_hw_ratio_l"
         coll_hw_ratio_l.isActive = false
         landscapeConstraints.append(coll_hw_ratio_l)
         
-        let coll_trail_l = collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        let coll_trail_l = collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         coll_trail_l.identifier = "coll_trail_l"
         coll_trail_l.isActive = false
         landscapeConstraints.append(coll_trail_l)
