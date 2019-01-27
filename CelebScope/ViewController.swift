@@ -174,9 +174,11 @@ class ViewController:  UIViewController {
             return
             
         }
-        var isVerticalScroll = false
+        
         if UIDevice.current.orientation.isLandscape {
-            isVerticalScroll = true
+            self.detailPagedVC.view.isHidden = true
+            self.peopleCollectionVC.collectionView?.isHidden = false
+            
             print("gw: adjusting to landscape")
             // gw: note: always disable previous rules first, then do enabling new rules
             // implications: if you enable new rule first, you will have a short time period with conflicting rules
@@ -191,7 +193,9 @@ class ViewController:  UIViewController {
 //            }
             
         } else {
-            isVerticalScroll = false
+            self.detailPagedVC.view.isHidden = false
+            self.peopleCollectionVC.collectionView?.isHidden = true
+            
             print("gw: adjusting to portrait")
             NSLayoutConstraint.deactivate(self.landscapeConstraints)
             NSLayoutConstraint.activate(self.portraitConstraints)
