@@ -29,16 +29,24 @@ class PersonCollectionViewCell: UICollectionViewCell {
         return _label
     } ()
     
-    let extendedPredictionLabel: UILabel = {
+//    let extendedPredictionLabel: UILabel = {
+//        let _label = UILabel()
+//        _label.translatesAutoresizingMaskIntoConstraints = false
+//        _label.backgroundColor = .green
+//        _label.font = UIFont.preferredFont(forTextStyle: .footnote)
+//        _label.lineBreakMode = .byWordWrapping
+//        _label.numberOfLines = 5
+//        return _label
+//    } ()
+    
+    let confidenceLabel: UILabel = {
         let _label = UILabel()
         _label.translatesAutoresizingMaskIntoConstraints = false
         _label.backgroundColor = .green
-        _label.font = UIFont.preferredFont(forTextStyle: .footnote)
-        _label.lineBreakMode = .byWordWrapping
-        _label.numberOfLines = 5
+        _label.font = UIFont.preferredFont(forTextStyle: .headline)
+        _label.text = "66%"
         return _label
     } ()
-    
     
     // MARK: - constructors
     override init(frame: CGRect) {
@@ -47,7 +55,8 @@ class PersonCollectionViewCell: UICollectionViewCell {
         self.translatesAutoresizingMaskIntoConstraints = false
         addSubview(croppedFaceView)
         addSubview(nameLabel)
-        addSubview(extendedPredictionLabel)
+        //addSubview(extendedPredictionLabel)
+        addSubview(confidenceLabel)
         
         self.backgroundColor = UIColor.red
         
@@ -65,7 +74,7 @@ class PersonCollectionViewCell: UICollectionViewCell {
         let views: [String: Any] = [
             "croppedFaceView": croppedFaceView,
             "nameLabel": nameLabel,
-            "extendedPredictionLabel": extendedPredictionLabel
+            "confidenceLabel": confidenceLabel
         ]
         
         var allConstraints: [NSLayoutConstraint] = []
@@ -74,11 +83,10 @@ class PersonCollectionViewCell: UICollectionViewCell {
         // cell constraints is done in: extension CollectionViewController: UICollectionViewDelegateFlowLayout
 
         // croppedFaceView
-        let croppedFaceView_V = NSLayoutConstraint.constraints(
-            withVisualFormat: "V:|-[croppedFaceView]-|",
-            metrics: nil,
-            //options: []
-            views: views)
+        let croppedFaceView_V = [
+            croppedFaceView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
+            croppedFaceView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.5),
+        ]
         let croppedFaceView_H = [
             croppedFaceView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             croppedFaceView.widthAnchor.constraint(equalTo: croppedFaceView.heightAnchor)
@@ -89,31 +97,25 @@ class PersonCollectionViewCell: UICollectionViewCell {
         
         // nameLabel
         let nameLabel_V = NSLayoutConstraint.constraints(
-            withVisualFormat: "V:|-[nameLabel]",
+            withVisualFormat: "V:[nameLabel]-|",
             metrics: nil,
             //options: []
             views: views)
-        let nameLabel_H = NSLayoutConstraint.constraints(
-            withVisualFormat: "H:[croppedFaceView]-10-[nameLabel]-|",
-            metrics: nil,
-            //options: []
-            views: views)
+        let nameLabel_H = [
+            nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8)
+        ]
         allConstraints += nameLabel_V
         allConstraints += nameLabel_H
         
-        // extendedPrediction
-        let extendedPredictionLabel_V = NSLayoutConstraint.constraints(
-            withVisualFormat: "V:[nameLabel]-[extendedPredictionLabel]",
-            metrics: nil,
-            //options: []
-            views: views)
-        let extendedPredictionLabel_H = NSLayoutConstraint.constraints(
-            withVisualFormat: "H:[croppedFaceView]-10-[extendedPredictionLabel]-|",
-            metrics: nil,
-            //options: []
-            views: views)
-        allConstraints += extendedPredictionLabel_V
-        allConstraints += extendedPredictionLabel_H
+        // confidenceLabel
+        let confidenceLabel_H = [
+            confidenceLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8)
+        ]
+        let confidenceLabel_V = [
+            confidenceLabel.centerYAnchor.constraint(equalTo: croppedFaceView.centerYAnchor)
+        ]
+        allConstraints += confidenceLabel_H
+        allConstraints += confidenceLabel_V
 
         
         

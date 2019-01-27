@@ -14,10 +14,12 @@ public class Identification {
     
     let face: Face
     let person: Person
+    let confidence: Double?
     
-    public init(face: Face, person: Person) {
+    public init(face: Face, person: Person, confidence: Double? = nil) {
         self.face = face
         self.person = person
+        self.confidence = confidence
     }
     
 }
