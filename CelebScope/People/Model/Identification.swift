@@ -13,6 +13,8 @@ import FaceCropper
 public class Identification {
     
     let face: Face
+    
+    // TODO: make one identification has 1 face but multiple (person, confidence) tuple list
     let person: Person
     let confidence: Double?
     

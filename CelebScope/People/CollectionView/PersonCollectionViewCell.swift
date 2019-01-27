@@ -8,8 +8,16 @@
 
 import UIKit
 
+
+//TODO: embed in paged VC for multiple prediction results
 class PersonCollectionViewCell: UICollectionViewCell {
     
+    private struct Constants {
+        static let faceViewWHRatio : CGFloat = 1.0
+        static let avartarViewWHRatio: CGFloat =  214.0 / 317.0
+    }
+    
+    //
     let croppedFaceView: UIImageView = {
         let _imageView = UIImageView()
         _imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -18,12 +26,20 @@ class PersonCollectionViewCell: UICollectionViewCell {
         return _imageView
     } ()
     
+    let avartarView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.backgroundColor = .green
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    } ()
+    
     
     let nameLabel : UILabel = {
         let _label = UILabel()
         _label.translatesAutoresizingMaskIntoConstraints = false
         _label.text = "Custome Label"
-        _label.font = UIFont.preferredFont(forTextStyle: .headline)
+        _label.font = UIFont.preferredFont(forTextStyle: .headline).withSize(15)
         _label.backgroundColor = UIColor.green
         
         return _label
@@ -43,7 +59,10 @@ class PersonCollectionViewCell: UICollectionViewCell {
         let _label = UILabel()
         _label.translatesAutoresizingMaskIntoConstraints = false
         _label.backgroundColor = .green
-        _label.font = UIFont.preferredFont(forTextStyle: .headline)
+        // _label.font = UIFont.preferredFont(forTextStyle: .headline)
+       
+     
+        _label.font =   UIFont.preferredFont(forTextStyle: .headline).withSize(20)
         _label.text = "66%"
         return _label
     } ()
@@ -55,7 +74,7 @@ class PersonCollectionViewCell: UICollectionViewCell {
         self.translatesAutoresizingMaskIntoConstraints = false
         addSubview(croppedFaceView)
         addSubview(nameLabel)
-        //addSubview(extendedPredictionLabel)
+        addSubview(avartarView)
         addSubview(confidenceLabel)
         
         self.backgroundColor = UIColor.red
@@ -73,6 +92,7 @@ class PersonCollectionViewCell: UICollectionViewCell {
     func setupInternalConstraints() {
         let views: [String: Any] = [
             "croppedFaceView": croppedFaceView,
+            "avartarView": avartarView,
             "nameLabel": nameLabel,
             "confidenceLabel": confidenceLabel
         ]
@@ -83,39 +103,66 @@ class PersonCollectionViewCell: UICollectionViewCell {
         // cell constraints is done in: extension CollectionViewController: UICollectionViewDelegateFlowLayout
 
         // croppedFaceView
-        let croppedFaceView_V = [
+        var croppedFaceView_V = [
             croppedFaceView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
             croppedFaceView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.5),
         ]
-        let croppedFaceView_H = [
+        var croppedFaceView_H = [
             croppedFaceView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-            croppedFaceView.widthAnchor.constraint(equalTo: croppedFaceView.heightAnchor)
+            croppedFaceView.widthAnchor.constraint(equalTo: croppedFaceView.heightAnchor, multiplier: Constants.faceViewWHRatio)
         ]
         allConstraints += croppedFaceView_V
         allConstraints += croppedFaceView_H
         
         
-        // nameLabel
-        let nameLabel_V = NSLayoutConstraint.constraints(
-            withVisualFormat: "V:[nameLabel]-|",
+        // confidenceLabel
+        var confidenceLabel_H = [NSLayoutConstraint]()
+        confidenceLabel_H += NSLayoutConstraint.constraints(
+            withVisualFormat: "H:[croppedFaceView]-[nameLabel]-[avartarView]",
             metrics: nil,
             //options: []
             views: views)
-        let nameLabel_H = [
-            nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8)
-        ]
-        allConstraints += nameLabel_V
-        allConstraints += nameLabel_H
         
-        // confidenceLabel
-        let confidenceLabel_H = [
-            confidenceLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8)
-        ]
-        let confidenceLabel_V = [
+        var confidenceLabel_V = [
             confidenceLabel.centerYAnchor.constraint(equalTo: croppedFaceView.centerYAnchor)
         ]
         allConstraints += confidenceLabel_H
         allConstraints += confidenceLabel_V
+        
+        // avartarView
+        var avartarView_H = [NSLayoutConstraint]()
+        avartarView_H += NSLayoutConstraint.constraints(
+            withVisualFormat: "H:[avartarView]-|",
+            metrics: nil,
+            //options: []
+            views: views)
+        avartarView_H += [
+            avartarView.widthAnchor.constraint(equalTo: avartarView.heightAnchor, multiplier: Constants.avartarViewWHRatio)
+        ]
+
+        var avartarView_V = [NSLayoutConstraint]()
+        avartarView_V += NSLayoutConstraint.constraints(
+            withVisualFormat: "V:|-[avartarView]-|",
+            metrics: nil,
+            //options: []
+            views: views)
+        allConstraints += avartarView_H
+        allConstraints += avartarView_V
+        
+        
+        
+        // nameLabel
+        let nameLabel_V = NSLayoutConstraint.constraints(
+            withVisualFormat: "V:[croppedFaceView]-[nameLabel]-|",
+            metrics: nil,
+            //options: []
+            views: views)
+        let nameLabel_H = [
+            nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor)
+        ]
+        allConstraints += nameLabel_V
+        allConstraints += nameLabel_H
+        
 
         
         
