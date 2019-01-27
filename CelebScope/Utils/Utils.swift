@@ -6,6 +6,7 @@
 //  Copyright © 2019 Gaopeng Wang. All rights reserved.
 //
 import CoreGraphics
+import Foundation
 
 // generate an data structure to be used for drawing annotation line from face location in PhotoView to People Table view cell
 func generateAnnotationPoints(_ beginPosition: CGPoint, _ endPosition: CGPoint, _ spanHoriozntally : Bool) -> [CGPoint] {
@@ -40,4 +41,17 @@ func generateAnnotationPoints(_ beginPosition: CGPoint, _ endPosition: CGPoint, 
             
         ]
     }
+}
+
+public class Utils {
+    static let yearFormatter : DateFormatter = {
+        
+        let _formatter = DateFormatter()
+        _formatter.dateFormat = "yyyy"
+        return _formatter
+    } ()
+        
+        
+  
+
 }

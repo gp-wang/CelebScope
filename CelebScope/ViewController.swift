@@ -91,7 +91,14 @@ class ViewController:  UIViewController {
         
         identificationResults = [
             Identification(face: Face(boundingBox: CGRect(x: 46, y: 32, width: 140, height: 140),
-                                      image: dummyCGImage.copy()!), person: Person(id: 0, name: "J.Law")),
+                                      image: dummyCGImage.copy()!),
+                           person: Person(
+                            id: 0,
+                            name: "J.Law",
+                            avartar: UIImage(imageLiteralResourceName: "jlaw"),
+                            birthDate: Utils.yearFormatter.date(from: "1990"),
+                            bio: "Was the highest-paid actress in the world in 2015 and 2016. With her films grossing over $5.5 billion worldwide, Jennifer Lawrence is often cited as the most successful actor of her generation. She is also thus far the only person born in the 1990s to have won an acting Oscar. Jennifer Shrader Lawrence was born August 15, 1990 in Louisville, ...",
+                            profession: "Actress, Soundtrack, Producer")),
             
             Identification(face: Face(boundingBox: CGRect(x: 215, y: 156, width: 141, height: 141),
                                       image: dummyCGImage.copy()!), person: Person(id: 0, name: "Ellen")),

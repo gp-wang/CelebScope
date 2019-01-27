@@ -11,7 +11,44 @@ import UIKit
 class SinglePersonPageViewController: UIViewController {
     
     let identification: Identification
-    let labelInst = UILabel()
+//    let labelInst = UILabel()
+    
+    let avartarView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.backgroundColor = .red
+        return imageView
+    } ()
+    let nameLabel: UILabel = {
+        let _label = UILabel()
+        _label.translatesAutoresizingMaskIntoConstraints = false
+        _label.backgroundColor = .red
+        _label.text = "Xxxxxxxxx"
+        return _label
+    } ()
+    let professionLabel: UILabel = {
+        let _label = UILabel()
+        _label.translatesAutoresizingMaskIntoConstraints = false
+        _label.backgroundColor = .red
+        _label.text = "Xxxxxxxxx"
+        return _label
+    } ()
+    let bioLabel: UILabel = {
+        let _label = UILabel()
+        _label.translatesAutoresizingMaskIntoConstraints = false
+        _label.backgroundColor = .red
+        _label.text = "Xxxxxxxxx"
+        return _label
+    } ()
+    let birthDateLabel: UILabel = {
+        let _label = UILabel()
+        _label.translatesAutoresizingMaskIntoConstraints = false
+        _label.backgroundColor = .red
+        _label.text = "Xxxxxxxxx"
+        return _label
+    } ()
+    
+    
     init(_ faceIdentification: Identification) {
         
         self.identification = faceIdentification
@@ -20,10 +57,9 @@ class SinglePersonPageViewController: UIViewController {
 
         
         // label
-        
-        self.view.addSubview(labelInst)
-        labelInst.text = identification.person.name
-        labelInst.translatesAutoresizingMaskIntoConstraints = false
+//        self.view.addSubview(labelInst)
+//        labelInst.text = identification.person.name
+//        labelInst.translatesAutoresizingMaskIntoConstraints = false
         
         setupInternalConstraints()
     }
@@ -33,8 +69,25 @@ class SinglePersonPageViewController: UIViewController {
     }
     
     private func setupInternalConstraints() {
-        labelInst.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50).isActive = true
-        labelInst.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 20).isActive = true
+
+        let views: [String: Any] = [
+            "avartarView": avartarView,
+            "nameLabel": nameLabel,
+            "professionLabel": professionLabel,
+            "bioLabel": bioLabel,
+            "birthDateLabel": birthDateLabel
+            ]
+        
+
+        var allConstraints: [NSLayoutConstraint] = []
+      
+        
+        
+        
+
+        NSLayoutConstraint.activate(allConstraints)
+
+        
     }
     
     override func viewDidLoad() {
