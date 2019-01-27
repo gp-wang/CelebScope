@@ -138,7 +138,7 @@ class SinglePersonPageViewController: UIViewController {
             
             //---- labels vertical
             nameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
-            birthDeathDateLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+            birthDeathDateLabel.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor),
             
             professionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
             
@@ -156,7 +156,7 @@ class SinglePersonPageViewController: UIViewController {
 //        allConstraints += labelVerticalConstrains
         
         let labelHorizontalConstrains = NSLayoutConstraint.constraints(
-            withVisualFormat: "H:|-20-[nameLabel]-15-[birthDeathDateLabel]-20-|",
+            withVisualFormat: "H:[avartarView]-20-[nameLabel]-15-[birthDeathDateLabel]-20-|",
             metrics: nil,
             views: views)
         allConstraints += labelHorizontalConstrains
