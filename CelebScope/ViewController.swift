@@ -186,9 +186,9 @@ class ViewController:  UIViewController {
             collectionViewFlowLayout.scrollDirection = .vertical
             // main queue likely needed to wait for correct size of bounds
             // gw: verified working
-            DispatchQueue.main.async {
-                collectionViewFlowLayout.itemSize = CGSize(width: self.peopleCollectionVC.collectionView.bounds.width, height: self.peopleCollectionVC.collectionView.bounds.width)
-            }
+//            DispatchQueue.main.async {
+//                collectionViewFlowLayout.itemSize = CGSize(width: self.peopleCollectionVC.collectionView.bounds.width, height: self.peopleCollectionVC.collectionView.bounds.width)
+//            }
             
         } else {
             isVerticalScroll = false
@@ -197,9 +197,9 @@ class ViewController:  UIViewController {
             NSLayoutConstraint.activate(self.portraitConstraints)
 
             collectionViewFlowLayout.scrollDirection = .horizontal
-            DispatchQueue.main.async {
-             collectionViewFlowLayout.itemSize = CGSize(width: self.peopleCollectionVC.collectionView.bounds.height, height: self.peopleCollectionVC.collectionView.bounds.height)
-            }
+//            DispatchQueue.main.async {
+//             collectionViewFlowLayout.itemSize = CGSize(width: self.peopleCollectionVC.collectionView.bounds.height, height: self.peopleCollectionVC.collectionView.bounds.height)
+//            }
         }
         
         DispatchQueue.main.async {

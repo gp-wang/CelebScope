@@ -14,7 +14,7 @@ class PersonCollectionViewCell: UICollectionViewCell {
         let _imageView = UIImageView()
         _imageView.translatesAutoresizingMaskIntoConstraints = false
         _imageView.backgroundColor = UIColor.green
-        
+        _imageView.contentMode = .scaleAspectFit
         return _imageView
     } ()
     
@@ -43,6 +43,8 @@ class PersonCollectionViewCell: UICollectionViewCell {
     // MARK: - constructors
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        self.translatesAutoresizingMaskIntoConstraints = false
         addSubview(croppedFaceView)
         addSubview(nameLabel)
         addSubview(extendedPredictionLabel)
@@ -57,6 +59,8 @@ class PersonCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    
     func setupInternalConstraints() {
         let views: [String: Any] = [
             "croppedFaceView": croppedFaceView,
@@ -66,23 +70,57 @@ class PersonCollectionViewCell: UICollectionViewCell {
         
         var allConstraints: [NSLayoutConstraint] = []
         
-//        allConstraints += [
-//            // cropped Face View
-//            croppedFaceView.topAnchor.
-//
-//        ]
         
-//        let labelHorizontalConstrains = NSLayoutConstraint.constraints(
-//            withVisualFormat: "H:[avartarView]-20-[nameLabel]-15-[birthDeathDateLabel]-20-|",
-//            metrics: nil,
-//            //options: []
-//            views: views)
-//        allConstraints += labelHorizontalConstrains
+        // cell constraints is done in: extension CollectionViewController: UICollectionViewDelegateFlowLayout
+
+        // croppedFaceView
+        let croppedFaceView_V = NSLayoutConstraint.constraints(
+            withVisualFormat: "V:|-[croppedFaceView]-|",
+            metrics: nil,
+            //options: []
+            views: views)
+        let croppedFaceView_H = [
+            croppedFaceView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
+            croppedFaceView.widthAnchor.constraint(equalTo: croppedFaceView.heightAnchor)
+        ]
+        allConstraints += croppedFaceView_V
+        allConstraints += croppedFaceView_H
+        
+        
+        // nameLabel
+        let nameLabel_V = NSLayoutConstraint.constraints(
+            withVisualFormat: "V:|-[nameLabel]",
+            metrics: nil,
+            //options: []
+            views: views)
+        let nameLabel_H = NSLayoutConstraint.constraints(
+            withVisualFormat: "H:[croppedFaceView]-10-[nameLabel]-|",
+            metrics: nil,
+            //options: []
+            views: views)
+        allConstraints += nameLabel_V
+        allConstraints += nameLabel_H
+        
+        // extendedPrediction
+        let extendedPredictionLabel_V = NSLayoutConstraint.constraints(
+            withVisualFormat: "V:[nameLabel]-[extendedPredictionLabel]",
+            metrics: nil,
+            //options: []
+            views: views)
+        let extendedPredictionLabel_H = NSLayoutConstraint.constraints(
+            withVisualFormat: "H:[croppedFaceView]-10-[extendedPredictionLabel]-|",
+            metrics: nil,
+            //options: []
+            views: views)
+        allConstraints += extendedPredictionLabel_V
+        allConstraints += extendedPredictionLabel_H
+
         
         
         NSLayoutConstraint.activate(allConstraints)
         
-//        self.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 1.333)
+        
+       
     }
     
 }
