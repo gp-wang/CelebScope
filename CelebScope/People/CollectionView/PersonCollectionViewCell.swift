@@ -62,7 +62,7 @@ class PersonCollectionViewCell: UICollectionViewCell {
         // _label.font = UIFont.preferredFont(forTextStyle: .headline)
        
      
-        _label.font =   UIFont.preferredFont(forTextStyle: .headline).withSize(20)
+        _label.font =   UIFont.preferredFont(forTextStyle: .headline).withSize(15)
         _label.text = "66%"
         return _label
     } ()
@@ -118,7 +118,7 @@ class PersonCollectionViewCell: UICollectionViewCell {
         // confidenceLabel
         var confidenceLabel_H = [NSLayoutConstraint]()
         confidenceLabel_H += NSLayoutConstraint.constraints(
-            withVisualFormat: "H:[croppedFaceView]-[nameLabel]-[avartarView]",
+            withVisualFormat: "H:[croppedFaceView]-[confidenceLabel]-[avartarView]",
             metrics: nil,
             //options: []
             views: views)
@@ -153,7 +153,8 @@ class PersonCollectionViewCell: UICollectionViewCell {
         
         // nameLabel
         let nameLabel_V = NSLayoutConstraint.constraints(
-            withVisualFormat: "V:[croppedFaceView]-[nameLabel]-|",
+            //withVisualFormat: "V:[croppedFaceView]-[nameLabel]-|",
+            withVisualFormat: "V:[nameLabel]-|",
             metrics: nil,
             //options: []
             views: views)
@@ -162,7 +163,7 @@ class PersonCollectionViewCell: UICollectionViewCell {
         ]
         allConstraints += nameLabel_V
         allConstraints += nameLabel_H
-        
+
 
         
         
