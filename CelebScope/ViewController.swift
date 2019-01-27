@@ -72,6 +72,8 @@ class ViewController:  UIViewController {
         view.addSubview(zoomableImageVC.zoomableImageView)
         view.addSubview(canvas)
         view.addSubview(detailPagedVC.view)
+        
+        // TODO:temp
         detailPagedVC.view.isHidden = true
         
         self.setupLayoutConstraints()
@@ -208,6 +210,25 @@ class ViewController:  UIViewController {
 }
 
 
+
+// MARK: - page view delegate
+extension ViewController: UIPageViewControllerDelegate {
+    
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        
+        // set the pageControl.currentPage to the index of the current viewController in pages
+        if let viewControllers = pageViewController.viewControllers as? [SinglePersonPageViewController] {
+            if let viewControllerIndex = self.detailPagedVC.pages.index(of: viewControllers[0]) {
+                self.detailPagedVC.pageControl.currentPage = viewControllerIndex
+                print("didFinishAnimating: \(viewControllerIndex)")
+                self.zoomableImageVC.zoomableImageView.zoom(to: self.identificationResults[viewControllerIndex].face.rect, with: Constants.contentSpanRatio, animated: true)
+            }
+        }
+        
+        
+    }
+}
 
 
 
@@ -475,23 +496,4 @@ extension ViewController {
     
 
    
-}
-
-
-extension ViewController: UIPageViewControllerDelegate {
-    
-    
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        
-        // set the pageControl.currentPage to the index of the current viewController in pages
-        if let viewControllers = pageViewController.viewControllers as? [SinglePersonPageViewController] {
-            if let viewControllerIndex = self.detailPagedVC.pages.index(of: viewControllers[0]) {
-                self.detailPagedVC.pageControl.currentPage = viewControllerIndex
-                print("didFinishAnimating: \(viewControllerIndex)")
-                self.zoomableImageVC.zoomableImageView.zoom(to: self.identificationResults[viewControllerIndex].face.rect, with: Constants.contentSpanRatio, animated: true)
-            }
-        }
-        
-        
-    }
 }
