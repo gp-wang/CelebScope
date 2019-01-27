@@ -23,6 +23,7 @@ class PersonCollectionViewCell: UICollectionViewCell {
         _imageView.translatesAutoresizingMaskIntoConstraints = false
         _imageView.backgroundColor = UIColor.green
         _imageView.contentMode = .scaleAspectFit
+        _imageView.image = UIImage(imageLiteralResourceName: "mary")
         return _imageView
     } ()
     
@@ -31,16 +32,27 @@ class PersonCollectionViewCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .green
         imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(imageLiteralResourceName: "jlaw")
         return imageView
     } ()
     
+    // gw: wrapper to center nameLabel
+    let nameLabelWrapperView : UIView = {
+        let _view = UIView()
+        _view.translatesAutoresizingMaskIntoConstraints = false
+        _view.backgroundColor = .red
+        return _view
+    } ()
     
     let nameLabel : UILabel = {
         let _label = UILabel()
         _label.translatesAutoresizingMaskIntoConstraints = false
-        _label.text = "Custome Label"
-        _label.font = UIFont.preferredFont(forTextStyle: .headline).withSize(15)
+        _label.text = "Jeniffer Lawrence"
+        _label.font = UIFont.preferredFont(forTextStyle: .headline).withSize(14)
         _label.backgroundColor = UIColor.green
+        _label.lineBreakMode = .byWordWrapping
+        _label.adjustsFontSizeToFitWidth = true
+        _label.numberOfLines = 1
         
         return _label
     } ()
@@ -62,8 +74,9 @@ class PersonCollectionViewCell: UICollectionViewCell {
         // _label.font = UIFont.preferredFont(forTextStyle: .headline)
        
      
-        _label.font =   UIFont.preferredFont(forTextStyle: .headline).withSize(15)
+        _label.font =   UIFont.preferredFont(forTextStyle: .headline).withSize(19)
         _label.text = "66%"
+        _label.adjustsFontSizeToFitWidth = true
         return _label
     } ()
     
@@ -73,11 +86,12 @@ class PersonCollectionViewCell: UICollectionViewCell {
         
         self.translatesAutoresizingMaskIntoConstraints = false
         addSubview(croppedFaceView)
-        addSubview(nameLabel)
+        addSubview(nameLabelWrapperView)
+        nameLabelWrapperView.addSubview(nameLabel)
         addSubview(avartarView)
         addSubview(confidenceLabel)
         
-        self.backgroundColor = UIColor.red
+        self.backgroundColor = UIColor.green
         
         setupInternalConstraints()
     }
@@ -93,6 +107,7 @@ class PersonCollectionViewCell: UICollectionViewCell {
         let views: [String: Any] = [
             "croppedFaceView": croppedFaceView,
             "avartarView": avartarView,
+            "nameLabelWrapperView": nameLabelWrapperView,
             "nameLabel": nameLabel,
             "confidenceLabel": confidenceLabel
         ]
@@ -152,19 +167,37 @@ class PersonCollectionViewCell: UICollectionViewCell {
         
         
         // nameLabel
-        let nameLabel_V = NSLayoutConstraint.constraints(
+        var nameLabelWrapper_V = NSLayoutConstraint.constraints(
             //withVisualFormat: "V:[croppedFaceView]-[nameLabel]-|",
-            withVisualFormat: "V:[nameLabel]-|",
+            withVisualFormat: "V:[croppedFaceView]-[nameLabelWrapperView]-|",
             metrics: nil,
             //options: []
             views: views)
-        let nameLabel_H = [
-            nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor)
-        ]
-        allConstraints += nameLabel_V
-        allConstraints += nameLabel_H
+        //        var nameLabel_H = [
+        //            nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
+        //            nameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 20), // gw: to allow multiple lines: https://stackoverflow.com/a/6518460/8328365
+        //        ]
+        var nameLabelWrapper_H = [NSLayoutConstraint]()
+        nameLabelWrapper_H += NSLayoutConstraint.constraints(
+            withVisualFormat: "H:|-[nameLabelWrapperView]-[avartarView]",
+            metrics: nil,
+            //options: []
+            views: views)
+        
 
+        allConstraints += nameLabelWrapper_V
+        allConstraints += nameLabelWrapper_H
 
+        var nameLabel_All = NSLayoutConstraint.constraints(
+            withVisualFormat: "H:|[nameLabel]|",
+            options: [.alignAllCenterY], metrics: nil,
+            
+            views: views)
+        nameLabel_All += NSLayoutConstraint.constraints(
+            withVisualFormat: "V:|[nameLabel]|", metrics: nil,
+            views: views)
+        
+        allConstraints += nameLabel_All
         
         
         NSLayoutConstraint.activate(allConstraints)

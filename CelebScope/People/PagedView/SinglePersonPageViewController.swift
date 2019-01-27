@@ -143,7 +143,7 @@ class SinglePersonPageViewController: UIViewController {
             professionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
             
             bioLabel.topAnchor.constraint(equalTo: professionLabel.bottomAnchor, constant: 10),
-            bioLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 20),
+            bioLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 20), // gw: to allow multiple lines: https://stackoverflow.com/a/6518460/8328365 
             bioLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
             
         ]
