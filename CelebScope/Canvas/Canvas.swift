@@ -104,6 +104,8 @@ extension Canvas : UIScrollViewDelegate {
         self.updateAnnotation(scrollView: scrollView)
     }
     
+    
+    
     private func updateAnnotation(scrollView: UIScrollView) {
         //TODO: need to check whether both ends are visible
         guard let collectionView = scrollView as? UICollectionView,
