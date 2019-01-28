@@ -68,7 +68,8 @@ class ViewController:  UIViewController {
         // gw: setting up view hierachy across multiple VC's, (should be OK per: )
         // https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/TheViewControllerHierarchy.html
         // also note we set the autolayout constraints in this main VC
-        view.addSubview(peopleCollectionVC.collectionView!)
+        
+        view.addSubview(peopleCollectionVC.view)
         view.addSubview(zoomableImageVC.zoomableImageView)
         view.addSubview(canvas)
         view.addSubview(detailPagedVC.view)
@@ -113,7 +114,7 @@ class ViewController:  UIViewController {
         ]
         
         detailPagedVC.populate(identificationResults: identificationResults)
-   
+        peopleCollectionVC.populate(identifications: identificationResults)
     }
     
     required init?(coder aDecoder: NSCoder) {

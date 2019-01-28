@@ -17,13 +17,33 @@ class PersonCollectionViewCell: UICollectionViewCell {
         static let avartarViewWHRatio: CGFloat =  214.0 / 317.0
     }
     
+    var identification: Identification? {
+        didSet {
+            guard let _identification = self.identification else {
+                print("error: unwrap failed at setter")
+                return
+                
+            }
+            
+            self.croppedFaceView.image = UIImage(cgImage: _identification.face.image)
+            if let _avartar = _identification.person.avartar {
+                self.avartarView.image = _avartar
+            }
+            self.nameLabel.text = _identification.person.name
+            if let _confidence = _identification.confidence as? Double {
+                self.confidenceLabel.text = String(_confidence)
+            }
+            
+        }
+    }
+    
     //
     let croppedFaceView: UIImageView = {
         let _imageView = UIImageView()
         _imageView.translatesAutoresizingMaskIntoConstraints = false
         _imageView.backgroundColor = UIColor.green
         _imageView.contentMode = .scaleAspectFit
-        _imageView.image = UIImage(imageLiteralResourceName: "mary")
+        //_imageView.image = UIImage(imageLiteralResourceName: "mary")
         return _imageView
     } ()
     
@@ -32,7 +52,7 @@ class PersonCollectionViewCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .green
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(imageLiteralResourceName: "jlaw")
+        //imageView.image = UIImage(imageLiteralResourceName: "jlaw")
         return imageView
     } ()
     

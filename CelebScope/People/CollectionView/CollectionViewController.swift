@@ -14,7 +14,16 @@ class CollectionViewController: UICollectionViewController {
 
      let collectionViewCellIdentifier = "MyCollectionViewCellIdentifier"
     
+    var identifications: [Identification] = []
     
+    public func populate(identifications: [Identification])  {
+        
+        self.identifications = identifications
+        
+        DispatchQueue.main.async {
+            self.collectionView?.collectionViewLayout.invalidateLayout()
+        }
+    }
     
     // MARK: gw: we use the implicit member "collectionView?" of UICollectionViewController
     
@@ -58,12 +67,19 @@ extension CollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.collectionViewCellIdentifier, for: indexPath)
+        
+        guard let personCollectionViewCell = cell as? PersonCollectionViewCell else {
+            
+            print("error cannot get valid collection cell, returning dummy cell")
+            return cell }
+        
+        personCollectionViewCell.identification = self.identifications[indexPath.item]
         return cell
     }
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 9
+        return self.identifications.count
     }
     
     

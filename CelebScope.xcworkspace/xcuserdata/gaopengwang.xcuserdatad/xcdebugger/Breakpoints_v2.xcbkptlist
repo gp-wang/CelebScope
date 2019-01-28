@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/ViewController.swift"
-            timestampString = "570349716.089712"
+            timestampString = "570382425.1721081"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
             landmarkName = "pageViewController(_:didFinishAnimating:previousViewControllers:transitionCompleted:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/ViewController.swift"
-            timestampString = "570349716.0897911"
+            timestampString = "570382425.173521"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "25"
@@ -63,7 +63,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "93"
             endingLineNumber = "93"
-            landmarkName = "init(matchedPerson:)"
+            landmarkName = "init(face:matchedPerson:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
