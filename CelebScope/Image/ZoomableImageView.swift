@@ -116,7 +116,14 @@ class ZoomableImageView: UIScrollView {
         // use auto layout
         setupLayoutConstraints()
         
-        self.delegate = self
+        
+        // the delegate instance assignment should happen at a place where
+        // If one object has the responsibility for several classes's delegate (e.g. here canvas is delegate for peopleCollectionVIew, and ZoomabableImageView, because canvas is in charge of updating annotatino when either one scrolls),
+        // 1. you can let the object class (canvas) subclass all these delegate protocol if these protocal has no collition (different delegate protocol), or
+        // 2. if these delegate protocols collides, (e.g. here both people coll View and Zoomable Image View requires scroll view delegates), make two custom classes (so that you can implement different scroll view delegate functions within each class), and at the cavas object, instance one class each as canvas's property, and assign them as delegate each for peopleCollectionVIew, and ZoomabableImageView
+        
+        // moved to ViewController
+        //self.delegate = self
         
     }
     
@@ -159,19 +166,19 @@ class ZoomableImageView: UIScrollView {
 }
 
 
-
-extension ZoomableImageView: UIScrollViewDelegate {
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        // print("scale factor is: \(scrollView.zoomScale)")
-        return imageView
-    }
-    
-    
-    func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        print("scale factor is: \(scrollView.zoomScale)")
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("content offset is: \(scrollView.contentOffset)")
-    }
-}
+// moved to ZoomableImageViewDelegate
+//extension ZoomableImageView: UIScrollViewDelegate {
+//    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+//        // print("scale factor is: \(scrollView.zoomScale)")
+//        return imageView
+//    }
+//    
+//    
+//    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+//        print("scale factor is: \(scrollView.zoomScale)")
+//    }
+//    
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        print("content offset is: \(scrollView.contentOffset)")
+//    }
+//}

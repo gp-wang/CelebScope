@@ -74,6 +74,13 @@ class ViewController:  UIViewController {
         view.addSubview(canvas)
         view.addSubview(detailPagedVC.view)
         
+        // setup canvas as delegate
+        canvas.peopleCollectionViewDelegate = PeopleCollectionViewDelegate(wapperView: peopleCollectionVC.collectionView!, parentCanvas: canvas)
+        peopleCollectionVC.collectionView.delegate = canvas.peopleCollectionViewDelegate
+        
+        canvas.zoomableImageViewDelegate = ZoomableImageViewDelegate(wapperView: zoomableImageVC.zoomableImageView, parentCanvas: canvas)
+        zoomableImageVC.zoomableImageView.delegate = canvas.zoomableImageViewDelegate
+        
         // TODO:temp
         detailPagedVC.view.isHidden = true
         

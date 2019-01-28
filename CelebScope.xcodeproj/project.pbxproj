@@ -21,6 +21,8 @@
 		6B31D2C121F38D58000CFA44 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B31D2BF21F38D58000CFA44 /* LaunchScreen.storyboard */; };
 		6B31D2CF21F3ED41000CFA44 /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B31D2CE21F3ED41000CFA44 /* Canvas.swift */; };
 		6B354CD421F617DE00C6176C /* UIImageViewPointConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B354CD321F617DE00C6176C /* UIImageViewPointConversion.swift */; };
+		6BB235EF21FF5C3100BC35E9 /* PeopleCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB235EE21FF5C3100BC35E9 /* PeopleCollectionViewDelegate.swift */; };
+		6BB235F121FF5C9000BC35E9 /* ZoomableImageViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB235F021FF5C9000BC35E9 /* ZoomableImageViewDelegate.swift */; };
 		6BD4741A21FA468400163D0C /* ZoomableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD4741921FA468400163D0C /* ZoomableImageView.swift */; };
 		6BFE4D9121F9A18200B7A50D /* PersonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFE4D9021F9A18200B7A50D /* PersonCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -43,6 +45,8 @@
 		6B31D2C221F38D58000CFA44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6B31D2CE21F3ED41000CFA44 /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
 		6B354CD321F617DE00C6176C /* UIImageViewPointConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewPointConversion.swift; sourceTree = "<group>"; };
+		6BB235EE21FF5C3100BC35E9 /* PeopleCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleCollectionViewDelegate.swift; sourceTree = "<group>"; };
+		6BB235F021FF5C9000BC35E9 /* ZoomableImageViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableImageViewDelegate.swift; sourceTree = "<group>"; };
 		6BD4741921FA468400163D0C /* ZoomableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableImageView.swift; sourceTree = "<group>"; };
 		6BFE4D9021F9A18200B7A50D /* PersonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCollectionViewCell.swift; sourceTree = "<group>"; };
 		E998B2AEA450FAAEF3CB026C /* Pods-CelebScope.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CelebScope.release.xcconfig"; path = "Pods/Target Support Files/Pods-CelebScope/Pods-CelebScope.release.xcconfig"; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 			children = (
 				6B20977921FB76B10066CDD8 /* CollectionViewController.swift */,
 				6BFE4D9021F9A18200B7A50D /* PersonCollectionViewCell.swift */,
+				6BB235EE21FF5C3100BC35E9 /* PeopleCollectionViewDelegate.swift */,
 			);
 			path = CollectionView;
 			sourceTree = "<group>";
@@ -110,6 +115,7 @@
 			children = (
 				6B20977B21FB76F30066CDD8 /* ZoomableImageViewController.swift */,
 				6BD4741921FA468400163D0C /* ZoomableImageView.swift */,
+				6BB235F021FF5C9000BC35E9 /* ZoomableImageViewDelegate.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -298,6 +304,7 @@
 				6B20977021FB5E9A0066CDD8 /* SinglePersonPageViewController.swift in Sources */,
 				6B2AF16321FCA566005F39EE /* Identification.swift in Sources */,
 				6B2AF15F21FC9E7B005F39EE /* Person.swift in Sources */,
+				6BB235F121FF5C9000BC35E9 /* ZoomableImageViewDelegate.swift in Sources */,
 				6B31D2B921F38D55000CFA44 /* ViewController.swift in Sources */,
 				6BFE4D9121F9A18200B7A50D /* PersonCollectionViewCell.swift in Sources */,
 				6B354CD421F617DE00C6176C /* UIImageViewPointConversion.swift in Sources */,
@@ -305,6 +312,7 @@
 				6BD4741A21FA468400163D0C /* ZoomableImageView.swift in Sources */,
 				6B31D2CF21F3ED41000CFA44 /* Canvas.swift in Sources */,
 				6B2574B021F75EB30039FAC9 /* Utils.swift in Sources */,
+				6BB235EF21FF5C3100BC35E9 /* PeopleCollectionViewDelegate.swift in Sources */,
 				6B20977A21FB76B10066CDD8 /* CollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

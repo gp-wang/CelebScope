@@ -12,7 +12,10 @@ import UIKit
 // gw: anyway, this canvas's whole purpose is to overlaying and labeling for the UIImageView (photoView) beneath it
 class Canvas : UIImageView {
 
-
+    // dedicated two vars, because canvas has two delegate responsibilities, and both are scrollview delegate
+    var peopleCollectionViewDelegate: PeopleCollectionViewDelegate?
+    var zoomableImageViewDelegate: ZoomableImageViewDelegate?
+    
     // gw: Input for face locations
     var faceLocationsInCgImage : [CGPoint] = [
         
@@ -91,22 +94,7 @@ class Canvas : UIImageView {
     }
     
     
-    
- 
-    
-}
-
-extension Canvas : UIScrollViewDelegate {
-    // gw: note, the action you want to take in this event need access the canvas, so you'd better make canvas the delegate
-    // here the scrollView is the people collection scrollview
-    // here the canvas is the overlaying annotation layer on top of photoView
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.updateAnnotation(scrollView: scrollView)
-    }
-    
-    
-    
-    private func updateAnnotation(scrollView: UIScrollView) {
+    public func updateAnnotation(scrollView: UIScrollView) {
         //TODO: need to check whether both ends are visible
         guard let collectionView = scrollView as? UICollectionView,
             let collectionViewFlowLayout =  collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
@@ -161,4 +149,21 @@ extension Canvas : UIScrollViewDelegate {
             self.setNeedsDisplay()
         }
     }
+    
+ 
+    
 }
+
+
+// moved to dedicated class PeopleCollectionViewDelegate
+//extension Canvas : UIScrollViewDelegate {
+//    // gw: note, the action you want to take in this event need access the canvas, so you'd better make canvas the delegate
+//    // here the scrollView is the people collection scrollview
+//    // here the canvas is the overlaying annotation layer on top of photoView
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        self.updateAnnotation(scrollView: scrollView)
+//    }
+//
+//
+//
+//}
