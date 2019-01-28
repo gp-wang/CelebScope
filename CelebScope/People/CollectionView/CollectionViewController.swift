@@ -100,9 +100,10 @@ extension CollectionViewController {
 
 // MARK: - we want the width of collection cell size to always equal to collection View width, so we make collecton VC as the delegate of cell flow layout here (because the width info of colelction view can be accessed here)
 // gw: looks like the sizing defines here prioritizes than the flow layout passed intot the collectionViewController
-extension CollectionViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
- 
-        return CGSize(width: self.collectionView.bounds.width, height: self.collectionView.bounds.width / 1.666)
-    }
-}
+// gw: tried to move this to PeopleCollectionViewDelegate, result is working now
+//extension CollectionViewController: UICollectionViewDelegateFlowLayout {
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+// 
+//        return CGSize(width: self.collectionView.bounds.width, height: self.collectionView.bounds.width / 1.666)
+//    }
+//}
