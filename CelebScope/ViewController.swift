@@ -68,10 +68,16 @@ class ViewController:  UIViewController {
         // gw: setting up view hierachy across multiple VC's, (should be OK per: )
         // https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/TheViewControllerHierarchy.html
         // also note we set the autolayout constraints in this main VC
-        
+        self.addChild(peopleCollectionVC)
         view.addSubview(peopleCollectionVC.view)
+        
+        self.addChild(zoomableImageVC)
         view.addSubview(zoomableImageVC.zoomableImageView)
+        
+        
         view.addSubview(canvas)
+        
+        self.addChild(detailPagedVC)
         view.addSubview(detailPagedVC.view)
         
         // setup canvas as delegate
