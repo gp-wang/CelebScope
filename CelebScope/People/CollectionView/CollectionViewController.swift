@@ -14,6 +14,8 @@ class CollectionViewController: UICollectionViewController {
 
      let collectionViewCellIdentifier = "MyCollectionViewCellIdentifier"
     
+    
+    
     // MARK: gw: we use the implicit member "collectionView?" of UICollectionViewController
     
     override init(collectionViewLayout: UICollectionViewLayout) {
