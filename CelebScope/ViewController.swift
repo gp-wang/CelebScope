@@ -72,7 +72,7 @@ class ViewController:  UIViewController {
         view.addSubview(peopleCollectionVC.view)
         
         self.addChild(zoomableImageVC)
-        view.addSubview(zoomableImageVC.zoomableImageView)
+        view.addSubview(zoomableImageVC.view)
         
         
         view.addSubview(canvas)
@@ -265,7 +265,10 @@ extension ViewController {
     private func setupPhotoViewConstraints() {
         
         // convinence vars
-        let zoomableImageView = self.zoomableImageVC.zoomableImageView
+        guard let zoomableImageVCView = self.zoomableImageVC.view else {
+            NSLog("failed to unwrap zoomableImageVCView")
+            return
+        }
         guard let collectionView = self.peopleCollectionVC.collectionView else {
             NSLog("failed to unwrap self.peopleCollectionVC.collectionView")
             return
@@ -274,7 +277,7 @@ extension ViewController {
         // MARK: - portrait constraints
         
         
-        let photo_top_p = zoomableImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        let photo_top_p = zoomableImageVCView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         photo_top_p.identifier = "photo_top_p"
         photo_top_p.isActive = false
         portraitConstraints.append(photo_top_p)
@@ -284,17 +287,17 @@ extension ViewController {
 //        photo_hw_ratio_p.identifier = "photo_hw_ratio_p"
 //        photo_hw_ratio_p.isActive = false
 //        portraitConstraints.append(photo_hw_ratio_p)
-        let photo_bot_p = zoomableImageView.bottomAnchor.constraint(equalTo: collectionView.topAnchor)
+        let photo_bot_p = zoomableImageVCView.bottomAnchor.constraint(equalTo: collectionView.topAnchor)
         photo_bot_p.identifier = "photo_bot_p"
         photo_bot_p.isActive = false
         portraitConstraints.append(photo_bot_p)
         
-        let photo_lead_p = zoomableImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
+        let photo_lead_p = zoomableImageVCView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
         photo_lead_p.identifier = "photo_lead_p"
         photo_lead_p.isActive = false
         portraitConstraints.append(photo_lead_p)
         
-        let photo_trail_p = zoomableImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+        let photo_trail_p = zoomableImageVCView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         photo_trail_p.identifier = "photo_trail_p"
         photo_trail_p.isActive = false
         portraitConstraints.append(photo_trail_p)
@@ -303,17 +306,17 @@ extension ViewController {
         
         // MARK: - landscape constraints
         
-        let photo_top_l = zoomableImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        let photo_top_l = zoomableImageVCView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         photo_top_l.identifier = "photo_top_l"
         photo_top_l.isActive = false
         landscapeConstraints.append(photo_top_l)
         
-        let photo_bot_l = zoomableImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        let photo_bot_l = zoomableImageVCView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         photo_bot_l.identifier = "photo_bot_l"
         photo_bot_l.isActive = false
         landscapeConstraints.append(photo_bot_l)
         
-        let photo_lead_l = zoomableImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
+        let photo_lead_l = zoomableImageVCView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
         photo_lead_l.identifier = "photo_lead_l"
         photo_lead_l.isActive = false
         landscapeConstraints.append(photo_lead_l)
@@ -323,7 +326,7 @@ extension ViewController {
         //        photo_wh_raio_l.identifier = "photo_wh_raio_l"
         //        photo_wh_raio_l.isActive = false
         //        landscapeConstraints.append(photo_wh_raio_l)
-        let photo_trail_l = zoomableImageView.trailingAnchor.constraint(equalTo: collectionView.leadingAnchor)
+        let photo_trail_l = zoomableImageVCView.trailingAnchor.constraint(equalTo: collectionView.leadingAnchor)
         photo_trail_l.identifier = "photo_trail_l"
         photo_trail_l.isActive = false
         landscapeConstraints.append(photo_trail_l)
