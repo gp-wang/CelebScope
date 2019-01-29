@@ -8,8 +8,13 @@
 
 import UIKit
 
+
+// gw: no longer need to use UIImageVIew's point conversion I implemented, instead, use native .convert()...
+// anyway, subclassing UIImageView wont work because drawRect is not called
+// // https://stackoverflow.com/questions/9956565/uiview-subclass-drawrect-not-called/10018906
 // gw: inherit UIImageView instead of UIView to use convenience method of converting point
 // gw: anyway, this canvas's whole purpose is to overlaying and labeling for the UIImageView (photoView) beneath it
+
 class Canvas : UIView {
 
     // dedicated two vars, because canvas has two delegate responsibilities, and both are scrollview delegate
