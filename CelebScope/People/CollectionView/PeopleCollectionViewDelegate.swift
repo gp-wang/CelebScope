@@ -30,13 +30,6 @@ class PeopleCollectionViewDelegate: NSObject, UICollectionViewDelegate {
         guard let actionTaker = actionTaker else {return }
         // print("from inside PeopleCollectionViewDelegate")
         actionTaker.updateAnnotation()
-        
-        guard let _delegator = self.delegator as? CustomUICollectionView else  {
-            print("failed conversion")
-            return
-        }
-        
-        print("success experiment in using collection view OOP overriding: \(_delegator.gw_prop)")
     }
     
     

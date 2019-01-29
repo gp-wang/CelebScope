@@ -7,18 +7,7 @@
 //
 
 import UIKit
-class CustomUICollectionView : UICollectionView {
-    
-    public let gw_prop: String = "Hello There"
 
-    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
-        super.init(frame: frame, collectionViewLayout: layout)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
 
 // gw: dedicated VC class for the person collection view
 class CollectionViewController: UICollectionViewController {
@@ -53,26 +42,6 @@ class CollectionViewController: UICollectionViewController {
     }
     
     
-    // gw: experiment to use custom class collection View
-    override func loadView() {
-        super.loadView()
-        
-        // remove existing collection view
-        if let oldCollectionView = self.collectionView {
-            oldCollectionView.removeFromSuperview()
-            
-        }
-        
-        let newCollectionView = CustomUICollectionView(frame: self.view.frame, collectionViewLayout: self.collectionViewLayout)
-        // prepare object
-        
-        newCollectionView.backgroundColor = UIColor.white
-        newCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        newCollectionView.register(PersonCollectionViewCell.self, forCellWithReuseIdentifier: collectionViewCellIdentifier)
-        
-        self.collectionView = newCollectionView
-        self.view.addSubview(self.collectionView)
-    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
