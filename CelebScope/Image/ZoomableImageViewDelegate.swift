@@ -30,13 +30,13 @@ class ZoomableImageViewDelegate: NSObject, UIScrollViewDelegate {
         func scrollViewDidZoom(_ scrollView: UIScrollView) {
             print("scale factor is: \(scrollView.zoomScale)")
              print("from inside ZoomableImageViewDelegate")
-            parentCanvas.updateAnnotation(scrollView: self.wrapperView)
+            parentCanvas.updateAnnotation()
         }
         
         func scrollViewDidScroll(_ scrollView: UIScrollView) {
             print("content offset is: \(scrollView.contentOffset)")
              print("from inside ZoomableImageViewDelegate")
-            parentCanvas.updateAnnotation(scrollView: self.wrapperView)
+            parentCanvas.updateAnnotation()
         }
     
 

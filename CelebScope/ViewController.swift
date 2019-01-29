@@ -94,6 +94,8 @@ class ViewController:  UIViewController {
         // TODO:temp
         detailPagedVC.view.isHidden = true
         
+        
+        self.view.bringSubviewToFront(canvas)
         self.setupLayoutConstraints()
         
         

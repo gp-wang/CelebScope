@@ -27,7 +27,7 @@ class PeopleCollectionViewDelegate: NSObject, UICollectionViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         print("from inside PeopleCollectionViewDelegate")
-        parentCanvas.updateAnnotation(scrollView: scrollView)
+        parentCanvas.updateAnnotation()
     }
     
     

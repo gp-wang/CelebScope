@@ -45,6 +45,7 @@ class Canvas : UIImageView {
         didSet {
             // process data and converts into drawing pairs
             
+            updateAnnotation()
             
         }
     }
@@ -64,7 +65,11 @@ class Canvas : UIImageView {
 //        return
         
         
-        guard let context = UIGraphicsGetCurrentContext() else { return }
+        guard let context = UIGraphicsGetCurrentContext() else {
+            print("err: cannot get graphics context")
+            return
+            
+        }
 //
 //        //context.setFillColor(UIColor.yellow.cgColor)
 //        let aPath = UIBezierPath(arcCenter: CGPoint(x: 650, y: 700), radius: 300, startAngle: 0, endAngle: .pi * 2.0, clockwise: true)
@@ -86,6 +91,8 @@ class Canvas : UIImageView {
             // note: if islandscape, means scroll direction is vertical
             let pathPoints = generateAnnotationPoints(startPoint, endPoint, self.isLandscape)
 
+            
+            print("generated points: \(pathPoints)")
             context.setStrokeColor(UIColor.red.cgColor)
             context.setLineWidth(7)
 
@@ -144,10 +151,11 @@ class Canvas : UIImageView {
                 
                 
                 let startPoint_in_CGImage = identifications[index_in_all_cells].face.position
-                
+                let startPoint_in_UIImageView = zoomableImageView.imageView.convertPoint(fromImagePoint: startPoint_in_CGImage)
+                let startPoint_in_ScrollView = zoomableImageView.imageView.convert(startPoint_in_UIImageView, to: zoomableImageView)
                 // because UIImageView content mode is 1:1 here, we directly use it here
                 // convert to point inside canvas (which 1:1 overlays on zoomableImageView
-                let startPoint = zoomableImageView.convert(startPoint_in_CGImage, to: self)
+                let startPoint = zoomableImageView.convert(startPoint_in_ScrollView, to: self)
                 
                 
                 var endPoint = peopleCollectionView.convert(cell.frame.origin, to: self)
