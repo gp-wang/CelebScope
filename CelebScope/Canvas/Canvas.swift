@@ -64,7 +64,7 @@ class Canvas : UIImageView {
 //
 //        return
         
-        
+        print("inside draw")
         guard let context = UIGraphicsGetCurrentContext() else {
             print("err: cannot get graphics context")
             return
@@ -176,7 +176,7 @@ class Canvas : UIImageView {
                 
                 
                 self.pairs.append((startPoint, endPoint))
-                
+                print("pairs: \(self.pairs)")
             }
             
             self.setNeedsDisplay()
