@@ -95,7 +95,7 @@ class ViewController:  UIViewController {
         detailPagedVC.view.isHidden = true
         
         
-        self.view.bringSubviewToFront(canvas)
+       
         self.setupLayoutConstraints()
         
         
@@ -150,6 +150,7 @@ class ViewController:  UIViewController {
         //view.bringSubviewToFront(self.peopleCollectionVC.collectionView)
         view.bringSubviewToFront(detailPagedVC.view)
         view.bringSubviewToFront(zoomableImageVC.zoomableImageView)
+         self.view.bringSubviewToFront(canvas)
 
     }
     

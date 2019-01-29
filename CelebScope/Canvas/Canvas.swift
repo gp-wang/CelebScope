@@ -10,7 +10,7 @@ import UIKit
 
 // gw: inherit UIImageView instead of UIView to use convenience method of converting point
 // gw: anyway, this canvas's whole purpose is to overlaying and labeling for the UIImageView (photoView) beneath it
-class Canvas : UIImageView {
+class Canvas : UIView {
 
     // dedicated two vars, because canvas has two delegate responsibilities, and both are scrollview delegate
     var peopleCollectionViewDelegate: PeopleCollectionViewDelegate?
