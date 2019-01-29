@@ -83,7 +83,8 @@ class ViewController:  UIViewController {
         // ---------------------
         // constructing the delegatee
         let dedicatedPeopleCollectionViewDelegate = PeopleCollectionViewDelegate(delegator: peopleCollectionVC.collectionView!)
-        
+        // pd -> c: weak ref setup
+        dedicatedPeopleCollectionViewDelegate.actionTaker = canvas
         // c -> pd: strong ref setup
         canvas.peopleCollectionViewDelegate = dedicatedPeopleCollectionViewDelegate
         
@@ -94,6 +95,8 @@ class ViewController:  UIViewController {
         // ---------------------
         // constructing the delegatee
         let dedicatedZoomableImageViewDelegate = ZoomableImageViewDelegate(delegator: zoomableImageVC.zoomableImageView)
+        // zd -> c: weak ref setup
+        dedicatedZoomableImageViewDelegate.actionTaker = canvas
         // c -> zd: strong ref setup
         canvas.zoomableImageViewDelegate = dedicatedZoomableImageViewDelegate
          // z -> zd: strong ref setup
