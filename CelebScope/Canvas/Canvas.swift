@@ -69,9 +69,9 @@ class Canvas : UIView {
 //
 //        return
         
-        print("inside draw")
+        // print("inside draw")
         guard let context = UIGraphicsGetCurrentContext() else {
-            print("err: cannot get graphics context")
+            NSLog("err: cannot get graphics context")
             return
             
         }
@@ -97,7 +97,7 @@ class Canvas : UIView {
             let pathPoints = generateAnnotationPoints(startPoint, endPoint, self.isLandscape)
 
             
-            print("generated points: \(pathPoints)")
+            // print("generated points: \(pathPoints)")
             context.setStrokeColor(UIColor.red.cgColor)
             context.setLineWidth(7)
 
@@ -120,7 +120,7 @@ class Canvas : UIView {
     // For passing touches from an overlay view to the views underneath,
     // https://stackoverflow.com/questions/3834301/ios-forward-all-touches-through-a-view
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        print("Passing all touches to the next view (if any), in the view stack.")
+        //print("Passing all touches to the next view (if any), in the view stack.")
         return false
     }
     
@@ -139,53 +139,53 @@ class Canvas : UIView {
                 return
                 
         }
-
-        DispatchQueue.main.async {
+        
+        //DispatchQueue.main.async {
+        
+        
+        
+        self.pairs.removeAll()
+        
+        // gw: likely no need to place in dispatch main because at this calling time (scrollView did scroll), these frames are guaranteed to exist
+        // gw: because scrolling changes visible cells, we need to do canvas.pairs update in this lifecycle as well
+        
+        for (i,cell) in peopleCollectionView.visibleCells.enumerated() {
             
-          
+            // assume only one section
+            let index_in_all_cells = peopleCollectionView.indexPathsForVisibleItems[i].row
             
-            self.pairs.removeAll()
             
-            // gw: likely no need to place in dispatch main because at this calling time (scrollView did scroll), these frames are guaranteed to exist
-            // gw: because scrolling changes visible cells, we need to do canvas.pairs update in this lifecycle as well
+            let startPoint_in_CGImage = identifications[index_in_all_cells].face.position
+            let startPoint_in_UIImageView = zoomableImageView.imageView.convertPoint(fromImagePoint: startPoint_in_CGImage)
+            let startPoint_in_ScrollView = zoomableImageView.imageView.convert(startPoint_in_UIImageView, to: zoomableImageView)
+            // because UIImageView content mode is 1:1 here, we directly use it here
+            // convert to point inside canvas (which 1:1 overlays on zoomableImageView
+            let startPoint = zoomableImageView.convert(startPoint_in_ScrollView, to: self)
             
-            for (i,cell) in peopleCollectionView.visibleCells.enumerated() {
-                
-                // assume only one section
-                let index_in_all_cells = peopleCollectionView.indexPathsForVisibleItems[i].row
-                
-                
-                let startPoint_in_CGImage = identifications[index_in_all_cells].face.position
-                let startPoint_in_UIImageView = zoomableImageView.imageView.convertPoint(fromImagePoint: startPoint_in_CGImage)
-                let startPoint_in_ScrollView = zoomableImageView.imageView.convert(startPoint_in_UIImageView, to: zoomableImageView)
-                // because UIImageView content mode is 1:1 here, we directly use it here
-                // convert to point inside canvas (which 1:1 overlays on zoomableImageView
-                let startPoint = zoomableImageView.convert(startPoint_in_ScrollView, to: self)
-                
-                
-                var endPoint = peopleCollectionView.convert(cell.frame.origin, to: self)
-                
-                // translate by half the side length to point to middle point
-                // flag for orientation determination
-                if self.isLandscape {
-                    // -1 to ensure point still lies within bounds
-                    endPoint = endPoint.applying(CGAffineTransform(translationX: -1, y: cell.bounds.height / 2   ))
-                } else {
-                    endPoint = endPoint.applying(CGAffineTransform(translationX: cell.bounds.width / 2 , y:  -1  ))
-                }
-                
-                // if either endpoint not in canvas bounds, skip it
-                if !(self.bounds.contains(startPoint) && self.bounds.contains(endPoint) ) {
-                    continue
-                }
-                
-                
-                self.pairs.append((startPoint, endPoint))
-                print("pairs: \(self.pairs)")
+            
+            var endPoint = peopleCollectionView.convert(cell.frame.origin, to: self)
+            
+            // translate by half the side length to point to middle point
+            // flag for orientation determination
+            if self.isLandscape {
+                // -1 to ensure point still lies within bounds
+                endPoint = endPoint.applying(CGAffineTransform(translationX: -1, y: cell.bounds.height / 2   ))
+            } else {
+                endPoint = endPoint.applying(CGAffineTransform(translationX: cell.bounds.width / 2 , y:  -1  ))
             }
             
-            self.setNeedsDisplay()
+            // if either endpoint not in canvas bounds, skip it
+            if !(self.bounds.contains(startPoint) && self.bounds.contains(endPoint) ) {
+                continue
+            }
+            
+            
+            self.pairs.append((startPoint, endPoint))
+            //print("pairs: \(self.pairs)")
         }
+        
+        self.setNeedsDisplay()
+        //}
     }
     
  
