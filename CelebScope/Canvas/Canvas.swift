@@ -155,12 +155,19 @@ class Canvas : UIView {
             let index_in_all_cells = peopleCollectionView.indexPathsForVisibleItems[i].row
             
             
+            // gw: working: when doing coord conversion, should each time convert CONSECUTIVELY related two views like below
             let startPoint_in_CGImage = identifications[index_in_all_cells].face.position
             let startPoint_in_UIImageView = zoomableImageView.imageView.convertPoint(fromImagePoint: startPoint_in_CGImage)
             let startPoint_in_ScrollView = zoomableImageView.imageView.convert(startPoint_in_UIImageView, to: zoomableImageView)
             // because UIImageView content mode is 1:1 here, we directly use it here
             // convert to point inside canvas (which 1:1 overlays on zoomableImageView
             let startPoint = zoomableImageView.convert(startPoint_in_ScrollView, to: self)
+
+            
+            // gw: note: NOT WORKING, when do coord conversion, should each time convert CONSECUTIVELY related two views (one step at a time, see above working example)
+//            let startPoint_in_CGImage = identifications[index_in_all_cells].face.position
+//            let startPoint_in_UIImageView = zoomableImageView.imageView.convertPoint(fromImagePoint: startPoint_in_CGImage)
+//            let startPoint = zoomableImageView.convert(startPoint_in_UIImageView, to: self)
             
             
             var endPoint = peopleCollectionView.convert(cell.frame.origin, to: self)
