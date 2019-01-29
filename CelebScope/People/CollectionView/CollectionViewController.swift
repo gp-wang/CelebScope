@@ -7,7 +7,9 @@
 //
 
 import UIKit
-
+class CustomUICollectionView : UICollectionView {
+    
+}
 
 // gw: dedicated VC class for the person collection view
 class CollectionViewController: UICollectionViewController {
@@ -15,6 +17,10 @@ class CollectionViewController: UICollectionViewController {
      let collectionViewCellIdentifier = "MyCollectionViewCellIdentifier"
     
     var identifications: [Identification] = []
+    
+    
+    // TODO: try out
+    // override var collectionView: UICollectionView?
     
     public func populate(identifications: [Identification])  {
         
@@ -28,6 +34,9 @@ class CollectionViewController: UICollectionViewController {
     // MARK: gw: we use the implicit member "collectionView?" of UICollectionViewController
     
     override init(collectionViewLayout: UICollectionViewLayout) {
+        
+        // TODO: try out
+        //collectionView =  CustomUICollectionView()
         super.init(collectionViewLayout: collectionViewLayout)
         
         collectionView.backgroundColor = UIColor.white

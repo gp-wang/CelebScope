@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/ViewController.swift"
-            timestampString = "570416924.748286"
+            timestampString = "570417057.679927"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "251"
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/ViewController.swift"
-            timestampString = "570416924.748413"
+            timestampString = "570417057.6800489"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "25"
@@ -138,7 +138,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/Canvas/Canvas.swift"
-            timestampString = "570416924.748744"
+            timestampString = "570417057.6804039"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "152"
@@ -154,13 +154,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/Canvas/Canvas.swift"
-            timestampString = "570416924.749155"
+            timestampString = "570417057.681147"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
-            landmarkName = "updateAnnotation()"
-            landmarkType = "7">
+            startingLineNumber = "190"
+            endingLineNumber = "190"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

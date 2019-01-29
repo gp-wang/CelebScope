@@ -9,15 +9,14 @@
 import UIKit
 
 
-// gw: no longer need to use UIImageVIew's point conversion I implemented, instead, use native .convert()...
-// anyway, subclassing UIImageView wont work because drawRect is not called
-// // https://stackoverflow.com/questions/9956565/uiview-subclass-drawrect-not-called/10018906
-// gw: inherit UIImageView instead of UIView to use convenience method of converting point
-// gw: anyway, this canvas's whole purpose is to overlaying and labeling for the UIImageView (photoView) beneath it
-
+// A canvas's responsibility is to draw annotation for two delegators:
+// 1. peopleCollectionView
+// 2. zoomableImageView
+// Therefore, it make sense to instantiate it after above two is instantiated
 class Canvas : UIView {
 
     // dedicated two vars, because canvas has two delegate responsibilities, and both are scrollview delegate
+    // strong ref
     var peopleCollectionViewDelegate: PeopleCollectionViewDelegate?
     var zoomableImageViewDelegate: ZoomableImageViewDelegate?
     
@@ -28,30 +27,11 @@ class Canvas : UIView {
     // orientation, updated from viewController
     var isLandscape: Bool = true
     
-    // gw: Input for face locations
-    var faceLocationsInCgImage : [CGPoint] = [
-        
-        CGPoint(x: 100, y: 100),
-        CGPoint(x: 700, y: 100),
-        CGPoint(x: 1100, y: 100),
-        
-        CGPoint(x: 100, y: 650),
-        CGPoint(x: 700, y: 650),
-        CGPoint(x: 1100, y: 650),
-        
-        CGPoint(x: 100, y: 1400),
-        CGPoint(x: 700, y: 1400),
-        CGPoint(x: 1100, y: 1400),
-        
-        ]
-    
     // 1st input stage: gets data from external
     public var identifications : [Identification]? {
         didSet {
             // process data and converts into drawing pairs
-            
             updateAnnotation()
-            
         }
     }
     

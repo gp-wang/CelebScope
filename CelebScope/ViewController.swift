@@ -80,12 +80,24 @@ class ViewController:  UIViewController {
         self.addChild(detailPagedVC)
         view.addSubview(detailPagedVC.view)
         
-        // setup canvas as delegate
-        canvas.peopleCollectionViewDelegate = PeopleCollectionViewDelegate(wapperView: peopleCollectionVC.collectionView!, parentCanvas: canvas)
-        peopleCollectionVC.collectionView.delegate = canvas.peopleCollectionViewDelegate
+        // ---------------------
+        // constructing the delegatee
+        let dedicatedPeopleCollectionViewDelegate = PeopleCollectionViewDelegate(delegator: peopleCollectionVC.collectionView!)
         
-        canvas.zoomableImageViewDelegate = ZoomableImageViewDelegate(wapperView: zoomableImageVC.zoomableImageView, parentCanvas: canvas)
-        zoomableImageVC.zoomableImageView.delegate = canvas.zoomableImageViewDelegate
+        // c -> pd: strong ref setup
+        canvas.peopleCollectionViewDelegate = dedicatedPeopleCollectionViewDelegate
+        
+        // p -> pd: strong ref setup
+        peopleCollectionVC.collectionView.delegate = dedicatedPeopleCollectionViewDelegate
+        
+        
+        // ---------------------
+        // constructing the delegatee
+        let dedicatedZoomableImageViewDelegate = ZoomableImageViewDelegate(delegator: zoomableImageVC.zoomableImageView)
+        // c -> zd: strong ref setup
+        canvas.zoomableImageViewDelegate = dedicatedZoomableImageViewDelegate
+         // z -> zd: strong ref setup
+        zoomableImageVC.zoomableImageView.delegate = dedicatedZoomableImageViewDelegate
         
         // setting up delegate reverse ref        
         canvas.peopleCollectionView = peopleCollectionVC.collectionView

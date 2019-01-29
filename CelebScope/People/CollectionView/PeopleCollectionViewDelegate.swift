@@ -10,13 +10,15 @@ import UIKit
 
 class PeopleCollectionViewDelegate: NSObject, UICollectionViewDelegate {
     
+    // store a reference to the object which will take the actual action
+    weak var actionTaker: Canvas?
     
-    let parentCanvas: Canvas
-    let wrapperView: UICollectionView
+    // the delegator who relies on this object
+    unowned let delegator: UICollectionView
     
-    init(wapperView: UICollectionView, parentCanvas: Canvas) {
-        self.wrapperView = wapperView
-        self.parentCanvas = parentCanvas
+    init(delegator: UICollectionView) {
+        self.delegator = delegator
+        
         super.init()
     }
     
@@ -25,9 +27,9 @@ class PeopleCollectionViewDelegate: NSObject, UICollectionViewDelegate {
     // here the scrollView is the people collection scrollview
     // here the canvas is the overlaying annotation layer on top of photoView
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        print("from inside PeopleCollectionViewDelegate")
-        parentCanvas.updateAnnotation()
+        guard let actionTaker = actionTaker else {return }
+        // print("from inside PeopleCollectionViewDelegate")
+        actionTaker.updateAnnotation()
     }
     
     
@@ -40,6 +42,6 @@ class PeopleCollectionViewDelegate: NSObject, UICollectionViewDelegate {
 extension PeopleCollectionViewDelegate: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: self.wrapperView.bounds.width, height: self.wrapperView.bounds.width / 1.666)
+        return CGSize(width: self.delegator.bounds.width, height: self.delegator.bounds.width / 1.666)
     }
 }
