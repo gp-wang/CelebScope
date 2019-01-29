@@ -87,6 +87,10 @@ class ViewController:  UIViewController {
         canvas.zoomableImageViewDelegate = ZoomableImageViewDelegate(wapperView: zoomableImageVC.zoomableImageView, parentCanvas: canvas)
         zoomableImageVC.zoomableImageView.delegate = canvas.zoomableImageViewDelegate
         
+        // setting up delegate reverse ref        
+        canvas.peopleCollectionView = peopleCollectionVC.collectionView
+        canvas.zoomableImageView = zoomableImageVC.zoomableImageView
+        
         // TODO:temp
         detailPagedVC.view.isHidden = true
         
@@ -128,6 +132,9 @@ class ViewController:  UIViewController {
         
         detailPagedVC.populate(identificationResults: identificationResults)
         peopleCollectionVC.populate(identifications: identificationResults)
+        
+        canvas.isLandscape = UIDevice.current.orientation.isLandscape
+        canvas.identifications = identificationResults
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -188,6 +195,8 @@ class ViewController:  UIViewController {
             return
             
         }
+        
+        canvas.isLandscape = UIDevice.current.orientation.isLandscape
         
         if UIDevice.current.orientation.isLandscape {
             self.detailPagedVC.view.isHidden = true
