@@ -15,6 +15,7 @@ class ViewController:  UIViewController {
         
         // the ratio of the content (e..g face) taken inside the entire view
         static let contentSpanRatio: CGFloat = 0.8
+        static let buttonSize: CGFloat = 60
     }
 
     // canva's VC is this main VC
@@ -277,6 +278,16 @@ class ViewController:  UIViewController {
     //
     
     
+    
+    
+}
+
+
+
+
+// MARK: - page view delegate
+extension ViewController: UIPageViewControllerDelegate {
+    
     // MARK: - pick photos from album
     @objc
     func pickImage() {
@@ -294,16 +305,20 @@ class ViewController:  UIViewController {
         imagePicker.sourceType = .camera
         imagePicker.delegate = self
         self.present(imagePicker, animated: true)
+       
     }
     
-    
-}
-
-
-
-// MARK: - page view delegate
-extension ViewController: UIPageViewControllerDelegate {
-    
+    //MARK: - Saving Image here
+    @objc
+    func save(_ sender: AnyObject) {
+        guard let selectedImage = self.zoomableImageVC.zoomableImageView.imageView.image else {
+            print("Image not found!")
+            return
+        }
+        //UIImageWriteToSavedPhotosAlbum(selectedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        print("Image saving!")
+        UIImageWriteToSavedPhotosAlbum(selectedImage, self, nil, nil)
+    }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
@@ -328,10 +343,16 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         picker.dismiss(animated: true) {
             guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
                 // self.configure(image: nil)
+                
                 print("picked 1")
                 return
             }
+            self.zoomableImageVC.zoomableImageView.imageView.image = image
             
+            if picker.sourceType == .camera {	
+                print("Image saving 3")
+                UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
+            }
             //self.updateVisibilityOfPhotoPrompt(false)
                      print("picked 2")
             //self.configure(image: image)
@@ -633,12 +654,12 @@ extension ViewController {
         
         // MARK: - portrait constraints
         
-        let cameraButton_width_p = cameraButton.widthAnchor.constraint(equalToConstant: 80)
+        let cameraButton_width_p = cameraButton.widthAnchor.constraint(equalToConstant: Constants.buttonSize)
         cameraButton_width_p.identifier = "cameraButton_width_p"
         cameraButton_width_p.isActive = false
         portraitConstraints.append(cameraButton_width_p)
         
-        let cameraButton_height_p = cameraButton.heightAnchor.constraint(equalToConstant: 80)
+        let cameraButton_height_p = cameraButton.heightAnchor.constraint(equalToConstant: Constants.buttonSize)
         cameraButton_height_p.identifier = "cameraButton_height_p"
         cameraButton_height_p.isActive = false
         portraitConstraints.append(cameraButton_height_p)
@@ -654,12 +675,12 @@ extension ViewController {
         portraitConstraints.append(cameraButton_bot_p)
         
         
-        let albumButton_width_p = albumButton.widthAnchor.constraint(equalToConstant: 80)
+        let albumButton_width_p = albumButton.widthAnchor.constraint(equalToConstant: Constants.buttonSize)
         albumButton_width_p.identifier = "albumButton_width_p"
         albumButton_width_p.isActive = false
         portraitConstraints.append(albumButton_width_p)
         
-        let albumButton_height_p = albumButton.heightAnchor.constraint(equalToConstant: 80)
+        let albumButton_height_p = albumButton.heightAnchor.constraint(equalToConstant: Constants.buttonSize)
         albumButton_height_p.identifier = "albumButton_height_p"
         albumButton_height_p.isActive = false
         portraitConstraints.append(albumButton_height_p)
@@ -676,12 +697,12 @@ extension ViewController {
         
         // MARK: - landscape constraints
         
-        let cameraButton_width_l = cameraButton.widthAnchor.constraint(equalToConstant: 80)
+        let cameraButton_width_l = cameraButton.widthAnchor.constraint(equalToConstant: Constants.buttonSize)
         cameraButton_width_l.identifier = "cameraButton_width_l"
         cameraButton_width_l.isActive = false
         landscapeConstraints.append(cameraButton_width_l)
         
-        let cameraButton_height_l = cameraButton.heightAnchor.constraint(equalToConstant: 80)
+        let cameraButton_height_l = cameraButton.heightAnchor.constraint(equalToConstant: Constants.buttonSize)
         cameraButton_height_l.identifier = "cameraButton_height_l"
         cameraButton_height_l.isActive = false
         landscapeConstraints.append(cameraButton_height_l)
@@ -698,12 +719,12 @@ extension ViewController {
         landscapeConstraints.append(cameraButton_bot_l)
         
         
-        let albumButton_width_l = albumButton.widthAnchor.constraint(equalToConstant: 80)
+        let albumButton_width_l = albumButton.widthAnchor.constraint(equalToConstant: Constants.buttonSize)
         albumButton_width_l.identifier = "albumButton_width_l"
         albumButton_width_l.isActive = false
         landscapeConstraints.append(albumButton_width_l)
         
-        let albumButton_height_l = albumButton.heightAnchor.constraint(equalToConstant: 80)
+        let albumButton_height_l = albumButton.heightAnchor.constraint(equalToConstant: Constants.buttonSize)
         albumButton_height_l.identifier = "albumButton_height_l"
         albumButton_height_l.isActive = false
         landscapeConstraints.append(albumButton_height_l)
