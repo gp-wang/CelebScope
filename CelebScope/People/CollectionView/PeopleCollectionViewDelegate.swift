@@ -44,4 +44,6 @@ extension PeopleCollectionViewDelegate: UICollectionViewDelegateFlowLayout {
         
         return CGSize(width: self.delegator.bounds.width, height: self.delegator.bounds.width / 1.666)
     }
+    
+    
 }

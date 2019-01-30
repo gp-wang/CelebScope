@@ -33,6 +33,7 @@ class ViewController:  UIViewController {
         let _flowLayout = UICollectionViewFlowLayout()
         // set 1 x N scroll view horizontally. (otherwise it will fold down to 2nd row)
         _flowLayout.scrollDirection = .horizontal
+
         return CollectionViewController(collectionViewLayout: _flowLayout)
     } ()
     
@@ -338,12 +339,14 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
                 return
             }
             self.zoomableImageVC.zoomableImageView.setImage(image: image)
-            
+            //self.zoomableImageVC.zoomableImageView.fitImage()
             // save camera taken photo
             if picker.sourceType == .camera {
                 print("Image saving 3")
                 UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
             }
+            self.peopleCollectionVC.collectionView.collectionViewLayout.invalidateLayout()
+            
             //self.updateVisibilityOfPhotoPrompt(false)
             print("picked 2")
             //self.configure(image: image)
