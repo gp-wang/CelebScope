@@ -329,7 +329,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         self.present(imagePicker, animated: true)
         
     }
-    
+    @objc
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true) {
             guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
@@ -354,7 +354,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         
         
     }
-    
+    @objc
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true) {
             //self.cleanUpForEmptyPhotoSelection()

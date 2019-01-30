@@ -12,7 +12,14 @@ class ZoomableImageView: UIScrollView {
     
     
     // public so that delegate can access
-    public let imageView = UIImageView()
+    public let imageView: UIImageView = {
+        
+        let _imageView = UIImageView()
+        _imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return _imageView
+        
+    } ()
     
     
     // zoom to rect with specified ratio
