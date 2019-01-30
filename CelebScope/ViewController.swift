@@ -175,6 +175,12 @@ class ViewController:  UIViewController {
         
     }
     
+    
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - pick photos from album
     
     @objc func pickImage() {
@@ -198,11 +204,7 @@ class ViewController:  UIViewController {
         self.present(imagePicker, animated: true)
         
     }
-    
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -346,10 +348,10 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
                 print("picked 1")
                 return
             }
+            // gw: needed main queue, otherwise no work
             DispatchQueue.main.async {
                 self.zoomableImageVC.zoomableImageView.setImage(image: image)
-                self.adjustLayout()
-                self.zoomableImageVC.zoomableImageView.fitImage()
+         
             }
 
             //self.zoomableImageVC.zoomableImageView.fitImage()
