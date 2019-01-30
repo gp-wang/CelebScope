@@ -39,5 +39,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Take photos of TV screen and identify the names of the celebrities in the photo.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Select previously taken photos and identify the names of the celibrities in the photo.</string>
 </dict>
 </plist>

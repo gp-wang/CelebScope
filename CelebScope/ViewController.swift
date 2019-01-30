@@ -163,6 +163,14 @@ class ViewController:  UIViewController {
         
         canvas.isLandscape = UIDevice.current.orientation.isLandscape
         canvas.identifications = identificationResults
+        
+        
+        self.albumButton.addTarget(self, action: #selector(pickImage), for: .touchUpInside)
+        
+        
+        
+        self.cameraButton.addTarget(self, action: #selector(takePhoto), for: .touchUpInside)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -266,6 +274,29 @@ class ViewController:  UIViewController {
         }
     }
     
+    //
+    
+    
+    // MARK: - pick photos from album
+    @objc
+    func pickImage() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        self.present(imagePicker, animated: true)
+    }
+    
+    // MARK: - take photos using camera
+    @objc
+    func takePhoto() {
+        //        let imagePicker = UIImagePickerController()
+        let imagePicker = UIImagePickerController() // gw: needed for the confirmation page after taking photo
+        imagePicker.sourceType = .camera
+        imagePicker.delegate = self
+        self.present(imagePicker, animated: true)
+    }
+    
+    
 }
 
 
@@ -289,6 +320,35 @@ extension ViewController: UIPageViewControllerDelegate {
     }
 }
 
+// MARK: - image picker delegate
+// gw: action after picking meage
+extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true) {
+            guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+                // self.configure(image: nil)
+                print("picked 1")
+                return
+            }
+            
+            //self.updateVisibilityOfPhotoPrompt(false)
+                     print("picked 2")
+            //self.configure(image: image)
+        }
+        
+        
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true) {
+            //self.cleanUpForEmptyPhotoSelection()
+                     print("picked 3")
+        }
+        
+    }
+    
+}
 
 
 
