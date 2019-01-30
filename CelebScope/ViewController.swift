@@ -48,7 +48,8 @@ class ViewController:  UIViewController {
     // var pages = [UIViewController]()
     // let pageControl = UIPageControl()
     
-    
+    let cameraButton = CameraButton()
+    let albumButton = AlbumButton()
     
     var identificationResults: [Identification] = []
    
@@ -110,6 +111,16 @@ class ViewController:  UIViewController {
         detailPagedVC.view.isHidden = true
         
         
+        
+        // button
+        
+        view.addSubview(cameraButton)
+        
+       
+        view.addSubview(albumButton)
+        
+        
+        // -- constraints
        
         self.setupLayoutConstraints()
         
@@ -216,6 +227,9 @@ class ViewController:  UIViewController {
         
         canvas.isLandscape = UIDevice.current.orientation.isLandscape
         
+        // TODO: for now hide canvas unless Landscape
+        canvas.isHidden = !canvas.isLandscape
+        
         if UIDevice.current.orientation.isLandscape {
             self.detailPagedVC.view.isHidden = true
             self.peopleCollectionVC.collectionView?.isHidden = false
@@ -287,6 +301,7 @@ extension ViewController {
         setupCanvasConstraints()
         setupCollectionViewConstraints()
         setupPageViewConstraints()
+        setupButtonViewConstraints()
     }
     
     private func setupPhotoViewConstraints() {
@@ -542,6 +557,106 @@ extension ViewController {
         landscapeConstraints.append(page_trail_l)
     }
     
-
+    private func setupButtonViewConstraints() {
+        
+        // convinence vars
+        let zoomableImageView = self.zoomableImageVC.zoomableImageView
+        guard let collectionView = self.peopleCollectionVC.collectionView else {
+            NSLog("failed to unwrap self.peopleCollectionVC.collectionView")
+            return
+        }
+        guard let pageView = self.detailPagedVC.view else {
+            NSLog("failed to unwrap self.detailPagedVC.view ")
+            return
+        }
+        
+        
+        // MARK: - portrait constraints
+        
+        let cameraButton_width_p = cameraButton.widthAnchor.constraint(equalToConstant: 80)
+        cameraButton_width_p.identifier = "cameraButton_width_p"
+        cameraButton_width_p.isActive = false
+        portraitConstraints.append(cameraButton_width_p)
+        
+        let cameraButton_height_p = cameraButton.heightAnchor.constraint(equalToConstant: 80)
+        cameraButton_height_p.identifier = "cameraButton_height_p"
+        cameraButton_height_p.isActive = false
+        portraitConstraints.append(cameraButton_height_p)
+        
+        let cameraButton_lead_p = cameraButton.leadingAnchor.constraint(equalTo: zoomableImageView.leadingAnchor, constant: 10)
+        cameraButton_lead_p.identifier = "cameraButton_lead_p"
+        cameraButton_lead_p.isActive = false
+        portraitConstraints.append(cameraButton_lead_p)
+        
+        let cameraButton_bot_p = cameraButton.bottomAnchor.constraint(equalTo: zoomableImageView.bottomAnchor, constant: -10)
+        cameraButton_bot_p.identifier = "cameraButton_bot_p"
+        cameraButton_bot_p.isActive = false
+        portraitConstraints.append(cameraButton_bot_p)
+        
+        
+        let albumButton_width_p = albumButton.widthAnchor.constraint(equalToConstant: 80)
+        albumButton_width_p.identifier = "albumButton_width_p"
+        albumButton_width_p.isActive = false
+        portraitConstraints.append(albumButton_width_p)
+        
+        let albumButton_height_p = albumButton.heightAnchor.constraint(equalToConstant: 80)
+        albumButton_height_p.identifier = "albumButton_height_p"
+        albumButton_height_p.isActive = false
+        portraitConstraints.append(albumButton_height_p)
+        
+        let albumButton_trailing_p = albumButton.trailingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor, constant: -10)
+        albumButton_trailing_p.identifier = "albumButton_trailing_p"
+        albumButton_trailing_p.isActive = false
+        portraitConstraints.append(albumButton_trailing_p)
+        
+        let albumButton_bot_p = albumButton.bottomAnchor.constraint(equalTo: zoomableImageView.bottomAnchor, constant: -10)
+        albumButton_bot_p.identifier = "albumButton_bot_p"
+        albumButton_bot_p.isActive = false
+        portraitConstraints.append(albumButton_bot_p)
+        
+        // MARK: - landscape constraints
+        
+        let cameraButton_width_l = cameraButton.widthAnchor.constraint(equalToConstant: 80)
+        cameraButton_width_l.identifier = "cameraButton_width_l"
+        cameraButton_width_l.isActive = false
+        landscapeConstraints.append(cameraButton_width_l)
+        
+        let cameraButton_height_l = cameraButton.heightAnchor.constraint(equalToConstant: 80)
+        cameraButton_height_l.identifier = "cameraButton_height_l"
+        cameraButton_height_l.isActive = false
+        landscapeConstraints.append(cameraButton_height_l)
+        
+        
+        let cameraButton_lead_l = cameraButton.leadingAnchor.constraint(equalTo: zoomableImageView.leadingAnchor, constant: 10)
+        cameraButton_lead_l.identifier = "cameraButton_lead_l"
+        cameraButton_lead_l.isActive = false
+        landscapeConstraints.append(cameraButton_lead_l)
+        
+        let cameraButton_bot_l = cameraButton.bottomAnchor.constraint(equalTo: zoomableImageView.bottomAnchor, constant: -10)
+        cameraButton_bot_l.identifier = "cameraButton_bot_l"
+        cameraButton_bot_l.isActive = false
+        landscapeConstraints.append(cameraButton_bot_l)
+        
+        
+        let albumButton_width_l = albumButton.widthAnchor.constraint(equalToConstant: 80)
+        albumButton_width_l.identifier = "albumButton_width_l"
+        albumButton_width_l.isActive = false
+        landscapeConstraints.append(albumButton_width_l)
+        
+        let albumButton_height_l = albumButton.heightAnchor.constraint(equalToConstant: 80)
+        albumButton_height_l.identifier = "albumButton_height_l"
+        albumButton_height_l.isActive = false
+        landscapeConstraints.append(albumButton_height_l)
+        
+        let albumButton_trailing_l = albumButton.trailingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor, constant: -10)
+        albumButton_trailing_l.identifier = "albumButton_trailing_l"
+        albumButton_trailing_l.isActive = false
+        landscapeConstraints.append(albumButton_trailing_l)
+        
+        let albumButton_bot_l = albumButton.bottomAnchor.constraint(equalTo: zoomableImageView.bottomAnchor, constant: -10)
+        albumButton_bot_l.identifier = "albumButton_bot_l"
+        albumButton_bot_l.isActive = false
+        landscapeConstraints.append(albumButton_bot_l)
+    }
    
 }
