@@ -175,6 +175,31 @@ class ViewController:  UIViewController {
         
     }
     
+    // MARK: - pick photos from album
+    
+    @objc func pickImage() {
+        let imagePicker = UIImagePickerController()
+        
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        //self.addChild(imagePicker)
+        
+        self.present(imagePicker, animated: true)
+    }
+    
+    // MARK: - take photos using camera
+    
+    @objc func takePhoto() {
+        let imagePicker = UIImagePickerController()
+        //let imagePicker = UIImagePickerController() // gw: needed for the confirmation page after taking photo
+        imagePicker.sourceType = .camera
+        imagePicker.delegate =  self
+        //self.addChild(imagePicker)
+        self.present(imagePicker, animated: true)
+        
+    }
+    
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -310,51 +335,41 @@ extension ViewController: UIPageViewControllerDelegate {
 // gw: action after picking meage
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    // MARK: - pick photos from album
-    @objc
-    func pickImage() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.delegate = self
-        self.present(imagePicker, animated: true)
-    }
-    
-    // MARK: - take photos using camera
-    @objc
-    func takePhoto() {
-        //        let imagePicker = UIImagePickerController()
-        let imagePicker = UIImagePickerController() // gw: needed for the confirmation page after taking photo
-        imagePicker.sourceType = .camera
-        imagePicker.delegate = self
-        self.present(imagePicker, animated: true)
-        
-    }
-    @objc
+  
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        
         picker.dismiss(animated: true) {
             guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
                 // self.configure(image: nil)
-                
+
                 print("picked 1")
                 return
             }
-            self.zoomableImageVC.zoomableImageView.setImage(image: image)
+            DispatchQueue.main.async {
+                self.zoomableImageVC.zoomableImageView.setImage(image: image)
+                self.adjustLayout()
+                self.zoomableImageVC.zoomableImageView.fitImage()
+            }
+
             //self.zoomableImageVC.zoomableImageView.fitImage()
             // save camera taken photo
             if picker.sourceType == .camera {
                 print("Image saving 3")
                 UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
             }
-            self.peopleCollectionVC.collectionView.collectionViewLayout.invalidateLayout()
-            
+            //self.peopleCollectionVC.collectionView.collectionViewLayout.invalidateLayout()
+
             //self.updateVisibilityOfPhotoPrompt(false)
             print("picked 2")
             //self.configure(image: image)
         }
         
         
+        
+        
     }
-    @objc
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true) {
             //self.cleanUpForEmptyPhotoSelection()

@@ -3,7 +3,10 @@ import UIKit
 class ZoomableImageView: UIScrollView {
     
     private struct Constants {
-        static let minimumZoomScale: CGFloat = 0.5;
+        
+        // 0.5 is not enough for several photos
+        // TODO: find a better way to set it
+        static let minimumZoomScale: CGFloat = 0.005;
         static let maximumZoomScale: CGFloat = 6.0;
         
         // the ratio of the content (e..g face) taken inside the entire view
