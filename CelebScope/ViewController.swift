@@ -17,7 +17,7 @@ class ViewController:  UIViewController {
         static let contentSpanRatio: CGFloat = 0.8
         static let buttonSize: CGFloat = 60
     }
-
+    
     // canva's VC is this main VC
     let canvas:Canvas = {
         let canvas = Canvas()
@@ -53,12 +53,12 @@ class ViewController:  UIViewController {
     let albumButton = AlbumButton()
     
     var identificationResults: [Identification] = []
-   
+    
     
     
     // MARK: - Constructor
     
-     init() {
+    init() {
         super.init(nibName: nil
             , bundle: nil)
         
@@ -101,7 +101,7 @@ class ViewController:  UIViewController {
         dedicatedZoomableImageViewDelegate.actionTaker = canvas
         // c -> zd: strong ref setup
         canvas.zoomableImageViewDelegate = dedicatedZoomableImageViewDelegate
-         // z -> zd: strong ref setup
+        // z -> zd: strong ref setup
         zoomableImageVC.zoomableImageView.delegate = dedicatedZoomableImageViewDelegate
         
         // setting up delegate reverse ref        
@@ -117,12 +117,12 @@ class ViewController:  UIViewController {
         
         view.addSubview(cameraButton)
         
-       
+        
         view.addSubview(albumButton)
         
         
         // -- constraints
-       
+        
         self.setupLayoutConstraints()
         
         
@@ -156,7 +156,7 @@ class ViewController:  UIViewController {
                                       image: dummyCGImage.copy()!), person: Person(id: 0, name: "The Man")),
             Identification(face: Face(boundingBox:  CGRect(x: 524, y: 109, width: 118, height: 118),
                                       image: dummyCGImage.copy()!), person: Person(id: 0, name: "The Other Man")),
-        
+            
         ]
         
         detailPagedVC.populate(identificationResults: identificationResults)
@@ -185,13 +185,13 @@ class ViewController:  UIViewController {
         //view.bringSubviewToFront(self.peopleCollectionVC.collectionView)
         view.bringSubviewToFront(detailPagedVC.view)
         view.bringSubviewToFront(zoomableImageVC.zoomableImageView)
-         self.view.bringSubviewToFront(canvas)
-
+        self.view.bringSubviewToFront(canvas)
+        
     }
     
     // gw notes: use the correct lifecyle, instead of dispatch main
     override func viewDidAppear(_ animated: Bool) {
-
+        
         // initial drawing
         self.adjustLayout()
         
@@ -203,7 +203,7 @@ class ViewController:  UIViewController {
             
             //self.updateAnnotation()
         }
-
+        
     }
     
     // MARK: - trait collections
@@ -220,12 +220,12 @@ class ViewController:  UIViewController {
         }
     }
     
-//    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-//
-//        self.adjustLayout()
-//
-//    }
-
+    //    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+    //
+    //        self.adjustLayout()
+    //
+    //    }
+    
     private func adjustLayout() {
         guard let collectionViewFlowLayout =  self.peopleCollectionVC.collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
             NSLog("failed to convert layout as flow layout")
@@ -248,13 +248,13 @@ class ViewController:  UIViewController {
             // implications: if you enable new rule first, you will have a short time period with conflicting rules
             NSLayoutConstraint.deactivate(self.portraitConstraints)
             NSLayoutConstraint.activate(self.landscapeConstraints)
-
+            
             collectionViewFlowLayout.scrollDirection = .vertical
             // main queue likely needed to wait for correct size of bounds
             // gw: verified working
-//            DispatchQueue.main.async {
-//                collectionViewFlowLayout.itemSize = CGSize(width: self.peopleCollectionVC.collectionView.bounds.width, height: self.peopleCollectionVC.collectionView.bounds.width)
-//            }
+            //            DispatchQueue.main.async {
+            //                collectionViewFlowLayout.itemSize = CGSize(width: self.peopleCollectionVC.collectionView.bounds.width, height: self.peopleCollectionVC.collectionView.bounds.width)
+            //            }
             
         } else {
             self.detailPagedVC.view.isHidden = false
@@ -263,11 +263,11 @@ class ViewController:  UIViewController {
             print("gw: adjusting to portrait")
             NSLayoutConstraint.deactivate(self.landscapeConstraints)
             NSLayoutConstraint.activate(self.portraitConstraints)
-
+            
             collectionViewFlowLayout.scrollDirection = .horizontal
-//            DispatchQueue.main.async {
-//             collectionViewFlowLayout.itemSize = CGSize(width: self.peopleCollectionVC.collectionView.bounds.height, height: self.peopleCollectionVC.collectionView.bounds.height)
-//            }
+            //            DispatchQueue.main.async {
+            //             collectionViewFlowLayout.itemSize = CGSize(width: self.peopleCollectionVC.collectionView.bounds.height, height: self.peopleCollectionVC.collectionView.bounds.height)
+            //            }
         }
         
         DispatchQueue.main.async {
@@ -288,37 +288,7 @@ class ViewController:  UIViewController {
 // MARK: - page view delegate
 extension ViewController: UIPageViewControllerDelegate {
     
-    // MARK: - pick photos from album
-    @objc
-    func pickImage() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.delegate = self
-        self.present(imagePicker, animated: true)
-    }
     
-    // MARK: - take photos using camera
-    @objc
-    func takePhoto() {
-        //        let imagePicker = UIImagePickerController()
-        let imagePicker = UIImagePickerController() // gw: needed for the confirmation page after taking photo
-        imagePicker.sourceType = .camera
-        imagePicker.delegate = self
-        self.present(imagePicker, animated: true)
-       
-    }
-    
-    //MARK: - Saving Image here
-    @objc
-    func save(_ sender: AnyObject) {
-        guard let selectedImage = self.zoomableImageVC.zoomableImageView.imageView.image else {
-            print("Image not found!")
-            return
-        }
-        //UIImageWriteToSavedPhotosAlbum(selectedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
-        print("Image saving!")
-        UIImageWriteToSavedPhotosAlbum(selectedImage, self, nil, nil)
-    }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
@@ -339,6 +309,26 @@ extension ViewController: UIPageViewControllerDelegate {
 // gw: action after picking meage
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    // MARK: - pick photos from album
+    @objc
+    func pickImage() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        self.present(imagePicker, animated: true)
+    }
+    
+    // MARK: - take photos using camera
+    @objc
+    func takePhoto() {
+        //        let imagePicker = UIImagePickerController()
+        let imagePicker = UIImagePickerController() // gw: needed for the confirmation page after taking photo
+        imagePicker.sourceType = .camera
+        imagePicker.delegate = self
+        self.present(imagePicker, animated: true)
+        
+    }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true) {
             guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
@@ -347,14 +337,15 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
                 print("picked 1")
                 return
             }
-            self.zoomableImageVC.zoomableImageView.imageView.image = image
+            self.zoomableImageVC.zoomableImageView.setImage(image: image)
             
-            if picker.sourceType == .camera {	
+            // save camera taken photo
+            if picker.sourceType == .camera {
                 print("Image saving 3")
                 UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
             }
             //self.updateVisibilityOfPhotoPrompt(false)
-                     print("picked 2")
+            print("picked 2")
             //self.configure(image: image)
         }
         
@@ -364,7 +355,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true) {
             //self.cleanUpForEmptyPhotoSelection()
-                     print("picked 3")
+            print("picked 3")
         }
         
     }
@@ -404,12 +395,12 @@ extension ViewController {
         photo_top_p.identifier = "photo_top_p"
         photo_top_p.isActive = false
         portraitConstraints.append(photo_top_p)
-
+        
         // !deprecated: use fixed coll view hw ratio instead
-//        let photo_hw_ratio_p = zoomableImageView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor,   multiplier: 1.333)
-//        photo_hw_ratio_p.identifier = "photo_hw_ratio_p"
-//        photo_hw_ratio_p.isActive = false
-//        portraitConstraints.append(photo_hw_ratio_p)
+        //        let photo_hw_ratio_p = zoomableImageView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor,   multiplier: 1.333)
+        //        photo_hw_ratio_p.identifier = "photo_hw_ratio_p"
+        //        photo_hw_ratio_p.isActive = false
+        //        portraitConstraints.append(photo_hw_ratio_p)
         let photo_bot_p = zoomableImageVCView.bottomAnchor.constraint(equalTo: collectionView.topAnchor)
         photo_bot_p.identifier = "photo_bot_p"
         photo_bot_p.isActive = false
@@ -424,7 +415,7 @@ extension ViewController {
         photo_trail_p.identifier = "photo_trail_p"
         photo_trail_p.isActive = false
         portraitConstraints.append(photo_trail_p)
-      
+        
         
         
         // MARK: - landscape constraints
@@ -523,10 +514,10 @@ extension ViewController {
         // MARK: - portrait constraints
         
         // !deprecated: use fixed hw ratio instead
-//        let coll_top_p = collectionView.topAnchor.constraint(equalTo: zoomableImageView.bottomAnchor)
-//        coll_top_p.identifier = "coll_top_p"
-//        coll_top_p.isActive = false
-//        portraitConstraints.append(coll_top_p)
+        //        let coll_top_p = collectionView.topAnchor.constraint(equalTo: zoomableImageView.bottomAnchor)
+        //        coll_top_p.identifier = "coll_top_p"
+        //        coll_top_p.isActive = false
+        //        portraitConstraints.append(coll_top_p)
         let coll_hw_ratio_p = collectionView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.444)
         coll_hw_ratio_p.identifier = "coll_hw_ratio_p"
         coll_hw_ratio_p.isActive = false
@@ -562,10 +553,10 @@ extension ViewController {
         landscapeConstraints.append(coll_bot_l)
         
         // !deprecated: use fixed hw ratio instead
-//        let coll_lead_l = collectionView.leadingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor)
-//        coll_lead_l.identifier = "coll_lead_l"
-//        coll_lead_l.isActive = false
-//        landscapeConstraints.append(coll_lead_l)
+        //        let coll_lead_l = collectionView.leadingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor)
+        //        coll_lead_l.identifier = "coll_lead_l"
+        //        coll_lead_l.isActive = false
+        //        landscapeConstraints.append(coll_lead_l)
         let coll_hw_ratio_l = collectionView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.444)
         coll_hw_ratio_l.identifier = "coll_hw_ratio_l"
         coll_hw_ratio_l.isActive = false
@@ -591,7 +582,7 @@ extension ViewController {
             return
         }
         
-      
+        
         // MARK: - portrait constraints
         let page_top_p = pageView.topAnchor.constraint(equalTo: collectionView.topAnchor)
         page_top_p.identifier = "page_top_p"
@@ -739,5 +730,5 @@ extension ViewController {
         albumButton_bot_l.isActive = false
         landscapeConstraints.append(albumButton_bot_l)
     }
-   
+    
 }
