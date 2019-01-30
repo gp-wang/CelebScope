@@ -31,7 +31,7 @@ class CameraButton: UIButton {
         // tintColor = UIColor.white
         
         
-        let image = UIImage(imageLiteralResourceName: "camera2") as UIImage?
+        let image = UIImage(imageLiteralResourceName: "camera") as UIImage?
        //self.imageEdgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         setImage(image, for: .normal)
         //imageView?.tintColor = UIColor.white
