@@ -99,6 +99,7 @@ class ZoomableImageView: UIScrollView {
     
     
      // gw: must be called to complete a setting
+    // note: this imageVIew is responsible for setting the image content, but its VC must setNeedsLayout
     public func setImage(image: UIImage) {
         imageView.image = image
 
@@ -106,6 +107,7 @@ class ZoomableImageView: UIScrollView {
         
         self.contentSize = image.size
         
+        // gw: note, need to be placed at VC level , not here at imageView
         // https://stackoverflow.com/a/15141367/8328365
         //setNeedsLayout()
         //layoutIfNeeded()

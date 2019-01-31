@@ -47,8 +47,14 @@ class ZoomableImageViewController: UIViewController {
     }
     
     func setImage(image: UIImage)  {
+        
+        // delegate the imageView to set the image content
         zoomableImageView.setImage(image: image)
         
+        
+        // https://stackoverflow.com/a/15141367/8328365
+        // but delegate the layout update responsibility inside VC ('view' is VC's view), not view
+        // gw: note, need to be placed at VC level 
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
     }

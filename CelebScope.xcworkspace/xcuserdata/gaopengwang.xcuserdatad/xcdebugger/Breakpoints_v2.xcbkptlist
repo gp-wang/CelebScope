@@ -180,7 +180,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "125"
             endingLineNumber = "125"
-            landmarkName = "setupLayoutConstraints()"
+            landmarkName = "setZoomScale()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -196,7 +196,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "127"
             endingLineNumber = "127"
-            landmarkName = "setupLayoutConstraints()"
+            landmarkName = "setZoomScale()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
