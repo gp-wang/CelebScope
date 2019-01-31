@@ -34,6 +34,9 @@ class ZoomableImageViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillLayoutSubviews() {
+        zoomableImageView.setZoomScale()
+    }
 
     /*
     // MARK: - Navigation

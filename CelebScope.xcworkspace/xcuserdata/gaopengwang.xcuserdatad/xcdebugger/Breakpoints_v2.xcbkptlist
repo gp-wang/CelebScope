@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/ViewController.swift"
-            timestampString = "570588214.42108"
+            timestampString = "570590464.9569221"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "26"
@@ -175,11 +175,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/Image/ZoomableImageView.swift"
-            timestampString = "570588214.421736"
+            timestampString = "570590464.957274"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
             landmarkName = "setZoomScale()"
             landmarkType = "7">
          </BreakpointContent>

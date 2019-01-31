@@ -246,7 +246,9 @@ class ViewController:  UIViewController {
         
         // need to wait for adjust layout settle
         DispatchQueue.main.async {
-            self.zoomableImageVC.zoomableImageView.fitImage()
+            //self.zoomableImageVC.zoomableImageView.fitImage()
+            
+            self.zoomableImageVC.zoomableImageView.setZoomScale()
         }
     }
     
@@ -352,10 +354,11 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
             }
             self.adjustLayout()
             // gw: needed main queue, otherwise no work
-            DispatchQueue.main.async {
+//            DispatchQueue.main.async {
                 self.zoomableImageVC.zoomableImageView.setImage(image: image)
                 
-            }
+  //          }
+            
 
             //self.zoomableImageVC.zoomableImageView.fitImage()
             // save camera taken photo
