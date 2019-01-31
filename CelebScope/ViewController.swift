@@ -220,17 +220,17 @@ class ViewController:  UIViewController {
     // gw notes: use the correct lifecyle, instead of dispatch main
     override func viewDidAppear(_ animated: Bool) {
         
-        // initial drawing
-        self.adjustLayout()
-        
-        // gw: wait for above adjustment to finish photoView's frame
-        // TODO: can this be unwrapped?
-        DispatchQueue.main.async {
-            let image = UIImage(imageLiteralResourceName: "team")
-            self.zoomableImageVC.zoomableImageView.setImage(image: image)
-            
-            //self.updateAnnotation()
-        }
+//        // initial drawing
+//        self.adjustLayout()
+//        
+//        // gw: wait for above adjustment to finish photoView's frame
+//        // TODO: can this be unwrapped?
+//        DispatchQueue.main.async {
+//            let image = UIImage(imageLiteralResourceName: "team")
+//            self.zoomableImageVC.zoomableImageView.setImage(image: image)
+//            
+//            //self.updateAnnotation()
+//        }
         
     }
     
@@ -239,6 +239,8 @@ class ViewController:  UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
+        
+
         self.adjustLayout()
         //self.updateAnnotation()
         
