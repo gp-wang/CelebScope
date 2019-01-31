@@ -269,7 +269,7 @@ class ViewController:  UIViewController {
         
         if UIDevice.current.orientation.isLandscape {
             self.detailPagedVC.view.isHidden = true
-            self.peopleCollectionVC.collectionView?.isHidden = false
+            self.peopleCollectionVC.view.isHidden = false
             
             print("gw: adjusting to landscape")
             // gw: note: always disable previous rules first, then do enabling new rules
@@ -286,7 +286,7 @@ class ViewController:  UIViewController {
             
         } else {
             self.detailPagedVC.view.isHidden = false
-            self.peopleCollectionVC.collectionView?.isHidden = true
+            self.peopleCollectionVC.view.isHidden = true
             
             print("gw: adjusting to portrait")
             NSLayoutConstraint.deactivate(self.landscapeConstraints)
@@ -348,10 +348,11 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
                 print("picked 1")
                 return
             }
+            self.adjustLayout()
             // gw: needed main queue, otherwise no work
             DispatchQueue.main.async {
                 self.zoomableImageVC.zoomableImageView.setImage(image: image)
-         
+                
             }
 
             //self.zoomableImageVC.zoomableImageView.fitImage()

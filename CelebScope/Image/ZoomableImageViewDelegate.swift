@@ -32,14 +32,14 @@ class ZoomableImageViewDelegate: NSObject, UIScrollViewDelegate {
         
         func scrollViewDidZoom(_ scrollView: UIScrollView) {
             guard let actionTaker = actionTaker else {return }
-            //print("scale factor is: \(scrollView.zoomScale)")
+            print("scale factor is: \(scrollView.zoomScale)")
             // print("from inside ZoomableImageViewDelegate")
             actionTaker.updateAnnotation()
         }
         
         func scrollViewDidScroll(_ scrollView: UIScrollView) {
             guard let actionTaker = actionTaker else {return }
-            //print("content offset is: \(scrollView.contentOffset)")
+        print("content offset is: \(scrollView.contentOffset)")
             // print("from inside ZoomableImageViewDelegate")
             actionTaker.updateAnnotation()
         }

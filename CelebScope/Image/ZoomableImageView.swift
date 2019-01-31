@@ -6,8 +6,9 @@ class ZoomableImageView: UIScrollView {
         
         // 0.5 is not enough for several photos
         // TODO: find a better way to set it
-        static let minimumZoomScale: CGFloat = 0.005;
-        static let maximumZoomScale: CGFloat = 6.0;
+        // do not use constants, instead, calculate at image setting time
+        //static let minimumZoomScale: CGFloat = 0.005;
+        //static let maximumZoomScale: CGFloat = 6.0;
         
         // the ratio of the content (e..g face) taken inside the entire view
         static let contentSpanRatio: CGFloat = 0.8
@@ -91,7 +92,6 @@ class ZoomableImageView: UIScrollView {
         
         self.contentInset = UIEdgeInsets(top: verticalPadding, left: horizontalPadding, bottom: verticalPadding, right: horizontalPadding)
         
-        // self.convert(<#T##point: CGPoint##CGPoint#>, to: <#T##UICoordinateSpace#>)
         
         
     }
@@ -107,9 +107,23 @@ class ZoomableImageView: UIScrollView {
         self.contentSize = image.size
         
         
+        // set min scale to ensure the shorter side won't un-utilize the screen
+        setZoomScale()
+        
         fitImage()
 
         
+    }
+    
+    func setZoomScale() {
+        let imageViewSize = imageView.bounds.size
+        let scrollViewSize = self.bounds.size
+        let widthScale = scrollViewSize.width / imageViewSize.width
+        let heightScale = scrollViewSize.height / imageViewSize.height
+        
+        self.minimumZoomScale = min(widthScale, heightScale)
+        self.maximumZoomScale = 6
+        zoomScale = 1.0
     }
     
     
@@ -118,8 +132,6 @@ class ZoomableImageView: UIScrollView {
         // gw: there is no super.init(), you have to use this constructor as hack
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0)) // gw: relies on autolayout constraint later
         
-        minimumZoomScale = Constants.minimumZoomScale
-        maximumZoomScale = Constants.maximumZoomScale
         
         
         addSubview(imageView)
