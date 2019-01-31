@@ -245,11 +245,11 @@ class ViewController:  UIViewController {
         //self.updateAnnotation()
         
         // need to wait for adjust layout settle
-        DispatchQueue.main.async {
-            //self.zoomableImageVC.zoomableImageView.fitImage()
-            
-            self.zoomableImageVC.zoomableImageView.setZoomScale()
-        }
+//        DispatchQueue.main.async {
+//            //self.zoomableImageVC.zoomableImageView.fitImage()
+//            
+//            self.zoomableImageVC.zoomableImageView.setZoomScale()
+//        }
     }
     
     //    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
