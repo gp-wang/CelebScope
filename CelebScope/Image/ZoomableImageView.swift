@@ -110,7 +110,7 @@ class ZoomableImageView: UIScrollView {
         // set min scale to ensure the shorter side won't un-utilize the screen
         setZoomScale()
         
-        fitImage()
+        //fitImage()
 
         
     }
