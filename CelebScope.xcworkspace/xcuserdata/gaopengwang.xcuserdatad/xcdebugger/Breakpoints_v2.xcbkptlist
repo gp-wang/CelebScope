@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/ViewController.swift"
-            timestampString = "570592622.686047"
+            timestampString = "570593028.745541"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "26"
@@ -175,12 +175,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/Image/ZoomableImageView.swift"
-            timestampString = "570592622.6863019"
+            timestampString = "570593028.745813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "125"
             endingLineNumber = "125"
-            landmarkName = "setZoomScale()"
+            landmarkName = "setupLayoutConstraints()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -191,12 +191,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/Image/ZoomableImageView.swift"
-            timestampString = "570592622.68638"
+            timestampString = "570593028.746176"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "127"
             endingLineNumber = "127"
-            landmarkName = "setZoomScale()"
+            landmarkName = "setupLayoutConstraints()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

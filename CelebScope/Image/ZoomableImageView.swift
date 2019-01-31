@@ -125,7 +125,9 @@ class ZoomableImageView: UIScrollView {
         print("gw: imageViewSize: \(imageViewSize), scrollViewSize: \(scrollViewSize)")
         
         self.minimumZoomScale = min(widthScale, heightScale)
-        self.maximumZoomScale = 1.2 // allow maxmum 120% of original image size
+        //self.maximumZoomScale = 1.2 // allow maxmum 120% of original image size
+        
+        self.maximumZoomScale = 6 // allow zoom to face box
         
         // set initial zoom to fit the longer side (longer side ==> smaller scale)
         zoomScale = minimumZoomScale
