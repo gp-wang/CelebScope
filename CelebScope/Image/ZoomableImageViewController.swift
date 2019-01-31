@@ -35,7 +35,22 @@ class ZoomableImageViewController: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
-        zoomableImageView.setZoomScale()
+        print("gw: viewWillLayoutSubviews")
+        
+        
+        // gw: main queue make it works now:
+        // https://stackoverflow.com/questions/54452127/how-to-wait-for-subview-layout-settle-down-after-the-initial-viewdidload-cycle?noredirect=1#comment95712755_54452127
+        DispatchQueue.main.async {
+            self.zoomableImageView.setZoomScale()
+        }
+        
+    }
+    
+    func setImage(image: UIImage)  {
+        zoomableImageView.setImage(image: image)
+        
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
     }
 
     /*

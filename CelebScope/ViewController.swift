@@ -355,7 +355,9 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
             self.adjustLayout()
             // gw: needed main queue, otherwise no work
 //            DispatchQueue.main.async {
-                self.zoomableImageVC.zoomableImageView.setImage(image: image)
+                //self.zoomableImageVC.zoomableImageView.setImage(image: image)
+            
+            self.zoomableImageVC.setImage(image: image)
                 
   //          }
             

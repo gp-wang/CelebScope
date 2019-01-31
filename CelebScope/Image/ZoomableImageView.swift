@@ -101,25 +101,15 @@ class ZoomableImageView: UIScrollView {
      // gw: must be called to complete a setting
     public func setImage(image: UIImage) {
         imageView.image = image
-        
-        // gw: don't use bounds here.
-        // TODO: think about why
+
         imageView.frame = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
         
         self.contentSize = image.size
         
-        
-        // set min scale to ensure the shorter side won't un-utilize the screen
-        
-        
-        //fitImage()
-        
-        // gw: note!!!, put in ViewDidLayoutSubview, NOT HERE, e.g. because the imageview bounds has not settled yet
+        // https://stackoverflow.com/a/15141367/8328365
+        //setNeedsLayout()
+        //layoutIfNeeded()
         //setZoomScale()
-        
-        
-        self.setNeedsLayout()
-        //self.layoutSubviews()
         
     }
     
@@ -127,7 +117,6 @@ class ZoomableImageView: UIScrollView {
         
         
         let imageViewSize = imageView.bounds.size
-        //let imageViewSize = imageView.image!.size
         
         let scrollViewSize = self.bounds.size
         let widthScale = scrollViewSize.width / imageViewSize.width
@@ -141,7 +130,7 @@ class ZoomableImageView: UIScrollView {
         // set initial zoom to fit the longer side (longer side ==> smaller scale)
         zoomScale = minimumZoomScale
         
-        
+
     }
     
     
