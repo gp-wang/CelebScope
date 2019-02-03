@@ -127,16 +127,7 @@ class ViewController:  UIViewController {
         self.setupLayoutConstraints()
         
         
-        // -- dummy
         
-        // manually marked face bbox in team.jpg
-        var faces : [CGRect] = [
-            CGRect(x: 46, y: 32, width: 140, height: 140), // Jeniffer Lawrence
-            CGRect(x: 215, y: 156, width: 141, height: 141), // Ellen
-            CGRect(x: 337, y: 172, width: 187, height: 187), // the Man
-            CGRect(x: 524, y: 109, width: 118, height: 118), // the other Man
-            
-        ]
         
         let dummyCGImage = UIImage(imageLiteralResourceName: "kelly").cgImage!
         
@@ -315,6 +306,250 @@ class ViewController:  UIViewController {
     
 }
 
+// MARK: - face classifier
+// gw: I put the classifn responsibility in main VC, instead of zoomVC, is because the later one should be only responsible for image display, not for other fn
+extension ViewController {
+    
+    func configure(image: UIImage?) {
+        guard let image = image else {
+            
+            gw_log("invalid image for configure/classifn")
+            return
+        }
+        
+//        DispatchQueue.main.async {
+//            // reset scrollView offset. NO matter this is a nil image selection or normal image selection
+//            // https://stackoverflow.com/questions/16953610/how-to-reset-my-uiscrollviews-position-after-returning-from-a-modal-transition
+//            self.peopleTableView.contentOffset = CGPoint.zero
+//        }
+//        guard let image = image else {
+//            self.cleanUpForEmptyPhotoSelection()
+//
+//            self.showAlert("Error: Selected image is not valid")
+//            return
+//        }
+        
+//        DispatchQueue.main.async {
+//
+//            self.photoView.contentMode = .scaleAspectFit
+//            self.photoView.image = image    //gw: note, likely need to set contentMode first, then set image
+//        }
+//
+        
+        gw_log("imageOrientation: \(image.imageOrientation)")
+//        gw_log("frame: \(self.photoView.frame)")
+//        gw_log("bounds: \(self.photoView.bounds)")
+        
+        
+        
+        
+        //CroppedImage(image:image.cgImage!, position: CGPoint(x: 0, y: 0))
+        
+        // gw code notes: in FaceCropper Framework, he makes all CGImage as FaceCroppable by extending them all.
+        // gw: you need to import FaceCropper to let UIImage have this face property
+        image.face.crop { (faceCropResult: FaceCropResult<Face>) in
+            switch faceCropResult {
+                //case .success(var faces: [Face]):
+                // gw: type here is faces: [Face]
+            // gw: TODO, read futher why cannot specify type here
+            case .success(var faces):
+                let epsilonY : CGFloat = 20  // gw: use an larger value to mean that if two points are close enough in this direction, then ignore it and use the ordering in the other direction
+                let epsilonX : CGFloat = 0.1
+                
+                
+                // sort faces by their positino in photo
+                // this sort is for list in ppl coll view
+                // goal: less cross over from photo to ppl coll view annotations
+                let sortedFacesByPosition = faces.sorted(by: { (face1: Face, face2: Face) -> Bool in
+                    // gw: note, the sorting should be w.r.t. the UIView location (not original face location in cgImage)
+                    
+                    // TODO: think about rotated photo or face -------------------
+                    //let _p1 = self.transformPointByOrientation(face1.position, image.imageOrientation)
+                    //let _p2 = self.transformPointByOrientation(face2.position, image.imageOrientation)
+                    let _p1 = face1.position
+                    let _p2 = face2.position
+                    
+                    
+                    // gw: ordering criteria: compare y, then x (UI Kit coord, top to bottom, left to right)
+                    return _p1.y - _p2.y < -epsilonY || ( _p1.y - _p2.y < epsilonY && _p1.x - _p2.x < -epsilonX)
+                })
+                
+                
+//                let sortedPeople = sortedFacesByPosition.enumerated().map({ (index: Int, face: Face) -> Person in
+//                    // TODO: confirm about scale value what to set here?
+//                    // TODO: isn't imageOrientation only ready inside main queue? can we really set it here?
+//                    guard let person = Person(id: index, name: "loading...", photo:  UIImage(cgImage: face.image, scale: 1, orientation: image.imageOrientation), position: face.position, desc: "loading...") else {
+//
+//                        fatalError("Error: could not instantiate person from detected face photo")
+//
+//                    }
+//
+//                    gw_log("position: \(face.position)")
+//
+//
+//
+//                    return person
+//                })
+//
+//                // gw: draw cropped face before classification, for faster user interaction experience
+//                // all name and desc are 'loading'
+//                DispatchQueue.main.async{
+//
+//
+//
+//                    // gw: calc scale and translation to convert face location in original image to SKScene (hence UIImageView)
+//                    // let trln: CGPoint = self.photoView.frame.origin
+//
+//                    // initial assign of rectOfAspectFittedImage. This facility is later used to calculate face locations inside photoView
+//                    // This initial assigning statement is placed here right after cropping is done. (No need to wait for classification)
+//                    self.rectOfAspectFittedImage =  AVMakeRect(aspectRatio: image.size, insideRect: self.photoView.frame)
+//
+//                    gw_log("self.photoView.frame: \(self.photoView.frame)")
+//                    gw_log("rectOfAspectFittedImage: \(self.rectOfAspectFittedImage!)")
+//
+//
+//                    self.peopleTableView.reloadData()
+//
+//                    // update annotation can be done right after cropping, no need to wait for classification
+//
+//                    do {
+//                        try self.updateAnnotation(0.0)
+//                    } catch {
+//                        gw_log("gw unknown error: \(error)")
+//                    }
+//                }
+                
+                
+                // gw: completion handler: face classification
+                // a list of known types as response, is better than using a object (unknown dict) as response type
+                identifyFaces(sortedFacesByPosition,
+                              completionHandler:  { (peopleClassificationResults : [NSDictionary]) in
+                                
+                                
+                                // gw: inside completion handler, you have reference to other variable in the same scope. (closure)
+                                //print(sortedFacesByPosition)
+                                
+                                
+                                
+                                // gw: construct identificationResults from sortedFacesByPosition and peopleClassificationResults
+                                var identificationResults = [Identification]()
+                                
+                                for (idx, (face, personClassification)) in zip(sortedFacesByPosition, peopleClassificationResults).enumerated() {
+                                    let identification = Identification(face: face,
+                                                                        person: Person(
+                                                                            id: idx,
+                                                                            name: (personClassification["best"]?["name"]) ?? "unknown",
+                                                                            avartar:
+                                                                            {
+                                                                                guard let image_b64_str: String = personClassification["best"]?["avartar"] else { return nil}
+                                                                                
+                                                                                // TODO: convert str to Image
+                                                                                
+                                                                                return UIImage
+                                                                                
+                                                                        } (),
+                                                                            birthDate: personClassification["best"]?["birthYear"],
+                                                                            deathDate: personClassification["best"]?["deathYear"],
+                                                                            bio: personClassification["best"]?["bio"],
+                                                                            profession: personClassification["best"]?["professions"]))
+                                    
+                                    identificationResults.append(identification)
+                                }
+                                
+                                // e.g.
+//                                identificationResults = [
+//                                    Identification(face: Face(boundingBox: CGRect(x: 46, y: 32, width: 140, height: 140),
+//                                                              image: dummyCGImage.copy()!),
+//                                                   person: Person(
+//                                                    id: 0,
+//                                                    name: "J.Law",
+//                                                    avartar: UIImage(imageLiteralResourceName: "jlaw"),
+//                                                    birthDate: Utils.yearFormatter.date(from: "1990"),
+//                                                    bio: "Was the highest-paid actress in the world in 2015 and 2016. With her films grossing over $5.5 billion worldwide, Jennifer Lawrence is often cited as the most successful actor of her generation. She is also thus far the only person born in the 1990s to have won an acting Oscar. Jennifer Shrader Lawrence was born August 15, 1990 in Louisville, ...",
+//                                                    profession: "Actress, Soundtrack, Producer")),
+//
+
+//
+//                                ]
+//                                for person in self.people {
+//                                    
+//                                    if
+//                                        let classificationResult = (classificationResults[person.screenId] as? NSDictionary)
+//                                            ?? (classificationResults[String(person.screenId)] as? NSDictionary),
+//                                        let bestPrediction = classificationResult["best"] as? NSDictionary,
+//                                        let name = bestPrediction["name"] as? String,
+//                                        let prob = bestPrediction["prob"] as? Double,
+//                                        var topNPredictions = classificationResult["topN"] as? [NSDictionary]
+//                                        
+//                                    {
+//                                        
+//                                        topNPredictions.sort(by: {
+//                                            return ($0["prob"] as! Double) > ($1["prob" ] as! Double)
+//                                        })
+//                                        
+//                                        
+//                                        var result = ""
+//                                        for dict in topNPredictions {
+//                                            
+//                                            var name = dict["name"] as! String
+//                                            
+//                                            if name.count > self.MAX_NAME_LEN {
+//                                                let endIndex = name.index(name.startIndex, offsetBy: self.MAX_NAME_LEN - 3)
+//                                                name = String(name[..<endIndex]) + "..."
+//                                            }
+//                                            
+//                                            var percentProb : Int = 0
+//                                            
+//                                            
+//                                            if let decimalProb = dict["prob"] as? Double  {
+//                                                
+//                                                percentProb = Int(decimalProb * 100)
+//                                            }
+//                                            
+//                                            let prob = String(format: "%3d%%", percentProb)
+//                                            result += "\(prob): \(name)\n"
+//                                            
+//                                        }
+//                                        
+//                                        // person.name = name + " " + String(format: "%.3f", prob)
+//                                        person.name = name
+//                                        person.desc = "\(result)"
+//                                        
+//                                    }
+//                                    else  {
+//                                        // fatalError("screenId \(person.screenId): could not find classification result")
+//                                        gw_log("screenId \(person.screenId): could not find classification result")
+//                                        
+//                                        
+//                                        // person.name = name + " " + String(format: "%.3f", prob)
+//                                        person.name = "unknown"
+//                                        person.desc = "unknown"
+//                                        
+//                                    }
+//                                    
+//                                    
+//                                }
+                                
+                                
+                                // gw: after updating datasource, remember to reload data into VIEW!!!
+                                // for UI updates in background tasks (such as completion handler in URLSession task, use main thread'dispatch queue)
+                                
+                                // ref: xcode documentation: Main Thread Checker
+                                DispatchQueue.main.async{
+                                    
+                                    self.peopleTableView.reloadData()
+                                    
+                                }
+                })
+                
+            case .notFound:
+                self.showAlert("couldn't find any face")
+            case .failure(let error):
+                self.showAlert(error.localizedDescription)
+            }
+        }
+    }
+}
 
 
 
@@ -358,8 +593,12 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
 //            DispatchQueue.main.async {
                 //self.zoomableImageVC.zoomableImageView.setImage(image: image)
             
+            
+            // gw: note, classfn of img no need to wait for zoomableImagVC to settle doen with image setting, can go in parallel
+            self.configure(image: image)
             self.zoomableImageVC.setImage(image: image)
-                
+            
+            
   //          }
             
 
