@@ -53,7 +53,17 @@ class ViewController:  UIViewController {
     let cameraButton = CameraButton()
     let albumButton = AlbumButton()
     
-    var identificationResults: [Identification] = []
+    var identificationResults: [Identification]  {
+        didSet {
+            
+            // gw: updating logic for annotations etc
+            detailPagedVC.populate(identificationResults: identificationResults)
+            peopleCollectionVC.populate(identifications: identificationResults)
+            
+            canvas.isLandscape = UIDevice.current.orientation.isLandscape
+            canvas.identifications = identificationResults
+        }
+    }
     
     
     
@@ -126,43 +136,38 @@ class ViewController:  UIViewController {
         
         self.setupLayoutConstraints()
         
-        
-        
-        
-        let dummyCGImage = UIImage(imageLiteralResourceName: "kelly").cgImage!
-        
-        identificationResults = [
-            Identification(face: Face(boundingBox: CGRect(x: 46, y: 32, width: 140, height: 140),
-                                      image: dummyCGImage.copy()!),
-                           person: Person(
-                            id: 0,
-                            name: "J.Law",
-                            avartar: UIImage(imageLiteralResourceName: "jlaw"),
-                            birthDate: Utils.yearFormatter.date(from: "1990"),
-                            bio: "Was the highest-paid actress in the world in 2015 and 2016. With her films grossing over $5.5 billion worldwide, Jennifer Lawrence is often cited as the most successful actor of her generation. She is also thus far the only person born in the 1990s to have won an acting Oscar. Jennifer Shrader Lawrence was born August 15, 1990 in Louisville, ...",
-                            profession: "Actress, Soundtrack, Producer")),
-            
-            Identification(face: Face(boundingBox: CGRect(x: 215, y: 156, width: 141, height: 141),
-                                      image: dummyCGImage.copy()!), person: Person(id: 0, name: "Ellen")),
-            Identification(face: Face(boundingBox: CGRect(x: 337, y: 172, width: 187, height: 187),
-                                      image: dummyCGImage.copy()!), person: Person(id: 0, name: "The Man")),
-            Identification(face: Face(boundingBox:  CGRect(x: 524, y: 109, width: 118, height: 118),
-                                      image: dummyCGImage.copy()!), person: Person(id: 0, name: "The Other Man")),
-            
-        ]
-        
-        detailPagedVC.populate(identificationResults: identificationResults)
-        peopleCollectionVC.populate(identifications: identificationResults)
-        
-        canvas.isLandscape = UIDevice.current.orientation.isLandscape
-        canvas.identifications = identificationResults
-        
-        
+
+        // buttons
         self.albumButton.addTarget(self, action: #selector(pickImage), for: .touchUpInside)
-        
-        
-        
         self.cameraButton.addTarget(self, action: #selector(takePhoto), for: .touchUpInside)
+        
+        
+//        let dummyCGImage = UIImage(imageLiteralResourceName: "kelly").cgImage!
+//
+//        identificationResults = [
+//            Identification(face: Face(boundingBox: CGRect(x: 46, y: 32, width: 140, height: 140),
+//                                      image: dummyCGImage.copy()!),
+//                           person: Person(
+//                            id: 0,
+//                            name: "J.Law",
+//                            avartar: UIImage(imageLiteralResourceName: "jlaw"),
+//                            birthDate: Utils.yearFormatter.date(from: "1990"),
+//                            bio: "Was the highest-paid actress in the world in 2015 and 2016. With her films grossing over $5.5 billion worldwide, Jennifer Lawrence is often cited as the most successful actor of her generation. She is also thus far the only person born in the 1990s to have won an acting Oscar. Jennifer Shrader Lawrence was born August 15, 1990 in Louisville, ...",
+//                            profession: "Actress, Soundtrack, Producer")),
+//
+//            Identification(face: Face(boundingBox: CGRect(x: 215, y: 156, width: 141, height: 141),
+//                                      image: dummyCGImage.copy()!), person: Person(id: 0, name: "Ellen")),
+//            Identification(face: Face(boundingBox: CGRect(x: 337, y: 172, width: 187, height: 187),
+//                                      image: dummyCGImage.copy()!), person: Person(id: 0, name: "The Man")),
+//            Identification(face: Face(boundingBox:  CGRect(x: 524, y: 109, width: 118, height: 118),
+//                                      image: dummyCGImage.copy()!), person: Person(id: 0, name: "The Other Man")),
+//
+//        ]
+        
+        
+        identificationResults = []
+        
+    
         
     }
     
@@ -456,6 +461,9 @@ extension ViewController {
                                     identificationResults.append(identification)
                                 }
                                 
+                                // gw: updating logic is inside setter
+                                self.identificationResults = identificationResults
+                                
                                 // e.g.
 //                                identificationResults = [
 //                                    Identification(face: Face(boundingBox: CGRect(x: 46, y: 32, width: 140, height: 140),
@@ -472,7 +480,7 @@ extension ViewController {
 //
 //                                ]
 //                                for person in self.people {
-//                                    
+//
 //                                    if
 //                                        let classificationResult = (classificationResults[person.screenId] as? NSDictionary)
 //                                            ?? (classificationResults[String(person.screenId)] as? NSDictionary),
@@ -480,54 +488,54 @@ extension ViewController {
 //                                        let name = bestPrediction["name"] as? String,
 //                                        let prob = bestPrediction["prob"] as? Double,
 //                                        var topNPredictions = classificationResult["topN"] as? [NSDictionary]
-//                                        
+//
 //                                    {
-//                                        
+//
 //                                        topNPredictions.sort(by: {
 //                                            return ($0["prob"] as! Double) > ($1["prob" ] as! Double)
 //                                        })
-//                                        
-//                                        
+//
+//
 //                                        var result = ""
 //                                        for dict in topNPredictions {
-//                                            
+//
 //                                            var name = dict["name"] as! String
-//                                            
+//
 //                                            if name.count > self.MAX_NAME_LEN {
 //                                                let endIndex = name.index(name.startIndex, offsetBy: self.MAX_NAME_LEN - 3)
 //                                                name = String(name[..<endIndex]) + "..."
 //                                            }
-//                                            
+//
 //                                            var percentProb : Int = 0
-//                                            
-//                                            
+//
+//
 //                                            if let decimalProb = dict["prob"] as? Double  {
-//                                                
+//
 //                                                percentProb = Int(decimalProb * 100)
 //                                            }
-//                                            
+//
 //                                            let prob = String(format: "%3d%%", percentProb)
 //                                            result += "\(prob): \(name)\n"
-//                                            
+//
 //                                        }
-//                                        
+//
 //                                        // person.name = name + " " + String(format: "%.3f", prob)
 //                                        person.name = name
 //                                        person.desc = "\(result)"
-//                                        
+//
 //                                    }
 //                                    else  {
 //                                        // fatalError("screenId \(person.screenId): could not find classification result")
 //                                        gw_log("screenId \(person.screenId): could not find classification result")
-//                                        
-//                                        
+//
+//
 //                                        // person.name = name + " " + String(format: "%.3f", prob)
 //                                        person.name = "unknown"
 //                                        person.desc = "unknown"
-//                                        
+//
 //                                    }
-//                                    
-//                                    
+//
+//
 //                                }
                                 
                                 
@@ -535,17 +543,19 @@ extension ViewController {
                                 // for UI updates in background tasks (such as completion handler in URLSession task, use main thread'dispatch queue)
                                 
                                 // ref: xcode documentation: Main Thread Checker
-                                DispatchQueue.main.async{
-                                    
-                                    self.peopleTableView.reloadData()
-                                    
-                                }
+//                                DispatchQueue.main.async{
+//
+//                                    self.peopleTableView.reloadData()
+//
+//                                }
                 })
                 
             case .notFound:
-                self.showAlert("couldn't find any face")
+                //self.showAlert("couldn't find any face")
+                gw_log("cannot find any face!")
             case .failure(let error):
-                self.showAlert(error.localizedDescription)
+                //self.showAlert(error.localizedDescription)
+                gw_log("failure!!!")
             }
         }
     }

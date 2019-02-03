@@ -12,7 +12,7 @@ import Foundation
 func gw_log(_ msg: String) -> Void {
     #if DEBUG
     // comment out before production
-    //NSLog(msg)
-    NSLog("debug flag set")
+    NSLog(msg)
+    //NSLog("debug flag set")
     #endif
 }
