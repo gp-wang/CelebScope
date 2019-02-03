@@ -21,7 +21,7 @@ class ViewController:  UIViewController {
     // canva's VC is this main VC
     let canvas:Canvas = {
         let canvas = Canvas()
-        canvas.backgroundColor = UIColor.black
+        canvas.backgroundColor = UIColor.clear
         canvas.translatesAutoresizingMaskIntoConstraints=false
         canvas.alpha = 0.2
         return canvas
@@ -218,10 +218,11 @@ class ViewController:  UIViewController {
     }
     
     // gw notes: use the correct lifecyle, instead of dispatch main
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillLayoutSubviews() {
+       
         
-//        // initial drawing
-//        self.adjustLayout()
+        // initial drawing
+        self.adjustLayout()
 //        
 //        // gw: wait for above adjustment to finish photoView's frame
 //        // TODO: can this be unwrapped?
@@ -247,7 +248,7 @@ class ViewController:  UIViewController {
         // need to wait for adjust layout settle
 //        DispatchQueue.main.async {
 //            //self.zoomableImageVC.zoomableImageView.fitImage()
-//            
+//
 //            self.zoomableImageVC.zoomableImageView.setZoomScale()
 //        }
     }
