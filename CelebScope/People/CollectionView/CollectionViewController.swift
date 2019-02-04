@@ -14,7 +14,11 @@ class CollectionViewController: UICollectionViewController {
 
      let collectionViewCellIdentifier = "MyCollectionViewCellIdentifier"
     
-    var identifications: [Identification] = []
+    var identifications: [Identification] = [] {
+        didSet {
+            self.collectionView?.reloadData()
+        }
+    }
     
     
     
