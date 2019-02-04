@@ -75,9 +75,9 @@ class SinglePersonPageViewController: UIViewController {
  
         var birthDeathDateStr = ""
         if let _birthDate = faceIdentification.person.birthDate {
-            birthDeathDateStr = Utils.yearFormatter.string(from:_birthDate) + " - "
+            birthDeathDateStr = _birthDate + " - "
             if let _deathDate = faceIdentification.person.deathDate {
-                birthDeathDateStr += Utils.yearFormatter.string(from:_deathDate)
+                birthDeathDateStr += _deathDate
             }
         }
         birthDeathDateLabel.text = birthDeathDateStr

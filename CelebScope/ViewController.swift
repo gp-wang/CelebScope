@@ -70,6 +70,8 @@ class ViewController:  UIViewController {
     // MARK: - Constructor
     
     init() {
+        self.identificationResults = []
+        
         super.init(nibName: nil
             , bundle: nil)
         
@@ -443,20 +445,20 @@ extension ViewController {
                                     let identification = Identification(face: face,
                                                                         person: Person(
                                                                             id: idx,
-                                                                            name: (personClassification["best"]?["name"]) ?? "unknown",
+                                                                            name: ((personClassification["best"]
+                                                                                as? NSDictionary)? ["name"]) as? String ?? "unknown",
                                                                             avartar:
                                                                             {
-                                                                                guard let image_b64_str: String = personClassification["best"]?["avartar"] else { return nil}
+                                                                                guard let image_b64_str: String = (personClassification["best"] as? NSDictionary)? ["avartar"] as? String else { return nil}
                                                                                 
-                                                                                // TODO: convert str to Image
-                                                                                
-                                                                                return UIImage
+                                                                                // https://stackoverflow.com/questions/46304641/base64-image-encoding-swift-4-ios
+                                                                                return base64ToImage(base64: image_b64_str)
                                                                                 
                                                                         } (),
-                                                                            birthDate: personClassification["best"]?["birthYear"],
-                                                                            deathDate: personClassification["best"]?["deathYear"],
-                                                                            bio: personClassification["best"]?["bio"],
-                                                                            profession: personClassification["best"]?["professions"]))
+                                                                            birthDate: (personClassification["best"] as? NSDictionary)? ["birthYear"] as? String,
+                                                                            deathDate: (personClassification["best"] as? NSDictionary)? ["deathYear"] as? String,
+                                                                            bio: (personClassification["best"] as? NSDictionary)? ["bio"] as? String,
+                                                                            profession: (personClassification["best"] as? NSDictionary)? ["professions"] as? String))
                                     
                                     identificationResults.append(identification)
                                 }

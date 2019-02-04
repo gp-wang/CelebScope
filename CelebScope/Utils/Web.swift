@@ -8,7 +8,7 @@
 
 
 import Foundation
-
+import FaceCropper
 
 // gw: for image identification
 extension NSMutableData {
@@ -44,8 +44,8 @@ func identifyFaces(_ faces: [Face],  completionHandler: @escaping classification
     
     request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
     
-    let jpegDataImages = faces.map({ (person: Person) -> Data in
-        guard let image = person.photo, let jpegImage = image.jpegData(compressionQuality: 1) else {
+    let jpegDataImages = faces.map({ (face: Face) -> Data in
+        guard let jpegImage = UIImage(cgImage: face.image).jpegData(compressionQuality: 1) else {
             fatalError("Could not retrieve person's photo")
         }
         

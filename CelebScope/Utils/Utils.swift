@@ -7,7 +7,7 @@
 //
 import CoreGraphics
 import Foundation
-
+import UIKit
 // generate an data structure to be used for drawing annotation line from face location in PhotoView to People Table view cell
 func generateAnnotationPoints(_ beginPosition: CGPoint, _ endPosition: CGPoint, _ spanHoriozntally : Bool) -> [CGPoint] {
     
@@ -54,4 +54,30 @@ public class Utils {
         
   
 
+}
+
+
+// MARK:  for encoding decoding image to string
+// https://stackoverflow.com/a/46309421/8328365
+func imageTobase64(image: UIImage) -> String {
+    var base64String = ""
+    
+    
+    if let imageData = image.jpegData(compressionQuality: 1){
+        base64String = imageData.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters)
+    }
+
+    return base64String
+}
+
+func base64ToImage(base64: String) -> UIImage {
+    var img: UIImage = UIImage()
+    if (!base64.isEmpty) {
+        if let decodedData = Data(base64Encoded: base64 , options: NSData.Base64DecodingOptions.ignoreUnknownCharacters) as? Data {
+            let decodedimage = UIImage(data: decodedData)
+            img = (decodedimage as UIImage?)!
+        }
+        
+    }
+    return img
 }
