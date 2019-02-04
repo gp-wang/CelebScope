@@ -55,13 +55,15 @@ class ViewController:  UIViewController {
     
     var identificationResults: [Identification]  {
         didSet {
-            
-            // gw: updating logic for annotations etc
-            detailPagedVC.populate(identificationResults: identificationResults)
-            peopleCollectionVC.populate(identifications: identificationResults)
-            
-            canvas.isLandscape = UIDevice.current.orientation.isLandscape
-            canvas.identifications = identificationResults
+            DispatchQueue.main.async {
+                // gw: updating logic for annotations etc
+                self.detailPagedVC.populate(identificationResults: self.identificationResults)
+                self.peopleCollectionVC.populate(identifications: self.identificationResults)
+                
+                self.canvas.isLandscape = UIDevice.current.orientation.isLandscape
+                self.canvas.identifications = self.identificationResults
+            }
+           
         }
     }
     
