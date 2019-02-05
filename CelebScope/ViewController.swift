@@ -365,6 +365,9 @@ extension ViewController {
                 let epsilonY : CGFloat = 20  // gw: use an larger value to mean that if two points are close enough in this direction, then ignore it and use the ordering in the other direction
                 let epsilonX : CGFloat = 0.1
                 
+                for face in faces{
+                    gw_log("gw: found face at: \(face.position)")
+                }
                 
                 // sort faces by their positino in photo
                 // this sort is for list in ppl coll view
@@ -460,7 +463,9 @@ extension ViewController {
                                                                             birthDate: (personClassification["best"] as? NSDictionary)? ["birthYear"] as? String,
                                                                             deathDate: (personClassification["best"] as? NSDictionary)? ["deathYear"] as? String,
                                                                             bio: (personClassification["best"] as? NSDictionary)? ["bio"] as? String,
-                                                                            profession: (personClassification["best"] as? NSDictionary)? ["professions"] as? String))
+                                                                            profession: (personClassification["best"] as? NSDictionary)? ["professions"] as? String),
+                                                                        confidence: (personClassification["best"] as? NSDictionary)? ["prob"] as? Double
+                                                                        )
                                     
                                     identificationResults.append(identification)
                                 }
