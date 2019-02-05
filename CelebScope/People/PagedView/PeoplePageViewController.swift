@@ -38,7 +38,7 @@ class PeoplePageViewController: UIPageViewController {
     
     public func populate(identificationResults: [Identification]) {
      
-        
+        pages.removeAll()
         for identification in identificationResults {
             var page = SinglePersonPageViewController(identification)
             pages.append(page)
