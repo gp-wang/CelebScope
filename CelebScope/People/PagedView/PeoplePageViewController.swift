@@ -14,7 +14,7 @@ class PeoplePageViewController: UIPageViewController {
     
 
     
-    var pages = [SinglePersonPageViewController]()
+    var pages = [UIViewController]()
     let pageControl: UIPageControl = {
         let _pageControl = UIPageControl()
         
@@ -39,6 +39,11 @@ class PeoplePageViewController: UIPageViewController {
     public func populate(identificationResults: [Identification]) {
      
         pages.removeAll()
+        // overview Page
+        var overviewPage = SummaryPageViewController(identificationResults.count)
+        pages.append(overviewPage)
+        
+        // details page
         for identification in identificationResults {
             var page = SinglePersonPageViewController(identification)
             pages.append(page)

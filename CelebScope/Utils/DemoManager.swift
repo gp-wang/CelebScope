@@ -12,7 +12,7 @@
 import Foundation
 
 
-class DemoMenager: NSObject {
+class DemoManager: NSObject {
     
     private var isOn = true
     override init() {
