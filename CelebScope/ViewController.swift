@@ -75,7 +75,7 @@ class ViewController:  UIViewController {
     
     init() {
         self.identificationResults = []
-        self.demoManager = DemoMenager()
+        
         super.init(nibName: nil
             , bundle: nil)
         
@@ -191,7 +191,7 @@ class ViewController:  UIViewController {
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
         //self.addChild(imagePicker)
-        self.demoManager?.isOn = true
+        self.demoManager = DemoMenager()
         self.present(imagePicker, animated: true)
     }
     
@@ -204,7 +204,9 @@ class ViewController:  UIViewController {
         imagePicker.delegate =  self
         //self.addChild(imagePicker)
         self.present(imagePicker, animated: true)
-           self.demoManager?.isOn = false
+        
+        // destruct demo manager
+           self.demoManager = nil
     }
    
     

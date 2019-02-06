@@ -14,34 +14,42 @@ import Foundation
 
 class DemoMenager: NSObject {
     
-    public var isOn = false
-    
+    private var isOn = true
     override init() {
         super.init()
         print("gw: init demo mgr")
         // 1
+        
+        
         DispatchQueue.global(qos: .background).async { [weak self] in
+            
+            print("starting photo showing")
+            
             while true {
-                
                 if let isOn = self?.isOn {
-                    if isOn {
-                    print("showing some photo for 2 sec ...")
+                    if !isOn {
+                        break
                     }
+                } else {
+                    // gw: this is needed when self is destructed and we want to stop the photoshowing task
+                    break
                 }
+ 
+                print("showing some photo for 2 sec ...")
+                
                 sleep(2)
             }
+            print("finished photo showing")
         }
         
     }
     
-    
-    func start() {
-        self.isOn = true
-    }
-    
-    func stop() {
+    deinit {
+        print("deiniting demoMenager")
         self.isOn = false
     }
+    
+    
     
     
     
