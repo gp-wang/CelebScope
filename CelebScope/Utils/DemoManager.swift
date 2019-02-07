@@ -116,7 +116,8 @@ class DemoManager: NSObject {
                 for (idx, page) in pagingActionTaker.pages.enumerated() {
                     // pagingActionTaker.delegate
                     DispatchQueue.main.async {
-                        pagingActionTaker.pageControl.currentPage = idx
+                        //pagingActionTaker.pageControl.currentPage = idx
+                        pagingActionTaker.setViewControllers(<#T##viewControllers: [UIViewController]?##[UIViewController]?#>, direction: <#T##UIPageViewController.NavigationDirection#>, animated: <#T##Bool#>, completion: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
 
                     }
                     
