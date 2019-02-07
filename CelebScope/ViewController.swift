@@ -147,33 +147,11 @@ class ViewController:  UIViewController {
         self.albumButton.addTarget(self, action: #selector(pickImage), for: .touchUpInside)
         self.cameraButton.addTarget(self, action: #selector(takePhoto), for: .touchUpInside)
         
-        
-//        let dummyCGImage = UIImage(imageLiteralResourceName: "kelly").cgImage!
-//
-//        identificationResults = [
-//            Identification(face: Face(boundingBox: CGRect(x: 46, y: 32, width: 140, height: 140),
-//                                      image: dummyCGImage.copy()!),
-//                           person: Person(
-//                            id: 0,
-//                            name: "J.Law",
-//                            avartar: UIImage(imageLiteralResourceName: "jlaw"),
-//                            birthDate: Utils.yearFormatter.date(from: "1990"),
-//                            bio: "Was the highest-paid actress in the world in 2015 and 2016. With her films grossing over $5.5 billion worldwide, Jennifer Lawrence is often cited as the most successful actor of her generation. She is also thus far the only person born in the 1990s to have won an acting Oscar. Jennifer Shrader Lawrence was born August 15, 1990 in Louisville, ...",
-//                            profession: "Actress, Soundtrack, Producer")),
-//
-//            Identification(face: Face(boundingBox: CGRect(x: 215, y: 156, width: 141, height: 141),
-//                                      image: dummyCGImage.copy()!), person: Person(id: 0, name: "Ellen")),
-//            Identification(face: Face(boundingBox: CGRect(x: 337, y: 172, width: 187, height: 187),
-//                                      image: dummyCGImage.copy()!), person: Person(id: 0, name: "The Man")),
-//            Identification(face: Face(boundingBox:  CGRect(x: 524, y: 109, width: 118, height: 118),
-//                                      image: dummyCGImage.copy()!), person: Person(id: 0, name: "The Other Man")),
-//
-//        ]
-        
+       
         
         identificationResults = []
         
-    
+        self.demoManager = DemoManager(zoomingActionTaker: self.zoomableImageVC, pagingActionTaker: self.detailPagedVC)
         
     }
     
@@ -191,7 +169,8 @@ class ViewController:  UIViewController {
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
         //self.addChild(imagePicker)
-        self.demoManager = DemoManager()
+        //self.demoManager = DemoManager()
+        self.demoManager = nil
         self.present(imagePicker, animated: true)
     }
     
