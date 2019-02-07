@@ -106,24 +106,36 @@ class DemoManager: NSObject {
                 
                 //scroll one page here
                 let demo = demos[i]
-                zoomingActionTaker.setImage(image: demo.photo)
-                pagingActionTaker.populate(identificationResults: demo.identifications)
+                DispatchQueue.main.async {
+                    zoomingActionTaker.setImage(image: demo.photo)
+                    pagingActionTaker.populate(identificationResults: demo.identifications)
+                }
+                
                 
                 
                 for (idx, page) in pagingActionTaker.pages.enumerated() {
                     // pagingActionTaker.delegate
-                    
-                    pagingActionTaker.pageControl.currentPage = idx
+                    DispatchQueue.main.async {
+                        pagingActionTaker.pageControl.currentPage = idx
+
+                    }
                     
                     // if current page is a single person view controller, zoom to that person's face
                     if let singlePersonViewController = pagingActionTaker.pages[idx] as? SinglePersonPageViewController {
                         
                         // print("didFinishAnimating: \(viewControllerIndex)")
                         // zoomingActionTaker.zoom(to: self.identificationResults[viewControllerIndex].face.rect, with: Constants.contentSpanRatio, animated: true)
-                        zoomingActionTaker.zoomableImageView.zoom(to: singlePersonViewController.identification.face.rect, with: DemoManager.Constants.contentSpanRatio, animated: true)
+                        DispatchQueue.main.async {
+                         zoomingActionTaker.zoomableImageView.zoom(to: singlePersonViewController.identification.face.rect, with: DemoManager.Constants.contentSpanRatio, animated: true)
+                        }
+                        
                     } else if let summaryPageViewController = pagingActionTaker.pages[idx] as? SummaryPageViewController {
                         // self.zoomableImageVC.zoomableImageView.zoom(to: self.zoomableImageVC.zoomableImageView.imageView.bounds, with: Constants.contentSpanRatio, animated: true)
-                        zoomingActionTaker.zoomableImageView.zoom(to: zoomingActionTaker.zoomableImageView.imageView.bounds, with: DemoManager.Constants.contentSpanRatio, animated: true)
+                        
+                        DispatchQueue.main.async {
+                             zoomingActionTaker.zoomableImageView.zoom(to: zoomingActionTaker.zoomableImageView.imageView.bounds, with: DemoManager.Constants.contentSpanRatio, animated: true)
+                        }
+                       
                     } else {
                         print("gw: err: unkown type of page controller in paged view ")
                     }
