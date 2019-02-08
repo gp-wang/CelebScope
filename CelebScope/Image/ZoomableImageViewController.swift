@@ -14,7 +14,7 @@ class ZoomableImageViewController: UIViewController {
 
     let zoomableImageView  = ZoomableImageView()
     
-    init() {
+    public init() {
         super.init(nibName: nil
             , bundle: nil)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -46,7 +46,7 @@ class ZoomableImageViewController: UIViewController {
         
     }
     
-    func setImage(image: UIImage)  {
+    public func setImage(image: UIImage)  {
         
         // delegate the imageView to set the image content
         zoomableImageView.setImage(image: image)
@@ -70,12 +70,18 @@ class ZoomableImageViewController: UIViewController {
     */
 
     
-    func setupInternalLayoutConstraints()  {
+    private func setupInternalLayoutConstraints()  {
         NSLayoutConstraint.activate([
             view.topAnchor.constraint(equalTo: zoomableImageView.topAnchor),
             view.bottomAnchor.constraint(equalTo: zoomableImageView.bottomAnchor),
             view.leadingAnchor.constraint(equalTo: zoomableImageView.leadingAnchor),
             view.trailingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor),
             ])
+    }
+    
+    // zoom to rect with specified ratio
+    public func zoom(to rect: CGRect, animated: Bool) {
+        
+       zoomableImageView.zoom(to: rect, with: ZoomableImageView.Constants.contentSpanRatio, animated: animated)
     }
 }

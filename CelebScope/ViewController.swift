@@ -419,54 +419,6 @@ extension ViewController {
 }
 
 
-
-// MARK: - page view delegate
-//extension ViewController: UIPageViewControllerDelegate {
-//
-//
-//
-//    fileprivate func pagingAndZoomingToFaceIndexed(at viewControllerIndex: Int, pagingActionTaker: PeoplePageViewController, zoomingActionTaker: ZoomableImageView) {
-//        // function body
-//        // set the pageControl.currentPage to the index of the current viewController in pages
-//
-//        pagingActionTaker.pageControl.currentPage = viewControllerIndex
-//
-//        // if current page is a single person view controller, zoom to that person's face
-//        if let singlePersonViewController = pagingActionTaker.pages[viewControllerIndex] as? SinglePersonPageViewController {
-//
-//            // print("didFinishAnimating: \(viewControllerIndex)")
-//            // zoomingActionTaker.zoom(to: self.identificationResults[viewControllerIndex].face.rect, with: Constants.contentSpanRatio, animated: true)
-//            zoomingActionTaker.zoom(to: singlePersonViewController.identification.face.rect, with: Constants.contentSpanRatio, animated: true)
-//        } else if let summaryPageViewController = pagingActionTaker.pages[viewControllerIndex] as? SummaryPageViewController {
-//            // self.zoomableImageVC.zoomableImageView.zoom(to: self.zoomableImageVC.zoomableImageView.imageView.bounds, with: Constants.contentSpanRatio, animated: true)
-//            zoomingActionTaker.zoom(to: zoomingActionTaker.imageView.bounds, with: Constants.contentSpanRatio, animated: true)
-//        } else {
-//            print("gw: err: unkown type of page controller in paged view ")
-//        }
-//    }
-//
-//    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-//
-//        // re-written in a way to easily extractable into another function
-//
-//        // function param candidates
-//        guard let viewControllers = pageViewController.viewControllers as? [UIViewController] ,
-//            let viewControllerIndex = self.detailPagedVC.pages.index(of: viewControllers[0]) else {
-//
-//            print("gw: pageViewController could not get page index")
-//            return
-//        }
-//        let pagingActionTaker: PeoplePageViewController = self.detailPagedVC
-//        let zoomingActionTaker: ZoomableImageView = self.zoomableImageVC.zoomableImageView
-//
-//
-//        pagingAndZoomingToFaceIndexed(at:viewControllerIndex, pagingActionTaker: pagingActionTaker, zoomingActionTaker: zoomingActionTaker)
-//
-//
-//
-//    }
-//}
-
 // MARK: - image picker delegate
 // gw: action after picking meage
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {

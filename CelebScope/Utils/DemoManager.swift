@@ -127,14 +127,14 @@ class DemoManager: NSObject {
                         // print("didFinishAnimating: \(viewControllerIndex)")
                         // zoomingActionTaker.zoom(to: self.identificationResults[viewControllerIndex].face.rect, with: Constants.contentSpanRatio, animated: true)
                         DispatchQueue.main.async {
-                         zoomingActionTaker.zoomableImageView.zoom(to: singlePersonViewController.identification.face.rect, with: DemoManager.Constants.contentSpanRatio, animated: true)
+                         zoomingActionTaker.zoom(to: singlePersonViewController.identification.face.rect, animated: true)
                         }
                         
                     } else if let summaryPageViewController = pagingActionTaker.pages[idx] as? SummaryPageViewController {
                         // self.zoomableImageVC.zoomableImageView.zoom(to: self.zoomableImageVC.zoomableImageView.imageView.bounds, with: Constants.contentSpanRatio, animated: true)
                         
                         DispatchQueue.main.async {
-                             zoomingActionTaker.zoomableImageView.zoom(to: zoomingActionTaker.zoomableImageView.imageView.bounds, with: DemoManager.Constants.contentSpanRatio, animated: true)
+                             zoomingActionTaker.zoom(to: zoomingActionTaker.zoomableImageView.imageView.bounds, animated: true)
                         }
                        
                     } else {

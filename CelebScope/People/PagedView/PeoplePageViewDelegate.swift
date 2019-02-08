@@ -42,38 +42,6 @@ class PeoplePageViewDelegate: NSObject, UIPageViewControllerDelegate{
     
     
     
-    
-//    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-//        print("gw:0")
-//        // set the pageControl.currentPage to the index of the current viewController in pages
-//        if let viewControllers = pageViewController.viewControllers as? [UIViewController] {
-//            print("gw:1")
-//            if let viewControllerIndex = self.delegator.pages.index(of: viewControllers[0]) {
-//                print("gw:2")
-//                self.pagingActionTaker?.pageControl.currentPage = viewControllerIndex
-//
-//                // if current page is a single person view controller, zoom to that person's face
-//                if let singlePersonViewController = self.delegator.pages[viewControllerIndex] as? SinglePersonPageViewController {
-//
-//                    print("gw:3")
-//                    self.zoomingActionTaker?.zoom(to: singlePersonViewController.identification.face.rect, with: Constants.contentSpanRatio, animated: true)
-//
-//
-//                } else if let summaryPageViewController = self.delegator.pages[viewControllerIndex] as? SummaryPageViewController,
-//
-//                    let entireImageBounds = self.zoomingActionTaker?.imageView.bounds {
-//                    print("gw:4")
-//                    self.zoomingActionTaker?.zoom(to: entireImageBounds, with: Constants.contentSpanRatio, animated: true)
-//                } else {
-//                    print("gw: err: unkown type of page controller in paged view ")
-//                }
-//            }
-//        }
-//
-//
-//    }
-    
-    
     fileprivate func pagingAndZoomingToFaceIndexed(at viewControllerIndex: Int, pagingActionTaker: PeoplePageViewController, zoomingActionTaker: ZoomableImageViewController) {
         // function body
         // set the pageControl.currentPage to the index of the current viewController in pages
@@ -85,7 +53,7 @@ class PeoplePageViewDelegate: NSObject, UIPageViewControllerDelegate{
             
             // print("didFinishAnimating: \(viewControllerIndex)")
             // zoomingActionTaker.zoom(to: self.identificationResults[viewControllerIndex].face.rect, with: Constants.contentSpanRatio, animated: true)
-            zoomingActionTaker.zoomableImageView.zoom(to: singlePersonViewController.identification.face.rect, with: Constants.contentSpanRatio, animated: true)
+            zoomingActionTaker.zoom(to: singlePersonViewController.identification.face.rect,  animated: true)
         } else if let summaryPageViewController = pagingActionTaker.pages[viewControllerIndex] as? SummaryPageViewController {
             // self.zoomableImageVC.zoomableImageView.zoom(to: self.zoomableImageVC.zoomableImageView.imageView.bounds, with: Constants.contentSpanRatio, animated: true)
             zoomingActionTaker.zoomableImageView.zoom(to: zoomingActionTaker.zoomableImageView.imageView.bounds, with: Constants.contentSpanRatio, animated: true)

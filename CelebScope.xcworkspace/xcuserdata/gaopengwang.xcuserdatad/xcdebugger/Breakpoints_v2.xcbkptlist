@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/ViewController.swift"
-            timestampString = "571298161.735391"
+            timestampString = "571298833.8548321"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "26"
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/People/PagedView/PeoplePageViewController.swift"
-            timestampString = "571298161.735556"
+            timestampString = "571298833.855023"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "76"
@@ -175,7 +175,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/Image/ZoomableImageView.swift"
-            timestampString = "571174024.079614"
+            timestampString = "571298833.85539"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "127"
@@ -191,7 +191,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/Image/ZoomableImageView.swift"
-            timestampString = "571174024.0796649"
+            timestampString = "571298833.855554"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "129"
@@ -207,11 +207,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/People/PagedView/PeoplePageViewDelegate.swift"
-            timestampString = "571298161.736387"
+            timestampString = "571298833.855626"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120">
+            startingLineNumber = "88"
+            endingLineNumber = "88">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -2,7 +2,7 @@ import UIKit
 
 class ZoomableImageView: UIScrollView {
     
-    private struct Constants {
+    public struct Constants {
         
         // 0.5 is not enough for several photos
         // TODO: find a better way to set it
