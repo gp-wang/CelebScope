@@ -117,7 +117,7 @@ class DemoManager: NSObject {
                     // pagingActionTaker.delegate
                     DispatchQueue.main.async {
                         //pagingActionTaker.pageControl.currentPage = idx
-                        pagingActionTaker.setViewControllers(<#T##viewControllers: [UIViewController]?##[UIViewController]?#>, direction: <#T##UIPageViewController.NavigationDirection#>, animated: <#T##Bool#>, completion: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
+                        pagingActionTaker.scrollToPage(idx)
 
                     }
                     
