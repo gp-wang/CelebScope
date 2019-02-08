@@ -48,15 +48,16 @@ class PeoplePageViewController: UIPageViewController {
             var page = SinglePersonPageViewController(identification)
             pages.append(page)
         }
-        
+        self.pageControl.numberOfPages = pages.count
         let initialPage = 0
         scrollToPage(initialPage)
-        self.pageControl.currentPage = initialPage
-        self.pageControl.numberOfPages = pages.count
+        
+        
     }
     
     
     public func scrollToPage(_ index: Int) {
+        self.pageControl.currentPage = index
         setViewControllers([pages[index]], direction: .forward, animated: true, completion: nil)
     }
     
