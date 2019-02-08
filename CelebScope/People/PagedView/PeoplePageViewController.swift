@@ -12,7 +12,11 @@ import UIKit
 
 class PeoplePageViewController: UIPageViewController {
     
-
+    var pageViewDelegateStrongRef: PeoplePageViewDelegate? {
+        didSet {
+            self.delegate = pageViewDelegateStrongRef
+        }
+    }
     
     var pages = [UIViewController]()
     let pageControl: UIPageControl = {

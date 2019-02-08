@@ -15,6 +15,7 @@
 		6B2574B021F75EB30039FAC9 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2574AF21F75EB30039FAC9 /* Utils.swift */; };
 		6B28FBB8220B5CA000BAC099 /* SummaryPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B28FBB7220B5C9F00BAC099 /* SummaryPageViewController.swift */; };
 		6B28FBBE220BA2E600BAC099 /* ViewControllerConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B28FBBD220BA2E600BAC099 /* ViewControllerConstraints.swift */; };
+		6B28FBC0220D475500BAC099 /* PeoplePageViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B28FBBF220D475500BAC099 /* PeoplePageViewDelegate.swift */; };
 		6B2AF15F21FC9E7B005F39EE /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2AF15E21FC9E7B005F39EE /* Person.swift */; };
 		6B2AF16321FCA566005F39EE /* Identification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2AF16221FCA566005F39EE /* Identification.swift */; };
 		6B2FF99222074D050095E4DA /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2FF99122074D050095E4DA /* Web.swift */; };
@@ -44,6 +45,7 @@
 		6B2574AF21F75EB30039FAC9 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		6B28FBB7220B5C9F00BAC099 /* SummaryPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryPageViewController.swift; sourceTree = "<group>"; };
 		6B28FBBD220BA2E600BAC099 /* ViewControllerConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerConstraints.swift; sourceTree = "<group>"; };
+		6B28FBBF220D475500BAC099 /* PeoplePageViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeoplePageViewDelegate.swift; sourceTree = "<group>"; };
 		6B2AF15E21FC9E7B005F39EE /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		6B2AF16221FCA566005F39EE /* Identification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identification.swift; sourceTree = "<group>"; };
 		6B2FF99122074D050095E4DA /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				6B20977F21FBC20C0066CDD8 /* PeoplePageViewController.swift */,
 				6B20976F21FB5E9A0066CDD8 /* SinglePersonPageViewController.swift */,
 				6B28FBB7220B5C9F00BAC099 /* SummaryPageViewController.swift */,
+				6B28FBBF220D475500BAC099 /* PeoplePageViewDelegate.swift */,
 			);
 			path = PagedView;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				6B28FBBE220BA2E600BAC099 /* ViewControllerConstraints.swift in Sources */,
 				6B2FF996220B34990095E4DA /* DemoManager.swift in Sources */,
 				6BD4741A21FA468400163D0C /* ZoomableImageView.swift in Sources */,
+				6B28FBC0220D475500BAC099 /* PeoplePageViewDelegate.swift in Sources */,
 				6B31D2CF21F3ED41000CFA44 /* Canvas.swift in Sources */,
 				6B2FF99422074D2D0095E4DA /* Log.swift in Sources */,
 				6B2574B021F75EB30039FAC9 /* Utils.swift in Sources */,
