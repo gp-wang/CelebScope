@@ -441,19 +441,25 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
             
             
             // gw: note, classfn of img no need to wait for zoomableImagVC to settle doen with image setting, can go in parallel
-            self.configure(image: image)
             self.zoomableImageVC.setImage(image: image)
+            
+            // save camera taken photo
+            if picker.sourceType == .camera {
+                print("Image saving 3")
+                UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
+            }
+            
+            
+            // put time-consuming task in the last
+            self.configure(image: image)
+            
             
             
   //          }
             
 
             //self.zoomableImageVC.zoomableImageView.fitImage()
-            // save camera taken photo
-            if picker.sourceType == .camera {
-                print("Image saving 3")
-                UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
-            }
+            
             //self.peopleCollectionVC.collectionView.collectionViewLayout.invalidateLayout()
 
             //self.updateVisibilityOfPhotoPrompt(false)
