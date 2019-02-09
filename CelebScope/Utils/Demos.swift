@@ -49,16 +49,16 @@ class Demos {
         
         
         // -------------------------
-//        let photo2 = UIImage(imageLiteralResourceName: "demo2")
-//        let face2_0 = Face(boundingBox: CGRect(x: 995, y: 296, width: 200, height: 200), image: dummyCGImage)
-//        let person2_0 = Person(id: 0, name: "Movie Star Mike", avartar: UIImage(imageLiteralResourceName: "demo2_avartar_0"), birthDate: "1970", deathDate: "2016", birthPlace: "Neverland", imdbId: "nm0000333", bio: "A very famous male movie producer", profession: "Actress, Writer, Producer")
-//
-//
-//        let demo2 = Demo(photo: photo2, identifications: [
-//            Identification(face: face2_0, person: person2_0),
-//            ])
+        let photo2 = UIImage(imageLiteralResourceName: "demo2")
+        let face2_0 = Face(boundingBox: CGRect(x: 995, y: 296, width: 200, height: 200), image: dummyCGImage)
+        let person2_0 = Person(id: 0, name: "Movie Star Mike", avartar: UIImage(imageLiteralResourceName: "demo2_avartar_0"), birthDate: "1970", deathDate: "2016", birthPlace: "Neverland", imdbId: "nm0000333", bio: "A very famous male movie producer", profession: "Actress, Writer, Producer")
+
+
+        let demo2 = Demo(photo: photo2, identifications: [
+            Identification(face: face2_0, person: person2_0),
+            ])
         
-        return [demo0, demo1]
+        return [demo0, demo1, demo2]
     } ()
     
 }
