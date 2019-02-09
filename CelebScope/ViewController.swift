@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import AMPopTip
 import FaceCropper
 
 class ViewController:  UIViewController {
@@ -163,7 +163,7 @@ class ViewController:  UIViewController {
         
         identificationResults = []
         
-        self.demoManager = DemoManager(zoomingActionTaker: self.zoomableImageVC, pagingActionTaker: self.detailPagedVC)
+        self.demoManager = DemoManager(zoomingActionTaker: self.zoomableImageVC, pagingActionTaker: self.detailPagedVC, collectionVC: self.peopleCollectionVC)
         
     }
     

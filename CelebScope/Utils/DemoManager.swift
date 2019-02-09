@@ -25,12 +25,13 @@ class DemoManager: NSObject {
     
     unowned let zoomingActionTaker: ZoomableImageViewController
     unowned let pagingActionTaker: PeoplePageViewController
+    unowned let  collectionVC: CollectionViewController
     
-    init(zoomingActionTaker: ZoomableImageViewController, pagingActionTaker: PeoplePageViewController) {
+    init(zoomingActionTaker: ZoomableImageViewController, pagingActionTaker: PeoplePageViewController, collectionVC: CollectionViewController) {
         
         self.zoomingActionTaker = zoomingActionTaker
         self.pagingActionTaker = pagingActionTaker
-        
+        self.collectionVC = collectionVC
         
         super.init()
         print("gw: init demo mgr")
@@ -75,6 +76,7 @@ class DemoManager: NSObject {
                 DispatchQueue.main.async{
                     zoomingActionTaker.setImage(image: demo.photo)
                     pagingActionTaker.populate(identificationResults: demo.identifications)
+                    collectionVC.populate(identifications: demo.identifications)
                     gw_log("gw: populated demo, going to face scrolling after \(Constants.period) sec...")
                 }
                 

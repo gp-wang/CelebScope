@@ -1,16 +1,23 @@
 PODS:
+  - AMPopTip (3.5.0)
   - FaceCropper (1.0.0)
 
 DEPENDENCIES:
+  - AMPopTip
   - FaceCropper (from `~/workspace/FaceCropper`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AMPopTip
 
 EXTERNAL SOURCES:
   FaceCropper:
     :path: "~/workspace/FaceCropper"
 
 SPEC CHECKSUMS:
+  AMPopTip: 871ae0570b68fe396e714922b3f7d8ed6a36bb71
   FaceCropper: de6d44d3b53f5264cfbd139b2f043d86a39730bb
 
-PODFILE CHECKSUM: 482a95844beace6afd97e19f6ed8b511bf68446c
+PODFILE CHECKSUM: ee92051e3e99845811ef4be21325d683ac5df1d0
 
 COCOAPODS: 1.5.3
