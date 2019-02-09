@@ -15,7 +15,7 @@ import FaceCropper
 class DemoManager: NSObject {
     
     private struct Constants {
-        static let period: UInt32 = 2 //seconds
+        static let period: Double = 2 //seconds
         static let contentSpanRatio: CGFloat = 0.8
     }
     
@@ -80,7 +80,7 @@ class DemoManager: NSObject {
                 
                 
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + Constants.period, execute: {
                     gw_log("gw: face scroll start")
                     for (idx, page) in pagingActionTaker.pages.enumerated() {
                        // if (idx == 0) {
@@ -95,7 +95,7 @@ class DemoManager: NSObject {
                         //pagingActionTaker.pageControl.currentPage = idx
                         
                         // gw: note that the item delay should multiply by idx
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(idx * 2), execute: {
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Double(idx) * Constants.period), execute: {
                             
                             gw_log("gw: scrolling to face \(idx)")
                             pagingActionTaker.scrollToPage(idx)
