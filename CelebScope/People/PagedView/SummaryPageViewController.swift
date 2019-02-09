@@ -54,16 +54,16 @@ class SummaryPageViewController: UIViewController {
         
         let labelVerticalConstrains = NSLayoutConstraint.constraints(
             withVisualFormat: "V:|-10-[nameLabel]-10-|",
-            options: .alignAllCenterX,
+            //options: .alignAllCenterX,
             metrics: nil,
             views: views)
         allConstraints += labelVerticalConstrains
         
-//        let labelHorizontalConstrains = NSLayoutConstraint.constraints(
-//            withVisualFormat: "H:|-10-[nameLabel]-10-|",
-//            metrics: nil,
-//            views: views)
-//        allConstraints += labelHorizontalConstrains
+        let labelHorizontalConstrains = NSLayoutConstraint.constraints(
+            withVisualFormat: "H:|-10-[nameLabel]-10-|",
+            metrics: nil,
+            views: views)
+        allConstraints += labelHorizontalConstrains
         
         
         NSLayoutConstraint.activate(allConstraints)
