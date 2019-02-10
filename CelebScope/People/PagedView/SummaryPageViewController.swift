@@ -31,7 +31,7 @@ class SummaryPageViewController: UIViewController {
     init(_ count: Int) {
         
         self.count = count
-        nameLabel.text = "\(count) known \(count > 1 ? "faces" : "face" ) detected in selected photo."
+        nameLabel.text = "\(count) \(count > 1 ? "faces" : "face" ) detected in selected photo."
 
         // gw: boilerplate
         super.init(nibName: nil, bundle: nil)

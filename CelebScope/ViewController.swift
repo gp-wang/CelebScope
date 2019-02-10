@@ -506,7 +506,7 @@ extension ViewController {
                                                                                 // https://stackoverflow.com/questions/46304641/base64-image-encoding-swift-4-ios
                                                                                 return base64ToImage(base64: image_b64_str)
                                                                                 
-                                                                        } (),
+                                                                        } () ?? UIImage(imageLiteralResourceName: "unknown"),
                                                                             birthDate: (personClassification["best"] as? NSDictionary)? ["birthYear"] as? String,
                                                                             deathDate: (personClassification["best"] as? NSDictionary)? ["deathYear"] as? String,
                                                                             bio: (personClassification["best"] as? NSDictionary)? ["bio"] as? String,
