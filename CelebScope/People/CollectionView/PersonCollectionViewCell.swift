@@ -29,9 +29,16 @@ class PersonCollectionViewCell: UICollectionViewCell {
             if let _avartar = _identification.person.avartar {
                 self.avartarView.image = _avartar
             }
-            self.nameLabel.text = _identification.person.name
+            
+            let attrString = NSMutableAttributedString(string: _identification.person.name)
+            attrString.addAttribute(.paragraphStyle, value: PersonCollectionViewCell.nameLabelParagraphStyle, range:NSMakeRange(0, attrString.length))
+        
+            //self.nameLabel.text = _identification.person.name
+            self.nameLabel.attributedText = attrString
             if let _confidence = _identification.confidence as? Double {
-                self.confidenceLabel.text = String(_confidence)
+                
+                // format to percent
+                self.confidenceLabel.text = String(format: "%.0f%%", _confidence * 100.0)
             }
             
         }
@@ -60,21 +67,45 @@ class PersonCollectionViewCell: UICollectionViewCell {
     let nameLabelWrapperView : UIView = {
         let _view = UIView()
         _view.translatesAutoresizingMaskIntoConstraints = false
-        _view.backgroundColor = .red
+        //_view.backgroundColor = .red
         return _view
     } ()
     
+    
+    // style for control line spacing
+    static let nameLabelParagraphStyle: NSMutableParagraphStyle = {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 8
+//        paragraphStyle.paragraphSpacing = 0
+//        paragraphStyle.paragraphSpacingBefore = 0
+//        paragraphStyle.minimumLineHeight = 0
+//        paragraphStyle.headIndent = 0
+//        paragraphStyle.tailIndent = 0
+        
+        // https://stackoverflow.com/a/44658641/8328365
+        paragraphStyle.lineHeightMultiple = 0.5  // this is the key of line spacing
+
+        
+        return paragraphStyle
+    } ()
     let nameLabel : UILabel = {
+      
+        let attrString = NSMutableAttributedString(string: "Jeniffer Lawrence")
+        attrString.addAttribute(.paragraphStyle, value: nameLabelParagraphStyle, range:NSMakeRange(0, attrString.length))
+
         let _label = UILabel()
+        
+
         _label.translatesAutoresizingMaskIntoConstraints = false
-        _label.text = "Jeniffer Lawrence"
+        //_label.text = "Jeniffer Lawrence"
+        _label.attributedText = attrString  // for controling line spacing
         _label.font = UIFont.preferredFont(forTextStyle: .headline).withSize(14)
         _label.backgroundColor = UIColor.green
         _label.lineBreakMode = .byWordWrapping
         _label.adjustsFontSizeToFitWidth = true
         _label.textAlignment = .center
         _label.numberOfLines = 2
-        
+        //_label.backgroundColor = .red
         return _label
     } ()
     

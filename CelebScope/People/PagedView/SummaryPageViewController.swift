@@ -19,13 +19,15 @@ class SummaryPageViewController: UIViewController {
         _label.translatesAutoresizingMaskIntoConstraints = false
         _label.backgroundColor = .red
         _label.font = UIFont.preferredFont(forTextStyle: .headline)
+        _label.textAlignment = .center
         return _label
     } ()
     
     init(_ count: Int) {
         
         self.count = count
-        nameLabel.text = "\(count) faces detected in selected photo."
+        nameLabel.text = "\(count) known \(count > 1 ? "faces" : "face" ) detected in selected photo."
+
         // gw: boilerplate
         super.init(nibName: nil, bundle: nil)
         

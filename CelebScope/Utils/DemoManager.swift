@@ -30,6 +30,9 @@ class DemoManager: NSObject {
     // TODO: think about moving the scroll as one method into main VC, and call it from here
     unowned let canvas: Canvas
     
+    
+    
+    
     init(zoomingActionTaker: ZoomableImageViewController, pagingActionTaker: PeoplePageViewController, collectionVC: CollectionViewController, canvas: Canvas) {
         
         self.zoomingActionTaker = zoomingActionTaker
@@ -64,16 +67,7 @@ class DemoManager: NSObject {
             while true {
                 
                 
-                if let isOn = self?.isOn {
-                    if !isOn {
-                        break
-                    }
-                } else {
-                    // gw: this is needed when self is destructed and we want to stop the photoshowing task
-                    break
-                }
- 
-                print("showing some photo for 2 sec ...")
+                //print("showing some photo for 2 sec ...")
                 
                 //scroll one page here
                 let demo = demos[i]
@@ -88,6 +82,15 @@ class DemoManager: NSObject {
                 
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + Constants.period, execute: {
+                    // gw: each sleep or delay should be followed by a exit check
+                    if let isOn = self?.isOn {
+                        if !isOn {
+                            return
+                        }
+                    } else {
+                        // gw: this is needed when self is destructed and we want to stop the photoshowing task
+                        return
+                    }
                     gw_log("gw: face scroll start")
                     for (idx, page) in pagingActionTaker.pages.enumerated() {
                        // if (idx == 0) {
@@ -103,7 +106,15 @@ class DemoManager: NSObject {
                         
                         // gw: note that the item delay should multiply by idx
                         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Double(idx) * Constants.period), execute: {
-                            
+                            // gw: each sleep should be followed by a exit check
+                            if let isOn = self?.isOn {
+                                if !isOn {
+                                    return
+                                }
+                            } else {
+                                // gw: this is needed when self is destructed and we want to stop the photoshowing task
+                                return
+                            }
                             gw_log("gw: scrolling to face \(idx)")
                             pagingActionTaker.scrollToPage(idx)
                             
@@ -135,6 +146,17 @@ class DemoManager: NSObject {
 
                 // sleep in the background thread should be ok
                 sleep(10)
+                // gw: each sleep should be followed by a exit check
+                if let isOn = self?.isOn {
+                    if !isOn {
+                        break
+                    }
+                } else {
+                    // gw: this is needed when self is destructed and we want to stop the photoshowing task
+                    break
+                }
+                
+                
                 gw_log("gw: scroll one photo")
 
                 i = (i + 1) % count
