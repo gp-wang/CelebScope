@@ -23,22 +23,28 @@ class DemoManager: NSObject {
     
     private let demos: [Demo] = Demos.demos
     
-    unowned let zoomingActionTaker: ZoomableImageViewController
-    unowned let pagingActionTaker: PeoplePageViewController
-    unowned let  collectionVC: CollectionViewController
+//    unowned let zoomingActionTaker: ZoomableImageViewController
+//    unowned let pagingActionTaker: PeoplePageViewController
+//    unowned let  collectionVC: CollectionViewController
     // gw: needed here, otherwise will cause annotation error
     // TODO: think about moving the scroll as one method into main VC, and call it from here
-    unowned let canvas: Canvas
+    //unowned let canvas: Canvas
+    
+    
+    //gw: use one unified handle
+    unowned let actionTaker: ViewController
     
     
     
     
-    init(zoomingActionTaker: ZoomableImageViewController, pagingActionTaker: PeoplePageViewController, collectionVC: CollectionViewController, canvas: Canvas) {
+    init(actionTaker: ViewController) {
         
-        self.zoomingActionTaker = zoomingActionTaker
-        self.pagingActionTaker = pagingActionTaker
-        self.collectionVC = collectionVC
-        self.canvas = canvas
+//        self.zoomingActionTaker = zoomingActionTaker
+//        self.pagingActionTaker = pagingActionTaker
+//        self.collectionVC = collectionVC
+//        self.canvas = canvas
+        
+        self.actionTaker = actionTaker
         
         super.init()
         print("gw: init demo mgr")
@@ -71,14 +77,16 @@ class DemoManager: NSObject {
                 
                 //scroll one page here
                 let demo = demos[i]
-                DispatchQueue.main.async{
-                    zoomingActionTaker.setImage(image: demo.photo)
-                    pagingActionTaker.populate(identificationResults: demo.identifications)
-                    collectionVC.populate(identifications: demo.identifications)
-                    canvas.identifications = demo.identifications
-                    gw_log("gw: populated demo, going to face scrolling after \(Constants.period) sec...")
-                }
+//                DispatchQueue.main.async{
+//                    zoomingActionTaker.setImage(image: demo.photo)
+//                    pagingActionTaker.populate(identificationResults: demo.identifications)
+//                    collectionVC.populate(identifications: demo.identifications)
+//                    canvas.identifications = demo.identifications
+//                    gw_log("gw: populated demo, going to face scrolling after \(Constants.period) sec...")
+//                }
                 
+                self?.actionTaker.identificationResults = demo.identifications
+                self?.actionTaker.setImage(image: demo.photo)
                 
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + Constants.period, execute: {
@@ -92,7 +100,9 @@ class DemoManager: NSObject {
                         return
                     }
                     gw_log("gw: face scroll start")
-                    for (idx, page) in pagingActionTaker.pages.enumerated() {
+                    
+                    for (idx, identification ) in demo.identifications.enumerated() {
+                    //for (idx, page) in pagingActionTaker.pages.enumerated() {
                        // if (idx == 0) {
                             // overview page
                             // already been shown for for Constants.period
@@ -105,7 +115,8 @@ class DemoManager: NSObject {
                         //pagingActionTaker.pageControl.currentPage = idx
                         
                         // gw: note that the item delay should multiply by idx
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Double(idx) * Constants.period), execute: {
+                        // gw: note that +1 to give initial (overview page) some delay
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Double(idx + 1) * Constants.period), execute: {
                             // gw: each sleep should be followed by a exit check
                             if let isOn = self?.isOn {
                                 if !isOn {
@@ -116,24 +127,25 @@ class DemoManager: NSObject {
                                 return
                             }
                             gw_log("gw: scrolling to face \(idx)")
-                            pagingActionTaker.scrollToPage(idx)
-                            
-                            //}
-                            
-                            // if current page is a single person view controller, zoom to that person's face
-                            if let singlePersonViewController = page as? SinglePersonPageViewController {
-                                
-                                // print("didFinishAnimating: \(viewControllerIndex)")
-                                // zoomingActionTaker.zoom(to: self.identificationResults[viewControllerIndex].face.rect, with: Constants.contentSpanRatio, animated: true)
-                                //DispatchQueue.main.async {
-                                zoomingActionTaker.zoom(to: singlePersonViewController.identification.face.rect, animated: true)
-                                //                            zoomingActionTaker.zoomableImageView.zoom(to: singlePersonViewController.identification.face.rect, with: 0.8, animated: true)
-                                //}
-                                
-                                
-                                //sleep(2)
-                                print("gw: scroll one face")
-                            }
+                            self?.actionTaker.pagingAndZoomingToFaceIndexed(at: idx)
+//                            pagingActionTaker.scrollToPage(idx)
+//
+//                            //}
+//
+//                            // if current page is a single person view controller, zoom to that person's face
+//                            if let singlePersonViewController = page as? SinglePersonPageViewController {
+//
+//                                // print("didFinishAnimating: \(viewControllerIndex)")
+//                                // zoomingActionTaker.zoom(to: self.identificationResults[viewControllerIndex].face.rect, with: Constants.contentSpanRatio, animated: true)
+//                                //DispatchQueue.main.async {
+//                                zoomingActionTaker.zoom(to: singlePersonViewController.identification.face.rect, animated: true)
+//                                //                            zoomingActionTaker.zoomableImageView.zoom(to: singlePersonViewController.identification.face.rect, with: 0.8, animated: true)
+//                                //}
+//
+//
+//                                //sleep(2)
+//                                print("gw: scroll one face")
+//                            }
                         })
                         
                         

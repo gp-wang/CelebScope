@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/ViewController.swift"
-            timestampString = "571468306.358496"
+            timestampString = "571505499.902597"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "27"
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/People/PagedView/PeoplePageViewController.swift"
-            timestampString = "571467834.5909441"
+            timestampString = "571504450.722211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "76"
@@ -122,7 +122,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/Canvas/Canvas.swift"
-            timestampString = "571468306.3596931"
+            timestampString = "571505499.9033591"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "153"
@@ -138,7 +138,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/Canvas/Canvas.swift"
-            timestampString = "571468306.359774"
+            timestampString = "571505499.903421"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "191"
@@ -207,11 +207,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/People/PagedView/PeoplePageViewDelegate.swift"
-            timestampString = "571468306.3598779"
+            timestampString = "571505499.903524"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95">
+            startingLineNumber = "57"
+            endingLineNumber = "57">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -221,12 +221,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/Utils/DemoManager.swift"
-            timestampString = "571468306.359936"
+            timestampString = "571505499.903635"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "init(zoomingActionTaker:pagingActionTaker:collectionVC:canvas:)"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "init(actionTaker:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -237,12 +237,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/Utils/DemoManager.swift"
-            timestampString = "571468306.360001"
+            timestampString = "571505499.903703"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "init(zoomingActionTaker:pagingActionTaker:collectionVC:canvas:)"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "init(actionTaker:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -285,12 +285,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/Utils/DemoManager.swift"
-            timestampString = "571468306.3600481"
+            timestampString = "571505499.903772"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
-            landmarkName = "init(zoomingActionTaker:pagingActionTaker:collectionVC:canvas:)"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
+            landmarkName = "init(actionTaker:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -301,11 +301,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/ViewController.swift"
-            timestampString = "571468306.360095"
+            timestampString = "571505499.903831"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "320"
-            endingLineNumber = "320"
+            startingLineNumber = "360"
+            endingLineNumber = "360"
             landmarkName = "adjustLayout()"
             landmarkType = "7">
          </BreakpointContent>
@@ -317,7 +317,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/People/CollectionView/PersonCollectionViewCell.swift"
-            timestampString = "571468306.360548"
+            timestampString = "571505499.904268"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "38"

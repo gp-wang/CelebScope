@@ -126,7 +126,7 @@ class ViewController:  UIViewController {
         // ---------------------
         // constructing the delegatee
         let dedicatedPageViewDelegate = PeoplePageViewDelegate(delegator: self.detailPagedVC)
-        dedicatedPageViewDelegate.zoomingActionTaker = self.zoomableImageVC
+        dedicatedPageViewDelegate.actionTaker = self
 
         // setting up at least one strong ref to avoid being GC
         self.detailPagedVC.pageViewDelegateStrongRef = dedicatedPageViewDelegate
@@ -196,7 +196,7 @@ class ViewController:  UIViewController {
         
         identificationResults = []
         
-        self.demoManager = DemoManager(zoomingActionTaker: self.zoomableImageVC, pagingActionTaker: self.detailPagedVC, collectionVC: self.peopleCollectionVC, canvas: self.canvas)
+        self.demoManager = DemoManager(actionTaker: self)
         
     }
     
@@ -315,6 +315,46 @@ class ViewController:  UIViewController {
     //        self.adjustLayout()
     //
     //    }
+    
+    func setImage(image: UIImage) {
+        DispatchQueue.main.async {
+            self.zoomableImageVC.setImage(image: image)
+        }
+    }
+    
+    public func pagingAndZoomingToFaceIndexed(at faceIndex: Int) {
+        
+        if (faceIndex >= self.identificationResults.count) {
+            gw_log("gw: err: index is too big")
+            return
+        }
+        
+        // function body
+        // set the pageControl.currentPage to the index of the current viewController in pages
+        let pagingActionTaker: PeoplePageViewController = self.detailPagedVC
+        let zoomingActionTaker: ZoomableImageViewController = self.zoomableImageVC
+        
+        // gw: note: +1 to account for the first page is summary page
+        let pageIndex = faceIndex + 1
+        
+        // page scrolling and update page control status
+        
+        pagingActionTaker.scrollToPage(pageIndex)
+        
+        // if current page is a single person view controller, zoom to that person's face
+        if let singlePersonViewController = pagingActionTaker.pages[pageIndex ] as? SinglePersonPageViewController {
+            
+            // print("didFinishAnimating: \(viewControllerIndex)")
+            // zoomingActionTaker.zoom(to: self.identificationResults[viewControllerIndex].face.rect, with: Constants.contentSpanRatio, animated: true)
+            zoomingActionTaker.zoom(to: singlePersonViewController.identification.face.rect,  animated: true)
+        } else if let summaryPageViewController = pagingActionTaker.pages[pageIndex] as? SummaryPageViewController {
+            // self.zoomableImageVC.zoomableImageView.zoom(to: self.zoomableImageVC.zoomableImageView.imageView.bounds, with: Constants.contentSpanRatio, animated: true)
+            zoomingActionTaker.zoomableImageView.zoom(to: zoomingActionTaker.zoomableImageView.imageView.bounds, with: Constants.contentSpanRatio, animated: true)
+        } else {
+            print("gw: err: unkown type of page controller in paged view ")
+        }
+    }
+    
     
     private func adjustLayout() {
         guard let collectionViewFlowLayout =  self.peopleCollectionVC.collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
@@ -508,7 +548,8 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
             
             
             // gw: note, classfn of img no need to wait for zoomableImagVC to settle doen with image setting, can go in parallel
-            self.zoomableImageVC.setImage(image: image)
+            self.setImage(image: image)
+            //self.zoomableImageVC.setImage(image: image)
             
             // save camera taken photo
             if picker.sourceType == .camera {
@@ -545,7 +586,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
                 // let it continue demo
             } else {
                 // create one
-                self.demoManager = DemoManager(zoomingActionTaker: self.zoomableImageVC, pagingActionTaker: self.detailPagedVC, collectionVC: self.peopleCollectionVC, canvas: self.canvas)
+                self.demoManager = DemoManager(actionTaker: self)
             }
             
             //self.cleanUpForEmptyPhotoSelection()
