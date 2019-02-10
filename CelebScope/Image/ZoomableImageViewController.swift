@@ -28,9 +28,25 @@ class ZoomableImageViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // double tap zoom: https://www.appcoda.com/uiscrollview-introduction/
+    func setupGestureRecognizer() {
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
+        doubleTap.numberOfTapsRequired = 2
+        zoomableImageView.addGestureRecognizer(doubleTap)
+    }
+    
+    @objc
+    func handleDoubleTap(recognizer: UITapGestureRecognizer) {
+        
+        if (zoomableImageView.zoomScale > zoomableImageView.minimumZoomScale) {
+            zoomableImageView.setZoomScale(zoomableImageView.minimumZoomScale, animated: true)
+        } else {
+            zoomableImageView.setZoomScale(zoomableImageView.maximumZoomScale, animated: true)
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupGestureRecognizer()  // double tap zoom: https://www.appcoda.com/uiscrollview-introduction/
         // Do any additional setup after loading the view.
     }
     
