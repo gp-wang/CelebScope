@@ -18,6 +18,7 @@ extension ViewController {
         setupCollectionViewConstraints()
         setupPageViewConstraints()
         setupButtonViewConstraints()
+        
     }
     
     private func setupPhotoViewConstraints() {
@@ -374,5 +375,8 @@ extension ViewController {
         albumButton_bot_l.isActive = false
         landscapeConstraints.append(albumButton_bot_l)
     }
+    
+    
+   
     
 }

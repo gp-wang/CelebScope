@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AMPopTip
+
 import FaceCropper
 
 class ViewController:  UIViewController {
@@ -16,6 +16,7 @@ class ViewController:  UIViewController {
         // the ratio of the content (e..g face) taken inside the entire view
         static let contentSpanRatio: CGFloat = 0.8
         static let buttonSize: CGFloat = 60
+        //static let tooltipSize: CGFloat = 100
     }
     
     // canva's VC is this main VC
@@ -53,6 +54,9 @@ class ViewController:  UIViewController {
     let cameraButton = CameraButton()
     let albumButton = AlbumButton()
     
+    var tooltipVC: TooltipViewController?
+    
+    
     var identificationResults: [Identification]  {
         didSet {
             DispatchQueue.main.async {
@@ -63,12 +67,11 @@ class ViewController:  UIViewController {
                 self.canvas.isLandscape = UIDevice.current.orientation.isLandscape
                 self.canvas.identifications = self.identificationResults
             }
-           
+            
         }
     }
     
-    
-    
+    let isFirstTime: Bool = true // TODO
     // MARK: - Constructor
     
     var demoManager : DemoManager? = nil
@@ -96,6 +99,7 @@ class ViewController:  UIViewController {
         
         self.addChild(detailPagedVC)
         view.addSubview(detailPagedVC.view)
+        
         
         // ---------------------
         // constructing the delegatee
@@ -148,6 +152,32 @@ class ViewController:  UIViewController {
         
         
         view.addSubview(albumButton)
+
+        
+        if (isFirstTime) {
+            self.tooltipVC = TooltipViewController(cameraButton: cameraButton, albumButton: albumButton)
+            self.addChild(self.tooltipVC!)
+            self.view.addSubview(self.tooltipVC!.view!)
+            NSLayoutConstraint.activate([
+                view.topAnchor.constraint(equalTo: self.tooltipVC!.view!.topAnchor),
+                view.bottomAnchor.constraint(equalTo: self.tooltipVC!.view!.bottomAnchor),
+                view.leadingAnchor.constraint(equalTo: self.tooltipVC!.view!.leadingAnchor),
+                view.trailingAnchor.constraint(equalTo: self.tooltipVC!.view!.trailingAnchor),
+                ])
+            
+            self.tooltipVC?.setupTooltipLayoutConstraints()
+        }
+        
+        
+        // view sequence setup
+        view.bringSubviewToFront(detailPagedVC.view)
+        view.bringSubviewToFront(zoomableImageVC.zoomableImageView)
+        self.view.bringSubviewToFront(canvas)
+        
+                if(isFirstTime) {
+                    self.view.bringSubviewToFront(tooltipVC!.view)
+                }
+        
         
         
         // -- constraints
@@ -201,15 +231,35 @@ class ViewController:  UIViewController {
     }
    
     
+//    var popTip: PopTip = {
+//        let _popTip = PopTip()
+//
+//        _popTip.shouldDismissOnTap = true
+//        _popTip.edgeMargin = 5
+//        _popTip.offset = 2
+//        _popTip.edgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+//        _popTip.backgroundColor = UIColor.orange
+//        _popTip.translatesAutoresizingMaskIntoConstraints = false
+//
+//        return _popTip
+//    } ()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // little trick to bring inherent collectionView to front
         //view.bringSubviewToFront(self.peopleCollectionVC.collectionView)
-        view.bringSubviewToFront(detailPagedVC.view)
-        view.bringSubviewToFront(zoomableImageVC.zoomableImageView)
-        self.view.bringSubviewToFront(canvas)
+//        view.bringSubviewToFront(detailPagedVC.view)
+//        view.bringSubviewToFront(zoomableImageVC.zoomableImageView)
+//        self.view.bringSubviewToFront(canvas)
+////
+////        if(isFirstTime) {
+////            self.view.bringSubviewToFront(tooltipVC!.view)
+////        }
+////
         
+        //self.popTip.show(text: "Hey! Listen!", direction: .up, maxWidth: 200, in: canvas, from: canvas.frame)
+//
     }
     
     // gw notes: use the correct lifecyle, instead of dispatch main
@@ -227,7 +277,8 @@ class ViewController:  UIViewController {
 //            
 //            //self.updateAnnotation()
 //        }
-        
+//        let popTip = PopTip()
+//        popTip.show(text: "Hey! Listen!", direction: .up, maxWidth: 200, in: canvas, from: canvas.frame)
     }
     
     // MARK: - trait collections
@@ -300,6 +351,11 @@ class ViewController:  UIViewController {
         
         DispatchQueue.main.async {
             self.peopleCollectionVC.collectionView?.collectionViewLayout.invalidateLayout()
+            
+            //self.popTip.show(text: "Hey! Listen!", direction: .up, maxWidth: 200, in: self.view, from: self.cameraButton.frame)
+            //self.popTip.show(text: "He THere", direction: .up, in: self.view, from: self.cameraButton, duration: 3000)
+
+            //self.popTip.show(text: "test", direction: .up, maxWidth: 200, in: self.view, from: self.cameraButton, duration: 2000)
         }
     }
     
