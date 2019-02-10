@@ -329,7 +329,7 @@ class ViewController:  UIViewController {
             
             
             gw_log("gw: pagingAndZoomingToFaceIndexed 1")
-            if (viewControllerIndex >= self.identificationResults.count) {
+            if (viewControllerIndex > self.identificationResults.count) {
                 gw_log("gw: err: index is too big")
                 return
             }
@@ -339,7 +339,7 @@ class ViewController:  UIViewController {
             let pagingActionTaker: PeoplePageViewController = self.detailPagedVC
             let zoomingActionTaker: ZoomableImageViewController = self.zoomableImageVC
             
-            // gw: note: -1 to account for the first page is summary page                        
+            // gw: note: -1 to account for the first page is summary page
             let faceIndex = viewControllerIndex - 1
             
             // page scrolling and update page control status
