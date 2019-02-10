@@ -283,23 +283,31 @@ class ViewController:  UIViewController {
 //        popTip.show(text: "Hey! Listen!", direction: .up, maxWidth: 200, in: canvas, from: canvas.frame)
     }
     
+    
+    // to handle rotation: https://stackoverflow.com/questions/33377708/viewwilltransitiontosize-vs-willtransitiontotraitcollection 
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        self.adjustLayout()
+    }
+    
     // MARK: - trait collections
     // TODO: needs more understanding and research on which appriopriate lifecycle to use
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        
-
-        self.adjustLayout()
-        //self.updateAnnotation()
-        
-        // need to wait for adjust layout settle
-//        DispatchQueue.main.async {
-//            //self.zoomableImageVC.zoomableImageView.fitImage()
+//    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+//        super.traitCollectionDidChange(previousTraitCollection)
 //
-//            self.zoomableImageVC.zoomableImageView.setZoomScale()
-//        }
-    }
+//
+//
+//        self.adjustLayout()
+//        //self.updateAnnotation()
+//
+//        // need to wait for adjust layout settle
+////        DispatchQueue.main.async {
+////            //self.zoomableImageVC.zoomableImageView.fitImage()
+////
+////            self.zoomableImageVC.zoomableImageView.setZoomScale()
+////        }
+//    }
     
     //    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
     //
