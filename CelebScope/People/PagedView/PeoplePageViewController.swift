@@ -36,7 +36,8 @@ class PeoplePageViewController: UIPageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+
     }
     
     
@@ -61,8 +62,9 @@ class PeoplePageViewController: UIPageViewController {
     
     
     public func scrollToPage(_ index: Int) {
-        self.pageControl.currentPage = index
+        
         setViewControllers([pages[index]], direction: .forward, animated: true, completion: nil)
+        self.pageControl.currentPage = index
     }
     
     // MARK: - Constructors
@@ -89,6 +91,8 @@ class PeoplePageViewController: UIPageViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
     
     
     

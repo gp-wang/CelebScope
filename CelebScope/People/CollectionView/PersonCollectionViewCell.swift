@@ -17,6 +17,24 @@ class PersonCollectionViewCell: UICollectionViewCell {
         static let avartarViewWHRatio: CGFloat =  214.0 / 317.0
     }
     
+    
+    // style for control line spacing
+    static let nameLabelParagraphStyle: NSMutableParagraphStyle = {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 8
+        //        paragraphStyle.paragraphSpacing = 0
+        //        paragraphStyle.paragraphSpacingBefore = 0
+        //        paragraphStyle.minimumLineHeight = 0
+        //        paragraphStyle.headIndent = 0
+        //        paragraphStyle.tailIndent = 0
+        
+        // https://stackoverflow.com/a/44658641/8328365
+        paragraphStyle.lineHeightMultiple = 0.5  // this is the key of line spacing
+        
+        
+        return paragraphStyle
+    } ()
+    
     var identification: Identification? {
         didSet {
             guard let _identification = self.identification else {
@@ -72,22 +90,6 @@ class PersonCollectionViewCell: UICollectionViewCell {
     } ()
     
     
-    // style for control line spacing
-    static let nameLabelParagraphStyle: NSMutableParagraphStyle = {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 8
-//        paragraphStyle.paragraphSpacing = 0
-//        paragraphStyle.paragraphSpacingBefore = 0
-//        paragraphStyle.minimumLineHeight = 0
-//        paragraphStyle.headIndent = 0
-//        paragraphStyle.tailIndent = 0
-        
-        // https://stackoverflow.com/a/44658641/8328365
-        paragraphStyle.lineHeightMultiple = 0.5  // this is the key of line spacing
-
-        
-        return paragraphStyle
-    } ()
     let nameLabel : UILabel = {
       
         let attrString = NSMutableAttributedString(string: "Jeniffer Lawrence")

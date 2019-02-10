@@ -36,7 +36,7 @@ class PeoplePageViewDelegate: NSObject, UIPageViewControllerDelegate{
     
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        
+        gw_log("gw: swipe 1")
         // re-written in a way to easily extractable into another function
         
         // function param candidates
@@ -48,9 +48,9 @@ class PeoplePageViewDelegate: NSObject, UIPageViewControllerDelegate{
                 print("gw: pageViewController unwrapping error 1")
                 return
         }
-        
+        gw_log("gw: swipe 2")
         self.actionTaker?.pagingAndZoomingToFaceIndexed(at: viewControllerIndex)
-        
+         gw_log("gw: swipe 3")
         
     }
 }

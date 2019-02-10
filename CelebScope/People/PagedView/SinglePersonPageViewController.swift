@@ -10,6 +10,25 @@ import UIKit
 
 class SinglePersonPageViewController: UIViewController {
     
+    // style for control line spacing
+    static let bioLabelParagraphStyle: NSMutableParagraphStyle = {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 8
+        //        paragraphStyle.paragraphSpacing = 0
+        //        paragraphStyle.paragraphSpacingBefore = 0
+        //        paragraphStyle.minimumLineHeight = 0
+        //        paragraphStyle.headIndent = 0
+        //        paragraphStyle.tailIndent = 0
+        paragraphStyle.allowsDefaultTighteningForTruncation = true
+        //paragraphStyle.
+        
+        // https://stackoverflow.com/a/44658641/8328365
+        paragraphStyle.lineHeightMultiple = 0.5  // this is the key of line spacing
+        
+        
+        return paragraphStyle
+    } ()
+    
     let identification: Identification
 //    let labelInst = UILabel()
     
@@ -37,17 +56,24 @@ class SinglePersonPageViewController: UIViewController {
         return _label
     } ()
     
-    let bioLabel: UITextView = {
-        let _label = UITextView()
+    let bioLabel: UILabel = {
+        let _label = UILabel()
         _label.translatesAutoresizingMaskIntoConstraints = false
         //_label.backgroundColor = .red
         _label.font = UIFont.preferredFont(forTextStyle: .body)
-//        _label.lineBreakMode = .byWordWrapping
-//        _label.numberOfLines = 4
-//        _label.allowsDefaultTighteningForTruncation = true
+        _label.lineBreakMode = .byWordWrapping
+        _label.numberOfLines = 4
+        _label.allowsDefaultTighteningForTruncation = true
 //
-        _label.isUserInteractionEnabled = true
+//        _label.isUserInteractionEnabled = true
+        
         _label.textAlignment = .left
+        
+        let attrString = NSMutableAttributedString(string: "...")
+        attrString.addAttribute(.paragraphStyle, value: bioLabelParagraphStyle, range:NSMakeRange(0, attrString.length))
+
+        _label.attributedText = attrString
+        
         return _label
     } ()
     
@@ -74,8 +100,9 @@ class SinglePersonPageViewController: UIViewController {
         
         professionLabel.text = faceIdentification.person.profession
         
-        
-        bioLabel.text = faceIdentification.person.bio ?? ""
+        let attrString = NSMutableAttributedString(string: faceIdentification.person.bio ?? "...")
+        attrString.addAttribute(.paragraphStyle, value: SinglePersonPageViewController.bioLabelParagraphStyle, range:NSMakeRange(0, attrString.length))
+        bioLabel.attributedText = attrString
  
         var birthDeathDateStr = ""
         if let _birthDate = faceIdentification.person.birthDate {

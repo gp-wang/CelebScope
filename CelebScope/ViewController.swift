@@ -322,36 +322,44 @@ class ViewController:  UIViewController {
         }
     }
     
-    public func pagingAndZoomingToFaceIndexed(at faceIndex: Int) {
+    public func pagingAndZoomingToFaceIndexed(at viewControllerIndex: Int) {
+        // note that the viewControllerIndex == 0 corresponds to summary view page
         
-        if (faceIndex >= self.identificationResults.count) {
-            gw_log("gw: err: index is too big")
-            return
-        }
-        
-        // function body
-        // set the pageControl.currentPage to the index of the current viewController in pages
-        let pagingActionTaker: PeoplePageViewController = self.detailPagedVC
-        let zoomingActionTaker: ZoomableImageViewController = self.zoomableImageVC
-        
-        // gw: note: +1 to account for the first page is summary page
-        let pageIndex = faceIndex + 1
-        
-        // page scrolling and update page control status
-        
-        pagingActionTaker.scrollToPage(pageIndex)
-        
-        // if current page is a single person view controller, zoom to that person's face
-        if let singlePersonViewController = pagingActionTaker.pages[pageIndex ] as? SinglePersonPageViewController {
+        DispatchQueue.main.async {
             
-            // print("didFinishAnimating: \(viewControllerIndex)")
-            // zoomingActionTaker.zoom(to: self.identificationResults[viewControllerIndex].face.rect, with: Constants.contentSpanRatio, animated: true)
-            zoomingActionTaker.zoom(to: singlePersonViewController.identification.face.rect,  animated: true)
-        } else if let summaryPageViewController = pagingActionTaker.pages[pageIndex] as? SummaryPageViewController {
-            // self.zoomableImageVC.zoomableImageView.zoom(to: self.zoomableImageVC.zoomableImageView.imageView.bounds, with: Constants.contentSpanRatio, animated: true)
-            zoomingActionTaker.zoomableImageView.zoom(to: zoomingActionTaker.zoomableImageView.imageView.bounds, with: Constants.contentSpanRatio, animated: true)
-        } else {
-            print("gw: err: unkown type of page controller in paged view ")
+            
+            gw_log("gw: pagingAndZoomingToFaceIndexed 1")
+            if (viewControllerIndex >= self.identificationResults.count) {
+                gw_log("gw: err: index is too big")
+                return
+            }
+            
+            // function body
+            // set the pageControl.currentPage to the index of the current viewController in pages
+            let pagingActionTaker: PeoplePageViewController = self.detailPagedVC
+            let zoomingActionTaker: ZoomableImageViewController = self.zoomableImageVC
+            
+            // gw: note: -1 to account for the first page is summary page                        
+            let faceIndex = viewControllerIndex - 1
+            
+            // page scrolling and update page control status
+            gw_log("gw: pagingAndZoomingToFaceIndexed 2")
+            pagingActionTaker.scrollToPage(viewControllerIndex)
+            gw_log("gw: pagingAndZoomingToFaceIndexed 3")
+            // if current page is a single person view controller, zoom to that person's face
+            if let singlePersonViewController = pagingActionTaker.pages[viewControllerIndex ] as? SinglePersonPageViewController {
+                
+                // print("didFinishAnimating: \(viewControllerIndex)")
+                // zoomingActionTaker.zoom(to: self.identificationResults[viewControllerIndex].face.rect, with: Constants.contentSpanRatio, animated: true)
+                zoomingActionTaker.zoom(to: singlePersonViewController.identification.face.rect,  animated: true)
+                gw_log("gw: pagingAndZoomingToFaceIndexed 4.1")
+            } else if let summaryPageViewController = pagingActionTaker.pages[viewControllerIndex] as? SummaryPageViewController {
+                // self.zoomableImageVC.zoomableImageView.zoom(to: self.zoomableImageVC.zoomableImageView.imageView.bounds, with: Constants.contentSpanRatio, animated: true)
+                zoomingActionTaker.zoomableImageView.zoom(to: zoomingActionTaker.zoomableImageView.imageView.bounds, with: Constants.contentSpanRatio, animated: true)
+                gw_log("gw: pagingAndZoomingToFaceIndexed 4.2")
+            } else {
+                print("gw: err: unkown type of page controller in paged view ")
+            }
         }
     }
     
