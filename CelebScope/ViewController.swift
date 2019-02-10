@@ -174,9 +174,9 @@ class ViewController:  UIViewController {
         view.bringSubviewToFront(zoomableImageVC.zoomableImageView)
         self.view.bringSubviewToFront(canvas)
         
-                if(isFirstTime) {
-                    self.view.bringSubviewToFront(tooltipVC!.view)
-                }
+        if(isFirstTime) {
+            self.view.bringSubviewToFront(tooltipVC!.view)
+        }
         
         
         

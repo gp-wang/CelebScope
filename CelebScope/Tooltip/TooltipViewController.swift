@@ -7,13 +7,15 @@
 //
 
 import UIKit
+import CoreGraphics
 
 
 // gw: dedicated VC for the photoView
 class TooltipViewController: UIViewController {
     struct Constants {
         
-        static let tooltipSize: CGFloat = 100
+        static let tooltipWidth: CGFloat = 100
+        static let tooltipHeight: CGFloat = 50
     }
     
     
@@ -64,6 +66,18 @@ class TooltipViewController: UIViewController {
         // gw: move this out and call separately, ONLY AFTER you added subview of parent VC
         //setupTooltipLayoutConstraints()
         
+        
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        let bubbleLayer = CAShapeLayer()
+        bubbleLayer.path = bubblePathForContentSize(contentSize: cameraButtonTooltip.bounds.size).cgPath
+        bubbleLayer.fillColor = UIColor.yellow.cgColor
+        bubbleLayer.strokeColor = UIColor.blue.cgColor
+        bubbleLayer.lineWidth = borderWidth
+        bubbleLayer.position = CGPoint.zero
+        cameraButtonTooltip.layer.addSublayer(bubbleLayer)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -76,6 +90,26 @@ class TooltipViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
   
+    // dialog box with arrow: https://stackoverflow.com/a/33388089/8328365
+    var borderWidth : CGFloat = 4 // Should be less or equal to the `radius` property
+    var radius : CGFloat = 10
+    var triangleHeight : CGFloat = 15
+    
+    private func bubblePathForContentSize(contentSize: CGSize) -> UIBezierPath {
+        //let rect = CGRectMake(0, 0, contentSize.width, contentSize.height).offsetBy(dx: radius, dy: radius + triangleHeight)
+        let rect = CGRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height).offsetBy(dx: radius, dy: radius + triangleHeight)
+        let path = UIBezierPath();
+        let radius2 = radius - borderWidth / 2 // RadiusaddLinetto: he border width
+        
+        path.move(to: CGPoint(x: rect.maxX - triangleHeight * 2, y: rect.minY - radius2))
+        path.addLine(to: CGPoint(x: rect.maxX - triangleHeight, y: rect.minY - radius2 - triangleHeight))
+        path.addArc(withCenter: CGPoint(x: rect.maxX, y: rect.minY), radius: radius2, startAngle: CGFloat(-M_PI_2), endAngle: 0, clockwise: true)
+        path.addArc(withCenter: CGPoint(x: rect.maxX, y: rect.maxY), radius: radius2, startAngle: 0, endAngle: CGFloat(M_PI_2), clockwise: true)
+        path.addArc(withCenter: CGPoint(x: rect.minX, y: rect.maxY), radius: radius2, startAngle: CGFloat(M_PI_2), endAngle: CGFloat(M_PI), clockwise: true)
+        path.addArc(withCenter: CGPoint(x: rect.minX, y: rect.minY), radius: radius2, startAngle: CGFloat(M_PI), endAngle: CGFloat(-M_PI_2), clockwise: true)
+        path.close()
+        return path
+    }
     
     
     public func setupTooltipLayoutConstraints() {
@@ -84,12 +118,12 @@ class TooltipViewController: UIViewController {
         
         // MARK: - portrait constraints
         
-        let cameraButtonTooltip_width_p = cameraButtonTooltip.widthAnchor.constraint(equalToConstant: Constants.tooltipSize)
+        let cameraButtonTooltip_width_p = cameraButtonTooltip.widthAnchor.constraint(equalToConstant: Constants.tooltipWidth)
         cameraButtonTooltip_width_p.identifier = "cameraButtonTooltip_width_p"
         cameraButtonTooltip_width_p.isActive = false
         allConstraints.append(cameraButtonTooltip_width_p)
         
-        let cameraButtonTooltip_height_p = cameraButtonTooltip.heightAnchor.constraint(equalToConstant: Constants.tooltipSize)
+        let cameraButtonTooltip_height_p = cameraButtonTooltip.heightAnchor.constraint(equalToConstant: Constants.tooltipWidth)
         cameraButtonTooltip_height_p.identifier = "cameraButtonTooltip_height_p"
         cameraButtonTooltip_height_p.isActive = false
         allConstraints.append(cameraButtonTooltip_height_p)
@@ -105,12 +139,12 @@ class TooltipViewController: UIViewController {
         allConstraints.append(cameraButtonTooltip_bot_p)
         
         
-        let albumButtonTooltip_width_p = albumButtonTooltip.widthAnchor.constraint(equalToConstant: Constants.tooltipSize)
+        let albumButtonTooltip_width_p = albumButtonTooltip.widthAnchor.constraint(equalToConstant: Constants.tooltipWidth)
         albumButtonTooltip_width_p.identifier = "albumButtonTooltip_width_p"
         albumButtonTooltip_width_p.isActive = false
         allConstraints.append(albumButtonTooltip_width_p)
         
-        let albumButtonTooltip_height_p = albumButtonTooltip.heightAnchor.constraint(equalToConstant: Constants.tooltipSize)
+        let albumButtonTooltip_height_p = albumButtonTooltip.heightAnchor.constraint(equalToConstant: Constants.tooltipWidth)
         albumButtonTooltip_height_p.identifier = "albumButtonTooltip_height_p"
         albumButtonTooltip_height_p.isActive = false
         allConstraints.append(albumButtonTooltip_height_p)
