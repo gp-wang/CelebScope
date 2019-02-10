@@ -14,10 +14,100 @@ import CoreGraphics
 class TooltipViewController: UIViewController {
     struct Constants {
         
-        static let tooltipWidth: CGFloat = 150
-        static let tooltipHeight: CGFloat = 50
+        static let tooltipWidth: CGFloat = 200
+        static let tooltipHeight: CGFloat = 80
     }
     
+    
+    let mainTooltip: UIView = {
+        
+        let container = UIView(frame: CGRect.zero)
+        container.translatesAutoresizingMaskIntoConstraints = false
+        
+        //container.backgroundColor = .red
+        
+        let _label = UILabel()
+        
+        _label.translatesAutoresizingMaskIntoConstraints = false
+        _label.text = "1. Pick a photo with famous faces."
+        _label.font = UIFont.preferredFont(forTextStyle: .headline).withSize(16)
+        _label.textColor = .white
+        //_label.backgroundColor = UIColor.green
+        // round corner: https://stackoverflow.com/questions/31146242/how-to-round-edges-of-uilabel-with-swift/36880682
+        //_label.layer.backgroundColor = UIColor.green.cgColor
+        _label.layer.backgroundColor = UIColor.clear.cgColor
+        _label.layer.cornerRadius = 5
+        _label.lineBreakMode = .byWordWrapping
+        _label.adjustsFontSizeToFitWidth = true
+        _label.textAlignment = .center
+        _label.numberOfLines = 2
+        
+        container.addSubview(_label)
+        
+        let views: [String: Any] = [
+            "container": container,
+            "_label": _label,
+            ]
+        
+        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(
+            withVisualFormat: "H:|-15-[_label]-15-|",
+            options: [.alignAllCenterY], metrics: nil,
+            views: views) + NSLayoutConstraint.constraints(
+                withVisualFormat: "V:|[_label]|",
+                metrics: nil,
+                views: views))
+        
+        
+        
+        
+        return container
+        
+    } ()
+    
+    let resultTooltip: UIView = {
+        
+        let container = UIView(frame: CGRect.zero)
+        container.translatesAutoresizingMaskIntoConstraints = false
+        
+        //container.backgroundColor = .red
+        
+        let _label = UILabel()
+        
+        _label.translatesAutoresizingMaskIntoConstraints = false
+        _label.text = "4. Find the result here."
+        _label.font = UIFont.preferredFont(forTextStyle: .headline).withSize(16)
+        _label.textColor = .white
+        //_label.backgroundColor = UIColor.green
+        // round corner: https://stackoverflow.com/questions/31146242/how-to-round-edges-of-uilabel-with-swift/36880682
+        //_label.layer.backgroundColor = UIColor.green.cgColor
+        _label.layer.backgroundColor = UIColor.clear.cgColor
+        _label.layer.cornerRadius = 5
+        _label.lineBreakMode = .byWordWrapping
+        _label.adjustsFontSizeToFitWidth = true
+        _label.textAlignment = .center
+        _label.numberOfLines = 2
+        
+        container.addSubview(_label)
+        
+        let views: [String: Any] = [
+            "container": container,
+            "_label": _label,
+            ]
+        
+        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(
+            withVisualFormat: "H:|-15-[_label]-15-|",
+            options: [.alignAllCenterY], metrics: nil,
+            views: views) + NSLayoutConstraint.constraints(
+                withVisualFormat: "V:|[_label]|",
+                metrics: nil,
+                views: views))
+        
+        
+        
+        
+        return container
+        
+    } ()
     
     
     let cameraButtonTooltip: UIView = {
@@ -30,7 +120,7 @@ class TooltipViewController: UIViewController {
         let _label = UILabel()
         
         _label.translatesAutoresizingMaskIntoConstraints = false
-        _label.text = "Use camera to capture a photo"
+        _label.text = "2. Use camera to capture a photo"
         _label.font = UIFont.preferredFont(forTextStyle: .headline).withSize(16)
         _label.textColor = .white
         //_label.backgroundColor = UIColor.green
@@ -77,7 +167,7 @@ class TooltipViewController: UIViewController {
         let _label = UILabel()
         
         _label.translatesAutoresizingMaskIntoConstraints = false
-        _label.text = "Use album to select a photo"
+        _label.text = "3. Use album to select a photo"
         _label.font = UIFont.preferredFont(forTextStyle: .headline).withSize(16)
         _label.textColor = .white
         //_label.backgroundColor = UIColor.green
@@ -125,15 +215,23 @@ class TooltipViewController: UIViewController {
     } ()
     
     var allConstraints = [NSLayoutConstraint] ()
+    var portraitConstraints = [NSLayoutConstraint] ()
+    var landscapeConstraints = [NSLayoutConstraint] ()
     
     unowned let cameraButton: UIButton
     unowned let albumButton: UIButton
+    unowned let zoomableImageView: UIView
+    unowned let peoplePageView: UIView
+    unowned let peopleCollectionView: UIView
     
     
     // note: parentViewController param is needed to add subview and child
-    public init(cameraButton: UIButton, albumButton: UIButton) {
+    public init(cameraButton: UIButton, albumButton: UIButton, zoomableImageView: UIView, peopleCollectionView: UIView, peoplePageView: UIView) {
         self.cameraButton = cameraButton
         self.albumButton = albumButton
+        self.zoomableImageView = zoomableImageView
+        self.peopleCollectionView = peopleCollectionView
+        self.peoplePageView = peoplePageView
         
         super.init(nibName: nil
             , bundle: nil)
@@ -144,8 +242,10 @@ class TooltipViewController: UIViewController {
         
 
         view.addSubview(blinds)
+        view.addSubview(mainTooltip)
         view.addSubview(cameraButtonTooltip)
         view.addSubview(albumButtonTooltip)
+        view.addSubview(resultTooltip)
         
         // gw: move this out and call separately, ONLY AFTER you added subview of parent VC
         //setupTooltipLayoutConstraints()
@@ -156,7 +256,7 @@ class TooltipViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         
-        
+        self.adjustLayout()
 //        let bubbleLayer = CAShapeLayer()
 //        let path: UIBezierPath = bubblePathForContentSize(contentSize: cameraButtonTooltip.bounds.size.applying(CGAffineTransform(scaleX: 0.3, y: 0.3)))
 //            path.apply(CGAffineTransform(rotationAngle: .pi))
@@ -166,6 +266,14 @@ class TooltipViewController: UIViewController {
 //        bubbleLayer.lineWidth = borderWidth
 //        bubbleLayer.position = CGPoint.zero
 //        cameraButtonTooltip.layer.addSublayer(bubbleLayer)
+    }
+    
+    
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        self.adjustLayout()
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -201,52 +309,118 @@ class TooltipViewController: UIViewController {
 //    }
 //
     
+    
+    
     public func setupTooltipLayoutConstraints() {
 
         
         
-        // MARK: - portrait constraints
+        // MARK: - all constraints
         
-        let cameraButtonTooltip_width_p = cameraButtonTooltip.widthAnchor.constraint(equalToConstant: Constants.tooltipWidth)
-        cameraButtonTooltip_width_p.identifier = "cameraButtonTooltip_width_p"
-        cameraButtonTooltip_width_p.isActive = false
-        allConstraints.append(cameraButtonTooltip_width_p)
+        let mainTooltip_width_all = mainTooltip.widthAnchor.constraint(equalToConstant: Constants.tooltipWidth)
+        mainTooltip_width_all.identifier = "mainTooltip_width_all"
+        mainTooltip_width_all.isActive = false
+        allConstraints.append(mainTooltip_width_all)
         
-        let cameraButtonTooltip_height_p = cameraButtonTooltip.heightAnchor.constraint(equalToConstant: Constants.tooltipHeight)
-        cameraButtonTooltip_height_p.identifier = "cameraButtonTooltip_height_p"
-        cameraButtonTooltip_height_p.isActive = false
-        allConstraints.append(cameraButtonTooltip_height_p)
+        let mainTooltip_height_all = mainTooltip.heightAnchor.constraint(equalToConstant: Constants.tooltipHeight)
+        mainTooltip_height_all.identifier = "mainTooltip_height_all"
+        mainTooltip_height_all.isActive = false
+        allConstraints.append(mainTooltip_height_all)
         
-        let cameraButtonTooltip_lead_p = cameraButtonTooltip.leadingAnchor.constraint(equalTo: self.cameraButton.leadingAnchor)
-        cameraButtonTooltip_lead_p.identifier = "cameraButtonTooltip_lead_p"
-        cameraButtonTooltip_lead_p.isActive = false
-        allConstraints.append(cameraButtonTooltip_lead_p)
+        let mainTooltip_centerX_all = mainTooltip.centerXAnchor.constraint(equalTo: self.zoomableImageView.centerXAnchor)
+        mainTooltip_centerX_all.identifier = "mainTooltip_centerX_all"
+        mainTooltip_centerX_all.isActive = false
+        allConstraints.append(mainTooltip_centerX_all)
         
-        let cameraButtonTooltip_bot_p = cameraButtonTooltip.bottomAnchor.constraint(equalTo: self.cameraButton.topAnchor, constant: -10)
-        cameraButtonTooltip_bot_p.identifier = "cameraButtonTooltip_bot_p"
-        cameraButtonTooltip_bot_p.isActive = false
-        allConstraints.append(cameraButtonTooltip_bot_p)
+        let mainTooltip_centerY_all = mainTooltip.centerYAnchor.constraint(equalTo: self.zoomableImageView.centerYAnchor)
+        mainTooltip_centerY_all.identifier = "mainTooltip_centerY_all"
+        mainTooltip_centerY_all.isActive = false
+        allConstraints.append(mainTooltip_centerY_all)
         
         
-        let albumButtonTooltip_width_p = albumButtonTooltip.widthAnchor.constraint(equalToConstant: Constants.tooltipWidth)
-        albumButtonTooltip_width_p.identifier = "albumButtonTooltip_width_p"
-        albumButtonTooltip_width_p.isActive = false
-        allConstraints.append(albumButtonTooltip_width_p)
+        // ------
+        let cameraButtonTooltip_width_all = cameraButtonTooltip.widthAnchor.constraint(equalToConstant: Constants.tooltipWidth)
+        cameraButtonTooltip_width_all.identifier = "cameraButtonTooltip_width_all"
+        cameraButtonTooltip_width_all.isActive = false
+        allConstraints.append(cameraButtonTooltip_width_all)
         
-        let albumButtonTooltip_height_p = albumButtonTooltip.heightAnchor.constraint(equalToConstant: Constants.tooltipHeight)
-        albumButtonTooltip_height_p.identifier = "albumButtonTooltip_height_p"
-        albumButtonTooltip_height_p.isActive = false
-        allConstraints.append(albumButtonTooltip_height_p)
+        let cameraButtonTooltip_height_all = cameraButtonTooltip.heightAnchor.constraint(equalToConstant: Constants.tooltipHeight)
+        cameraButtonTooltip_height_all.identifier = "cameraButtonTooltip_height_all"
+        cameraButtonTooltip_height_all.isActive = false
+        allConstraints.append(cameraButtonTooltip_height_all)
         
-        let albumButtonTooltip_trailing_p = albumButtonTooltip.trailingAnchor.constraint(equalTo: self.albumButton.trailingAnchor)
-        albumButtonTooltip_trailing_p.identifier = "albumButtonTooltip_trailing_p"
-        albumButtonTooltip_trailing_p.isActive = false
-        allConstraints.append(albumButtonTooltip_trailing_p)
+        let cameraButtonTooltip_lead_all = cameraButtonTooltip.leadingAnchor.constraint(equalTo: self.cameraButton.leadingAnchor)
+        cameraButtonTooltip_lead_all.identifier = "cameraButtonTooltip_lead_all"
+        cameraButtonTooltip_lead_all.isActive = false
+        allConstraints.append(cameraButtonTooltip_lead_all)
         
-        let albumButtonTooltip_bot_p = albumButtonTooltip.bottomAnchor.constraint(equalTo: self.albumButton.topAnchor, constant: -10)
-        albumButtonTooltip_bot_p.identifier = "albumButtonTooltip_bot_p"
-        albumButtonTooltip_bot_p.isActive = false
-        allConstraints.append(albumButtonTooltip_bot_p)
+        let cameraButtonTooltip_bot_all = cameraButtonTooltip.bottomAnchor.constraint(equalTo: self.cameraButton.topAnchor, constant: -10)
+        cameraButtonTooltip_bot_all.identifier = "cameraButtonTooltip_bot_all"
+        cameraButtonTooltip_bot_all.isActive = false
+        allConstraints.append(cameraButtonTooltip_bot_all)
+        
+        
+        let albumButtonTooltip_width_all = albumButtonTooltip.widthAnchor.constraint(equalToConstant: Constants.tooltipWidth)
+        albumButtonTooltip_width_all.identifier = "albumButtonTooltip_width_all"
+        albumButtonTooltip_width_all.isActive = false
+        allConstraints.append(albumButtonTooltip_width_all)
+        
+        let albumButtonTooltip_height_all = albumButtonTooltip.heightAnchor.constraint(equalToConstant: Constants.tooltipHeight)
+        albumButtonTooltip_height_all.identifier = "albumButtonTooltip_height_all"
+        albumButtonTooltip_height_all.isActive = false
+        allConstraints.append(albumButtonTooltip_height_all)
+        
+        let albumButtonTooltip_trailing_all = albumButtonTooltip.trailingAnchor.constraint(equalTo: self.albumButton.trailingAnchor)
+        albumButtonTooltip_trailing_all.identifier = "albumButtonTooltip_trailing_all"
+        albumButtonTooltip_trailing_all.isActive = false
+        allConstraints.append(albumButtonTooltip_trailing_all)
+        
+        let albumButtonTooltip_bot_all = albumButtonTooltip.bottomAnchor.constraint(equalTo: self.albumButton.topAnchor, constant: -10)
+        albumButtonTooltip_bot_all.identifier = "albumButtonTooltip_bot_all"
+        albumButtonTooltip_bot_all.isActive = false
+        allConstraints.append(albumButtonTooltip_bot_all)
+        
+        // -------------
+        
+        let resultTooltip_width_p = resultTooltip.widthAnchor.constraint(equalToConstant: Constants.tooltipWidth)
+        resultTooltip_width_p.identifier = "resultTooltip_width_p"
+        resultTooltip_width_p.isActive = false
+        portraitConstraints.append(resultTooltip_width_p)
+        
+        let resultTooltip_height_p = resultTooltip.heightAnchor.constraint(equalToConstant: Constants.tooltipHeight)
+        resultTooltip_height_p.identifier = "resultTooltip_height_p"
+        resultTooltip_height_p.isActive = false
+        portraitConstraints.append(resultTooltip_height_p)
+        
+        let resultTooltip_centerX_p = resultTooltip.centerXAnchor.constraint(equalTo: self.peoplePageView.centerXAnchor)
+        resultTooltip_centerX_p.identifier = "resultTooltip_centerX_p"
+        resultTooltip_centerX_p.isActive = false
+        portraitConstraints.append(resultTooltip_centerX_p)
+        
+        let resultTooltip_centerY_p = resultTooltip.centerYAnchor.constraint(equalTo: self.peoplePageView.centerYAnchor)
+        resultTooltip_centerY_p.identifier = "resultTooltip_centerY_p"
+        resultTooltip_centerY_p.isActive = false
+        portraitConstraints.append(resultTooltip_centerY_p)
+        
+        let resultTooltip_width_l = resultTooltip.widthAnchor.constraint(equalToConstant: Constants.tooltipWidth)
+        resultTooltip_width_l.identifier = "resultTooltip_width_l"
+        resultTooltip_width_l.isActive = false
+        landscapeConstraints.append(resultTooltip_width_l)
+        
+        let resultTooltip_height_l = resultTooltip.heightAnchor.constraint(equalToConstant: Constants.tooltipHeight)
+        resultTooltip_height_l.identifier = "resultTooltip_height_l"
+        resultTooltip_height_l.isActive = false
+        landscapeConstraints.append(resultTooltip_height_l)
+        
+        let resultTooltip_centerX_l = resultTooltip.centerXAnchor.constraint(equalTo: self.peopleCollectionView.centerXAnchor)
+        resultTooltip_centerX_l.identifier = "resultTooltip_centerX_l"
+        resultTooltip_centerX_l.isActive = false
+        landscapeConstraints.append(resultTooltip_centerX_l)
+        
+        let resultTooltip_centerY_l = resultTooltip.centerYAnchor.constraint(equalTo: self.peopleCollectionView.centerYAnchor)
+        resultTooltip_centerY_l.identifier = "resultTooltip_centerY_l"
+        resultTooltip_centerY_l.isActive = false
+        landscapeConstraints.append(resultTooltip_centerY_l)
         
         
         allConstraints += [
@@ -255,8 +429,30 @@ class TooltipViewController: UIViewController {
             blinds.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             blinds.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ]
-      
+        
         NSLayoutConstraint.activate(allConstraints)
+        
+        // TODO: add landscape
     }
     
+    
+    public func adjustLayout() {
+
+        
+        if UIDevice.current.orientation.isLandscape {
+
+            // gw: note: always disable previous rules first, then do enabling new rules
+            // implications: if you enable new rule first, you will have a short time period with conflicting rules
+            NSLayoutConstraint.deactivate(self.portraitConstraints)
+            NSLayoutConstraint.activate(self.landscapeConstraints)
+        
+            
+        } else {
+
+            NSLayoutConstraint.deactivate(self.landscapeConstraints)
+            NSLayoutConstraint.activate(self.portraitConstraints)
+    
+        }
+
+    }
 }

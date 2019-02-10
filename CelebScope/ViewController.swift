@@ -71,7 +71,7 @@ class ViewController:  UIViewController {
         }
     }
     
-    let isFirstTime: Bool = false // TODO
+    let isFirstTime: Bool = true // TODO
     // MARK: - Constructor
     
     var demoManager : DemoManager? = nil
@@ -155,7 +155,7 @@ class ViewController:  UIViewController {
 
         
         if (isFirstTime) {
-            self.tooltipVC = TooltipViewController(cameraButton: cameraButton, albumButton: albumButton)
+            self.tooltipVC = TooltipViewController(cameraButton: cameraButton, albumButton: albumButton, zoomableImageView: zoomableImageVC.view, peopleCollectionView: peopleCollectionVC.collectionView, peoplePageView: detailPagedVC.view)
             self.addChild(self.tooltipVC!)
             self.view.addSubview(self.tooltipVC!.view!)
             NSLayoutConstraint.activate([
@@ -284,7 +284,7 @@ class ViewController:  UIViewController {
     }
     
     
-    // to handle rotation: https://stackoverflow.com/questions/33377708/viewwilltransitiontosize-vs-willtransitiontotraitcollection 
+    // to handle rotation: https://stackoverflow.com/questions/33377708/viewwilltransitiontosize-vs-willtransitiontotraitcollection
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
