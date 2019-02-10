@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/ViewController.swift"
-            timestampString = "571454958.958305"
+            timestampString = "571455153.454934"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "27"
@@ -301,11 +301,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CelebScope/ViewController.swift"
-            timestampString = "571454958.958602"
+            timestampString = "571455153.45538"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "309"
-            endingLineNumber = "309"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
             landmarkName = "adjustLayout()"
             landmarkType = "7">
          </BreakpointContent>

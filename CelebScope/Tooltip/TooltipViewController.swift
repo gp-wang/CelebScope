@@ -68,10 +68,45 @@ class TooltipViewController: UIViewController {
     
     let albumButtonTooltip: UIView = {
         
+        
         let container = UIView(frame: CGRect.zero)
         container.translatesAutoresizingMaskIntoConstraints = false
         
-        container.backgroundColor = .red
+        //container.backgroundColor = .red
+        
+        let _label = UILabel()
+        
+        _label.translatesAutoresizingMaskIntoConstraints = false
+        _label.text = "Use album to select a photo"
+        _label.font = UIFont.preferredFont(forTextStyle: .headline).withSize(16)
+        _label.textColor = .white
+        //_label.backgroundColor = UIColor.green
+        // round corner: https://stackoverflow.com/questions/31146242/how-to-round-edges-of-uilabel-with-swift/36880682
+        //_label.layer.backgroundColor = UIColor.green.cgColor
+        _label.layer.backgroundColor = UIColor.clear.cgColor
+        _label.layer.cornerRadius = 5
+        _label.lineBreakMode = .byWordWrapping
+        _label.adjustsFontSizeToFitWidth = true
+        _label.textAlignment = .right
+        _label.numberOfLines = 2
+        
+        container.addSubview(_label)
+        
+        let views: [String: Any] = [
+            "container": container,
+            "_label": _label,
+            ]
+        
+        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(
+            withVisualFormat: "H:|-15-[_label]-15-|",
+            options: [.alignAllCenterY], metrics: nil,
+            views: views) + NSLayoutConstraint.constraints(
+                withVisualFormat: "V:|[_label]|",
+                metrics: nil,
+                views: views))
+        
+        
+        
         
         return container
         

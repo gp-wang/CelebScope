@@ -176,6 +176,8 @@ class ViewController:  UIViewController {
         
         if(isFirstTime) {
             self.view.bringSubviewToFront(tooltipVC!.view)
+            self.view.bringSubviewToFront(self.cameraButton)
+            self.view.bringSubviewToFront(self.albumButton)
         }
         
         
