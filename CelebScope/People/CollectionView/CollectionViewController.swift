@@ -27,9 +27,9 @@ class CollectionViewController: UICollectionViewController {
         
         self.identifications = identifications
         
-        DispatchQueue.main.async {
+        //DispatchQueue.main.async {
             self.collectionView?.collectionViewLayout.invalidateLayout()
-        }
+        //}
     }
     
     // MARK: gw: we use the implicit member "collectionView?" of UICollectionViewController

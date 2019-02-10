@@ -26,12 +26,16 @@ class DemoManager: NSObject {
     unowned let zoomingActionTaker: ZoomableImageViewController
     unowned let pagingActionTaker: PeoplePageViewController
     unowned let  collectionVC: CollectionViewController
+    // gw: needed here, otherwise will cause annotation error
+    // TODO: think about moving the scroll as one method into main VC, and call it from here
+    unowned let canvas: Canvas
     
-    init(zoomingActionTaker: ZoomableImageViewController, pagingActionTaker: PeoplePageViewController, collectionVC: CollectionViewController) {
+    init(zoomingActionTaker: ZoomableImageViewController, pagingActionTaker: PeoplePageViewController, collectionVC: CollectionViewController, canvas: Canvas) {
         
         self.zoomingActionTaker = zoomingActionTaker
         self.pagingActionTaker = pagingActionTaker
         self.collectionVC = collectionVC
+        self.canvas = canvas
         
         super.init()
         print("gw: init demo mgr")
@@ -77,6 +81,7 @@ class DemoManager: NSObject {
                     zoomingActionTaker.setImage(image: demo.photo)
                     pagingActionTaker.populate(identificationResults: demo.identifications)
                     collectionVC.populate(identifications: demo.identifications)
+                    canvas.identifications = demo.identifications
                     gw_log("gw: populated demo, going to face scrolling after \(Constants.period) sec...")
                 }
                 

@@ -71,7 +71,7 @@ class ViewController:  UIViewController {
         }
     }
     
-    let isFirstTime: Bool = true // TODO
+    let isFirstTime: Bool = false // TODO
     // MARK: - Constructor
     
     var demoManager : DemoManager? = nil
@@ -195,7 +195,7 @@ class ViewController:  UIViewController {
         
         identificationResults = []
         
-        self.demoManager = DemoManager(zoomingActionTaker: self.zoomableImageVC, pagingActionTaker: self.detailPagedVC, collectionVC: self.peopleCollectionVC)
+        self.demoManager = DemoManager(zoomingActionTaker: self.zoomableImageVC, pagingActionTaker: self.detailPagedVC, collectionVC: self.peopleCollectionVC, canvas: self.canvas)
         
     }
     
@@ -214,7 +214,7 @@ class ViewController:  UIViewController {
         imagePicker.delegate = self
         //self.addChild(imagePicker)
         //self.demoManager = DemoManager()
-        self.demoManager = nil
+       
         self.present(imagePicker, animated: true)
     }
     
@@ -229,7 +229,7 @@ class ViewController:  UIViewController {
         self.present(imagePicker, animated: true)
         
         // destruct demo manager
-           self.demoManager = nil
+        // self.demoManager = nil
     }
    
     
@@ -483,7 +483,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     
   
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
+        self.demoManager = nil
         
         picker.dismiss(animated: true) {
             guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
@@ -532,6 +532,13 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true) {
+            if let demoManager = self.demoManager {
+                // let it continue demo
+            } else {
+                // create one
+                self.demoManager = DemoManager(zoomingActionTaker: self.zoomableImageVC, pagingActionTaker: self.detailPagedVC, collectionVC: self.peopleCollectionVC, canvas: self.canvas)
+            }
+            
             //self.cleanUpForEmptyPhotoSelection()
             print("picked 3")
         }
