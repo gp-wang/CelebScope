@@ -78,8 +78,8 @@ class Canvas : UIView {
 
             
             // print("generated points: \(pathPoints)")
-            context.setStrokeColor(UIColor.red.cgColor)
-            context.setLineWidth(7)
+            context.setStrokeColor(UIColor.gray.cgColor)
+            context.setLineWidth(5)
 
             for (idx, point) in pathPoints.enumerated() {
                 if idx == 0 {

@@ -16,7 +16,7 @@ class SinglePersonPageViewController: UIViewController {
     let avartarView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .red
+        //imageView.backgroundColor = .red
         imageView.contentMode = .scaleAspectFit
         return imageView
     } ()
@@ -24,7 +24,7 @@ class SinglePersonPageViewController: UIViewController {
     let nameLabel: UILabel = {
         let _label = UILabel()
         _label.translatesAutoresizingMaskIntoConstraints = false
-        _label.backgroundColor = .red
+        //_label.backgroundColor = .red
         _label.font = UIFont.preferredFont(forTextStyle: .headline)
         return _label
     } ()
@@ -32,25 +32,29 @@ class SinglePersonPageViewController: UIViewController {
     let professionLabel: UILabel = {
         let _label = UILabel()
         _label.translatesAutoresizingMaskIntoConstraints = false
-        _label.backgroundColor = .red
+        //_label.backgroundColor = .red
         _label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         return _label
     } ()
     
-    let bioLabel: UILabel = {
-        let _label = UILabel()
+    let bioLabel: UITextView = {
+        let _label = UITextView()
         _label.translatesAutoresizingMaskIntoConstraints = false
-        _label.backgroundColor = .red
+        //_label.backgroundColor = .red
         _label.font = UIFont.preferredFont(forTextStyle: .body)
-        _label.lineBreakMode = .byWordWrapping
-        _label.numberOfLines = 4
+//        _label.lineBreakMode = .byWordWrapping
+//        _label.numberOfLines = 4
+//        _label.allowsDefaultTighteningForTruncation = true
+//
+        _label.isUserInteractionEnabled = true
+        _label.textAlignment = .left
         return _label
     } ()
     
     let birthDeathDateLabel: UILabel = {
         let _label = UILabel()
         _label.translatesAutoresizingMaskIntoConstraints = false
-        _label.backgroundColor = .red
+        //_label.backgroundColor = .red
         _label.font = UIFont.preferredFont(forTextStyle: .footnote)
         _label.textAlignment = .right   // first line,
         

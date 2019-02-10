@@ -71,7 +71,7 @@ class ViewController:  UIViewController {
         }
     }
     
-    let isFirstTime: Bool = true // TODO
+    let isFirstTime: Bool = false // TODO
     // MARK: - Constructor
     
     var demoManager : DemoManager? = nil
@@ -126,6 +126,7 @@ class ViewController:  UIViewController {
         // ---------------------
         // constructing the delegatee
         let dedicatedPageViewDelegate = PeoplePageViewDelegate(delegator: self.detailPagedVC)
+        dedicatedPageViewDelegate.zoomingActionTaker = self.zoomableImageVC
 
         // setting up at least one strong ref to avoid being GC
         self.detailPagedVC.pageViewDelegateStrongRef = dedicatedPageViewDelegate

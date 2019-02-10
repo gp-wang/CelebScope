@@ -68,15 +68,22 @@ class PeoplePageViewDelegate: NSObject, UIPageViewControllerDelegate{
         
         // function param candidates
         guard let viewControllers = pageViewController.viewControllers as? [UIViewController] ,
-            let viewControllerIndex = self.delegator.pages.index(of: viewControllers[0]),
-            let pagingActionTaker = self.pagingActionTaker,
-            let zoomingActionTaker = self.zoomingActionTaker
+            let viewControllerIndex = self.delegator.pages.index(of: viewControllers[0])
+        
             else {
                 
-                print("gw: pageViewController unwrapping error")
+                print("gw: pageViewController unwrapping error 1")
                 return
         }
+        guard
+        let pagingActionTaker = self.pagingActionTaker,
+        let zoomingActionTaker = self.zoomingActionTaker
         
+            else {
+                
+                print("gw: pageViewController unwrapping error 2")
+                return
+        }
         
         
         pagingAndZoomingToFaceIndexed(at:viewControllerIndex, pagingActionTaker: pagingActionTaker, zoomingActionTaker: zoomingActionTaker)

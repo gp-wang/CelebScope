@@ -17,7 +17,7 @@ class SummaryPageViewController: UIViewController {
     let nameLabel: UILabel = {
         let _label = UILabel()
         _label.translatesAutoresizingMaskIntoConstraints = false
-        _label.backgroundColor = .red
+        //_label.backgroundColor = .red
         _label.font = UIFont.preferredFont(forTextStyle: .headline)
         _label.textAlignment = .center
         return _label
