@@ -14,7 +14,7 @@ import CoreGraphics
 class TooltipViewController: UIViewController {
     struct Constants {
         
-        static let tooltipWidth: CGFloat = 100
+        static let tooltipWidth: CGFloat = 150
         static let tooltipHeight: CGFloat = 50
     }
     
@@ -24,8 +24,42 @@ class TooltipViewController: UIViewController {
         
         let container = UIView(frame: CGRect.zero)
         container.translatesAutoresizingMaskIntoConstraints = false
+
+        //container.backgroundColor = .red
         
-        container.backgroundColor = .red
+        let _label = UILabel()
+        
+        _label.translatesAutoresizingMaskIntoConstraints = false
+        _label.text = "Use camera to capture a photo"
+        _label.font = UIFont.preferredFont(forTextStyle: .headline).withSize(16)
+        _label.textColor = .white
+        //_label.backgroundColor = UIColor.green
+        // round corner: https://stackoverflow.com/questions/31146242/how-to-round-edges-of-uilabel-with-swift/36880682
+        //_label.layer.backgroundColor = UIColor.green.cgColor
+        _label.layer.backgroundColor = UIColor.clear.cgColor
+        _label.layer.cornerRadius = 5
+        _label.lineBreakMode = .byWordWrapping
+        _label.adjustsFontSizeToFitWidth = true
+        _label.textAlignment = .left
+        _label.numberOfLines = 2
+        
+        container.addSubview(_label)
+        
+        let views: [String: Any] = [
+            "container": container,
+            "_label": _label,
+        ]
+        
+        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(
+            withVisualFormat: "H:|-15-[_label]-15-|",
+            options: [.alignAllCenterY], metrics: nil,
+            views: views) + NSLayoutConstraint.constraints(
+                withVisualFormat: "V:|[_label]|",
+                 metrics: nil,
+                views: views))
+        
+        
+        
         
         return container
         
@@ -43,6 +77,18 @@ class TooltipViewController: UIViewController {
         
     } ()
     
+    
+    // the shade to dim content below it
+    let blinds: UIView = {
+        let container = UIView(frame: CGRect.zero)
+        container.translatesAutoresizingMaskIntoConstraints = false
+        
+        container.backgroundColor = .black
+        container.alpha = 0.6
+        
+        return container
+    } ()
+    
     var allConstraints = [NSLayoutConstraint] ()
     
     unowned let cameraButton: UIButton
@@ -58,8 +104,11 @@ class TooltipViewController: UIViewController {
             , bundle: nil)
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        self.view.backgroundColor = .clear
+        self.view.backgroundColor = UIColor.clear
         
+        
+
+        view.addSubview(blinds)
         view.addSubview(cameraButtonTooltip)
         view.addSubview(albumButtonTooltip)
         
@@ -71,13 +120,17 @@ class TooltipViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        let bubbleLayer = CAShapeLayer()
-        bubbleLayer.path = bubblePathForContentSize(contentSize: cameraButtonTooltip.bounds.size).cgPath
-        bubbleLayer.fillColor = UIColor.yellow.cgColor
-        bubbleLayer.strokeColor = UIColor.blue.cgColor
-        bubbleLayer.lineWidth = borderWidth
-        bubbleLayer.position = CGPoint.zero
-        cameraButtonTooltip.layer.addSublayer(bubbleLayer)
+        
+        
+//        let bubbleLayer = CAShapeLayer()
+//        let path: UIBezierPath = bubblePathForContentSize(contentSize: cameraButtonTooltip.bounds.size.applying(CGAffineTransform(scaleX: 0.3, y: 0.3)))
+//            path.apply(CGAffineTransform(rotationAngle: .pi))
+//        bubbleLayer.path = path.cgPath
+//        bubbleLayer.fillColor = UIColor.yellow.cgColor
+//        bubbleLayer.strokeColor = UIColor.blue.cgColor
+//        bubbleLayer.lineWidth = borderWidth
+//        bubbleLayer.position = CGPoint.zero
+//        cameraButtonTooltip.layer.addSublayer(bubbleLayer)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -95,22 +148,23 @@ class TooltipViewController: UIViewController {
     var radius : CGFloat = 10
     var triangleHeight : CGFloat = 15
     
-    private func bubblePathForContentSize(contentSize: CGSize) -> UIBezierPath {
-        //let rect = CGRectMake(0, 0, contentSize.width, contentSize.height).offsetBy(dx: radius, dy: radius + triangleHeight)
-        let rect = CGRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height).offsetBy(dx: radius, dy: radius + triangleHeight)
-        let path = UIBezierPath();
-        let radius2 = radius - borderWidth / 2 // RadiusaddLinetto: he border width
-        
-        path.move(to: CGPoint(x: rect.maxX - triangleHeight * 2, y: rect.minY - radius2))
-        path.addLine(to: CGPoint(x: rect.maxX - triangleHeight, y: rect.minY - radius2 - triangleHeight))
-        path.addArc(withCenter: CGPoint(x: rect.maxX, y: rect.minY), radius: radius2, startAngle: CGFloat(-M_PI_2), endAngle: 0, clockwise: true)
-        path.addArc(withCenter: CGPoint(x: rect.maxX, y: rect.maxY), radius: radius2, startAngle: 0, endAngle: CGFloat(M_PI_2), clockwise: true)
-        path.addArc(withCenter: CGPoint(x: rect.minX, y: rect.maxY), radius: radius2, startAngle: CGFloat(M_PI_2), endAngle: CGFloat(M_PI), clockwise: true)
-        path.addArc(withCenter: CGPoint(x: rect.minX, y: rect.minY), radius: radius2, startAngle: CGFloat(M_PI), endAngle: CGFloat(-M_PI_2), clockwise: true)
-        path.close()
-        return path
-    }
-    
+//    private func bubblePathForContentSize(contentSize: CGSize) -> UIBezierPath {
+//        //let rect = CGRectMake(0, 0, contentSize.width, contentSize.height).offsetBy(dx: radius, dy: radius + triangleHeight)
+//        let rect = CGRect(x: 0, y: 0, width: contentSize.width, height: contentSize.height).offsetBy(dx: radius, dy: radius + triangleHeight)
+//        let path = UIBezierPath();
+//        let radius2 = radius - borderWidth / 2 // RadiusaddLinetto: he border width
+//
+//        path.move(to: CGPoint(x: rect.maxX - triangleHeight * 2, y: rect.minY - radius2))
+//        path.addLine(to: CGPoint(x: rect.maxX - triangleHeight, y: rect.minY - radius2 - triangleHeight))
+//        path.addArc(withCenter: CGPoint(x: rect.maxX, y: rect.minY), radius: radius2, startAngle: CGFloat(-M_PI_2), endAngle: 0, clockwise: true)
+//        path.addArc(withCenter: CGPoint(x: rect.maxX, y: rect.maxY), radius: radius2, startAngle: 0, endAngle: CGFloat(M_PI_2), clockwise: true)
+//        path.addArc(withCenter: CGPoint(x: rect.minX, y: rect.maxY), radius: radius2, startAngle: CGFloat(M_PI_2), endAngle: CGFloat(M_PI), clockwise: true)
+//        path.addArc(withCenter: CGPoint(x: rect.minX, y: rect.minY), radius: radius2, startAngle: CGFloat(M_PI), endAngle: CGFloat(-M_PI_2), clockwise: true)
+//        path.close()
+//
+//        return path
+//    }
+//
     
     public func setupTooltipLayoutConstraints() {
 
@@ -123,7 +177,7 @@ class TooltipViewController: UIViewController {
         cameraButtonTooltip_width_p.isActive = false
         allConstraints.append(cameraButtonTooltip_width_p)
         
-        let cameraButtonTooltip_height_p = cameraButtonTooltip.heightAnchor.constraint(equalToConstant: Constants.tooltipWidth)
+        let cameraButtonTooltip_height_p = cameraButtonTooltip.heightAnchor.constraint(equalToConstant: Constants.tooltipHeight)
         cameraButtonTooltip_height_p.identifier = "cameraButtonTooltip_height_p"
         cameraButtonTooltip_height_p.isActive = false
         allConstraints.append(cameraButtonTooltip_height_p)
@@ -144,7 +198,7 @@ class TooltipViewController: UIViewController {
         albumButtonTooltip_width_p.isActive = false
         allConstraints.append(albumButtonTooltip_width_p)
         
-        let albumButtonTooltip_height_p = albumButtonTooltip.heightAnchor.constraint(equalToConstant: Constants.tooltipWidth)
+        let albumButtonTooltip_height_p = albumButtonTooltip.heightAnchor.constraint(equalToConstant: Constants.tooltipHeight)
         albumButtonTooltip_height_p.identifier = "albumButtonTooltip_height_p"
         albumButtonTooltip_height_p.isActive = false
         allConstraints.append(albumButtonTooltip_height_p)
@@ -158,6 +212,14 @@ class TooltipViewController: UIViewController {
         albumButtonTooltip_bot_p.identifier = "albumButtonTooltip_bot_p"
         albumButtonTooltip_bot_p.isActive = false
         allConstraints.append(albumButtonTooltip_bot_p)
+        
+        
+        allConstraints += [
+            blinds.topAnchor.constraint(equalTo: self.view.topAnchor),
+            blinds.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            blinds.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            blinds.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+        ]
       
         NSLayoutConstraint.activate(allConstraints)
     }
