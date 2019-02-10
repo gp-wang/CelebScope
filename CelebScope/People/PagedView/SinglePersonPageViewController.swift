@@ -31,6 +31,9 @@ class SinglePersonPageViewController: UIViewController {
         
         // https://stackoverflow.com/a/44658641/8328365
         paragraphStyle.lineHeightMultiple = 0.5  // this is the key of line spacing
+        paragraphStyle.headIndent = 0
+        paragraphStyle.firstLineHeadIndent = 0
+        
         
         
         return paragraphStyle
@@ -83,6 +86,10 @@ class SinglePersonPageViewController: UIViewController {
 
         _label.attributedText = attrString
         
+        // vertical align
+        // https://stackoverflow.com/questions/1054558/vertically-align-text-to-top-within-a-uilabel
+        //_label.sizeToFit()
+        
         return _label
     } ()
     
@@ -118,7 +125,10 @@ class SinglePersonPageViewController: UIViewController {
         let attrString = NSMutableAttributedString(string: faceIdentification.person.bio ?? "...")
         attrString.addAttribute(.paragraphStyle, value: SinglePersonPageViewController.bioLabelParagraphStyle, range:NSMakeRange(0, attrString.length))
         bioLabel.attributedText = attrString
- 
+        // vertical align
+        // https://stackoverflow.com/questions/1054558/vertically-align-text-to-top-within-a-uilabel
+        bioLabel.sizeToFit()
+        
         var birthDeathDateStr = ""
         if let _birthDate = faceIdentification.person.birthDate {
             birthDeathDateStr = _birthDate + " - "
