@@ -11,6 +11,10 @@
 import UIKit
 
 class SummaryPageViewController: UIViewController {
+    private struct Constants {
+        
+        static let textColor: UIColor = .white
+    }
     
     let count: Int
     
@@ -20,6 +24,7 @@ class SummaryPageViewController: UIViewController {
         //_label.backgroundColor = .red
         _label.font = UIFont.preferredFont(forTextStyle: .headline)
         _label.textAlignment = .center
+        _label.textColor = Constants.textColor
         return _label
     } ()
     
@@ -84,6 +89,12 @@ class SummaryPageViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        self.view.setGradientBackground(colorOne: Colors.orange, colorTwo: Colors.brightOrange)
     }
 }
 

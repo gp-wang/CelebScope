@@ -27,9 +27,9 @@ class CollectionViewController: UICollectionViewController {
         
         self.identifications = identifications
         
-        //DispatchQueue.main.async {
+        DispatchQueue.main.async {
             self.collectionView?.collectionViewLayout.invalidateLayout()
-        //}
+        }
     }
     
     // MARK: gw: we use the implicit member "collectionView?" of UICollectionViewController
@@ -40,7 +40,9 @@ class CollectionViewController: UICollectionViewController {
         //collectionView =  CustomUICollectionView()
         super.init(collectionViewLayout: collectionViewLayout)
         
-        collectionView.backgroundColor = UIColor.white
+     
+        
+        collectionView.backgroundColor = Colors.lightGrey
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(PersonCollectionViewCell.self, forCellWithReuseIdentifier: collectionViewCellIdentifier)
     }
@@ -57,16 +59,13 @@ class CollectionViewController: UICollectionViewController {
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        DispatchQueue.main.async {
+            self.collectionView?.collectionViewLayout.invalidateLayout()
+        }
     }
-    */
     
     
 

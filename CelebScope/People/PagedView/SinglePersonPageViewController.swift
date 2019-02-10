@@ -10,6 +10,12 @@ import UIKit
 
 class SinglePersonPageViewController: UIViewController {
     
+    private struct Constants {
+
+        static let textColor: UIColor = .white
+    }
+    
+    
     // style for control line spacing
     static let bioLabelParagraphStyle: NSMutableParagraphStyle = {
         let paragraphStyle = NSMutableParagraphStyle()
@@ -20,7 +26,8 @@ class SinglePersonPageViewController: UIViewController {
         //        paragraphStyle.headIndent = 0
         //        paragraphStyle.tailIndent = 0
         paragraphStyle.allowsDefaultTighteningForTruncation = true
-        //paragraphStyle.
+        paragraphStyle.alignment = .left
+        paragraphStyle.lineBreakMode = .byTruncatingTail
         
         // https://stackoverflow.com/a/44658641/8328365
         paragraphStyle.lineHeightMultiple = 0.5  // this is the key of line spacing
@@ -45,6 +52,7 @@ class SinglePersonPageViewController: UIViewController {
         _label.translatesAutoresizingMaskIntoConstraints = false
         //_label.backgroundColor = .red
         _label.font = UIFont.preferredFont(forTextStyle: .headline)
+        _label.textColor = Constants.textColor
         return _label
     } ()
     
@@ -53,6 +61,7 @@ class SinglePersonPageViewController: UIViewController {
         _label.translatesAutoresizingMaskIntoConstraints = false
         //_label.backgroundColor = .red
         _label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+         _label.textColor = Constants.textColor
         return _label
     } ()
     
@@ -68,7 +77,7 @@ class SinglePersonPageViewController: UIViewController {
 //        _label.isUserInteractionEnabled = true
         
         _label.textAlignment = .left
-        
+         _label.textColor = Constants.textColor
         let attrString = NSMutableAttributedString(string: "...")
         attrString.addAttribute(.paragraphStyle, value: bioLabelParagraphStyle, range:NSMakeRange(0, attrString.length))
 
@@ -83,9 +92,15 @@ class SinglePersonPageViewController: UIViewController {
         //_label.backgroundColor = .red
         _label.font = UIFont.preferredFont(forTextStyle: .footnote)
         _label.textAlignment = .right   // first line,
-        
+         _label.textColor = Constants.textColor
         return _label
     } ()
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        self.view.setGradientBackground(colorOne: Colors.orange, colorTwo: Colors.brightOrange)
+    }
     
     
     init(_ faceIdentification: Identification) {
@@ -113,7 +128,6 @@ class SinglePersonPageViewController: UIViewController {
         }
         birthDeathDateLabel.text = birthDeathDateStr
  
-        
         view.addSubview(avartarView)
         view.addSubview(nameLabel)
         view.addSubview(professionLabel)

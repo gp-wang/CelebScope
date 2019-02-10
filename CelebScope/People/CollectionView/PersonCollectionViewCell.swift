@@ -15,6 +15,7 @@ class PersonCollectionViewCell: UICollectionViewCell {
     private struct Constants {
         static let faceViewWHRatio : CGFloat = 1.0
         static let avartarViewWHRatio: CGFloat =  214.0 / 317.0
+        static let textColor: UIColor = .white
     }
     
     
@@ -66,7 +67,8 @@ class PersonCollectionViewCell: UICollectionViewCell {
     let croppedFaceView: UIImageView = {
         let _imageView = UIImageView()
         _imageView.translatesAutoresizingMaskIntoConstraints = false
-        _imageView.backgroundColor = UIColor.green
+        //_imageView.backgroundColor = UIColor.green
+        _imageView.backgroundColor = UIColor.clear
         _imageView.contentMode = .scaleAspectFit
         //_imageView.image = UIImage(imageLiteralResourceName: "mary")
         return _imageView
@@ -75,7 +77,7 @@ class PersonCollectionViewCell: UICollectionViewCell {
     let avartarView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .green
+        imageView.backgroundColor = .clear
         imageView.contentMode = .scaleAspectFit
         //imageView.image = UIImage(imageLiteralResourceName: "jlaw")
         return imageView
@@ -86,6 +88,7 @@ class PersonCollectionViewCell: UICollectionViewCell {
         let _view = UIView()
         _view.translatesAutoresizingMaskIntoConstraints = false
         //_view.backgroundColor = .red
+        _view.backgroundColor = .clear
         return _view
     } ()
     
@@ -102,11 +105,13 @@ class PersonCollectionViewCell: UICollectionViewCell {
         //_label.text = "Jeniffer Lawrence"
         _label.attributedText = attrString  // for controling line spacing
         _label.font = UIFont.preferredFont(forTextStyle: .headline).withSize(14)
-        _label.backgroundColor = UIColor.green
+        //_label.backgroundColor = UIColor.green
+        _label.backgroundColor = UIColor.clear
         _label.lineBreakMode = .byWordWrapping
         _label.adjustsFontSizeToFitWidth = true
         _label.textAlignment = .center
         _label.numberOfLines = 2
+        _label.textColor = Constants.textColor
         //_label.backgroundColor = .red
         return _label
     } ()
@@ -124,13 +129,14 @@ class PersonCollectionViewCell: UICollectionViewCell {
     let confidenceLabel: UILabel = {
         let _label = UILabel()
         _label.translatesAutoresizingMaskIntoConstraints = false
-        _label.backgroundColor = .green
+        _label.backgroundColor = .clear
         // _label.font = UIFont.preferredFont(forTextStyle: .headline)
        
      
         _label.font =   UIFont.preferredFont(forTextStyle: .headline).withSize(19)
         _label.text = "66%"
         _label.adjustsFontSizeToFitWidth = true
+        _label.textColor = Constants.textColor
         return _label
     } ()
     
@@ -145,11 +151,42 @@ class PersonCollectionViewCell: UICollectionViewCell {
         addSubview(avartarView)
         addSubview(confidenceLabel)
         
-        self.backgroundColor = UIColor.green
+        // self.backgroundColor = UIColor(red: CGFloat(15.0/255), green: CGFloat(163.0/255), blue: CGFloat(241.0/255), alpha: 1)
+        self.backgroundColor = Colors.blue
+        //self.setGradientBackground(colorOne: Colors.orange, colorTwo: Colors.brightOrange)
         
         setupInternalConstraints()
     }
     
+    
+    // for adding gradient for autolayout
+    // https://stackoverflow.com/a/39591959/8328365
+//    private let gradient : CAGradientLayer = CAGradientLayer()
+//
+//    override func layoutSublayers(of layer: CALayer) {
+//        super.layoutSublayers(of: layer)
+//        self.gradient.frame = self.bounds
+//    }
+//
+//    override public func draw(_ rect: CGRect) {
+//        self.gradient.frame = self.bounds
+//        self.gradient.colors = [Colors.orange.cgColor, Colors.brightOrange.cgColor]
+//        self.gradient.startPoint = CGPoint.init(x: 1, y: 1)
+//        self.gradient.endPoint = CGPoint.init(x: 0, y: 0)
+//        if self.gradient.superlayer == nil {
+//            self.layer.insertSublayer(self.gradient, at: 0)
+//        }
+//    }
+
+//    override public func draw(_ rect: CGRect) {
+//        super.draw(rect)
+//        self.setGradientBackground(colorOne: Colors.orange, colorTwo: Colors.brightOrange)
+//
+//    }
+//    override func layoutSublayers(of layer: CALayer) {
+//        super.layoutSublayers(of: layer)
+//        self.layer
+//    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

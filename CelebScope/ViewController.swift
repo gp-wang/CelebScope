@@ -34,6 +34,7 @@ class ViewController:  UIViewController {
         let _flowLayout = UICollectionViewFlowLayout()
         // set 1 x N scroll view horizontally. (otherwise it will fold down to 2nd row)
         _flowLayout.scrollDirection = .horizontal
+        _flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
 
         return CollectionViewController(collectionViewLayout: _flowLayout)
     } ()
