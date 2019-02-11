@@ -490,17 +490,20 @@ extension ViewController {
                 // goal: less cross over from photo to ppl coll view annotations
                 let sortedFacesByPosition = faces.sorted(by: { (face1: Face, face2: Face) -> Bool in
                     // gw: note, the sorting should be w.r.t. the UIView location (not original face location in cgImage)
-                    
+
                     // TODO: think about rotated photo or face -------------------
                     //let _p1 = self.transformPointByOrientation(face1.position, image.imageOrientation)
                     //let _p2 = self.transformPointByOrientation(face2.position, image.imageOrientation)
                     let _p1 = face1.position
                     let _p2 = face2.position
-                    
-                    
+
+
                     // gw: ordering criteria: compare y, then x (UI Kit coord, top to bottom, left to right)
                     return _p1.y - _p2.y < -epsilonY || ( _p1.y - _p2.y < epsilonY && _p1.x - _p2.x < -epsilonX)
                 })
+                
+                // disable sort as it has bugs
+                //let sortedFacesByPosition = faces
                 
                 
                 
