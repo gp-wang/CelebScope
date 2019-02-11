@@ -13,6 +13,14 @@ class SinglePersonPageViewController: UIViewController {
     private struct Constants {
 
         static let textColor: UIColor = .white
+        
+        // gw: +40.0 for the copyright label
+        static let avartarContainerViewWHRatio: CGFloat = 214.0 / (317.0 + 40.0)  // default avartar ratio in imdb celeb page
+        // the ratio for the image only
+        static let avartarImageWHRatio: CGFloat = 214.0 / (317.0)
+        
+        static let avartarImageSubviewTag: Int = 100
+        static let avartarCopyrightSubviewTag: Int = 200
     }
     
     
@@ -42,12 +50,48 @@ class SinglePersonPageViewController: UIViewController {
     let identification: Identification
 //    let labelInst = UILabel()
     
-    let avartarView: UIImageView = {
+    let avartarView: UIView = {
+        let containerView = UIView()
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         //imageView.backgroundColor = .red
         imageView.contentMode = .scaleAspectFit
-        return imageView
+        // set tag for get back later
+        imageView.tag = Constants.avartarImageSubviewTag  // https://stackoverflow.com/a/28200007/8328365
+        
+        let copyrightLabelView = UILabel()
+        copyrightLabelView.translatesAutoresizingMaskIntoConstraints = false
+        copyrightLabelView.font = UIFont.preferredFont(forTextStyle: .subheadline).withSize(12)
+        copyrightLabelView.textColor = .black
+        copyrightLabelView.textAlignment = .center
+        copyrightLabelView.backgroundColor = .white
+        copyrightLabelView.text = "© Wikipedia & Wikipedia Commons"
+        copyrightLabelView.tag = Constants.avartarCopyrightSubviewTag
+        
+        containerView.addSubview(imageView)
+        containerView.addSubview(copyrightLabelView)
+        
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: Constants.avartarImageWHRatio),
+            
+            
+            
+            copyrightLabelView.topAnchor.constraint(equalTo: imageView.bottomAnchor),
+            copyrightLabelView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            copyrightLabelView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            copyrightLabelView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+            
+            
+            ])
+        
+        
+        
+        return containerView
     } ()
     
     let nameLabel: UILabel = {
@@ -116,7 +160,10 @@ class SinglePersonPageViewController: UIViewController {
         // gw: boilerplate
         super.init(nibName: nil, bundle: nil)
         
-        avartarView.image = faceIdentification.person.avartar?.copy() as? UIImage
+            
+        if let avartarImageView = avartarView.viewWithTag(Constants.avartarImageSubviewTag) as? UIImageView {
+            avartarImageView.image = faceIdentification.person.avartar?.copy() as? UIImage
+        }
         
         nameLabel.text = faceIdentification.person.name
         
@@ -168,17 +215,19 @@ class SinglePersonPageViewController: UIViewController {
         
 
         
-        var avartarImageWHRatio: CGFloat = 214.0 / 317.0  // default avartar ratio in imdb celeb page
-        if let _avartarImage = avartarView.image {
-            avartarImageWHRatio = _avartarImage.size.width / _avartarImage.size.height
-        }
+        //var avartarImageWHRatio: CGFloat = 214.0 / 317.0  // default avartar ratio in imdb celeb page
+        
+       
+        //if let _avartarImage = avartarView.image {
+        //    avartarImageWHRatio = _avartarImage.size.width / _avartarImage.size.height
+        //}
         var allConstraints: [NSLayoutConstraint] = [
             
             
             
             avartarView.topAnchor.constraint(equalTo: view.topAnchor),
             avartarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            avartarView.widthAnchor.constraint(equalTo: avartarView.heightAnchor, multiplier: avartarImageWHRatio),
+            avartarView.widthAnchor.constraint(equalTo: avartarView.heightAnchor, multiplier: Constants.avartarContainerViewWHRatio),
             avartarView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             //---- labels horizontal
             //nameLabel.leadingAnchor.constraint(equalTo: avartarView.trailingAnchor, constant: 20),

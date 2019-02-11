@@ -16,9 +16,7 @@ struct Demo {
 
 class Demos {
     public static let demos: [Demo] = {
-        guard let dummyCGImage = UIImage(imageLiteralResourceName: "kelly").cgImage else {
-            return []
-        }
+        
         
         
         let photo0 = UIImage(imageLiteralResourceName: "demo0")
