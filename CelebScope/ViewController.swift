@@ -24,7 +24,7 @@ class ViewController:  UIViewController {
         let canvas = Canvas()
         canvas.backgroundColor = UIColor.clear
         canvas.translatesAutoresizingMaskIntoConstraints=false
-        canvas.alpha = 0.2
+        canvas.alpha = 0.5
         return canvas
     } ()
     

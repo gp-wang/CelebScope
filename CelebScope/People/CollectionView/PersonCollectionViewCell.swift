@@ -140,7 +140,7 @@ class PersonCollectionViewCell: UICollectionViewCell {
        
      
         _label.font =   UIFont.preferredFont(forTextStyle: .headline).withSize(19)
-        _label.text = "66%"
+        _label.text = "0%"
         _label.adjustsFontSizeToFitWidth = true
         _label.textColor = Constants.textColor
         return _label

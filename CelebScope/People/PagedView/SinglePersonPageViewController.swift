@@ -15,7 +15,7 @@ class SinglePersonPageViewController: UIViewController {
         static let textColor: UIColor = .white
         
         // gw: +40.0 for the copyright label
-        static let avartarContainerViewWHRatio: CGFloat = 214.0 / (317.0 + 40.0)  // default avartar ratio in imdb celeb page
+        static let avartarContainerViewWHRatio: CGFloat = 214.0 / (317.0 + 30.0)  // default avartar ratio in imdb celeb page
         // the ratio for the image only
         static let avartarImageWHRatio: CGFloat = 214.0 / (317.0)
         
@@ -33,14 +33,14 @@ class SinglePersonPageViewController: UIViewController {
         //        paragraphStyle.minimumLineHeight = 0
         //        paragraphStyle.headIndent = 0
         //        paragraphStyle.tailIndent = 0
-        paragraphStyle.allowsDefaultTighteningForTruncation = true
-        paragraphStyle.alignment = .left
-        paragraphStyle.lineBreakMode = .byTruncatingTail
+        // paragraphStyle.allowsDefaultTighteningForTruncation = true
+        //paragraphStyle.alignment = .left
+        //paragraphStyle.lineBreakMode = .byTruncatingTail
         
         // https://stackoverflow.com/a/44658641/8328365
         paragraphStyle.lineHeightMultiple = 0.5  // this is the key of line spacing
-        paragraphStyle.headIndent = 0
-        paragraphStyle.firstLineHeadIndent = 0
+        //paragraphStyle.headIndent = 0
+        //paragraphStyle.firstLineHeadIndent = 0
         
         
         
@@ -63,11 +63,11 @@ class SinglePersonPageViewController: UIViewController {
         
         let copyrightLabelView = UILabel()
         copyrightLabelView.translatesAutoresizingMaskIntoConstraints = false
-        copyrightLabelView.font = UIFont.preferredFont(forTextStyle: .subheadline).withSize(12)
+        copyrightLabelView.font = UIFont.preferredFont(forTextStyle: .subheadline).withSize(10)
         copyrightLabelView.textColor = .black
         copyrightLabelView.textAlignment = .center
         copyrightLabelView.backgroundColor = .white
-        copyrightLabelView.text = "© Wikipedia & Wikipedia Commons"
+        copyrightLabelView.text = "© Wikipedia"
         copyrightLabelView.tag = Constants.avartarCopyrightSubviewTag
         
         containerView.addSubview(imageView)
@@ -120,6 +120,7 @@ class SinglePersonPageViewController: UIViewController {
         _label.lineBreakMode = .byWordWrapping
         _label.numberOfLines = 4
         _label.allowsDefaultTighteningForTruncation = true
+        _label.adjustsFontSizeToFitWidth = true
 //
 //        _label.isUserInteractionEnabled = true
         
@@ -169,12 +170,23 @@ class SinglePersonPageViewController: UIViewController {
         
         professionLabel.text = faceIdentification.person.profession
         
-        let attrString = NSMutableAttributedString(string: faceIdentification.person.bio ?? "...")
+        
+        var bioStr : String
+        if let rawBioStr = faceIdentification.person.bio {
+            bioStr = rawBioStr.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+        } else {
+            bioStr = "Not Available ..."
+        }
+        
+        let attrString = NSMutableAttributedString(string: bioStr)
         attrString.addAttribute(.paragraphStyle, value: SinglePersonPageViewController.bioLabelParagraphStyle, range:NSMakeRange(0, attrString.length))
+        
+        
         bioLabel.attributedText = attrString
         // vertical align
         // https://stackoverflow.com/questions/1054558/vertically-align-text-to-top-within-a-uilabel
-        bioLabel.sizeToFit()
+        // bioLabel.sizeToFit()
         
         var birthDeathDateStr = ""
         if let _birthDate = faceIdentification.person.birthDate {
