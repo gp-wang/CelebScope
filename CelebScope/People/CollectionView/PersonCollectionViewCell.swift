@@ -159,7 +159,11 @@ class PersonCollectionViewCell: UICollectionViewCell {
         
         // self.backgroundColor = UIColor(red: CGFloat(15.0/255), green: CGFloat(163.0/255), blue: CGFloat(241.0/255), alpha: 1)
         self.backgroundColor = Colors.blue
-        //self.setGradientBackground(colorOne: Colors.orange, colorTwo: Colors.brightOrange)
+        
+//        DispatchQueue.main.async {
+//            self.setGradientBackground(colorOne: Colors.orange, colorTwo: Colors.brightOrange)
+//        }
+        
         
         setupInternalConstraints()
     }
@@ -167,22 +171,22 @@ class PersonCollectionViewCell: UICollectionViewCell {
     
     // for adding gradient for autolayout
     // https://stackoverflow.com/a/39591959/8328365
-//    private let gradient : CAGradientLayer = CAGradientLayer()
-//
-//    override func layoutSublayers(of layer: CALayer) {
-//        super.layoutSublayers(of: layer)
-//        self.gradient.frame = self.bounds
-//    }
-//
-//    override public func draw(_ rect: CGRect) {
-//        self.gradient.frame = self.bounds
-//        self.gradient.colors = [Colors.orange.cgColor, Colors.brightOrange.cgColor]
-//        self.gradient.startPoint = CGPoint.init(x: 1, y: 1)
-//        self.gradient.endPoint = CGPoint.init(x: 0, y: 0)
-//        if self.gradient.superlayer == nil {
-//            self.layer.insertSublayer(self.gradient, at: 0)
-//        }
-//    }
+    private let gradient : CAGradientLayer = CAGradientLayer()
+
+    override func layoutSublayers(of layer: CALayer) {
+        super.layoutSublayers(of: layer)
+        self.gradient.frame = self.bounds
+    }
+
+    override public func draw(_ rect: CGRect) {
+        self.gradient.frame = self.bounds
+        self.gradient.colors = [Colors.blue.cgColor, Colors.brightBlue.cgColor]
+        self.gradient.startPoint = CGPoint.init(x: 1, y: 1)
+        self.gradient.endPoint = CGPoint.init(x: 0, y: 0)
+        if self.gradient.superlayer == nil {
+            self.layer.insertSublayer(self.gradient, at: 0)
+        }
+    }
 
 //    override public func draw(_ rect: CGRect) {
 //        super.draw(rect)

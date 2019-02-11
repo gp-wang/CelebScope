@@ -152,7 +152,12 @@ class SinglePersonPageViewController: UIViewController, UIGestureRecognizerDeleg
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        self.view.setGradientBackground(colorOne: Colors.orange, colorTwo: Colors.brightOrange)
+        // gw: take-away: wrap inside main_q
+        // https://stackoverflow.com/a/53057960/8328365
+        DispatchQueue.main.async {
+            self.view.setGradientBackground(colorOne: Colors.orange, colorTwo: Colors.brightOrange)
+        }
+        
     }
     
     

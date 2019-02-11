@@ -94,7 +94,11 @@ class SummaryPageViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        self.view.setGradientBackground(colorOne: Colors.orange, colorTwo: Colors.brightOrange)
+        // https://stackoverflow.com/a/53057960/8328365
+        DispatchQueue.main.async {
+             self.view.setGradientBackground(colorOne: Colors.orange, colorTwo: Colors.brightOrange)
+        }
+       
     }
 }
 
