@@ -288,7 +288,7 @@ class ViewController:  UIViewController {
        
         
         // initial drawing
-        self.adjustLayout()
+        // self.adjustLayout()
 //        
 //        // gw: wait for above adjustment to finish photoView's frame
 //        // TODO: can this be unwrapped?

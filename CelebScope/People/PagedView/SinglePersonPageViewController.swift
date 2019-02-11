@@ -121,7 +121,7 @@ class SinglePersonPageViewController: UIViewController, UIGestureRecognizerDeleg
         _label.lineBreakMode = .byWordWrapping
         _label.numberOfLines = 4
         _label.allowsDefaultTighteningForTruncation = true
-        _label.adjustsFontSizeToFitWidth = true
+        //_label.adjustsFontSizeToFitWidth = true
 //
 //        _label.isUserInteractionEnabled = true
         
