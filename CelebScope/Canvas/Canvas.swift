@@ -31,7 +31,11 @@ class Canvas : UIView {
     public var identifications : [Identification]? {
         didSet {
             // process data and converts into drawing pairs
-            updateAnnotation()
+            // gw: need to wrap within main thread. (check out the other usages in scrollViewDidScroll, which is likely living in main thread
+            DispatchQueue.main.async {
+                self.updateAnnotation()
+            }
+
         }
     }
     
