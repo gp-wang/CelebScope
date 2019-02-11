@@ -27,8 +27,8 @@ class Demos {
         
         
         let demo0 = Demo(photo: photo0, identifications: [
-            Identification(face: face0_0, person: person0_0),
-            Identification(face: face0_1, person: person0_1)
+            Identification(face: face0_0, person: person0_0, confidence: 1.0),
+            Identification(face: face0_1, person: person0_1, confidence: 1.0)
             ])
         
         
@@ -40,8 +40,8 @@ class Demos {
         
         
         let demo1 = Demo(photo: photo1, identifications: [
-            Identification(face: face1_0, person: person1_0),
-            Identification(face: face1_1, person: person1_1)
+            Identification(face: face1_0, person: person1_0, confidence: 1.0),
+            Identification(face: face1_1, person: person1_1, confidence: 1.0)
             ])
         
         
@@ -53,7 +53,7 @@ class Demos {
 
 
         let demo2 = Demo(photo: photo2, identifications: [
-            Identification(face: face2_0, person: person2_0),
+            Identification(face: face2_0, person: person2_0, confidence: 1.0),
             ])
         
         return [demo0, demo1, demo2]

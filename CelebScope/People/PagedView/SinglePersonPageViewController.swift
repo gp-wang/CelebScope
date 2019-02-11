@@ -8,7 +8,8 @@
 
 import UIKit
 
-class SinglePersonPageViewController: UIViewController {
+
+class SinglePersonPageViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private struct Constants {
 
@@ -33,9 +34,9 @@ class SinglePersonPageViewController: UIViewController {
         //        paragraphStyle.minimumLineHeight = 0
         //        paragraphStyle.headIndent = 0
         //        paragraphStyle.tailIndent = 0
-        // paragraphStyle.allowsDefaultTighteningForTruncation = true
+        //paragraphStyle.allowsDefaultTighteningForTruncation = true
         //paragraphStyle.alignment = .left
-        //paragraphStyle.lineBreakMode = .byTruncatingTail
+        paragraphStyle.lineBreakMode = .byTruncatingTail
         
         // https://stackoverflow.com/a/44658641/8328365
         paragraphStyle.lineHeightMultiple = 0.5  // this is the key of line spacing
@@ -203,12 +204,51 @@ class SinglePersonPageViewController: UIViewController {
         view.addSubview(bioLabel)
         view.addSubview(birthDeathDateLabel)
         
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(searchInternetForName(sender:)))
+        gesture.delegate = self
+        view.addGestureRecognizer(gesture)
         // label
 //        self.view.addSubview(labelInst)
 //        labelInst.text = identification.person.name
 //        labelInst.translatesAutoresizingMaskIntoConstraints = false
         
         setupInternalConstraints()
+    }
+    
+    @objc func searchInternetForName(sender: SinglePersonPageViewController) {
+        
+        let name = self.identification.person.name
+        guard let escapedString = "http://www.google.com/search?q=\(name)".addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) else {
+            gw_log("err preparing search url")
+            return
+        }
+        
+        let queryURL = URL(string:escapedString)
+        let queryRequest = URLRequest(url: queryURL!)
+        //webView.load(queryRequest)
+        
+        
+        //gw_log("gw: tap detected \(self.nameLabel.text)")
+        
+        
+        
+        // gw: note, this is a tricky use of nav Controller, although SinglePersonPageVC is not directly added to nav controller
+        guard let navVC = self.navigationController else {
+            gw_log("err getting nav controller")
+            return
+        }
+        
+        
+        
+        let newViewController = WebViewController(initialURLRequest: queryRequest)
+        
+        DispatchQueue.main.async {
+            
+            self.navigationController?.pushViewController(newViewController, animated: true)
+            
+        }
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

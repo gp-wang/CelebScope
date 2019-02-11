@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // gw: I don't know why we need this nav VC here
         //window?.rootViewController = UINavigationController(rootViewController: customCollectionViewController)
        
-        window?.rootViewController = customCollectionViewController
+        window?.rootViewController = UINavigationController(rootViewController: customCollectionViewController)
         
         return true
     }

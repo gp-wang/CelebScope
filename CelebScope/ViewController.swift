@@ -207,6 +207,21 @@ class ViewController:  UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // hide nav bar in root view VC: https://stackoverflow.com/a/2406167/8328365
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        super.viewWillAppear(animated)
+        self.adjustLayout()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        super.viewWillDisappear(animated)
+    }
+    
+    
+    
     // MARK: - pick photos from album
     
     @objc func pickImage() {
@@ -233,6 +248,8 @@ class ViewController:  UIViewController {
         // destruct demo manager
         // self.demoManager = nil
     }
+    
+    
    
     
 //    var popTip: PopTip = {
@@ -283,6 +300,14 @@ class ViewController:  UIViewController {
 //        }
 //        let popTip = PopTip()
 //        popTip.show(text: "Hey! Listen!", direction: .up, maxWidth: 200, in: canvas, from: canvas.frame)
+        
+        
+//        let newViewController = SearchViewController()
+//
+//        DispatchQueue.main.async {
+//            self.navigationController?.pushViewController(newViewController, animated: true)
+//
+//        }
     }
     
     

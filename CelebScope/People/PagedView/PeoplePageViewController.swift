@@ -50,6 +50,7 @@ class PeoplePageViewController: UIPageViewController {
         
         // details page
         for identification in identificationResults {
+
             var page = SinglePersonPageViewController(identification)
             pages.append(page)
         }

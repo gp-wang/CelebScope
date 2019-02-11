@@ -74,7 +74,7 @@ class TooltipViewController: UIViewController {
         let _label = UILabel()
         
         _label.translatesAutoresizingMaskIntoConstraints = false
-        _label.text = "4. Find the result here."
+        _label.text = "4. Find results here. Tap to search web."
         _label.font = UIFont.preferredFont(forTextStyle: .headline).withSize(16)
         _label.textColor = .white
         //_label.backgroundColor = UIColor.green
