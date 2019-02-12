@@ -11,7 +11,7 @@ import CoreGraphics
 
 
 // gw: dedicated VC for the photoView
-class TooltipViewController: UIViewController {
+class TooltipViewController: UIViewController, UIGestureRecognizerDelegate {
     struct Constants {
         
         static let tooltipWidth: CGFloat = 200
@@ -225,6 +225,7 @@ class TooltipViewController: UIViewController {
     unowned let peopleCollectionView: UIView
     
     
+    
     // note: parentViewController param is needed to add subview and child
     public init(cameraButton: UIButton, albumButton: UIButton, zoomableImageView: UIView, peopleCollectionView: UIView, peoplePageView: UIView) {
         self.cameraButton = cameraButton
@@ -250,13 +251,26 @@ class TooltipViewController: UIViewController {
         // gw: move this out and call separately, ONLY AFTER you added subview of parent VC
         //setupTooltipLayoutConstraints()
         
+        // on tap dismiss self
         
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(dismissTooltip(sender:)))
+        gesture.delegate = self
+        view.addGestureRecognizer(gesture)
         
     }
     
     deinit {
         
         print("gw: tooltip deinit")
+    }
+    
+    @objc
+    func dismissTooltip(sender: Any) {
+        if let mainVC = self.parent as? ViewController {
+            mainVC.tooltipVC = nil
+        }
+        self.view.removeFromSuperview()
+        self.removeFromParent()
     }
     
     override func viewDidLayoutSubviews() {
