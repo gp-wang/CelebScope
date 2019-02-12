@@ -28,7 +28,9 @@ class SinglePersonPageViewController: UIViewController, UIGestureRecognizerDeleg
     // style for control line spacing
     static let bioLabelParagraphStyle: NSMutableParagraphStyle = {
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 8
+        
+        paragraphStyle.lineSpacing = 2
+        
         //        paragraphStyle.paragraphSpacing = 0
         //        paragraphStyle.paragraphSpacingBefore = 0
         //        paragraphStyle.minimumLineHeight = 0
@@ -39,7 +41,8 @@ class SinglePersonPageViewController: UIViewController, UIGestureRecognizerDeleg
         paragraphStyle.lineBreakMode = .byTruncatingTail
         
         // https://stackoverflow.com/a/44658641/8328365
-        paragraphStyle.lineHeightMultiple = 0.5  // this is the key of line spacing
+        // https://medium.com/@at_underscore/nsparagraphstyle-explained-visually-a8659d1fbd6f
+        paragraphStyle.lineHeightMultiple = 0.85  // this is the key of line spacing
         //paragraphStyle.headIndent = 0
         //paragraphStyle.firstLineHeadIndent = 0
         
@@ -117,7 +120,7 @@ class SinglePersonPageViewController: UIViewController, UIGestureRecognizerDeleg
         let _label = UILabel()
         _label.translatesAutoresizingMaskIntoConstraints = false
         //_label.backgroundColor = .red
-        _label.font = UIFont.preferredFont(forTextStyle: .body)
+        _label.font = UIFont.preferredFont(forTextStyle: .body).withSize(16)
         _label.lineBreakMode = .byWordWrapping
         _label.numberOfLines = 4
         _label.allowsDefaultTighteningForTruncation = true
