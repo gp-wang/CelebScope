@@ -18,7 +18,27 @@ extension ViewController {
         setupCollectionViewConstraints()
         setupPageViewConstraints()
         setupButtonViewConstraints()
+        setupBannerViewConstraints()
         
+    }
+    
+    func setupBannerViewConstraints() {
+        // convinence vars
+        guard let zoomableImageVCView = self.zoomableImageVC.view else {
+            NSLog("failed to unwrap zoomableImageVCView")
+            return
+        }
+        
+        
+        
+        NSLayoutConstraint.activate([
+//            bannerView.bottomAnchor.constraint(equalTo: zoomableImageVCView.bottomAnchor, constant: -10),
+            bannerView.centerYAnchor.constraint(equalTo: self.cameraButton.centerYAnchor),
+            bannerView.centerXAnchor.constraint(equalTo: zoomableImageVCView.centerXAnchor),
+            bannerView.leadingAnchor.constraint(equalTo: self.cameraButton.trailingAnchor, constant: 10),
+            bannerView.trailingAnchor.constraint(equalTo: self.albumButton.leadingAnchor, constant: -10)
+            
+            ])
     }
     
     private func setupPhotoViewConstraints() {

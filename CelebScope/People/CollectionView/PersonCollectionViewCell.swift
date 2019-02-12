@@ -180,7 +180,7 @@ class PersonCollectionViewCell: UICollectionViewCell {
 
     override public func draw(_ rect: CGRect) {
         self.gradient.frame = self.bounds
-        self.gradient.colors = [Colors.blue.cgColor, Colors.brightBlue.cgColor]
+        self.gradient.colors = [Colors.green.cgColor, Colors.blue.cgColor]
         self.gradient.startPoint = CGPoint.init(x: 1, y: 1)
         self.gradient.endPoint = CGPoint.init(x: 0, y: 0)
         if self.gradient.superlayer == nil {

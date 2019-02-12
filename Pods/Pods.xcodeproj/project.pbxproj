@@ -36,6 +36,7 @@
 		2BE65469EA87AA922F634CC0F8903666 /* FaceCropper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FaceCropper.swift; path = FaceCropper/Classes/FaceCropper.swift; sourceTree = "<group>"; };
 		2DF3F3D8D10CAC6654E91187C362372B /* Pods-CelebScope-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CelebScope-acknowledgements.markdown"; sourceTree = "<group>"; };
 		339D7D3DD8A1AC3BAF6FAE83E6DE7ED1 /* FaceCropper-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FaceCropper-dummy.m"; sourceTree = "<group>"; };
+		34B3EF078E22922CA6B3A3242417BB13 /* libGoogleMobileAds.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGoogleMobileAds.a; path = Libraries/libGoogleMobileAds.a; sourceTree = "<group>"; };
 		35CFE7D4121107C6832C81FAAED7D223 /* Pods_CelebScope.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_CelebScope.framework; path = "Pods-CelebScope.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B309FE113AF30DFA127596BC6DB56A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		5165DEE5F458254F30E9B99CFFABD1D0 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -52,6 +53,7 @@
 		94C4CC61CB0B4DEDC0CD75C1E58E40B5 /* Pods-CelebScope.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-CelebScope.modulemap"; sourceTree = "<group>"; };
 		99E722E512BBBB26AEA6A238A61D7A40 /* FaceCropper-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FaceCropper-prefix.pch"; sourceTree = "<group>"; };
 		9A5D7742B9BE1E1C8B656595D25A4A61 /* Pods-CelebScope-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CelebScope-umbrella.h"; sourceTree = "<group>"; };
+		9E929E7C43365FD21388212A99EBBE68 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = Frameworks/frameworks/GoogleMobileAds.framework; sourceTree = "<group>"; };
 		CF785FF55FA4A8F10520061092C67796 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		DAB4AB10BEECED672EFD8FC425ABEBE4 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		E1CEE32EE02725D9EB415D7DACD02004 /* Pods-CelebScope-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CelebScope-resources.sh"; sourceTree = "<group>"; };
@@ -103,9 +105,18 @@
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				C34FF85C5B9D80D8B91952B3AF8E5485 /* Development Pods */,
 				122DA2E5084A4393C29BE363C764795C /* Frameworks */,
+				820FBBDA65C5B1A6A4C379A893C27235 /* Pods */,
 				A31C60AB1F201CE539969CFD5C7B0543 /* Products */,
 				2E0353271A42F99AC8A584680BC26517 /* Targets Support Files */,
 			);
+			sourceTree = "<group>";
+		};
+		820FBBDA65C5B1A6A4C379A893C27235 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B2D755A60549F10C3C21F9AFC87AA432 /* Google-Mobile-Ads-SDK */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		A31C60AB1F201CE539969CFD5C7B0543 /* Products */ = {
@@ -129,6 +140,15 @@
 			);
 			name = "Support Files";
 			path = "../CelebScope/Pods/Target Support Files/FaceCropper";
+			sourceTree = "<group>";
+		};
+		B2D755A60549F10C3C21F9AFC87AA432 /* Google-Mobile-Ads-SDK */ = {
+			isa = PBXGroup;
+			children = (
+				E729DC941541568B32695DC1C327B163 /* Frameworks */,
+			);
+			name = "Google-Mobile-Ads-SDK";
+			path = "Google-Mobile-Ads-SDK";
 			sourceTree = "<group>";
 		};
 		C34FF85C5B9D80D8B91952B3AF8E5485 /* Development Pods */ = {
@@ -178,6 +198,15 @@
 			name = FaceCropper;
 			path = /Users/gaopengwang/workspace/FaceCropper;
 			sourceTree = "<absolute>";
+		};
+		E729DC941541568B32695DC1C327B163 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9E929E7C43365FD21388212A99EBBE68 /* GoogleMobileAds.framework */,
+				34B3EF078E22922CA6B3A3242417BB13 /* libGoogleMobileAds.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
 		};
 		F4B41C41E9EF05C8C8691894F7CB02D0 /* iOS */ = {
 			isa = PBXGroup;

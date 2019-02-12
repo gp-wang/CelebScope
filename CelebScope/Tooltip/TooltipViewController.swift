@@ -254,6 +254,11 @@ class TooltipViewController: UIViewController {
         
     }
     
+    deinit {
+        
+        print("gw: tooltip deinit")
+    }
+    
     override func viewDidLayoutSubviews() {
         
         self.adjustLayout()

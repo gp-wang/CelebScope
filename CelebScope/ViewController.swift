@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import GoogleMobileAds
 import FaceCropper
 
 class ViewController:  UIViewController {
@@ -16,6 +16,7 @@ class ViewController:  UIViewController {
         // the ratio of the content (e..g face) taken inside the entire view
         static let contentSpanRatio: CGFloat = 0.8
         static let buttonSize: CGFloat = 60
+        static let launchedBeforeKey: String = "launchedBefore4"
         //static let tooltipSize: CGFloat = 100
     }
     
@@ -72,10 +73,32 @@ class ViewController:  UIViewController {
         }
     }
     
-    let isFirstTime: Bool = false // TODO
+    // let isFirstTime: Bool = false // TODO
+    // https://stackoverflow.com/questions/27208103/detect-first-launch-of-ios-app
+    let isFirstTime: Bool = {
+        let launchedBefore = UserDefaults.standard.bool(forKey: Constants.launchedBeforeKey)
+        if launchedBefore  {
+            print("Not first launch.")
+            return false
+        } else {
+            print("First launch, setting UserDefault.")
+            UserDefaults.standard.set(true, forKey: Constants.launchedBeforeKey)
+            
+            return true
+        }
+    } ()
+    
+    
     // MARK: - Constructor
     
     var demoManager : DemoManager? = nil
+    
+    let bannerView: GADBannerView = {
+        let _bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+        _bannerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return _bannerView
+    } ()
     //var pageViewDelegate: PeoplePageViewDelegate?
     init() {
         self.identificationResults = []
@@ -154,6 +177,8 @@ class ViewController:  UIViewController {
         
         
         view.addSubview(albumButton)
+        
+        view.addSubview(bannerView)
 
         
         if (isFirstTime) {
@@ -174,7 +199,9 @@ class ViewController:  UIViewController {
         // view sequence setup
         view.bringSubviewToFront(detailPagedVC.view)
         view.bringSubviewToFront(zoomableImageVC.zoomableImageView)
-        self.view.bringSubviewToFront(canvas)
+        view.bringSubviewToFront(canvas)
+        view.bringSubviewToFront(bannerView)
+        
         
         if(isFirstTime) {
             self.view.bringSubviewToFront(tooltipVC!.view)
@@ -281,6 +308,27 @@ class ViewController:  UIViewController {
         
         //self.popTip.show(text: "Hey! Listen!", direction: .up, maxWidth: 200, in: canvas, from: canvas.frame)
 //
+        
+        
+        // admob banner
+        
+        
+        
+       
+        
+        // ads
+        
+        
+        // test id: ca-app-pub-3940256099942544/2934735716
+        // bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        
+        // gw: id. yanhua.wang.rz
+        bannerView.adUnitID = "ca-app-pub-4230599911798280/7983233355"
+        
+        bannerView.rootViewController = self
+        
+        
+        bannerView.load(GADRequest())
     }
     
     // gw notes: use the correct lifecyle, instead of dispatch main
@@ -570,12 +618,15 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
   
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         self.demoManager = nil
-        
+        self.tooltipVC?.view.removeFromSuperview()
+        self.tooltipVC?.removeFromParent()
+        self.tooltipVC = nil
+        print("gw: img pick 1")
         picker.dismiss(animated: true) {
             guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
                 // self.configure(image: nil)
 
-                print("picked 1")
+                //print("gw: img pick picked 1")
                 return
             }
             self.adjustLayout()
@@ -618,6 +669,10 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.tooltipVC?.view.removeFromSuperview()
+        self.tooltipVC?.removeFromParent()
+        self.tooltipVC = nil
+        print("gw: img pick 2")
         picker.dismiss(animated: true) {
             if let demoManager = self.demoManager {
                 // let it continue demo
