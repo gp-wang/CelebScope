@@ -81,7 +81,7 @@ extension CollectionViewController {
         
         guard let personCollectionViewCell = cell as? PersonCollectionViewCell else {
             
-            print("error cannot get valid collection cell, returning dummy cell")
+            gw_log("error cannot get valid collection cell, returning dummy cell")
             return cell }
         
         personCollectionViewCell.identification = self.identifications[indexPath.item]

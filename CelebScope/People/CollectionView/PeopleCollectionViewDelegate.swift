@@ -28,7 +28,7 @@ class PeopleCollectionViewDelegate: NSObject, UICollectionViewDelegate {
     // here the canvas is the overlaying annotation layer on top of photoView
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let actionTaker = actionTaker else {return }
-        // print("from inside PeopleCollectionViewDelegate")
+        // gw_log("from inside PeopleCollectionViewDelegate")
         actionTaker.updateAnnotation()
     }
     

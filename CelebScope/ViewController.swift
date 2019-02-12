@@ -16,7 +16,7 @@ class ViewController:  UIViewController {
         // the ratio of the content (e..g face) taken inside the entire view
         static let contentSpanRatio: CGFloat = 0.8
         static let buttonSize: CGFloat = 60
-        static let launchedBeforeKey: String = "launchedBefore6"
+        static let launchedBeforeKey: String = "launchedBefore"
         //static let tooltipSize: CGFloat = 100
     }
     
@@ -78,10 +78,10 @@ class ViewController:  UIViewController {
     let isFirstTime: Bool = {
         let launchedBefore = UserDefaults.standard.bool(forKey: Constants.launchedBeforeKey)
         if launchedBefore  {
-            print("Not first launch.")
+            gw_log("Not first launch.")
             return false
         } else {
-            print("First launch, setting UserDefault.")
+            gw_log("First launch, setting UserDefault.")
             UserDefaults.standard.set(true, forKey: Constants.launchedBeforeKey)
             
             return true
@@ -323,7 +323,7 @@ class ViewController:  UIViewController {
         // bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         
         // gw: id. yanhua.wang.rz
-        bannerView.adUnitID = "ca-app-pub-4230599911798280/7983233355"
+        bannerView.adUnitID = "ca-app-pub-4230599911798280/8783274120"
         
         bannerView.rootViewController = self
         
@@ -423,7 +423,7 @@ class ViewController:  UIViewController {
             // if current page is a single person view controller, zoom to that person's face
             if let singlePersonViewController = pagingActionTaker.pages[viewControllerIndex ] as? SinglePersonPageViewController {
                 
-                // print("didFinishAnimating: \(viewControllerIndex)")
+                // gw_log("didFinishAnimating: \(viewControllerIndex)")
                 // zoomingActionTaker.zoom(to: self.identificationResults[viewControllerIndex].face.rect, with: Constants.contentSpanRatio, animated: true)
                 zoomingActionTaker.zoom(to: singlePersonViewController.identification.face.rect,  animated: true)
                 gw_log("gw: pagingAndZoomingToFaceIndexed 4.1")
@@ -432,7 +432,7 @@ class ViewController:  UIViewController {
                 zoomingActionTaker.zoomableImageView.zoom(to: zoomingActionTaker.zoomableImageView.imageView.bounds, with: Constants.contentSpanRatio, animated: true)
                 gw_log("gw: pagingAndZoomingToFaceIndexed 4.2")
             } else {
-                print("gw: err: unkown type of page controller in paged view ")
+                gw_log("gw: err: unkown type of page controller in paged view ")
             }
         }
     }
@@ -455,7 +455,7 @@ class ViewController:  UIViewController {
             self.detailPagedVC.view.isHidden = true
             self.peopleCollectionVC.view.isHidden = false
             
-            print("gw: adjusting to landscape")
+            gw_log("gw: adjusting to landscape")
             // gw: note: always disable previous rules first, then do enabling new rules
             // implications: if you enable new rule first, you will have a short time period with conflicting rules
             NSLayoutConstraint.deactivate(self.portraitConstraints)
@@ -472,7 +472,7 @@ class ViewController:  UIViewController {
             self.detailPagedVC.view.isHidden = false
             self.peopleCollectionVC.view.isHidden = true
             
-            print("gw: adjusting to portrait")
+            gw_log("gw: adjusting to portrait")
             NSLayoutConstraint.deactivate(self.landscapeConstraints)
             NSLayoutConstraint.activate(self.portraitConstraints)
             
@@ -562,7 +562,7 @@ extension ViewController {
                                 
                                 
                                 // gw: inside completion handler, you have reference to other variable in the same scope. (closure)
-                                //print(sortedFacesByPosition)
+                                //gw_log(sortedFacesByPosition)
                                 
                                 
                                 
@@ -621,12 +621,12 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         self.tooltipVC?.view.removeFromSuperview()
         self.tooltipVC?.removeFromParent()
         self.tooltipVC = nil
-        print("gw: img pick 1")
+        gw_log("gw: img pick 1")
         picker.dismiss(animated: true) {
             guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
                 // self.configure(image: nil)
 
-                //print("gw: img pick picked 1")
+                //gw_log("gw: img pick picked 1")
                 return
             }
             self.adjustLayout()
@@ -641,7 +641,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
             
             // save camera taken photo
             if picker.sourceType == .camera {
-                print("Image saving 3")
+                gw_log("Image saving 3")
                 UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
             }
             
@@ -659,7 +659,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
             //self.peopleCollectionVC.collectionView.collectionViewLayout.invalidateLayout()
 
             //self.updateVisibilityOfPhotoPrompt(false)
-            print("picked 2")
+            gw_log("picked 2")
             //self.configure(image: image)
         }
         
@@ -672,7 +672,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         self.tooltipVC?.view.removeFromSuperview()
         self.tooltipVC?.removeFromParent()
         self.tooltipVC = nil
-        print("gw: img pick 2")
+        gw_log("gw: img pick 2")
         picker.dismiss(animated: true) {
             if let demoManager = self.demoManager {
                 // let it continue demo
@@ -682,7 +682,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
             }
             
             //self.cleanUpForEmptyPhotoSelection()
-            print("picked 3")
+            gw_log("picked 3")
         }
         
     }

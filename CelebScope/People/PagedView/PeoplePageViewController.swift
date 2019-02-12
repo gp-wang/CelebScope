@@ -121,7 +121,7 @@ extension PeoplePageViewController: UIPageViewControllerDataSource {
             }
         }
         
-        print("viewControllerBefore")
+        gw_log("viewControllerBefore")
         
 
         return nil
@@ -139,7 +139,7 @@ extension PeoplePageViewController: UIPageViewControllerDataSource {
             }
         }
         
-        print("viewControllerAfter")
+        gw_log("viewControllerAfter")
         return nil
     }
 }
@@ -156,7 +156,7 @@ extension PeoplePageViewController: UIPageViewControllerDataSource {
 //        if let viewControllers = pageViewController.viewControllers {
 //            if let viewControllerIndex = self.pages.index(of: viewControllers[0]) {
 //                self.pageControl.currentPage = viewControllerIndex
-//                print("didFinishAnimating: \(viewControllerIndex)")
+//                gw_log("didFinishAnimating: \(viewControllerIndex)")
 //            }
 //        }
 //        

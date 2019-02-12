@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //window?.rootViewController = UINavigationController(rootViewController: customCollectionViewController)
        
         window?.rootViewController = UINavigationController(rootViewController: customCollectionViewController)
-        GADMobileAds.configure(withApplicationID: "ca-app-pub-4230599911798280~5548641708")
+        GADMobileAds.configure(withApplicationID: "ca-app-pub-4230599911798280~4105662515")
         return true
     }
 

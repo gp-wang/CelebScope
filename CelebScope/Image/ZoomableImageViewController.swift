@@ -51,7 +51,7 @@ class ZoomableImageViewController: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
-        print("gw: viewWillLayoutSubviews")
+        gw_log("gw: viewWillLayoutSubviews")
         
         
         // gw: main queue make it works now:

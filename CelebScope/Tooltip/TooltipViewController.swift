@@ -261,7 +261,7 @@ class TooltipViewController: UIViewController, UIGestureRecognizerDelegate {
     
     deinit {
         
-        print("gw: tooltip deinit")
+        gw_log("gw: tooltip deinit")
     }
     
     @objc

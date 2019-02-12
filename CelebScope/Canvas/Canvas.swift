@@ -53,7 +53,7 @@ class Canvas : UIView {
 //
 //        return
         
-        // print("inside draw")
+        // gw_log("inside draw")
         guard let context = UIGraphicsGetCurrentContext() else {
             NSLog("err: cannot get graphics context")
             return
@@ -81,7 +81,7 @@ class Canvas : UIView {
             let pathPoints = generateAnnotationPoints(startPoint, endPoint, self.isLandscape)
 
             
-            // print("generated points: \(pathPoints)")
+            // gw_log("generated points: \(pathPoints)")
             context.setStrokeColor(Colors.brightOrange.cgColor)
             context.setLineWidth(3)
 
@@ -104,7 +104,7 @@ class Canvas : UIView {
     // For passing touches from an overlay view to the views underneath,
     // https://stackoverflow.com/questions/3834301/ios-forward-all-touches-through-a-view
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        //print("Passing all touches to the next view (if any), in the view stack.")
+        //gw_log("Passing all touches to the next view (if any), in the view stack.")
         return false
     }
     
@@ -172,7 +172,7 @@ class Canvas : UIView {
             
             
             self.pairs.append((startPoint, endPoint))
-            //print("pairs: \(self.pairs)")
+            //gw_log("pairs: \(self.pairs)")
         }
         
         self.setNeedsDisplay()

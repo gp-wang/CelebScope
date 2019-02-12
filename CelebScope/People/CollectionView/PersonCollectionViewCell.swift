@@ -39,7 +39,7 @@ class PersonCollectionViewCell: UICollectionViewCell {
     var identification: Identification? {
         didSet {
             guard let _identification = self.identification else {
-                print("error: unwrap failed at setter")
+                gw_log("error: unwrap failed at setter")
                 return
                 
             }

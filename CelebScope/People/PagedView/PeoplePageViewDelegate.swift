@@ -45,7 +45,7 @@ class PeoplePageViewDelegate: NSObject, UIPageViewControllerDelegate{
         
             else {
                 
-                print("gw: pageViewController unwrapping error 1")
+                gw_log("gw: pageViewController unwrapping error 1")
                 return
         }
         gw_log("gw: swipe 2")

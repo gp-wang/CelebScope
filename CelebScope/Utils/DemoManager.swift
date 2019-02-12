@@ -47,7 +47,7 @@ class DemoManager: NSObject {
         self.actionTaker = actionTaker
         
         super.init()
-        print("gw: init demo mgr")
+        gw_log("gw: init demo mgr")
         // 1
         
         
@@ -55,11 +55,11 @@ class DemoManager: NSObject {
             guard let demos = self?.demos,
                 let count = self?.demos.count
             else {
-                print("gw: error unwrapping in demo mgr")
+                gw_log("gw: error unwrapping in demo mgr")
                 return
             }
             
-            print("starting photo showing")
+            gw_log("starting photo showing")
             
             // init
             // set photo here
@@ -73,7 +73,7 @@ class DemoManager: NSObject {
             while true {
                 
                 
-                //print("showing some photo for 2 sec ...")
+                //gw_log("showing some photo for 2 sec ...")
                 
                 //scroll one page here
                 let demo = demos[i]
@@ -146,7 +146,7 @@ class DemoManager: NSObject {
             // clearn identifications here
             
             
-            print("finished photo showing")
+            gw_log("finished photo showing")
         }
         
        
@@ -156,7 +156,7 @@ class DemoManager: NSObject {
     
     
     deinit {
-        print("deiniting demoMenager")
+        gw_log("deiniting demoMenager")
         self.isOn = false
     }
     

@@ -124,7 +124,7 @@ class ZoomableImageView: UIScrollView {
         let widthScale = scrollViewSize.width / imageViewSize.width
         let heightScale = scrollViewSize.height / imageViewSize.height
         
-        print("gw: imageViewSize: \(imageViewSize), scrollViewSize: \(scrollViewSize)")
+        gw_log("gw: imageViewSize: \(imageViewSize), scrollViewSize: \(scrollViewSize)")
         
         self.minimumZoomScale = min(widthScale, heightScale)
         //self.maximumZoomScale = 1.2 // allow maxmum 120% of original image size
@@ -204,16 +204,16 @@ class ZoomableImageView: UIScrollView {
 // moved to ZoomableImageViewDelegate
 //extension ZoomableImageView: UIScrollViewDelegate {
 //    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-//        // print("scale factor is: \(scrollView.zoomScale)")
+//        // gw_log("scale factor is: \(scrollView.zoomScale)")
 //        return imageView
 //    }
 //    
 //    
 //    func scrollViewDidZoom(_ scrollView: UIScrollView) {
-//        print("scale factor is: \(scrollView.zoomScale)")
+//        gw_log("scale factor is: \(scrollView.zoomScale)")
 //    }
 //    
 //    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        print("content offset is: \(scrollView.contentOffset)")
+//        gw_log("content offset is: \(scrollView.contentOffset)")
 //    }
 //}

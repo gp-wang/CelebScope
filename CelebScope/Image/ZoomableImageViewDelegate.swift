@@ -25,7 +25,7 @@ class ZoomableImageViewDelegate: NSObject, UIScrollViewDelegate {
     
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        // print("scale factor is: \(scrollView.zoomScale)")
+        // gw_log("scale factor is: \(scrollView.zoomScale)")
         return delegator.imageView
     }
     
@@ -41,15 +41,15 @@ class ZoomableImageViewDelegate: NSObject, UIScrollViewDelegate {
         scrollView.contentInset = UIEdgeInsets(top: verticalPadding, left: horizontalPadding, bottom: verticalPadding, right: horizontalPadding)
         
         guard let actionTaker = actionTaker else {return }
-        //print("scale factor is: \(scrollView.zoomScale)")
-        // print("from inside ZoomableImageViewDelegate")
+        //gw_log("scale factor is: \(scrollView.zoomScale)")
+        // gw_log("from inside ZoomableImageViewDelegate")
         actionTaker.updateAnnotation()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let actionTaker = actionTaker else {return }
-        //print("content offset is: \(scrollView.contentOffset)")
-        // print("from inside ZoomableImageViewDelegate")
+        //gw_log("content offset is: \(scrollView.contentOffset)")
+        // gw_log("from inside ZoomableImageViewDelegate")
         actionTaker.updateAnnotation()
     }
     
