@@ -277,46 +277,10 @@ class ViewController:  UIViewController {
     }
     
     
-   
-    
-//    var popTip: PopTip = {
-//        let _popTip = PopTip()
-//
-//        _popTip.shouldDismissOnTap = true
-//        _popTip.edgeMargin = 5
-//        _popTip.offset = 2
-//        _popTip.edgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-//        _popTip.backgroundColor = UIColor.orange
-//        _popTip.translatesAutoresizingMaskIntoConstraints = false
-//
-//        return _popTip
-//    } ()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // little trick to bring inherent collectionView to front
-        //view.bringSubviewToFront(self.peopleCollectionVC.collectionView)
-//        view.bringSubviewToFront(detailPagedVC.view)
-//        view.bringSubviewToFront(zoomableImageVC.zoomableImageView)
-//        self.view.bringSubviewToFront(canvas)
-////
-////        if(isFirstTime) {
-////            self.view.bringSubviewToFront(tooltipVC!.view)
-////        }
-////
-        
-        //self.popTip.show(text: "Hey! Listen!", direction: .up, maxWidth: 200, in: canvas, from: canvas.frame)
-//
-        
-        
-        // admob banner
-        
-        
-        
-       
-        
-        // ads
         
         
         // test id: ca-app-pub-3940256099942544/2934735716
@@ -346,10 +310,7 @@ class ViewController:  UIViewController {
 //            
 //            //self.updateAnnotation()
 //        }
-//        let popTip = PopTip()
-//        popTip.show(text: "Hey! Listen!", direction: .up, maxWidth: 200, in: canvas, from: canvas.frame)
-        
-        
+
 //        let newViewController = SearchViewController()
 //
 //        DispatchQueue.main.async {
@@ -585,8 +546,10 @@ extension ViewController {
                                                                         } () ?? UIImage(imageLiteralResourceName: "unknown"),
                                                                             birthDate: (personClassification["best"] as? NSDictionary)? ["birthYear"] as? String,
                                                                             deathDate: (personClassification["best"] as? NSDictionary)? ["deathYear"] as? String,
-                                                                            bio: (personClassification["best"] as? NSDictionary)? ["bio"] as? String,
-                                                                            profession: (personClassification["best"] as? NSDictionary)? ["professions"] as? String),
+                                                                            bio: (personClassification["best"] as? NSDictionary)? ["bio_cn"] as? String,
+                                                                            //bio: String(data:((personClassification["best"] as! [String: Data]) ["bio_cn"])!, encoding: .utf8),
+                                                                            
+                                                                            profession: (personClassification["best"] as? NSDictionary)? ["professions_cn"] as? String),
                                                                         confidence: (personClassification["best"] as? NSDictionary)? ["prob"] as? Double
                                                                         )
                                     
