@@ -16,7 +16,7 @@ class ViewController:  UIViewController {
         // the ratio of the content (e..g face) taken inside the entire view
         static let contentSpanRatio: CGFloat = 0.8
         static let buttonSize: CGFloat = 60
-        static let launchedBeforeKey: String = "launchedBefore"
+        static let launchedBeforeKey: String = "launchedBefore8"
         //static let tooltipSize: CGFloat = 100
     }
     
