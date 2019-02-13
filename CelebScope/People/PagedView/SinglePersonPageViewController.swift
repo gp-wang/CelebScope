@@ -226,11 +226,19 @@ class SinglePersonPageViewController: UIViewController, UIGestureRecognizerDeleg
     @objc func searchInternetForName(sender: SinglePersonPageViewController) {
         
         let name = self.identification.person.name
-        guard let escapedString = "http://www.google.com/search?q=\(name)".addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) else {
+        
+        // google
+//        guard let escapedString = "http://www.google.com/search?q=\(name)".addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) else {
+//            gw_log("err preparing search url")
+//            return
+//        }
+        
+        // baidu
+        // http://www.baidu.com/s?wd=关键字
+        guard let escapedString = "http://www.baidu.com/s?wd=\(name)".addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) else {
             gw_log("err preparing search url")
             return
         }
-        
         let queryURL = URL(string:escapedString)
         let queryRequest = URLRequest(url: queryURL!)
         //webView.load(queryRequest)

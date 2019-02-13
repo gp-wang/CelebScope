@@ -2,8 +2,8 @@
 //  SummaryPageViewController.swift
 //  CelebScope
 //
-//  Created by Gaopeng Wang on 2/6/19.
-//  Copyright © 2019 Gaopeng Wang. All rights reserved.
+//  Created by Gaofei Wang on 2/6/19.
+//  Copyright © 2019 Gaofei Wang. All rights reserved.
 //
 
 
@@ -31,7 +31,7 @@ class SummaryPageViewController: UIViewController {
     init(_ count: Int) {
         
         self.count = count
-        nameLabel.text = "\(count) \(count > 1 ? "faces" : "face" ) detected in selected photo."
+        nameLabel.text = "图片中检测到\(count)张人脸"
 
         // gw: boilerplate
         super.init(nibName: nil, bundle: nil)

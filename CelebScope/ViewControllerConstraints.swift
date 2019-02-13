@@ -2,8 +2,8 @@
 //  ViewControllerConstraints.swift
 //  CelebScope
 //
-//  Created by Gaopeng Wang on 2/6/19.
-//  Copyright © 2019 Gaopeng Wang. All rights reserved.
+//  Created by Gaofei Wang on 2/6/19.
+//  Copyright © 2019 Gaofei Wang. All rights reserved.
 //
 
 import UIKit

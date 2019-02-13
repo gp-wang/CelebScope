@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  CelebScope
 //
-//  Created by Gaopeng Wang on 1/19/19.
-//  Copyright © 2019 Gaopeng Wang. All rights reserved.
+//  Created by Gaofei Wang on 1/19/19.
+//  Copyright © 2019 Gaofei Wang. All rights reserved.
 //
 
 import UIKit

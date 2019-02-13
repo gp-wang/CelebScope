@@ -2,8 +2,8 @@
 //  TooltipVC.swift
 //  CelebScope
 //
-//  Created by Gaopeng Wang on 2/9/19.
-//  Copyright © 2019 Gaopeng Wang. All rights reserved.
+//  Created by Gaofei Wang on 2/9/19.
+//  Copyright © 2019 Gaofei Wang. All rights reserved.
 //
 
 import UIKit
@@ -29,7 +29,7 @@ class TooltipViewController: UIViewController, UIGestureRecognizerDelegate {
         let _label = UILabel()
         
         _label.translatesAutoresizingMaskIntoConstraints = false
-        _label.text = "1. Pick a photo with famous faces."
+        _label.text = "1. 选择一张待查明星的相片"
         _label.font = UIFont.preferredFont(forTextStyle: .headline).withSize(16)
         _label.textColor = .white
         //_label.backgroundColor = UIColor.green
@@ -74,7 +74,7 @@ class TooltipViewController: UIViewController, UIGestureRecognizerDelegate {
         let _label = UILabel()
         
         _label.translatesAutoresizingMaskIntoConstraints = false
-        _label.text = "4. Find results here. Tap to search web."
+        _label.text = "4. 在此查看结果。单击搜索该明星"
         _label.font = UIFont.preferredFont(forTextStyle: .headline).withSize(16)
         _label.textColor = .white
         //_label.backgroundColor = UIColor.green
@@ -120,7 +120,7 @@ class TooltipViewController: UIViewController, UIGestureRecognizerDelegate {
         let _label = UILabel()
         
         _label.translatesAutoresizingMaskIntoConstraints = false
-        _label.text = "2. Use camera to capture a photo"
+        _label.text = "2. 使用相机拍照"
         _label.font = UIFont.preferredFont(forTextStyle: .headline).withSize(16)
         _label.textColor = .white
         //_label.backgroundColor = UIColor.green
@@ -167,7 +167,7 @@ class TooltipViewController: UIViewController, UIGestureRecognizerDelegate {
         let _label = UILabel()
         
         _label.translatesAutoresizingMaskIntoConstraints = false
-        _label.text = "3. Use album to select a photo"
+        _label.text = "3. 使用相册选择相片"
         _label.font = UIFont.preferredFont(forTextStyle: .headline).withSize(16)
         _label.textColor = .white
         //_label.backgroundColor = UIColor.green
