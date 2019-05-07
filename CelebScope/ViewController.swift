@@ -324,6 +324,9 @@ class ViewController:  UIViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
+        
+        // gw: note you should use the 'size' (the size will transition to) to decide the orientation.
+        //     (you should NOT use the UIDevice.current.orientation.isLandscape. )
         self.adjustLayout()
     }
     
