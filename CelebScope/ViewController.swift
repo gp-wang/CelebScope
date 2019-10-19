@@ -239,7 +239,7 @@ class ViewController:  UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
-        self.adjustLayout()
+        self.adjustLayout(UIDevice.current.orientation.isLandscape)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -327,7 +327,7 @@ class ViewController:  UIViewController {
         
         // gw: note you should use the 'size' (the size will transition to) to decide the orientation.
         //     (you should NOT use the UIDevice.current.orientation.isLandscape. )
-        self.adjustLayout()
+        self.adjustLayout(size.width > size.height ? true : false)
     }
     
     // MARK: - trait collections
@@ -402,7 +402,7 @@ class ViewController:  UIViewController {
     }
     
     
-    private func adjustLayout() {
+    private func adjustLayout(_ isLandScape: Bool) {
         guard let collectionViewFlowLayout =  self.peopleCollectionVC.collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
             NSLog("failed to convert layout as flow layout")
             
@@ -415,7 +415,8 @@ class ViewController:  UIViewController {
         // TODO: for now hide canvas unless Landscape
         canvas.isHidden = !canvas.isLandscape
         
-        if UIDevice.current.orientation.isLandscape {
+        if isLandScape {
+        //if UIDevice.current.orientation.isLandscape {
             self.detailPagedVC.view.isHidden = true
             self.peopleCollectionVC.view.isHidden = false
             
@@ -595,7 +596,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
                 //gw_log("gw: img pick picked 1")
                 return
             }
-            self.adjustLayout()
+            self.adjustLayout(UIDevice.current.orientation.isLandscape)
             // gw: needed main queue, otherwise no work
 //            DispatchQueue.main.async {
                 //self.zoomableImageVC.zoomableImageView.setImage(image: image)

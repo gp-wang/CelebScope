@@ -57,7 +57,7 @@
 		6B2FF99122074D050095E4DA /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
 		6B2FF99322074D2D0095E4DA /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		6B2FF995220B34990095E4DA /* DemoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoManager.swift; sourceTree = "<group>"; };
-		6B31D2B321F38D55000CFA44 /* CelebScope.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CelebScope.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B31D2B321F38D55000CFA44 /* TextSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B31D2B621F38D55000CFA44 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6B31D2B821F38D55000CFA44 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6B31D2BD21F38D58000CFA44 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -193,7 +193,7 @@
 		6B31D2B421F38D55000CFA44 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6B31D2B321F38D55000CFA44 /* CelebScope.app */,
+				6B31D2B321F38D55000CFA44 /* TextSearch.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -247,9 +247,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6B31D2B221F38D55000CFA44 /* CelebScope */ = {
+		6B31D2B221F38D55000CFA44 /* TextSearch */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6B31D2C521F38D58000CFA44 /* Build configuration list for PBXNativeTarget "CelebScope" */;
+			buildConfigurationList = 6B31D2C521F38D58000CFA44 /* Build configuration list for PBXNativeTarget "TextSearch" */;
 			buildPhases = (
 				24F9A9EB88289B02EBA0BFC0 /* [CP] Check Pods Manifest.lock */,
 				6B31D2AF21F38D55000CFA44 /* Sources */,
@@ -261,9 +261,9 @@
 			);
 			dependencies = (
 			);
-			name = CelebScope;
+			name = TextSearch;
 			productName = CelebScope;
-			productReference = 6B31D2B321F38D55000CFA44 /* CelebScope.app */;
+			productReference = 6B31D2B321F38D55000CFA44 /* TextSearch.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -281,7 +281,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6B31D2AE21F38D55000CFA44 /* Build configuration list for PBXProject "CelebScope" */;
+			buildConfigurationList = 6B31D2AE21F38D55000CFA44 /* Build configuration list for PBXProject "TextSearch" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -294,7 +294,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6B31D2B221F38D55000CFA44 /* CelebScope */,
+				6B31D2B221F38D55000CFA44 /* TextSearch */,
 			);
 		};
 /* End PBXProject section */
@@ -530,13 +530,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XLWP3D7JS7;
+				DEVELOPMENT_TEAM = 64ZX9KS46Y;
 				INFOPLIST_FILE = CelebScope/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yhwang.celebscope;
+				PRODUCT_BUNDLE_IDENTIFIER = www.gwang.textsearch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -549,13 +549,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XLWP3D7JS7;
+				DEVELOPMENT_TEAM = 64ZX9KS46Y;
 				INFOPLIST_FILE = CelebScope/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yhwang.celebscope;
+				PRODUCT_BUNDLE_IDENTIFIER = www.gwang.textsearch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -565,7 +565,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6B31D2AE21F38D55000CFA44 /* Build configuration list for PBXProject "CelebScope" */ = {
+		6B31D2AE21F38D55000CFA44 /* Build configuration list for PBXProject "TextSearch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6B31D2C321F38D58000CFA44 /* Debug */,
@@ -574,7 +574,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6B31D2C521F38D58000CFA44 /* Build configuration list for PBXNativeTarget "CelebScope" */ = {
+		6B31D2C521F38D58000CFA44 /* Build configuration list for PBXNativeTarget "TextSearch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6B31D2C621F38D58000CFA44 /* Debug */,

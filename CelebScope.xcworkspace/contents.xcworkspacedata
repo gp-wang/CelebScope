@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:CelebScope.xcodeproj">
+      location = "group:/Users/gaopengwang/workspace/text_search/TextSearch.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
