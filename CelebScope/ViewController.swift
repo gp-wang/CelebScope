@@ -73,6 +73,9 @@ class ViewController:  UIViewController {
         }
     }
     
+    var accessToken : String = "02b18437e04ca4c531539129ab5d49d0983c9677"
+    var clientId: String = "02b18437e04ca4c531539129ab5d49d0983c9677"
+    
     // let isFirstTime: Bool = false // TODO
     // https://stackoverflow.com/questions/27208103/detect-first-launch-of-ios-app
     let isFirstTime: Bool = {
@@ -464,6 +467,36 @@ class ViewController:  UIViewController {
     
 }
 
+func processOCRResult(_ ocrRespData: Data?, _ ocrRespResponse: URLResponse?, _ ocrRespError: Error?, _ image: UIImage) {
+    // TODO
+    
+    // 5
+    if let error = ocrRespError {
+        gw_log("dataTask response has error: \(error.localizedDescription)")
+    } else {
+        guard         let data = ocrRespData,
+            let response = ocrRespData as? HTTPURLResponse else {
+                fatalError("dataTask reports no error but could not cast data and response")
+        }
+        
+        // if code == BAD_ACCESS_TOKEN
+        //   refreshAccessToken()
+        //   identifyText(image, ... , ...)
+        // else
+        if response.statusCode != 200 {
+            
+        } else {
+             gw_log("identfyText response: \(ocrRespData)")
+        }
+        
+    }
+    
+    
+   
+   
+    
+}
+
 // MARK: - face classifier
 // gw: I put the classifn responsibility in main VC, instead of zoomVC, is because the later one should be only responsible for image display, not for other fn
 extension ViewController {
@@ -482,6 +515,15 @@ extension ViewController {
         
         
         
+        //gw: for identifying texts
+        
+        identifyText(image,
+                     completionHandler: processOCRResult,
+                     
+                     accessToken: "02b18437e04ca4c531539129ab5d49d0983c9677"
+                     )
+        
+        /*
         
         // gw code notes: in FaceCropper Framework, he makes all CGImage as FaceCroppable by extending them all.
         // gw: you need to import FaceCropper to let UIImage have this face property
@@ -518,7 +560,7 @@ extension ViewController {
                 // disable sort as it has bugs
                 //let sortedFacesByPosition = faces
                 
-                
+         
                 
                 // gw: completion handler: face classification
                 // a list of known types as response, is better than using a object (unknown dict) as response type
@@ -573,7 +615,7 @@ extension ViewController {
                 //self.showAlert(error.localizedDescription)
                 gw_log("failure!!!")
             }
-        }
+        } */
     }
 }
 

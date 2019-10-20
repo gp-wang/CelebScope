@@ -24,6 +24,9 @@ extension NSMutableData {
 // gw: take classificationResult, see in the face.crop.success for usage example
 // gw: 02032019: change to array
 typealias classificationCompletionHandler = ([NSDictionary]) -> Void
+typealias ocrCompletionHandler = (NSDictionary, UIImage) -> Void
+
+typealias ocrCompletionResponseHandler = (Data?, URLResponse?, Error?, UIImage) -> Void
 
 
 //    https://stackoverflow.com/questions/24603559/store-a-closure-as-a-variable-in-swift
@@ -34,7 +37,7 @@ typealias classificationCompletionHandler = ([NSDictionary]) -> Void
 // completionHandler: the handler to pass down, it is supplied at the top entry point of the nested handler call
 func identifyFaces(_ faces: [Face],  completionHandler: @escaping classificationCompletionHandler ) { //gw: (!done)todo: fix this. error
     // server endpoint
-    let endpoint = "http://gwhome.mynetgear.com:9999/"
+    let endpoint = "https://vision.googleapis.com/v1/images:annotate"
     let endpointUrl = URL(string: endpoint)!
     
     var request = URLRequest(url: endpointUrl)
@@ -56,6 +59,36 @@ func identifyFaces(_ faces: [Face],  completionHandler: @escaping classification
     
     
     fireClassificationRequest(request, completionHandler)
+}
+
+
+func identifyText(_ image: UIImage,  completionHandler: @escaping ocrCompletionResponseHandler, accessToken: String ) { //gw: (!done)todo: fix this. error
+    // server endpoint
+    let endpoint = "https://vision.googleapis.com/v1/images:annotate"
+    let endpointUrl = URL(string: endpoint)!
+    
+    var request = URLRequest(url: endpointUrl)
+    request.httpMethod = "POST"
+    
+   
+    
+    request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+    //"Authorization: Bearer "$(gcloud auth application-default print-access-token)
+    //request.setValue("Bearer 02b18437e04ca4c531539129ab5d49d0983c9677", forHTTPHeaderField: "Authorization")
+    request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+
+    guard let jpegImage = image.jpegData(compressionQuality: 1) else {
+        fatalError("Could not retrieve person's photo")
+    }
+    
+
+
+
+    
+    request.httpBody = createOCRRequestBody(imageData: jpegImage)
+    
+    // gw: pass in the ref to the image for retring  (e.g. when access_token is invalid)
+    fireOCRRequest(request, completionHandler, image)
 }
 
 
@@ -87,6 +120,33 @@ func fireClassificationRequest(_ request: URLRequest, _ completionHandler: @esca
         }.resume()
 }
 
+
+func fireOCRRequest(_ request: URLRequest, _ completionHandler: @escaping ocrCompletionResponseHandler, _ image: UIImage) {
+    // gw: completion handler: URL request
+    //TODO: extract completion handlers
+    URLSession.shared.dataTask(with: request){
+        (data: Data?, response: URLResponse?, error: Error?) in
+        
+        
+        //guard let data = data else { return }
+        /* guard let outputStr  = String(data: data, encoding: String.Encoding.utf8) as String? else {
+            fatalError("could not get classification result ")
+        } */
+        // gw_log(outputStr)
+        
+        do {
+            
+           
+            
+            completionHandler(data, response, error, image)
+            //completionHandler(ocrClassification, image)
+        } catch let error as NSError {
+            gw_log(error.debugDescription)
+        }
+        
+        
+        }.resume()
+}
 
 func generateBoundaryString() -> String {
     return "Boundary-\(NSUUID().uuidString)"
@@ -132,4 +192,54 @@ func createBodyWithParameters(parameters: [String: String]?, filePathKey: String
     
     
     return body
+}
+
+/*
+ sample body:
+ 
+ {
+ "requests": [
+ {
+ "image": {
+ "content": "base64-encoded-image"
+ },
+ "features": [
+ {
+ "type": "TEXT_DETECTION"
+ }
+ ]
+ }
+ ]
+ }
+ */
+func createOCRRequestBody(imageData: Data) -> Data {
+    
+    
+    
+    
+    
+    var messageDictionary : [String: Any] = [ "requests":
+        [
+            [
+                "image":
+                    ["content" : imageData.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters)],
+                "features":
+                    [
+                        ["type": "DOCUMENT_TEXT_DETECTION"]
+                    ]
+            ],
+        ]
+    ]
+     let jsonDataOpt = try? JSONSerialization.data(withJSONObject: messageDictionary, options: [])
+    
+    
+    guard let jsonData = jsonDataOpt else {
+        fatalError("Cannot convert image to jsonData in createOCRRequestBody")
+    }
+    let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)!
+    print (jsonString)
+
+    
+    
+    return jsonData
 }

@@ -380,70 +380,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CelebScope/Utils/Web.swift"
-            timestampString = "571788223.187794"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "identifyFaces(_:completionHandler:)"
-            landmarkType = "9">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "CelebScope.identifyFaces(_: Swift.Array&lt;FaceCropper.Face&gt;, completionHandler: (Swift.Array&lt;__C.NSDictionary&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "CelebScope"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gaopengwang/workspace/CelebScope/CelebScope/Utils/Web.swift"
-                  timestampString = "571604827.142907"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47"
-                  offsetFromSymbolStart = "744">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (FaceCropper.Face) -&gt; Foundation.Data in CelebScope.identifyFaces(_: Swift.Array&lt;FaceCropper.Face&gt;, completionHandler: (Swift.Array&lt;__C.NSDictionary&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "CelebScope"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gaopengwang/workspace/CelebScope/CelebScope/Utils/Web.swift"
-                  timestampString = "571604827.144811"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "48"
-                  endingLineNumber = "48"
-                  offsetFromSymbolStart = "28">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CelebScope/Utils/Web.swift"
-            timestampString = "571788223.187826"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "identifyFaces(_:completionHandler:)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "CelebScope/Tooltip/TooltipViewController.swift"
             timestampString = "572658895.31862"
             startingColumnNumber = "9223372036854775807"
@@ -466,40 +402,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "627"
             endingLineNumber = "627"
-            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CelebScope/Utils/Web.swift"
-            timestampString = "571788223.1879179"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
-            landmarkName = "fireClassificationRequest(_:_:)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CelebScope/Utils/Web.swift"
-            timestampString = "571788223.1879489"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "fireClassificationRequest(_:_:)"
-            landmarkType = "9">
+            landmarkName = "ViewController"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
