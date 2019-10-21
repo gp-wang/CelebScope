@@ -9,13 +9,16 @@
 import UIKit
 import GoogleMobileAds
 import FaceCropper
+import GoogleSignIn
 
 class ViewController:  UIViewController {
     struct Constants {
         
         // the ratio of the content (e..g face) taken inside the entire view
         static let contentSpanRatio: CGFloat = 0.8
-        static let buttonSize: CGFloat = 60
+        static let ROUND_BUTTON_DIAMETER: CGFloat = 60
+        static let RECT_BUTTON_WIDTH: CGFloat = 150
+        static let RECT_BUTTON_HEIGHT: CGFloat = 50
         static let launchedBeforeKey: String = "launchedBefore8"
         //static let tooltipSize: CGFloat = 100
     }
@@ -55,6 +58,25 @@ class ViewController:  UIViewController {
     
     let cameraButton = CameraButton()
     let albumButton = AlbumButton()
+    
+    
+    let signInButton: GIDSignInButton = {
+        let _button = GIDSignInButton()
+        _button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return _button
+
+    } ()
+
+    let signOutButton: UIButton = {
+        let _button = UIButton()
+        _button.translatesAutoresizingMaskIntoConstraints = false
+
+        return _button
+    } ()
+    // TODO
+//    @IBOutlet weak var disconnectButton: UIButton!
+//    @IBOutlet weak var statusText: UILabel!
     
     var tooltipVC: TooltipViewController?
     
@@ -177,11 +199,13 @@ class ViewController:  UIViewController {
         // button
         
         view.addSubview(cameraButton)
-        
-        
         view.addSubview(albumButton)
+        view.addSubview(signInButton)
         
+        // ads
         view.addSubview(bannerView)
+        
+        
 
         
         if (isFirstTime) {

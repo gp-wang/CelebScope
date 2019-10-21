@@ -8,9 +8,10 @@
 
 import UIKit
 import GoogleMobileAds
+import GoogleSignIn
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     var window: UIWindow?
 
@@ -38,11 +39,89 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // gw: I don't know why we need this nav VC here
         //window?.rootViewController = UINavigationController(rootViewController: customCollectionViewController)
-       
-        window?.rootViewController = UINavigationController(rootViewController: customCollectionViewController)
+       let rootViewController = UINavigationController(rootViewController: customCollectionViewController)
+        window?.rootViewController = rootViewController
         GADMobileAds.configure(withApplicationID: "ca-app-pub-4230599911798280~4105662515")
+        
+        
+        // gw: google sign in
+        // Initialize sign-in
+        GIDSignIn.sharedInstance().clientID = "399591616840-7ogh03vhapiqcaudu76vp0g1aili57k3.apps.googleusercontent.com"
+        
+        //GIDSignIn.sharedInstance().delegate = self
+        // gw: https://github.com/EddyVerbruggen/nativescript-plugin-firebase/issues/1370
+        GIDSignIn.sharedInstance()?.presentingViewController = rootViewController
+        GIDSignIn.sharedInstance()?.scopes.append(contentsOf: ["https://www.googleapis.com/auth/cloud-platform", "https://www.googleapis.com/auth/cloud-vision"])
         return true
     }
+    
+    // gw: for google sign in
+    
+    // [START openurl]
+    func application(_ application: UIApplication,
+                     open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url)
+    }
+    // [END openurl]
+    
+    // [START openurl_new]
+    @available(iOS 9.0, *)
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url)
+    }
+    // [END openurl_new]
+    
+    // [START signin_handler]
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
+              withError error: Error!) {
+        if let error = error {
+            if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
+                print("The user has not signed in before or they have since signed out.")
+            } else {
+                print("\(error.localizedDescription)")
+            }
+            // [START_EXCLUDE silent]
+            NotificationCenter.default.post(
+                name: Notification.Name(rawValue: "ToggleAuthUINotification"), object: nil, userInfo: nil)
+            // [END_EXCLUDE]
+            return
+        }
+        // Perform any operations on signed in user here.
+        let userId = user.userID                  // For client-side use only!
+        let idToken = user.authentication.idToken // Safe to send to the server
+        let fullName = user.profile.name
+        let givenName = user.profile.givenName
+        let familyName = user.profile.familyName
+        let email = user.profile.email
+        
+        // gw: add scopes for cloud api, values:
+        //     https://www.googleapis.com/auth/cloud-platform
+        // https://www.googleapis.com/auth/cloud-vision
+        
+        //GIDSignIn.sharedInstance()?.scopes.append(contentsOf: ["https://www.googleapis.com/auth/cloud-platform", "https://www.googleapis.com/auth/cloud-vision"])
+        // [START_EXCLUDE]
+        NotificationCenter.default.post(
+            name: Notification.Name(rawValue: "ToggleAuthUINotification"),
+            object: nil,
+            userInfo: ["statusText": "Signed in user:\n\(fullName!)"])
+        // [END_EXCLUDE]
+    }
+    // [END signin_handler]
+    
+    // [START disconnect_handler]
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
+              withError error: Error!) {
+        // Perform any operations when the user disconnects from app here.
+        // [START_EXCLUDE]
+        NotificationCenter.default.post(
+            name: Notification.Name(rawValue: "ToggleAuthUINotification"),
+            object: nil,
+            userInfo: ["statusText": "User has disconnected."])
+        // [END_EXCLUDE]
+    }
+    // [END disconnect_handler]
+    // gw: end google sign in code
+    
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

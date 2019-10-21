@@ -310,12 +310,12 @@ extension ViewController {
         
         // MARK: - portrait constraints
         
-        let cameraButton_width_p = cameraButton.widthAnchor.constraint(equalToConstant: Constants.buttonSize)
+        let cameraButton_width_p = cameraButton.widthAnchor.constraint(equalToConstant: Constants.ROUND_BUTTON_DIAMETER)
         cameraButton_width_p.identifier = "cameraButton_width_p"
         cameraButton_width_p.isActive = false
         portraitConstraints.append(cameraButton_width_p)
         
-        let cameraButton_height_p = cameraButton.heightAnchor.constraint(equalToConstant: Constants.buttonSize)
+        let cameraButton_height_p = cameraButton.heightAnchor.constraint(equalToConstant: Constants.ROUND_BUTTON_DIAMETER)
         cameraButton_height_p.identifier = "cameraButton_height_p"
         cameraButton_height_p.isActive = false
         portraitConstraints.append(cameraButton_height_p)
@@ -331,12 +331,12 @@ extension ViewController {
         portraitConstraints.append(cameraButton_bot_p)
         
         
-        let albumButton_width_p = albumButton.widthAnchor.constraint(equalToConstant: Constants.buttonSize)
+        let albumButton_width_p = albumButton.widthAnchor.constraint(equalToConstant: Constants.ROUND_BUTTON_DIAMETER)
         albumButton_width_p.identifier = "albumButton_width_p"
         albumButton_width_p.isActive = false
         portraitConstraints.append(albumButton_width_p)
         
-        let albumButton_height_p = albumButton.heightAnchor.constraint(equalToConstant: Constants.buttonSize)
+        let albumButton_height_p = albumButton.heightAnchor.constraint(equalToConstant: Constants.ROUND_BUTTON_DIAMETER)
         albumButton_height_p.identifier = "albumButton_height_p"
         albumButton_height_p.isActive = false
         portraitConstraints.append(albumButton_height_p)
@@ -351,14 +351,35 @@ extension ViewController {
         albumButton_bot_p.isActive = false
         portraitConstraints.append(albumButton_bot_p)
         
+        let signInButton_width_p = signInButton.widthAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_WIDTH)
+        signInButton_width_p.identifier = "signInButton_width_p"
+        signInButton_width_p.isActive = false
+        portraitConstraints.append( signInButton_width_p)
+        
+        let signInButton_height_p = signInButton.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT)
+        signInButton_height_p.identifier = "signInButton_height_p"
+        signInButton_height_p.isActive = false
+        portraitConstraints.append(signInButton_height_p)
+        
+        let signInButton_centerX_p = signInButton.centerXAnchor.constraint(equalTo: zoomableImageView.centerXAnchor)
+        signInButton_centerX_p.identifier = "signInButton_centerX_p"
+        signInButton_centerX_p.isActive = false
+        portraitConstraints.append(signInButton_centerX_p)
+        
+        let signInButton_centerY_p = signInButton.centerYAnchor.constraint(equalTo: zoomableImageView.centerYAnchor)
+        signInButton_centerY_p.identifier = "signInButton_centerY_p"
+        signInButton_centerY_p.isActive = false
+        portraitConstraints.append(signInButton_centerY_p)
+        
+        
         // MARK: - landscape constraints
         
-        let cameraButton_width_l = cameraButton.widthAnchor.constraint(equalToConstant: Constants.buttonSize)
+        let cameraButton_width_l = cameraButton.widthAnchor.constraint(equalToConstant: Constants.ROUND_BUTTON_DIAMETER)
         cameraButton_width_l.identifier = "cameraButton_width_l"
         cameraButton_width_l.isActive = false
         landscapeConstraints.append(cameraButton_width_l)
         
-        let cameraButton_height_l = cameraButton.heightAnchor.constraint(equalToConstant: Constants.buttonSize)
+        let cameraButton_height_l = cameraButton.heightAnchor.constraint(equalToConstant: Constants.ROUND_BUTTON_DIAMETER)
         cameraButton_height_l.identifier = "cameraButton_height_l"
         cameraButton_height_l.isActive = false
         landscapeConstraints.append(cameraButton_height_l)
@@ -375,12 +396,12 @@ extension ViewController {
         landscapeConstraints.append(cameraButton_bot_l)
         
         
-        let albumButton_width_l = albumButton.widthAnchor.constraint(equalToConstant: Constants.buttonSize)
+        let albumButton_width_l = albumButton.widthAnchor.constraint(equalToConstant: Constants.ROUND_BUTTON_DIAMETER)
         albumButton_width_l.identifier = "albumButton_width_l"
         albumButton_width_l.isActive = false
         landscapeConstraints.append(albumButton_width_l)
         
-        let albumButton_height_l = albumButton.heightAnchor.constraint(equalToConstant: Constants.buttonSize)
+        let albumButton_height_l = albumButton.heightAnchor.constraint(equalToConstant: Constants.ROUND_BUTTON_DIAMETER)
         albumButton_height_l.identifier = "albumButton_height_l"
         albumButton_height_l.isActive = false
         landscapeConstraints.append(albumButton_height_l)
