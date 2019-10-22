@@ -77,9 +77,18 @@ class ViewController:  UIViewController {
     let signOutButton: UIButton = {
         let _button = UIButton()
         _button.translatesAutoresizingMaskIntoConstraints = false
+        _button.backgroundColor = UIColor.green
 
         return _button
     } ()
+    
+    let signInStatusText: UILabel = {
+        let _label = UILabel()
+        _label.translatesAutoresizingMaskIntoConstraints = false
+        _label.backgroundColor = UIColor.red
+    } ()
+    
+    var isSignedIn: Bool = false
     // TODO
 //    @IBOutlet weak var disconnectButton: UIButton!
 //    @IBOutlet weak var statusText: UILabel!
@@ -207,9 +216,13 @@ class ViewController:  UIViewController {
         view.addSubview(cameraButton)
         view.addSubview(albumButton)
 
+        
+        // google sign in
         view.addSubview(signInView)
         signInView.addSubview(signInButton)
         
+        view.addSubview(signOutButton)
+        view.addSubview(signInStatusText)
 
         
         // ads
