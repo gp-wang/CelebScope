@@ -19,23 +19,8 @@
 import Foundation
 
 
-public class TextAnnotation {
-    internal init(pages: [Page], text: String) {
-        self.pages = pages
-        self.text = text
-    }
+struct TextAnnotation: Codable {
     
-    init?(json: [String: Any]) {
-        guard let pages = json["pages"] as? [Page],
-            let text = json["text"] as? String   else {
-                return nil
-        }
-        
-        self.pages = pages
-        self.text = text
-        
-        
-    }
     
     let pages: [Page]
     let text: String

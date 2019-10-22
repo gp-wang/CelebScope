@@ -23,30 +23,8 @@
 
 import Foundation
 
-public class Page {
-    internal init(property: TextProperty, width: Int, height: Int, blocks: [Block]) {
-        self.property = property
-        self.width = width
-        self.height = height
-        self.blocks = blocks
-    }
-    
-    init?(json: [String: Any]) {
-        guard let property = json["property"] as? TextProperty,
-            let width = json["width"] as? Int,
-            let height = json["height"] as? Int,
-            let blocks = json["blocks"] as? [Block]
-        
-        else {
-                return nil
-        }
-        self.property = property
-        self.width = width
-        self.height = height
-        self.blocks = blocks
-        
-    }
-    
+struct Page: Codable {
+  
     let property: TextProperty
     let width: Int
     let height: Int

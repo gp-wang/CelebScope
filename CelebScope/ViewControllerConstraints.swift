@@ -18,7 +18,84 @@ extension ViewController {
         setupCollectionViewConstraints()
         setupPageViewConstraints()
         setupButtonViewConstraints()
+        setupSignInViewConstraints()
         setupBannerViewConstraints()
+        
+    }
+    
+    private func setupSignInViewConstraints() {
+        
+        // convinence vars
+        // convinence vars
+        guard let pagedView = self.detailPagedVC.view else {
+            NSLog("failed to unwrap detailPagedVC")
+            return
+        }
+        guard let collectionView = self.peopleCollectionVC.collectionView else {
+            NSLog("failed to unwrap self.peopleCollectionVC.collectionView")
+            return
+        }
+        
+        // setup constraints common to portrait and landscape
+        
+        NSLayoutConstraint.activate([
+            signInButton.widthAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_WIDTH),
+            signInButton.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
+            signInButton.centerXAnchor.constraint(equalTo: signInView.centerXAnchor),
+            signInButton.centerYAnchor.constraint(equalTo: signInView.centerYAnchor)
+            
+            ])
+        
+        
+        // MARK: - portrait constraints
+        
+        let signInView_leading_p = signInView.leadingAnchor.constraint(equalTo: pagedView.leadingAnchor)
+        signInView_leading_p.identifier = "signInView_leading_p"
+        signInView_leading_p.isActive = false
+        portraitConstraints.append(signInView_leading_p)
+        
+        let signInView_trailing_p = signInView.trailingAnchor.constraint(equalTo: pagedView.trailingAnchor)
+        signInView_trailing_p.identifier = "signInView_trailing_p"
+        signInView_trailing_p.isActive = false
+        portraitConstraints.append(signInView_trailing_p)
+        
+        let signInView_top_p = signInView.topAnchor.constraint(equalTo: pagedView.topAnchor)
+        signInView_top_p.identifier = "signInView_top_p"
+        signInView_top_p.isActive = false
+        portraitConstraints.append(signInView_top_p)
+        
+        let signInView_bottom_p = signInView.bottomAnchor.constraint(equalTo: pagedView.bottomAnchor)
+        signInView_bottom_p.identifier = "signInView_bottom_p"
+        signInView_bottom_p.isActive = false
+        portraitConstraints.append(signInView_bottom_p)
+        
+        
+        
+        
+        
+        
+        // MARK: - landscape constraints
+        
+        let signInView_leading_l = signInView.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor)
+        signInView_leading_l.identifier = "signInView_leading_l"
+        signInView_leading_l.isActive = false
+        landscapeConstraints.append(signInView_leading_l)
+        
+        let signInView_trailing_l = signInView.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor)
+        signInView_trailing_l.identifier = "signInView_trailing_l"
+        signInView_trailing_l.isActive = false
+        landscapeConstraints.append(signInView_trailing_l)
+        
+        let signInView_top_l = signInView.topAnchor.constraint(equalTo: collectionView.topAnchor)
+        signInView_top_l.identifier = "signInView_top_l"
+        signInView_top_l.isActive = false
+        landscapeConstraints.append(signInView_top_l)
+        
+        let signInView_bottom_l = signInView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
+        signInView_bottom_l.identifier = "signInView_bottom_l"
+        signInView_bottom_l.isActive = false
+        landscapeConstraints.append(signInView_bottom_l)
+        
         
     }
     
@@ -351,26 +428,7 @@ extension ViewController {
         albumButton_bot_p.isActive = false
         portraitConstraints.append(albumButton_bot_p)
         
-        let signInButton_width_p = signInButton.widthAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_WIDTH)
-        signInButton_width_p.identifier = "signInButton_width_p"
-        signInButton_width_p.isActive = false
-        portraitConstraints.append( signInButton_width_p)
-        
-        let signInButton_height_p = signInButton.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT)
-        signInButton_height_p.identifier = "signInButton_height_p"
-        signInButton_height_p.isActive = false
-        portraitConstraints.append(signInButton_height_p)
-        
-        let signInButton_centerX_p = signInButton.centerXAnchor.constraint(equalTo: zoomableImageView.centerXAnchor)
-        signInButton_centerX_p.identifier = "signInButton_centerX_p"
-        signInButton_centerX_p.isActive = false
-        portraitConstraints.append(signInButton_centerX_p)
-        
-        let signInButton_centerY_p = signInButton.centerYAnchor.constraint(equalTo: zoomableImageView.centerYAnchor)
-        signInButton_centerY_p.identifier = "signInButton_centerY_p"
-        signInButton_centerY_p.isActive = false
-        portraitConstraints.append(signInButton_centerY_p)
-        
+             
         
         // MARK: - landscape constraints
         

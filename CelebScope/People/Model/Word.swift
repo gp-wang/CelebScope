@@ -23,31 +23,8 @@
 import Foundation
 
 
-public class Word {
-    internal init(property: TextProperty?, boundingBox: BoundingPoly, symbols: [Symbol]) {
-        self.property = property
-        self.boundingBox = boundingBox
-        self.symbols = symbols
-    }
-    
-    init?(json: [String: Any]) {
-        if let property = json["property"] as? TextProperty {
-            self.property = property
-        } else {
-            self.property = nil
-        }
-        
-        
-        guard let boundingBox = json["boundingBox"] as? BoundingPoly,
-            let symbols = json["symbols"] as? [Symbol]
-            else {
-                return nil
-        }
-        
-        self.boundingBox = boundingBox
-        self.symbols = symbols
-        
-    }
+struct Word: Codable {
+
     
     let property: TextProperty?
     let boundingBox: BoundingPoly

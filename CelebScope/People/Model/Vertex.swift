@@ -13,24 +13,8 @@
 import Foundation
 
 
-public class Vertex {
-    internal init(x: Int, y: Int) {
-        self.x = x
-        self.y = y
-    }
-    
-    init?(json: [String: Any]) {
-        
-        guard let x = json["x"] as? Int,
-            let y = json["y"] as? Int
-            else {
-                return nil
-        }
-        
-        self.x = x
-        self.y = y
-        
-    }
+struct Vertex: Codable {
+   
     
     let x: Int
     let y: Int

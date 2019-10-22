@@ -24,18 +24,8 @@
 import Foundation
 
 
-public class BoundingPoly {
-    internal init(vertices: [Vertex]) {
-        self.vertices = vertices
-    }
-    
-    init?(json: [String: Any]) {
-        guard let vertices = json["vertices"] as? [Vertex] else {
-            return nil
-        }
-        
-        self.vertices = vertices
-    }
+struct BoundingPoly: Codable {
+   
     
     let vertices: [Vertex]
     

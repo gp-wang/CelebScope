@@ -15,28 +15,7 @@
 
 import Foundation
 
-public class Property {
-    internal init(name: String, value: String, uint64Value: String?) {
-        self.name = name
-        self.value = value
-        self.uint64Value = uint64Value
-    }
-    
-    init?(json: [String: Any]) {
-        guard let name = json["name"] as? String,
-        let value = json["value"] as? String   else {
-            return nil
-        }
-        
-        self.name = name
-        self.value = value
-        
-        if let uint64Value = json["uint64Value"] as? String  {
-            self.uint64Value = uint64Value
-        } else {
-            self.uint64Value = nil
-        }
-    }
+struct Property: Codable {
     
     
     

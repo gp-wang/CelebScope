@@ -25,31 +25,7 @@
 import Foundation
 
 
-public class Paragraph {
-    internal init(property: TextProperty?, boundingBox: BoundingPoly, words: [Word]) {
-        self.property = property
-        self.boundingBox = boundingBox
-        self.words = words
-    }
-    
-    init?(json: [String: Any]) {
-        if let property = json["property"] as? TextProperty {
-            self.property = property
-        } else {
-            self.property = nil
-        }
-        
-        
-        guard let boundingBox = json["boundingBox"] as? BoundingPoly,
-            let words = json["words"] as? [Word]
-            else {
-                return nil
-        }
-        
-        self.boundingBox = boundingBox
-        self.words = words
-        
-    }
+struct Paragraph: Codable {
     
     let property: TextProperty?
     

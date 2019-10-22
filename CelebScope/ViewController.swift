@@ -59,7 +59,13 @@ class ViewController:  UIViewController {
     let cameraButton = CameraButton()
     let albumButton = AlbumButton()
     
-    
+    // backround view for sign in button
+    let signInView: UIView = {
+        let _view = UIView()
+        _view.translatesAutoresizingMaskIntoConstraints = false
+        _view.backgroundColor = UIColor.yellow
+        return _view
+    } ()
     let signInButton: GIDSignInButton = {
         let _button = GIDSignInButton()
         _button.translatesAutoresizingMaskIntoConstraints = false
@@ -200,7 +206,11 @@ class ViewController:  UIViewController {
         
         view.addSubview(cameraButton)
         view.addSubview(albumButton)
-        view.addSubview(signInButton)
+
+        view.addSubview(signInView)
+        signInView.addSubview(signInButton)
+        
+
         
         // ads
         view.addSubview(bannerView)
@@ -228,6 +238,7 @@ class ViewController:  UIViewController {
         view.bringSubviewToFront(zoomableImageVC.zoomableImageView)
         view.bringSubviewToFront(canvas)
         view.bringSubviewToFront(bannerView)
+        view.bringSubviewToFront(signInView)
         
         
         if(isFirstTime) {

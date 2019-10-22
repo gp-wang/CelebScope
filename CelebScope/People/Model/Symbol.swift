@@ -21,32 +21,8 @@
 import Foundation
 
 
-public class Symbol {
-    internal init(property: TextProperty?, boundingBox: BoundingPoly, text: String) {
-        self.property = property
-        self.boundingBox = boundingBox
-        self.text = text
-    }
-    
-    init?(json: [String: Any]) {
-        if let property = json["property"] as? TextProperty {
-            self.property = property
-        } else {
-            self.property = nil
-        }
-        
-        
-        guard let boundingBox = json["boundingBox"] as? BoundingPoly,
-            let text = json["text"] as? String
-            else {
-                return nil
-        }
-        
-        self.boundingBox = boundingBox
-        self.text = text
-        
-    }
-    
+struct Symbol: Codable {
+  
     let property: TextProperty?
     let boundingBox: BoundingPoly
     

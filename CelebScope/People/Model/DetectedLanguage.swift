@@ -14,18 +14,8 @@
 import Foundation
 
 
-public class DetectedLanguage {
-    internal init(languageCode: String) {
-        self.languageCode = languageCode
-    }
-    
-    init?(json: [String: Any]) {
-        guard let languageCode = json["languageCode"] as? String else {
-            return nil
-        }
-        
-         self.languageCode = languageCode
-    }
+struct DetectedLanguage: Codable {
+   
     
     let languageCode: String
 }
