@@ -14,6 +14,15 @@ import GoogleSignIn
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     var window: UIWindow?
+    
+    override init() {
+        super.init()
+        
+        // gw: hack to solve that viewDidload is called BEFORE didFinishLaunchingWithOptions
+        GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance().clientID = "399591616840-7ogh03vhapiqcaudu76vp0g1aili57k3.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance()?.scopes.append(contentsOf: ["https://www.googleapis.com/auth/cloud-platform", "https://www.googleapis.com/auth/cloud-vision"])
+    }
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -46,12 +55,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         
         // gw: google sign in
         // Initialize sign-in
-        GIDSignIn.sharedInstance().clientID = "399591616840-7ogh03vhapiqcaudu76vp0g1aili57k3.apps.googleusercontent.com"
-        
-        //GIDSignIn.sharedInstance().delegate = self
+        // gw: see init()
+       //  GIDSignIn.sharedInstance().clientID = "399591616840-7ogh03vhapiqcaudu76vp0g1aili57k3.apps.googleusercontent.com"
         // gw: https://github.com/EddyVerbruggen/nativescript-plugin-firebase/issues/1370
-        GIDSignIn.sharedInstance()?.presentingViewController = rootViewController
-        GIDSignIn.sharedInstance()?.scopes.append(contentsOf: ["https://www.googleapis.com/auth/cloud-platform", "https://www.googleapis.com/auth/cloud-vision"])
+        // GIDSignIn.sharedInstance().delegate = self // moved into init()
+        //GIDSignIn.sharedInstance()?.presentingViewController = rootViewController
+        // GIDSignIn.sharedInstance()?.scopes.append(contentsOf: ["https://www.googleapis.com/auth/cloud-platform", "https://www.googleapis.com/auth/cloud-vision"])
         return true
     }
     

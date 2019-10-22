@@ -86,6 +86,8 @@ class ViewController:  UIViewController {
         let _label = UILabel()
         _label.translatesAutoresizingMaskIntoConstraints = false
         _label.backgroundColor = UIColor.red
+        _label.font = UIFont.preferredFont(forTextStyle: .subheadline).withSize(12)
+        return _label
     } ()
     
     var isSignedIn: Bool = false
@@ -209,8 +211,6 @@ class ViewController:  UIViewController {
         // TODO:temp
         detailPagedVC.view.isHidden = true
         
-        
-        
         // button
         
         view.addSubview(cameraButton)
@@ -228,8 +228,6 @@ class ViewController:  UIViewController {
         // ads
         view.addSubview(bannerView)
         
-        
-
         
         if (isFirstTime) {
             self.tooltipVC = TooltipViewController(cameraButton: cameraButton, albumButton: albumButton, zoomableImageView: zoomableImageVC.view, peopleCollectionView: peopleCollectionVC.collectionView, peoplePageView: detailPagedVC.view)
@@ -252,7 +250,8 @@ class ViewController:  UIViewController {
         view.bringSubviewToFront(canvas)
         view.bringSubviewToFront(bannerView)
         view.bringSubviewToFront(signInView)
-        
+        view.bringSubviewToFront(signOutButton)
+        view.bringSubviewToFront(signInStatusText)
         
         if(isFirstTime) {
             self.view.bringSubviewToFront(tooltipVC!.view)
@@ -270,6 +269,7 @@ class ViewController:  UIViewController {
         // buttons
         self.albumButton.addTarget(self, action: #selector(pickImage), for: .touchUpInside)
         self.cameraButton.addTarget(self, action: #selector(takePhoto), for: .touchUpInside)
+        self.signOutButton.addTarget(self, action: #selector(didTapSignOut), for: .touchUpInside)
         
        
         
@@ -299,7 +299,50 @@ class ViewController:  UIViewController {
     }
     
     
+    @objc func didTapSignOut(_ sender: AnyObject) {
+        GIDSignIn.sharedInstance().signOut()
+        // [START_EXCLUDE silent]
+        signInStatusText.text = "Signed out."
+        toggleAuthUI()
+        // [END_EXCLUDE]
+    }
     
+    // [START toggle_auth]
+    func toggleAuthUI() {
+        if let _ = GIDSignIn.sharedInstance()?.currentUser?.authentication {
+            // Signed in
+            signInView.isHidden = true
+            signOutButton.isHidden = false
+            // disconnectButton.isHidden = false
+        } else {
+            signInView.isHidden = false
+            signOutButton.isHidden = true
+            // disconnectButton.isHidden = true
+            signInStatusText.text = "Google Sign in\niOS Demo"
+        }
+    }
+    // [END toggle_auth]
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self,
+                                                  name: NSNotification.Name(rawValue: "ToggleAuthUINotification"),
+                                                  object: nil)
+    }
+    
+    @objc func receiveToggleAuthUINotification(_ notification: NSNotification) {
+        if notification.name.rawValue == "ToggleAuthUINotification" {
+            self.toggleAuthUI()
+            if notification.userInfo != nil {
+                guard let userInfo = notification.userInfo as? [String:String] else { return }
+                self.signInStatusText.text = userInfo["statusText"]!
+            }
+        }
+    }
+
     // MARK: - pick photos from album
     
     @objc func pickImage() {
@@ -332,6 +375,21 @@ class ViewController:  UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        // gw: see AppDelegate.init()
+        //GIDSignIn.sharedInstance().clientID = "399591616840-7ogh03vhapiqcaudu76vp0g1aili57k3.apps.googleusercontent.com"
+        // Automatically sign in the user.
+        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+        
+        // [START_EXCLUDE]
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(ViewController.receiveToggleAuthUINotification(_:)),
+                                               name: NSNotification.Name(rawValue: "ToggleAuthUINotification"),
+                                               object: nil)
+        
+        signInStatusText.text = "Initialized Swift app..."
+        toggleAuthUI()
         
         
         // test id: ca-app-pub-3940256099942544/2934735716

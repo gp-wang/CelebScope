@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 
 // MARK: - Setup Layout constraints
@@ -45,10 +46,19 @@ extension ViewController {
             signInButton.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
             signInButton.centerXAnchor.constraint(equalTo: signInView.centerXAnchor),
             signInButton.centerYAnchor.constraint(equalTo: signInView.centerYAnchor),
+            
             signOutButton.widthAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_WIDTH),
             signOutButton.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
             signInStatusText.widthAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_WIDTH),
             signInStatusText.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
+            
+            
+            signOutButton.leadingAnchor.constraint(equalTo: zoomableImageView.leadingAnchor, constant: 10),
+            signOutButton.topAnchor.constraint(equalTo: zoomableImageView.topAnchor, constant: 10),
+            signInStatusText.trailingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor, constant: -10),
+            signInStatusText.topAnchor.constraint(equalTo: zoomableImageView.topAnchor, constant: 10)
+            
+            
             
             ])
         
@@ -77,30 +87,7 @@ extension ViewController {
         
         
        
-        
-        let signOutButton_lead_p = signOutButton.leadingAnchor.constraint(equalTo: zoomableImageView.leadingAnchor, constant: 10)
-        signOutButton_lead_p.identifier = "signOutButton_lead_p"
-        signOutButton_lead_p.isActive = false
-        portraitConstraints.append(signOutButton_lead_p)
-        
-        let signOutButton_top_p = signOutButton.topAnchor.constraint(equalTo: zoomableImageView.topAnchor, constant: 10)
-        signOutButton_top_p.identifier = "signOutButton_top_p"
-        signOutButton_top_p.isActive = false
-        portraitConstraints.append(signOutButton_top_p)
-        
-        
-        
-        
-        let signInStatusText_trailing_p = signInStatusText.trailingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor, constant: -10)
-        signInStatusText_trailing_p.identifier = "signInStatusText_trailing_p"
-        signInStatusText_trailing_p.isActive = false
-        portraitConstraints.append(signInStatusText_trailing_p)
-        
-        let signInStatusText_top_p = signInStatusText.topAnchor.constraint(equalTo: zoomableImageView.bottomAnchor, constant: 10)
-        signInStatusText_top_p.identifier = "signInStatusText_top_p"
-        signInStatusText_top_p.isActive = false
-        portraitConstraints.append(signInStatusText_top_p)
-        
+       
         
         
         
@@ -128,30 +115,9 @@ extension ViewController {
         landscapeConstraints.append(signInView_bottom_l)
         
         
-        let signOutButton_lead_l = signOutButton.leadingAnchor.constraint(equalTo: zoomableImageView.leadingAnchor, constant: 10)
-        signOutButton_lead_l.identifier = "signOutButton_lead_l"
-        signOutButton_lead_l.isActive = false
-        landscapeConstraints.append(signOutButton_lead_l)
-        
-        let signOutButton_top_l = signOutButton.topAnchor.constraint(equalTo: zoomableImageView.topAnchor, constant: 10)
-        signOutButton_top_l.identifier = "signOutButton_top_l"
-        signOutButton_top_l.isActive = false
-        landscapeConstraints.append(signOutButton_top_l)
-        
-        
-        
-        
-        let signInStatusText_trailing_l = signInStatusText.trailingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor, constant: -10)
-        signInStatusText_trailing_l.identifier = "signInStatusText_trailing_l"
-        signInStatusText_trailing_l.isActive = false
-        landscapeConstraints.append(signInStatusText_trailing_l)
-        
-        let signInStatusText_top_l = signInStatusText.topAnchor.constraint(equalTo: zoomableImageView.bottomAnchor, constant: 10)
-        signInStatusText_top_l.identifier = "signInStatusText_top_l"
-        signInStatusText_top_l.isActive = false
-        landscapeConstraints.append(signInStatusText_top_l)
         
     }
+    
     
     func setupBannerViewConstraints() {
         // convinence vars
