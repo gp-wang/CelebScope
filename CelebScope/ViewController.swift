@@ -644,21 +644,23 @@ class ViewController:  UIViewController {
                                 // strStr search
                                 // swift way to guarantee non-empty range
                                 if symbols.count >= searchText.count {
-                                    outer: for i in 0...(symbols.count - searchText.count) {
+                                    var matchedSymbols : [Symbol] = []
+                                    outer: for i in 0..<(symbols.count - searchText.count) {
                                         let _symbol = symbols[i]
                                         
                                         var j: Int = 0
                                         var jIndex = searchText.index(searchText.startIndex, offsetBy: j)
                                         var jChar: Character = searchText[jIndex]
-                                        var matchedSymbols : [Symbol] = []
+                                        
                                         inner: while jChar == symbols[i+j].text.first {
-                                            matchedSymbols.append(_symbol)
+                                            matchedSymbols.append(symbols[i+j])
                                             j += 1
                                             if j == searchText.count {
                                                 // mark complete and ends current loop
                                                 
                                                 // make copy for constructing matched String
                                                 var dupMatchedSymbols : [Symbol] = matchedSymbols
+                                                matchedSymbols = []
                                                 
                                                 let match = MatchedString(searchText: searchText, symbols: dupMatchedSymbols)
                                                 matchedStrings.append(match)
