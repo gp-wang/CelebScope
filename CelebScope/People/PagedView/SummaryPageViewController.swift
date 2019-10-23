@@ -31,7 +31,7 @@ class SummaryPageViewController: UIViewController {
     init(_ count: Int) {
         
         self.count = count
-        nameLabel.text = "图片中检测到\(count)张人脸"
+        nameLabel.text = "图片中检测到\(count)个结果"
 
         // gw: boilerplate
         super.init(nibName: nil, bundle: nil)

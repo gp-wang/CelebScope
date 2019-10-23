@@ -51,103 +51,103 @@ class DemoManager: NSObject {
         // 1
         
         
-        DispatchQueue.global(qos: .userInteractive).async  { [weak self] in
-            guard let demos = self?.demos,
-                let count = self?.demos.count
-            else {
-                gw_log("gw: error unwrapping in demo mgr")
-                return
-            }
-            
-            gw_log("starting photo showing")
-            
-            // init
-            // set photo here
-
-            
-            // populate paged VC
-            var i: Int = 0
-            
-            
-            // process cycle
-            while true {
-                
-                
-                //gw_log("showing some photo for 2 sec ...")
-                
-                //scroll one page here
-                let demo = demos[i]
-
-                
-                self?.actionTaker.identificationResults = demo.identifications
-                self?.actionTaker.setImage(image: demo.photo)
-                
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + Constants.period, execute: {
-                    // gw: each sleep or delay should be followed by a exit check
-                    if let isOn = self?.isOn {
-                        if !isOn {
-                            return
-                        }
-                    } else {
-                        // gw: this is needed when self is destructed and we want to stop the photoshowing task
-                        return
-                    }
-                    gw_log("gw: face scroll start")
-
-
-                    // gw: +1 to account for summary page
-                    for idx in 0..<(demo.identifications.count + 1) {
-       
-            
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Double(idx) * Constants.period), execute: {
-                            // gw: each sleep should be followed by a exit check
-                            if let isOn = self?.isOn {
-                                if !isOn {
-                                    return
-                                }
-                            } else {
-                                // gw: this is needed when self is destructed and we want to stop the photoshowing task
-                                return
-                            }
-                            gw_log("gw: scrolling to face \(idx)")
-                            self?.actionTaker.pagingAndZoomingToFaceIndexed(at: idx)
-
-                        })
-                        
-                        
-                        
-                        
-                    }
-                })
-                
-                
-
-                // sleep in the background thread should be ok
-                sleep(10)
-                // gw: each sleep should be followed by a exit check
-                if let isOn = self?.isOn {
-                    if !isOn {
-                        break
-                    }
-                } else {
-                    // gw: this is needed when self is destructed and we want to stop the photoshowing task
-                    break
-                }
-                
-                
-                gw_log("gw: scroll one photo")
-
-                i = (i + 1) % count
-            }
-            
-            // tear down
-            
-            // clearn identifications here
-            
-            
-            gw_log("finished photo showing")
-        }
+//        DispatchQueue.global(qos: .userInteractive).async  { [weak self] in
+//            guard let demos = self?.demos,
+//                let count = self?.demos.count
+//            else {
+//                gw_log("gw: error unwrapping in demo mgr")
+//                return
+//            }
+//            
+//            gw_log("starting photo showing")
+//            
+//            // init
+//            // set photo here
+//
+//            
+//            // populate paged VC
+//            var i: Int = 0
+//            
+//            
+//            // process cycle
+//            while true {
+//                
+//                
+//                //gw_log("showing some photo for 2 sec ...")
+//                
+//                //scroll one page here
+//                let demo = demos[i]
+//
+//                
+//                self?.actionTaker.identificationResults = demo.identifications
+//                self?.actionTaker.setImage(image: demo.photo)
+//                
+//                
+//                DispatchQueue.main.asyncAfter(deadline: .now() + Constants.period, execute: {
+//                    // gw: each sleep or delay should be followed by a exit check
+//                    if let isOn = self?.isOn {
+//                        if !isOn {
+//                            return
+//                        }
+//                    } else {
+//                        // gw: this is needed when self is destructed and we want to stop the photoshowing task
+//                        return
+//                    }
+//                    gw_log("gw: face scroll start")
+//
+//
+//                    // gw: +1 to account for summary page
+//                    for idx in 0..<(demo.identifications.count + 1) {
+//       
+//            
+//                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Double(idx) * Constants.period), execute: {
+//                            // gw: each sleep should be followed by a exit check
+//                            if let isOn = self?.isOn {
+//                                if !isOn {
+//                                    return
+//                                }
+//                            } else {
+//                                // gw: this is needed when self is destructed and we want to stop the photoshowing task
+//                                return
+//                            }
+//                            gw_log("gw: scrolling to face \(idx)")
+//                            self?.actionTaker.pagingAndZoomingToFaceIndexed(at: idx)
+//
+//                        })
+//                        
+//                        
+//                        
+//                        
+//                    }
+//                })
+//                
+//                
+//
+//                // sleep in the background thread should be ok
+//                sleep(10)
+//                // gw: each sleep should be followed by a exit check
+//                if let isOn = self?.isOn {
+//                    if !isOn {
+//                        break
+//                    }
+//                } else {
+//                    // gw: this is needed when self is destructed and we want to stop the photoshowing task
+//                    break
+//                }
+//                
+//                
+//                gw_log("gw: scroll one photo")
+//
+//                i = (i + 1) % count
+//            }
+//            
+//            // tear down
+//            
+//            // clearn identifications here
+//            
+//            
+//            gw_log("finished photo showing")
+//        }
         
        
     }

@@ -36,38 +36,50 @@ class PersonCollectionViewCell: UICollectionViewCell {
         return paragraphStyle
     } ()
     
-    var identification: Identification? {
+    var matchedString: MatchedString? {
         didSet {
-            guard let _identification = self.identification else {
-                gw_log("error: unwrap failed at setter")
+            guard let _matchedString = self.matchedString else {
+                gw_log("error: matchedString unwrap failed at setter")
                 return
                 
             }
             
-            self.croppedFaceView.image = UIImage(cgImage: _identification.face.image)
-            
-            // avartar and confidence display logic should be grouped together, either valid photo + prob, or unknown photo + 0%
-            if let _avartar = _identification.person.avartar, let _confidence = _identification.confidence as? Double {
-                
-                
-                self.avartarView.image = _avartar
-                // format to percent
-                self.confidenceLabel.text = String(format: "%.0f%%", _confidence * 100.0)
-            } else {
-                self.avartarView.image = UIImage(imageLiteralResourceName: "unknown")
-                
-                self.confidenceLabel.text = "0%"
-            }
-            
-            let attrString = NSMutableAttributedString(string: _identification.person.name)
-            attrString.addAttribute(.paragraphStyle, value: PersonCollectionViewCell.nameLabelParagraphStyle, range:NSMakeRange(0, attrString.length))
-        
-            //self.nameLabel.text = _identification.person.name
-            self.nameLabel.attributedText = attrString
-          
-            
+            // gw: for now donothing
         }
     }
+    
+//    var identification: Identification? {
+//        didSet {
+//            guard let _identification = self.identification else {
+//                gw_log("error: unwrap failed at setter")
+//                return
+//
+//            }
+//
+//            self.croppedFaceView.image = UIImage(cgImage: _identification.face.image)
+//
+//            // avartar and confidence display logic should be grouped together, either valid photo + prob, or unknown photo + 0%
+//            if let _avartar = _identification.person.avartar, let _confidence = _identification.confidence as? Double {
+//
+//
+//                self.avartarView.image = _avartar
+//                // format to percent
+//                self.confidenceLabel.text = String(format: "%.0f%%", _confidence * 100.0)
+//            } else {
+//                self.avartarView.image = UIImage(imageLiteralResourceName: "unknown")
+//
+//                self.confidenceLabel.text = "0%"
+//            }
+//
+//            let attrString = NSMutableAttributedString(string: _identification.person.name)
+//            attrString.addAttribute(.paragraphStyle, value: PersonCollectionViewCell.nameLabelParagraphStyle, range:NSMakeRange(0, attrString.length))
+//
+//            //self.nameLabel.text = _identification.person.name
+//            self.nameLabel.attributedText = attrString
+//
+//
+//        }
+//    }
     
     //
     let croppedFaceView: UIImageView = {

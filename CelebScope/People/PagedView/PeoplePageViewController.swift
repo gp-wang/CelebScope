@@ -41,17 +41,37 @@ class PeoplePageViewController: UIPageViewController {
     }
     
     
-    public func populate(identificationResults: [Identification]) {
-     
+//    public func populate(identificationResults: [Identification]) {
+//
+//        pages.removeAll()
+//        // overview Page
+//        var overviewPage = SummaryPageViewController(identificationResults.count)
+//        pages.append(overviewPage)
+//
+//        // details page
+//        for identification in identificationResults {
+//
+//            var page = SinglePersonPageViewController(identification)
+//            pages.append(page)
+//        }
+//        self.pageControl.numberOfPages = pages.count
+//        let initialPage = 0
+//        scrollToPage(initialPage)
+//
+//
+//    }
+    
+    public func populate(matchedStrings: [MatchedString]) {
+        
         pages.removeAll()
         // overview Page
-        var overviewPage = SummaryPageViewController(identificationResults.count)
+        var overviewPage = SummaryPageViewController(matchedStrings.count)
         pages.append(overviewPage)
         
         // details page
-        for identification in identificationResults {
-
-            var page = SinglePersonPageViewController(identification)
+        for matchedString in matchedStrings {
+            
+            var page = SinglePersonPageViewController(matchedString)
             pages.append(page)
         }
         self.pageControl.numberOfPages = pages.count

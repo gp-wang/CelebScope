@@ -86,8 +86,19 @@ class ZoomableImageViewController: UIViewController {
     }
     
     // zoom to rect with specified ratio
+    // gw: rect is in CG coord
     public func zoom(to rect: CGRect, animated: Bool) {
         
        zoomableImageView.zoom(to: rect, with: ZoomableImageView.Constants.contentSpanRatio, animated: animated)
+    }
+    
+    // gw: boundingBox is in UI Coord
+
+    public func zoom(to uiBoundingBox: BoundingPoly, animated: Bool) {
+        // a intermediate CGRect for transition, it is in UICoord
+        // TODO: // gw: here
+        let dummyCGRectInUICoord: CGRect = CGRect(uiBoundingBox)
+        let rectInCGCoord: CGRect = zoomableImageView.imageView.convertRect(fromImageRect: dummyCGRectInUICoord)
+        zoom(to: rectInCGCoord,  animated: animated)
     }
 }

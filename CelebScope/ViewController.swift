@@ -98,22 +98,35 @@ class ViewController:  UIViewController {
     var tooltipVC: TooltipViewController?
     
     
-    var identificationResults: [Identification]  {
+//    var identificationResults: [Identification]  {
+//        didSet {
+//            DispatchQueue.main.async {
+//                // gw: updating logic for annotations etc
+//                self.detailPagedVC.populate(identificationResults: self.identificationResults)
+//                self.peopleCollectionVC.populate(identifications: self.identificationResults)
+//
+//                self.canvas.isLandscape = UIDevice.current.orientation.isLandscape
+//                self.canvas.identifications = self.identificationResults
+//            }
+//
+//        }
+//    }
+    
+    var matchedStrings: [MatchedString]  {
         didSet {
             DispatchQueue.main.async {
                 // gw: updating logic for annotations etc
-                self.detailPagedVC.populate(identificationResults: self.identificationResults)
-                self.peopleCollectionVC.populate(identifications: self.identificationResults)
+                self.detailPagedVC.populate(matchedStrings: self.matchedStrings)
+                self.peopleCollectionVC.populate(matchedStrings: self.matchedStrings)
                 
                 self.canvas.isLandscape = UIDevice.current.orientation.isLandscape
-                self.canvas.identifications = self.identificationResults
+                self.canvas.matchedStrings = self.matchedStrings
             }
             
         }
     }
     
-    var accessToken : String = "02b18437e04ca4c531539129ab5d49d0983c9677"
-    var clientId: String = "02b18437e04ca4c531539129ab5d49d0983c9677"
+   
     
     // let isFirstTime: Bool = false // TODO
     // https://stackoverflow.com/questions/27208103/detect-first-launch-of-ios-app
@@ -143,7 +156,7 @@ class ViewController:  UIViewController {
     } ()
     //var pageViewDelegate: PeoplePageViewDelegate?
     init() {
-        self.identificationResults = []
+        self.matchedStrings = []
         
         super.init(nibName: nil
             , bundle: nil)
@@ -273,7 +286,7 @@ class ViewController:  UIViewController {
         
        
         
-        identificationResults = []
+        matchedStrings = []
         
         self.demoManager = DemoManager(actionTaker: self)
         
@@ -476,7 +489,7 @@ class ViewController:  UIViewController {
             
             
             gw_log("gw: pagingAndZoomingToFaceIndexed 1")
-            if (viewControllerIndex > self.identificationResults.count) {
+            if (viewControllerIndex > self.matchedStrings.count) {
                 gw_log("gw: err: index is too big")
                 return
             }
@@ -498,7 +511,7 @@ class ViewController:  UIViewController {
                 
                 // gw_log("didFinishAnimating: \(viewControllerIndex)")
                 // zoomingActionTaker.zoom(to: self.identificationResults[viewControllerIndex].face.rect, with: Constants.contentSpanRatio, animated: true)
-                zoomingActionTaker.zoom(to: singlePersonViewController.identification.face.rect,  animated: true)
+                zoomingActionTaker.zoom(to: singlePersonViewController.matchedString.boundingBox,  animated: true)
                 gw_log("gw: pagingAndZoomingToFaceIndexed 4.1")
             } else if let summaryPageViewController = pagingActionTaker.pages[viewControllerIndex] as? SummaryPageViewController {
                 // self.zoomableImageVC.zoomableImageView.zoom(to: self.zoomableImageVC.zoomableImageView.imageView.bounds, with: Constants.contentSpanRatio, animated: true)
@@ -569,114 +582,112 @@ class ViewController:  UIViewController {
     //
     
     
-    
-    
-}
-
-func processOCRResult(_ ocrRespData: Data?, _ ocrRespResponse: URLResponse?, _ ocrRespError: Error?, _ image: UIImage) {
-    // TODO
-    
-    // 5
-    if let error = ocrRespError {
-        print("dataTask response has error: \(error.localizedDescription)")
-    } else {
-        guard  let data = ocrRespData,
-            let response = ocrRespResponse as? HTTPURLResponse else {
-                fatalError("dataTask reports no error but could not cast data and response")
-        }
+    func processOCRResult(_ ocrRespData: Data?, _ ocrRespResponse: URLResponse?, _ ocrRespError: Error?, _ image: UIImage) {
+        // TODO
         
-        
-        if response.statusCode != 200 {
-            
+        // 5
+        if let error = ocrRespError {
+            print("dataTask response has error: \(error.localizedDescription)")
         } else {
+            guard  let data = ocrRespData,
+                let response = ocrRespResponse as? HTTPURLResponse else {
+                    fatalError("dataTask reports no error but could not cast data and response")
+            }
             
-            do {
-                let googleResponse = try JSONDecoder().decode(GoogleCloudVisionApiResponses.self, from: data)
-                print(googleResponse)
+            
+            if response.statusCode != 200 {
                 
-                // TODO
-                // create text_matching_identification and populate into pageDetail view and collection view for display
+            } else {
                 
-                // gw: naive search algorithm:
-                // search text: remove all whitespaces / breaks
-                // then, in the detected text, match above search text symbol by symbol
-                // this should work for both CN and EN
-                
-                
-                var matchedStrings: [MatchedString] = []
-                
-                
-                let rawSearchText = "TURN OFF"
-                
-                // TODO: regex replacement
-                //let searchText = rawSearchText.replacingOccurrences(of: <#T##StringProtocol#>, with: <#T##StringProtocol#>)
-                let searchText: String = "TURNOFF"
-                
-                
-                for _response in googleResponse.responses {
-                    for _page in _response.fullTextAnnotation.pages {
-                        blockLoop: for _block in _page.blocks {
-                            // gw: search within the max unit of block, so for each block we reinit the match pointer
-                            // pointer of matched up to which char in the searchText
-                       
-                            var symbols: [Symbol] = []
-                            
-                            // compose a list for strStr search
-                            for _paragraph in _block.paragraphs {
-                                for _word in _paragraph.words {
-                                    for _symbol in _word.symbols {
-                                        symbols.append(_symbol)
-                 
-                                        
-                                    }
-                                }
-                            }
-                           
-                            // strStr search
-                            // swift way to guarantee non-empty range
-                            if symbols.count >= searchText.count {
-                                outer: for i in 0...(symbols.count - searchText.count) {
-                                    let _symbol = symbols[i]
-                                    
-                                    var j: Int = 0
-                                    var jIndex = searchText.index(searchText.startIndex, offsetBy: j)
-                                    var jChar: Character = searchText[jIndex]
-                                    var matchedSymbols : [Symbol] = []
-                                    inner: while jChar == symbols[i+j].text.first {
-                                        matchedSymbols.append(_symbol)
-                                        j += 1
-                                        if j == searchText.count {
-                                            // mark complete and ends current loop
-                                            
-                                            // make copy for constructing matched String
-                                            var dupMatchedSymbols : [Symbol] = matchedSymbols
-                                            
-                                            let match = MatchedString(searchText: searchText, symbols: dupMatchedSymbols)
-                                            matchedStrings.append(match)
-                                            
-                                        } else {
+                do {
+                    let googleResponse = try JSONDecoder().decode(GoogleCloudVisionApiResponses.self, from: data)
+                    print(googleResponse)
+                    
+                    // TODO
+                    // create text_matching_identification and populate into pageDetail view and collection view for display
+                    
+                    // gw: naive search algorithm:
+                    // search text: remove all whitespaces / breaks
+                    // then, in the detected text, match above search text symbol by symbol
+                    // this should work for both CN and EN
+                    
+                    
+                    var matchedStrings: [MatchedString] = []
+                    
+                    
+                    let rawSearchText = "TURN OFF"
+                    
+                    // TODO: regex replacement
+                    //let searchText = rawSearchText.replacingOccurrences(of: , with: )
+                    let searchText: String = "TURNOFF"
+                    
+                    
+                    for _response in googleResponse.responses {
+                        for _page in _response.fullTextAnnotation.pages {
+                            blockLoop: for _block in _page.blocks {
+                                // gw: search within the max unit of block, so for each block we reinit the match pointer
+                                // pointer of matched up to which char in the searchText
+                                
+                                var symbols: [Symbol] = []
+                                
+                                // compose a list for strStr search
+                                for _paragraph in _block.paragraphs {
+                                    for _word in _paragraph.words {
+                                        for _symbol in _word.symbols {
+                                            symbols.append(_symbol)
                                             
                                             
-                                            jIndex = searchText.index(searchText.startIndex, offsetBy: j)
-                                            jChar = searchText[jIndex]
                                         }
-                                        
-                                        
-                                        
                                     }
                                 }
                                 
+                                // strStr search
+                                // swift way to guarantee non-empty range
+                                if symbols.count >= searchText.count {
+                                    outer: for i in 0...(symbols.count - searchText.count) {
+                                        let _symbol = symbols[i]
+                                        
+                                        var j: Int = 0
+                                        var jIndex = searchText.index(searchText.startIndex, offsetBy: j)
+                                        var jChar: Character = searchText[jIndex]
+                                        var matchedSymbols : [Symbol] = []
+                                        inner: while jChar == symbols[i+j].text.first {
+                                            matchedSymbols.append(_symbol)
+                                            j += 1
+                                            if j == searchText.count {
+                                                // mark complete and ends current loop
+                                                
+                                                // make copy for constructing matched String
+                                                var dupMatchedSymbols : [Symbol] = matchedSymbols
+                                                
+                                                let match = MatchedString(searchText: searchText, symbols: dupMatchedSymbols)
+                                                matchedStrings.append(match)
+                                                
+                                            } else {
+                                                
+                                                
+                                                jIndex = searchText.index(searchText.startIndex, offsetBy: j)
+                                                jChar = searchText[jIndex]
+                                            }
+                                            
+                                            
+                                            
+                                        }
+                                    }
+                                    
+                                }
                             }
                         }
                     }
+                    
+                    // TODO: construct the pageDetails and collectionView from match matchIdentifications
+                    self.matchedStrings = matchedStrings
+                    
+                    
+                } catch let jsonErr {
+                    print(jsonErr)
                 }
                 
-                // TODO: construct the pageDetails and collectionView from match matchIdentifications
-                
-                
-                
-            } catch let jsonErr {
-                print(jsonErr)
             }
             
         }
@@ -684,6 +695,8 @@ func processOCRResult(_ ocrRespData: Data?, _ ocrRespResponse: URLResponse?, _ o
     }
     
 }
+
+
 
 // MARK: - face classifier
 // gw: I put the classifn responsibility in main VC, instead of zoomVC, is because the later one should be only responsible for image display, not for other fn

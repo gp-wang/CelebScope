@@ -28,14 +28,26 @@ class Canvas : UIView {
     var isLandscape: Bool = true
     
     // 1st input stage: gets data from external
-    public var identifications : [Identification]? {
+//    public var identifications : [Identification]? {
+//        didSet {
+//            // process data and converts into drawing pairs
+//            // gw: need to wrap within main thread. (check out the other usages in scrollViewDidScroll, which is likely living in main thread
+//            DispatchQueue.main.async {
+//                self.updateAnnotation()
+//            }
+//
+//        }
+//    }
+    
+    
+    public var matchedStrings : [MatchedString]? {
         didSet {
             // process data and converts into drawing pairs
             // gw: need to wrap within main thread. (check out the other usages in scrollViewDidScroll, which is likely living in main thread
             DispatchQueue.main.async {
                 self.updateAnnotation()
             }
-
+            
         }
     }
     
@@ -116,7 +128,7 @@ class Canvas : UIView {
         
         guard  let peopleCollectionView = peopleCollectionView,
             let zoomableImageView = zoomableImageView,
-            let identifications = self.identifications,
+            let matchedStrings = self.matchedStrings,
             let collectionViewFlowLayout =  peopleCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
                 NSLog("failed to unwrap peopleCollectionView zoomableImageView identifications  collectionViewFlowLayout")
                 
@@ -140,8 +152,8 @@ class Canvas : UIView {
             
             
             // gw: working: when doing coord conversion, should each time convert CONSECUTIVELY related two views like below
-            let startPoint_in_CGImage = identifications[index_in_all_cells].face.position
-            let startPoint_in_UIImageView = zoomableImageView.imageView.convertPoint(fromImagePoint: startPoint_in_CGImage)
+            // gw: text_search, note that google vision coord is likely upper-left-origin, so we can skip the CG coord to UIView coord translation in FaceCropper
+            let startPoint_in_UIImageView = matchedStrings[index_in_all_cells].boundingBox.position
             let startPoint_in_ScrollView = zoomableImageView.imageView.convert(startPoint_in_UIImageView, to: zoomableImageView)
             // because UIImageView content mode is 1:1 here, we directly use it here
             // convert to point inside canvas (which 1:1 overlays on zoomableImageView

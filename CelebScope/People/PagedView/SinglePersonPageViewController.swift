@@ -51,7 +51,8 @@ class SinglePersonPageViewController: UIViewController, UIGestureRecognizerDeleg
         return paragraphStyle
     } ()
     
-    let identification: Identification
+    //let identification: Identification
+    let matchedString: MatchedString
 //    let labelInst = UILabel()
     
     let avartarView: UIView = {
@@ -152,6 +153,11 @@ class SinglePersonPageViewController: UIViewController, UIGestureRecognizerDeleg
         return _label
     } ()
     
+    let gesture: UITapGestureRecognizer = {
+        let _gesture = UITapGestureRecognizer(target: self, action: #selector(searchInternetForName(sender:)))
+        return _gesture
+    } ()
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -164,106 +170,134 @@ class SinglePersonPageViewController: UIViewController, UIGestureRecognizerDeleg
     }
     
     
-    init(_ faceIdentification: Identification) {
-        
-        self.identification = faceIdentification
+    
+    init(_ matchedString: MatchedString) {
+        self.matchedString = matchedString
         // gw: boilerplate
         super.init(nibName: nil, bundle: nil)
+
+
+        // TODO: abstract common segment (maybe a common initializer
         
-            
-        if let avartarImageView = avartarView.viewWithTag(Constants.avartarImageSubviewTag) as? UIImageView {
-            avartarImageView.image = faceIdentification.person.avartar?.copy() as? UIImage
-        }
-        
-        nameLabel.text = faceIdentification.person.name
-        
-        professionLabel.text = faceIdentification.person.profession
-        
-        
-        var bioStr : String
-        if let rawBioStr = faceIdentification.person.bio {
-            bioStr = rawBioStr.trimmingCharacters(in: .whitespacesAndNewlines)
-            
-        } else {
-            bioStr = "Not Available ..."
-        }
-        
-        let attrString = NSMutableAttributedString(string: bioStr)
-        attrString.addAttribute(.paragraphStyle, value: SinglePersonPageViewController.bioLabelParagraphStyle, range:NSMakeRange(0, attrString.length))
-        
-        
-        bioLabel.attributedText = attrString
-        // vertical align
-        // https://stackoverflow.com/questions/1054558/vertically-align-text-to-top-within-a-uilabel
-        // bioLabel.sizeToFit()
-        
-        var birthDeathDateStr = ""
-        if let _birthDate = faceIdentification.person.birthDate {
-            birthDeathDateStr = _birthDate + " - "
-            if let _deathDate = faceIdentification.person.deathDate {
-                birthDeathDateStr += _deathDate
-            }
-        }
-        birthDeathDateLabel.text = birthDeathDateStr
- 
         view.addSubview(avartarView)
         view.addSubview(nameLabel)
         view.addSubview(professionLabel)
         view.addSubview(bioLabel)
         view.addSubview(birthDeathDateLabel)
         
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(searchInternetForName(sender:)))
+        
         gesture.delegate = self
         view.addGestureRecognizer(gesture)
         // label
-//        self.view.addSubview(labelInst)
-//        labelInst.text = identification.person.name
-//        labelInst.translatesAutoresizingMaskIntoConstraints = false
+        //        self.view.addSubview(labelInst)
+        //        labelInst.text = identification.person.name
+        //        labelInst.translatesAutoresizingMaskIntoConstraints = false
         
         setupInternalConstraints()
+
     }
+    
+    
+//    init(_ faceIdentification: Identification) {
+//
+//        self.identification = faceIdentification
+//        // gw: boilerplate
+//        super.init(nibName: nil, bundle: nil)
+//
+//
+//        if let avartarImageView = avartarView.viewWithTag(Constants.avartarImageSubviewTag) as? UIImageView {
+//            avartarImageView.image = faceIdentification.person.avartar?.copy() as? UIImage
+//        }
+//
+//        nameLabel.text = faceIdentification.person.name
+//
+//        professionLabel.text = faceIdentification.person.profession
+//
+//
+//        var bioStr : String
+//        if let rawBioStr = faceIdentification.person.bio {
+//            bioStr = rawBioStr.trimmingCharacters(in: .whitespacesAndNewlines)
+//
+//        } else {
+//            bioStr = "Not Available ..."
+//        }
+//
+//        let attrString = NSMutableAttributedString(string: bioStr)
+//        attrString.addAttribute(.paragraphStyle, value: SinglePersonPageViewController.bioLabelParagraphStyle, range:NSMakeRange(0, attrString.length))
+//
+//
+//        bioLabel.attributedText = attrString
+//        // vertical align
+//        // https://stackoverflow.com/questions/1054558/vertically-align-text-to-top-within-a-uilabel
+//        // bioLabel.sizeToFit()
+//
+//        var birthDeathDateStr = ""
+//        if let _birthDate = faceIdentification.person.birthDate {
+//            birthDeathDateStr = _birthDate + " - "
+//            if let _deathDate = faceIdentification.person.deathDate {
+//                birthDeathDateStr += _deathDate
+//            }
+//        }
+//        birthDeathDateLabel.text = birthDeathDateStr
+//
+//        view.addSubview(avartarView)
+//        view.addSubview(nameLabel)
+//        view.addSubview(professionLabel)
+//        view.addSubview(bioLabel)
+//        view.addSubview(birthDeathDateLabel)
+//
+//
+//        gesture.delegate = self
+//        view.addGestureRecognizer(gesture)
+//        // label
+////        self.view.addSubview(labelInst)
+////        labelInst.text = identification.person.name
+////        labelInst.translatesAutoresizingMaskIntoConstraints = false
+//
+//        setupInternalConstraints()
+//    }
     
     @objc func searchInternetForName(sender: SinglePersonPageViewController) {
         
-        let name = self.identification.person.name
-        
-        // google
-//        guard let escapedString = "http://www.google.com/search?q=\(name)".addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) else {
+//        let name = self.identification.person.name
+//
+//        // google
+////        guard let escapedString = "http://www.google.com/search?q=\(name)".addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) else {
+////            gw_log("err preparing search url")
+////            return
+////        }
+//
+//        // baidu
+//        // http://www.baidu.com/s?wd=关键字
+//        guard let escapedString = "http://www.baidu.com/s?wd=\(name)".addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) else {
 //            gw_log("err preparing search url")
 //            return
 //        }
-        
-        // baidu
-        // http://www.baidu.com/s?wd=关键字
-        guard let escapedString = "http://www.baidu.com/s?wd=\(name)".addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) else {
-            gw_log("err preparing search url")
-            return
-        }
-        let queryURL = URL(string:escapedString)
-        let queryRequest = URLRequest(url: queryURL!)
-        //webView.load(queryRequest)
-        
-        
-        //gw_log("gw: tap detected \(self.nameLabel.text)")
-        
-        
-        
-        // gw: note, this is a tricky use of nav Controller, although SinglePersonPageVC is not directly added to nav controller
-        guard let navVC = self.navigationController else {
-            gw_log("err getting nav controller")
-            return
-        }
-        
-        
-        
-        let newViewController = WebViewController(initialURLRequest: queryRequest)
-        
-        DispatchQueue.main.async {
-            
-            self.navigationController?.pushViewController(newViewController, animated: true)
-            
-        }
-        
+//        let queryURL = URL(string:escapedString)
+//        let queryRequest = URLRequest(url: queryURL!)
+//        //webView.load(queryRequest)
+//
+//
+//        //gw_log("gw: tap detected \(self.nameLabel.text)")
+//
+//
+//
+//        // gw: note, this is a tricky use of nav Controller, although SinglePersonPageVC is not directly added to nav controller
+//        guard let navVC = self.navigationController else {
+//            gw_log("err getting nav controller")
+//            return
+//        }
+//
+//
+//
+//        let newViewController = WebViewController(initialURLRequest: queryRequest)
+//
+//        DispatchQueue.main.async {
+//
+//            self.navigationController?.pushViewController(newViewController, animated: true)
+//
+//        }
+//
         
     }
     

@@ -14,7 +14,14 @@ class CollectionViewController: UICollectionViewController {
 
      let collectionViewCellIdentifier = "MyCollectionViewCellIdentifier"
     
-    var identifications: [Identification] = [] {
+//    var identifications: [Identification] = [] {
+//        didSet {
+//            self.collectionView?.reloadData()
+//        }
+//    }
+    
+    
+    var matchedStrings: [MatchedString] = [] {
         didSet {
             self.collectionView?.reloadData()
         }
@@ -23,9 +30,21 @@ class CollectionViewController: UICollectionViewController {
     
     
     
-    public func populate(identifications: [Identification])  {
+    
+    
+//    public func populate(identifications: [Identification])  {
+//
+//        self.identifications = identifications
+//
+//        DispatchQueue.main.async {
+//            self.collectionView?.collectionViewLayout.invalidateLayout()
+//        }
+//    }
+    
+    
+    public func populate(matchedStrings: [MatchedString])  {
         
-        self.identifications = identifications
+        self.matchedStrings = matchedStrings
         
         DispatchQueue.main.async {
             self.collectionView?.collectionViewLayout.invalidateLayout()
@@ -84,13 +103,15 @@ extension CollectionViewController {
             gw_log("error cannot get valid collection cell, returning dummy cell")
             return cell }
         
-        personCollectionViewCell.identification = self.identifications[indexPath.item]
+        //personCollectionViewCell.identification = self.identifications[indexPath.item]
+        
+        personCollectionViewCell.matchedString = self.matchedStrings[indexPath.item]
         return cell
     }
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.identifications.count
+        return self.matchedStrings.count
     }
     
     

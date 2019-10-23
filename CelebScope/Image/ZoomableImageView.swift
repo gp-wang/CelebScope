@@ -1,5 +1,6 @@
 import UIKit
 
+// gw: UIView coord system's origin is top left corner: x grows right, y grows down
 class ZoomableImageView: UIScrollView {
     
     public struct Constants {
