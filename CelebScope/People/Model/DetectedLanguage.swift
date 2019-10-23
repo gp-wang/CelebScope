@@ -14,7 +14,7 @@
 import Foundation
 
 
-struct DetectedLanguage: Codable {
+public struct DetectedLanguage: Codable {
    
     
     let languageCode: String

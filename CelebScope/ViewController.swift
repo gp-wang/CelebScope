@@ -578,28 +578,110 @@ func processOCRResult(_ ocrRespData: Data?, _ ocrRespResponse: URLResponse?, _ o
     
     // 5
     if let error = ocrRespError {
-        gw_log("dataTask response has error: \(error.localizedDescription)")
+        print("dataTask response has error: \(error.localizedDescription)")
     } else {
-        guard         let data = ocrRespData,
-            let response = ocrRespData as? HTTPURLResponse else {
+        guard  let data = ocrRespData,
+            let response = ocrRespResponse as? HTTPURLResponse else {
                 fatalError("dataTask reports no error but could not cast data and response")
         }
         
-        // if code == BAD_ACCESS_TOKEN
-        //   refreshAccessToken()
-        //   identifyText(image, ... , ...)
-        // else
+        
         if response.statusCode != 200 {
             
         } else {
-             gw_log("identfyText response: \(ocrRespData)")
+            
+            do {
+                let googleResponse = try JSONDecoder().decode(GoogleCloudVisionApiResponses.self, from: data)
+                print(googleResponse)
+                
+                // TODO
+                // create text_matching_identification and populate into pageDetail view and collection view for display
+                
+                // gw: naive search algorithm:
+                // search text: remove all whitespaces / breaks
+                // then, in the detected text, match above search text symbol by symbol
+                // this should work for both CN and EN
+                
+                
+                var matchedStrings: [MatchedString] = []
+                
+                
+                let rawSearchText = "TURN OFF"
+                
+                // TODO: regex replacement
+                //let searchText = rawSearchText.replacingOccurrences(of: <#T##StringProtocol#>, with: <#T##StringProtocol#>)
+                let searchText: String = "TURNOFF"
+                
+                
+                for _response in googleResponse.responses {
+                    for _page in _response.fullTextAnnotation.pages {
+                        blockLoop: for _block in _page.blocks {
+                            // gw: search within the max unit of block, so for each block we reinit the match pointer
+                            // pointer of matched up to which char in the searchText
+                       
+                            var symbols: [Symbol] = []
+                            
+                            // compose a list for strStr search
+                            for _paragraph in _block.paragraphs {
+                                for _word in _paragraph.words {
+                                    for _symbol in _word.symbols {
+                                        symbols.append(_symbol)
+                 
+                                        
+                                    }
+                                }
+                            }
+                           
+                            // strStr search
+                            // swift way to guarantee non-empty range
+                            if symbols.count >= searchText.count {
+                                outer: for i in 0...(symbols.count - searchText.count) {
+                                    let _symbol = symbols[i]
+                                    
+                                    var j: Int = 0
+                                    var jIndex = searchText.index(searchText.startIndex, offsetBy: j)
+                                    var jChar: Character = searchText[jIndex]
+                                    var matchedSymbols : [Symbol] = []
+                                    inner: while jChar == symbols[i+j].text.first {
+                                        matchedSymbols.append(_symbol)
+                                        j += 1
+                                        if j == searchText.count {
+                                            // mark complete and ends current loop
+                                            
+                                            // make copy for constructing matched String
+                                            var dupMatchedSymbols : [Symbol] = matchedSymbols
+                                            
+                                            let match = MatchedString(searchText: searchText, symbols: dupMatchedSymbols)
+                                            matchedStrings.append(match)
+                                            
+                                        } else {
+                                            
+                                            
+                                            jIndex = searchText.index(searchText.startIndex, offsetBy: j)
+                                            jChar = searchText[jIndex]
+                                        }
+                                        
+                                        
+                                        
+                                    }
+                                }
+                                
+                            }
+                        }
+                    }
+                }
+                
+                // TODO: construct the pageDetails and collectionView from match matchIdentifications
+                
+                
+                
+            } catch let jsonErr {
+                print(jsonErr)
+            }
+            
         }
         
     }
-    
-    
-   
-   
     
 }
 
@@ -623,12 +705,7 @@ extension ViewController {
         
         //gw: for identifying texts
         
-        identifyText(image,
-                     completionHandler: processOCRResult,
-                     
-                     accessToken: "02b18437e04ca4c531539129ab5d49d0983c9677"
-                     )
-        
+       identifyText(image, completionHandler: processOCRResult, accessToken: GIDSignIn.sharedInstance()!.currentUser!.authentication.accessToken)
         /*
         
         // gw code notes: in FaceCropper Framework, he makes all CGImage as FaceCroppable by extending them all.

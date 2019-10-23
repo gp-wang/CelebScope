@@ -25,7 +25,7 @@
 import Foundation
 
 
-struct Paragraph: Codable {
+public struct Paragraph: Codable {
     
     let property: TextProperty?
     

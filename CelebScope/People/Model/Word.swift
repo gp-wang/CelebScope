@@ -23,7 +23,7 @@
 import Foundation
 
 
-struct Word: Codable {
+public struct Word: Codable {
 
     
     let property: TextProperty?

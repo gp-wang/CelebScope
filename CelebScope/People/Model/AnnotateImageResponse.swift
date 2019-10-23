@@ -9,11 +9,11 @@
 import Foundation
 
 
-struct GoogleCloudVisionApiResponses: Codable {
+public struct GoogleCloudVisionApiResponses: Codable {
     let responses: [AnnotateImageResponse]
 }
 
-struct AnnotateImageResponse: Codable {
+public struct AnnotateImageResponse: Codable {
     
     
     let textAnnotations: [EntityAnnotation]

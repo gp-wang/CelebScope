@@ -35,7 +35,7 @@ public enum BlockType: String, Codable {
 }
 
 
-struct Block: Codable {
+public struct Block: Codable {
    
     
     let property: TextProperty?

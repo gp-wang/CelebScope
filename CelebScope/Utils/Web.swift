@@ -236,8 +236,8 @@ func createOCRRequestBody(imageData: Data) -> Data {
     guard let jsonData = jsonDataOpt else {
         fatalError("Cannot convert image to jsonData in createOCRRequestBody")
     }
-    let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)!
-    print (jsonString)
+    //let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)!
+    //print (jsonString)
 
     
     

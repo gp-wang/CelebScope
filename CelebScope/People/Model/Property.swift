@@ -15,7 +15,7 @@
 
 import Foundation
 
-struct Property: Codable {
+public struct Property: Codable {
     
     
     

@@ -19,7 +19,7 @@
 import Foundation
 
 
-struct TextProperty : Codable{
+public struct TextProperty : Codable{
     
     let detectedLanguages: [DetectedLanguage]?
     let detectedBreak: DetectedBreak?

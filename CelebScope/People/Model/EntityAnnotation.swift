@@ -35,7 +35,7 @@
 
 import Foundation
 
-struct EntityAnnotation: Codable {
+public struct EntityAnnotation: Codable {
     
     
     

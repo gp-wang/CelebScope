@@ -31,7 +31,7 @@ public enum BreakType: String, Codable {
 }
 
 
-struct DetectedBreak: Codable {
+public struct DetectedBreak: Codable {
     
     
     let type: BreakType

@@ -23,7 +23,7 @@
 
 import Foundation
 
-struct Page: Codable {
+public struct Page: Codable {
   
     let property: TextProperty
     let width: Int

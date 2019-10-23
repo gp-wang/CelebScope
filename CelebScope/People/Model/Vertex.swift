@@ -13,7 +13,7 @@
 import Foundation
 
 
-struct Vertex: Codable {
+public struct Vertex: Codable {
    
     
     let x: Int

@@ -24,7 +24,7 @@
 import Foundation
 
 
-struct BoundingPoly: Codable {
+public struct BoundingPoly: Codable {
    
     
     let vertices: [Vertex]

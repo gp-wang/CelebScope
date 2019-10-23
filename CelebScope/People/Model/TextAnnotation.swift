@@ -19,7 +19,7 @@
 import Foundation
 
 
-struct TextAnnotation: Codable {
+public struct TextAnnotation: Codable {
     
     
     let pages: [Page]

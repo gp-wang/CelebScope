@@ -21,7 +21,7 @@
 import Foundation
 
 
-struct Symbol: Codable {
+public struct Symbol: Codable {
   
     let property: TextProperty?
     let boundingBox: BoundingPoly
