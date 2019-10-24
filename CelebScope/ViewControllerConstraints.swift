@@ -15,22 +15,42 @@ extension ViewController {
     
     
     // setup the top level layout constraints and delegate subview constraint to other methods
+    
     func setupLayoutConstraints() {
         
         
         
         
         // convinence vars
-        guard let zoomableImageVCView = self.zoomableImageVC.view else {
+        guard let zoomableImageView = self.zoomableImageVC.view else {
             NSLog("failed to unwrap zoomableImageVCView")
             return
         }
+        
+        // common to portraint and landscape
+        NSLayoutConstraint.activate([
+            
+            
+            searchView.leadingAnchor.constraint(equalTo: zoomableImageView.leadingAnchor, constant: 10),
+            searchView.trailingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor, constant: -10),
+            searchView.topAnchor.constraint(equalTo: zoomableImageView.topAnchor, constant: 10),
+            // just enough to contain content
+            searchView.heightAnchor.constraint(equalTo: cameraButton.heightAnchor),
+            
+
+            bannerView.bottomAnchor.constraint(equalTo: zoomableImageView.bottomAnchor, constant: -10),
+            bannerView.centerXAnchor.constraint(equalTo: zoomableImageView.centerXAnchor),
+            bannerView.leadingAnchor.constraint(equalTo: zoomableImageView.leadingAnchor, constant: 10),
+            bannerView.trailingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor, constant: -10)
+            
+            ])
+        
         
         
 
         // top level layout constraints: 0.444 split between zoomableImageView and splitScreenView
         // portrait
-        let photo_top_p = zoomableImageVCView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        let photo_top_p = zoomableImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         photo_top_p.identifier = "photo_top_p"
         photo_top_p.isActive = false
         portraitConstraints.append(photo_top_p)
@@ -40,17 +60,17 @@ extension ViewController {
         //        photo_hw_ratio_p.identifier = "photo_hw_ratio_p"
         //        photo_hw_ratio_p.isActive = false
         //        portraitConstraints.append(photo_hw_ratio_p)
-        let photo_bot_p = zoomableImageVCView.bottomAnchor.constraint(equalTo: splitScreenView.topAnchor)
+        let photo_bot_p = zoomableImageView.bottomAnchor.constraint(equalTo: splitScreenView.topAnchor)
         photo_bot_p.identifier = "photo_bot_p"
         photo_bot_p.isActive = false
         portraitConstraints.append(photo_bot_p)
         
-        let photo_lead_p = zoomableImageVCView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
+        let photo_lead_p = zoomableImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
         photo_lead_p.identifier = "photo_lead_p"
         photo_lead_p.isActive = false
         portraitConstraints.append(photo_lead_p)
         
-        let photo_trail_p = zoomableImageVCView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+        let photo_trail_p = zoomableImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         photo_trail_p.identifier = "photo_trail_p"
         photo_trail_p.isActive = false
         portraitConstraints.append(photo_trail_p)
@@ -78,17 +98,17 @@ extension ViewController {
         
         // MARK: - landscape constraints
         
-        let photo_top_l = zoomableImageVCView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        let photo_top_l = zoomableImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         photo_top_l.identifier = "photo_top_l"
         photo_top_l.isActive = false
         landscapeConstraints.append(photo_top_l)
         
-        let photo_bot_l = zoomableImageVCView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        let photo_bot_l = zoomableImageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         photo_bot_l.identifier = "photo_bot_l"
         photo_bot_l.isActive = false
         landscapeConstraints.append(photo_bot_l)
         
-        let photo_lead_l = zoomableImageVCView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
+        let photo_lead_l = zoomableImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)
         photo_lead_l.identifier = "photo_lead_l"
         photo_lead_l.isActive = false
         landscapeConstraints.append(photo_lead_l)
@@ -98,7 +118,7 @@ extension ViewController {
         //        photo_wh_raio_l.identifier = "photo_wh_raio_l"
         //        photo_wh_raio_l.isActive = false
         //        landscapeConstraints.append(photo_wh_raio_l)
-        let photo_trail_l = zoomableImageVCView.trailingAnchor.constraint(equalTo: splitScreenView.leadingAnchor)
+        let photo_trail_l = zoomableImageView.trailingAnchor.constraint(equalTo: splitScreenView.leadingAnchor)
         photo_trail_l.identifier = "photo_trail_l"
         photo_trail_l.isActive = false
         landscapeConstraints.append(photo_trail_l)
@@ -130,16 +150,34 @@ extension ViewController {
         landscapeConstraints.append(splitScreenView_trail_l)
         
         
-
+        // each method only sets internal constrains, organize them in a tree structure
         setupCanvasConstraints()
         setupSplitScreenViewConstraints()
-        setupDetailsContainerViewConstraints()
 
-        setupButtonViewConstraints()
-        setupSignInViewConstraints()
-        setupBannerViewConstraints()
-        setupSearchTextAndButtonConstraints()
+
+        setupSearchViewGroupConstraints()
         
+
+
+        
+    }
+    
+    private func setupSignStatusGroupConstraints() {
+        NSLayoutConstraint.activate([
+            
+            
+            signOutButton.widthAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_WIDTH),
+            signOutButton.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
+            signOutButton.centerYAnchor.constraint(equalTo: signStatusView.centerYAnchor),
+            signOutButton.trailingAnchor.constraint(equalTo: signStatusView.trailingAnchor, constant: -10),
+            
+            
+            signInStatusText.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
+            signInStatusText.centerYAnchor.constraint(equalTo: signStatusView.centerYAnchor),
+            signInStatusText.leadingAnchor.constraint(equalTo: signStatusView.leadingAnchor, constant: 10),
+            signInStatusText.trailingAnchor.constraint(equalTo: signOutButton.leadingAnchor, constant: 10),
+            
+            ])
     }
     
     private func setupSignInViewConstraints() {
@@ -165,139 +203,20 @@ extension ViewController {
             signInButton.centerXAnchor.constraint(equalTo: signInView.centerXAnchor),
             signInButton.centerYAnchor.constraint(equalTo: signInView.centerYAnchor),
             
-
-            
-            signOutButton.widthAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_WIDTH),
-            signOutButton.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
-            signOutButton.centerYAnchor.constraint(equalTo: signStatusView.centerYAnchor),
-            signOutButton.trailingAnchor.constraint(equalTo: signStatusView.trailingAnchor, constant: -10),
+            signInView.leadingAnchor.constraint(equalTo: splitScreenView.leadingAnchor),
+            signInView.trailingAnchor.constraint(equalTo: splitScreenView.trailingAnchor),
+            signInView.topAnchor.constraint(equalTo: splitScreenView.topAnchor),
+            signInView.bottomAnchor.constraint(equalTo: splitScreenView.bottomAnchor),
             
 
-            signInStatusText.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
-            signInStatusText.centerYAnchor.constraint(equalTo: signStatusView.centerYAnchor),
-            signInStatusText.leadingAnchor.constraint(equalTo: signStatusView.leadingAnchor, constant: 10),
-            signInStatusText.trailingAnchor.constraint(equalTo: signOutButton.leadingAnchor, constant: 10),
             
             
             
             ])
-        
-        
-        // MARK: - portrait constraints
-        
-        let signInView_leading_p = signInView.leadingAnchor.constraint(equalTo: pagedView.leadingAnchor)
-        signInView_leading_p.identifier = "signInView_leading_p"
-        signInView_leading_p.isActive = false
-        portraitConstraints.append(signInView_leading_p)
-        
-        let signInView_trailing_p = signInView.trailingAnchor.constraint(equalTo: pagedView.trailingAnchor)
-        signInView_trailing_p.identifier = "signInView_trailing_p"
-        signInView_trailing_p.isActive = false
-        portraitConstraints.append(signInView_trailing_p)
-        
-        let signInView_top_p = signInView.topAnchor.constraint(equalTo: pagedView.topAnchor)
-        signInView_top_p.identifier = "signInView_top_p"
-        signInView_top_p.isActive = false
-        portraitConstraints.append(signInView_top_p)
-        
-        let signInView_bottom_p = signInView.bottomAnchor.constraint(equalTo: pagedView.bottomAnchor)
-        signInView_bottom_p.identifier = "signInView_bottom_p"
-        signInView_bottom_p.isActive = false
-        portraitConstraints.append(signInView_bottom_p)
-        
-        
-       
-       
-        
-        
-        
-        
-        // MARK: - landscape constraints
-        
-        let signInView_leading_l = signInView.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor)
-        signInView_leading_l.identifier = "signInView_leading_l"
-        signInView_leading_l.isActive = false
-        landscapeConstraints.append(signInView_leading_l)
-        
-        let signInView_trailing_l = signInView.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor)
-        signInView_trailing_l.identifier = "signInView_trailing_l"
-        signInView_trailing_l.isActive = false
-        landscapeConstraints.append(signInView_trailing_l)
-        
-        let signInView_top_l = signInView.topAnchor.constraint(equalTo: collectionView.topAnchor)
-        signInView_top_l.identifier = "signInView_top_l"
-        signInView_top_l.isActive = false
-        landscapeConstraints.append(signInView_top_l)
-        
-        let signInView_bottom_l = signInView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
-        signInView_bottom_l.identifier = "signInView_bottom_l"
-        signInView_bottom_l.isActive = false
-        landscapeConstraints.append(signInView_bottom_l)
-        
         
         
     }
     
-    
-    func setupBannerViewConstraints() {
-        // convinence vars
-        guard let zoomableImageVCView = self.zoomableImageVC.view else {
-            NSLog("failed to unwrap zoomableImageVCView")
-            return
-        }
-        
-        
-        
-        NSLayoutConstraint.activate([
-           bannerView.bottomAnchor.constraint(equalTo: zoomableImageVCView.bottomAnchor, constant: -10),
-//            bannerView.centerYAnchor.constraint(equalTo: self.cameraButton.centerYAnchor),
-            
-            bannerView.centerXAnchor.constraint(equalTo: zoomableImageVCView.centerXAnchor),
-            bannerView.leadingAnchor.constraint(equalTo: self.cameraButton.trailingAnchor, constant: 10),
-            bannerView.trailingAnchor.constraint(equalTo: self.albumButton.leadingAnchor, constant: -10)
-            
-            ])
-    }
-    
-    func setupSearchTextAndButtonConstraints() {
-        // convinence vars
-        guard let zoomableImageVCView = self.zoomableImageVC.view else {
-            NSLog("failed to unwrap zoomableImageVCView")
-            return
-        }
-        
-        
-        
-        NSLayoutConstraint.activate([
-            
-            searchTextInput.centerYAnchor.constraint(equalTo: self.cameraButton.centerYAnchor),
-            searchTextInput.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
-            //searchTextInput.centerXAnchor.constraint(equalTo: zoomableImageVCView.centerXAnchor),
-
-
-            // gw: let searchTextInput define the constraints to the left side, and let searchButton define the constrains to the right side
-            searchTextInput.widthAnchor.constraint(equalTo: searchButton.widthAnchor, multiplier: 3),
-            searchTextInput.leadingAnchor.constraint(equalTo: self.cameraButton.trailingAnchor, constant: 10),
-            //            searchTextInput.trailingAnchor.constraint(equalTo: self.albumButton.leadingAnchor, constant: -10)
-            
-            ])
-        
-        NSLayoutConstraint.activate([
-            
-            searchButton.centerYAnchor.constraint(equalTo: self.searchTextInput.centerYAnchor),
-            searchButton.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
-            
-            
-            // gw: let searchTextInput define the constraints to the left side, and let searchButton define the constrains to the right side
-
-            searchButton.trailingAnchor.constraint(equalTo:self.albumButton.leadingAnchor,  constant: -10),
-            
-            // combine with the width ratio split defined in searchTextInput's constraints above
-            searchButton.leadingAnchor.constraint(equalTo: self.searchTextInput.trailingAnchor, constant: 5),
-            //            searchTextInput.trailingAnchor.constraint(equalTo: self.albumButton.leadingAnchor, constant: -10)
-            
-            ])
-    }
     
   
     
@@ -309,51 +228,14 @@ extension ViewController {
             NSLog("failed to unwrap self.peopleCollectionVC.collectionView")
             return
         }
+        NSLayoutConstraint.activate([
+            canvas.topAnchor.constraint(equalTo: zoomableImageView.topAnchor),
+            canvas.bottomAnchor.constraint(equalTo: zoomableImageView.bottomAnchor),
+            canvas.leadingAnchor.constraint(equalTo: zoomableImageView.leadingAnchor),
+            canvas.trailingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor)
+            
+            ])
         
-        // MARK: - portrait constraints
-        let canvas_top_p = canvas.topAnchor.constraint(equalTo: zoomableImageView.topAnchor)
-        canvas_top_p.identifier = "canvas_top_p"
-        canvas_top_p.isActive = false
-        portraitConstraints.append(canvas_top_p)
-        
-        let canvas_bot_p = canvas.bottomAnchor.constraint(equalTo: zoomableImageView.bottomAnchor)
-        canvas_bot_p.identifier = "canvas_bot_p"
-        canvas_bot_p.isActive = false
-        portraitConstraints.append(canvas_bot_p)
-        
-        
-        let canvas_lead_p = canvas.leadingAnchor.constraint(equalTo: zoomableImageView.leadingAnchor)
-        canvas_lead_p.identifier = "canvas_lead_p"
-        canvas_lead_p.isActive = false
-        portraitConstraints.append(canvas_lead_p)
-        
-        
-        let canvas_trail_p = canvas.trailingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor)
-        canvas_trail_p.identifier = "canvas_trail_p"
-        canvas_trail_p.isActive = false
-        portraitConstraints.append(canvas_trail_p)
-        
-        // MARK: - landscape constraints
-        
-        let canvas_top_l = canvas.topAnchor.constraint(equalTo: zoomableImageView.topAnchor)
-        canvas_top_l.identifier = "canvas_top_l"
-        canvas_top_l.isActive = false
-        landscapeConstraints.append(canvas_top_l)
-        
-        let canvas_bot_l = canvas.bottomAnchor.constraint(equalTo: zoomableImageView.bottomAnchor)
-        canvas_bot_l.identifier = "canvas_bot_l"
-        canvas_bot_l.isActive = false
-        landscapeConstraints.append(canvas_bot_l)
-        
-        let canvas_lead_l = canvas.leadingAnchor.constraint(equalTo: zoomableImageView.leadingAnchor)
-        canvas_lead_l.identifier = "canvas_lead_l"
-        canvas_lead_l.isActive = false
-        landscapeConstraints.append(canvas_lead_l)
-        
-        let canvas_trail_l = canvas.trailingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor)
-        canvas_trail_l.identifier = "canvas_trail_l"
-        canvas_trail_l.isActive = false
-        landscapeConstraints.append(canvas_trail_l)
         
     }
     
@@ -376,6 +258,15 @@ extension ViewController {
             
             
             ])
+        
+        
+        // these two further splits the splitScreen in normal logged in status
+        setupDetailsContainerViewConstraints()
+        setupSignStatusGroupConstraints()
+        
+        
+        // this view will cover the entire splitScreen if logged out
+        setupSignInViewConstraints()
     }
     
     private func setupDetailsContainerViewConstraints() {
@@ -418,67 +309,8 @@ extension ViewController {
         
     }
     
-//    private func setupPageViewConstraints() {
-//
-//        // convinence vars
-//        let zoomableImageView = self.zoomableImageVC.zoomableImageView
-//        guard let collectionView = self.peopleCollectionVC.collectionView else {
-//            NSLog("failed to unwrap self.peopleCollectionVC.collectionView")
-//            return
-//        }
-//        guard let pageView = self.detailPagedVC.view else {
-//            NSLog("failed to unwrap self.detailPagedVC.view ")
-//            return
-//        }
-//
-//
-//        // MARK: - portrait constraints
-//        let page_top_p = pageView.topAnchor.constraint(equalTo: collectionView.topAnchor)
-//        page_top_p.identifier = "page_top_p"
-//        page_top_p.isActive = false
-//        portraitConstraints.append(page_top_p)
-//
-//
-//        let page_bot_p = pageView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
-//        page_bot_p.identifier = "page_bot_p"
-//        page_bot_p.isActive = false
-//        portraitConstraints.append(page_bot_p)
-//
-//        let page_lead_p = pageView.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor)
-//        page_lead_p.identifier = "page_lead_p"
-//        page_lead_p.isActive = false
-//        portraitConstraints.append(page_lead_p)
-//
-//        let page_trail_p = pageView.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor)
-//        page_trail_p.identifier = "page_trail_p"
-//        page_trail_p.isActive = false
-//        portraitConstraints.append(page_trail_p)
-//
-//        // MARK: - landscape constraints
-//
-//        let page_top_l = pageView.topAnchor.constraint(equalTo: collectionView.topAnchor)
-//        page_top_l.identifier = "page_top_l"
-//        page_top_l.isActive = false
-//        landscapeConstraints.append(page_top_l)
-//
-//
-//        let page_bot_l = pageView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor)
-//        page_bot_l.identifier = "page_bot_l"
-//        page_bot_l.isActive = false
-//        landscapeConstraints.append(page_bot_l)
-//
-//        let page_lead_l = pageView.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor)
-//        page_lead_l.identifier = "page_lead_l"
-//        page_lead_l.isActive = false
-//        landscapeConstraints.append(page_lead_l)
-//
-//        let page_trail_l = pageView.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor)
-//        page_trail_l.identifier = "page_trail_l"
-//        page_trail_l.isActive = false
-//        landscapeConstraints.append(page_trail_l)
-//    }
     
-    private func setupButtonViewConstraints() {
+    private func setupSearchViewGroupConstraints() {
         
         // convinence vars
         let zoomableImageView = self.zoomableImageVC.zoomableImageView
@@ -492,94 +324,41 @@ extension ViewController {
         }
         
         
-        // MARK: - portrait constraints
-        
-        let cameraButton_width_p = cameraButton.widthAnchor.constraint(equalToConstant: Constants.ROUND_BUTTON_DIAMETER)
-        cameraButton_width_p.identifier = "cameraButton_width_p"
-        cameraButton_width_p.isActive = false
-        portraitConstraints.append(cameraButton_width_p)
-        
-        let cameraButton_height_p = cameraButton.heightAnchor.constraint(equalToConstant: Constants.ROUND_BUTTON_DIAMETER)
-        cameraButton_height_p.identifier = "cameraButton_height_p"
-        cameraButton_height_p.isActive = false
-        portraitConstraints.append(cameraButton_height_p)
-        
-        let cameraButton_lead_p = cameraButton.leadingAnchor.constraint(equalTo: zoomableImageView.leadingAnchor, constant: 10)
-        cameraButton_lead_p.identifier = "cameraButton_lead_p"
-        cameraButton_lead_p.isActive = false
-        portraitConstraints.append(cameraButton_lead_p)
-        
-        let cameraButton_bot_p = cameraButton.topAnchor.constraint(equalTo: zoomableImageView.topAnchor, constant: 10)
-        cameraButton_bot_p.identifier = "cameraButton_bot_p"
-        cameraButton_bot_p.isActive = false
-        portraitConstraints.append(cameraButton_bot_p)
+    
         
         
-        let albumButton_width_p = albumButton.widthAnchor.constraint(equalToConstant: Constants.ROUND_BUTTON_DIAMETER)
-        albumButton_width_p.identifier = "albumButton_width_p"
-        albumButton_width_p.isActive = false
-        portraitConstraints.append(albumButton_width_p)
-        
-        let albumButton_height_p = albumButton.heightAnchor.constraint(equalToConstant: Constants.ROUND_BUTTON_DIAMETER)
-        albumButton_height_p.identifier = "albumButton_height_p"
-        albumButton_height_p.isActive = false
-        portraitConstraints.append(albumButton_height_p)
-        
-        let albumButton_trailing_p = albumButton.trailingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor, constant: -10)
-        albumButton_trailing_p.identifier = "albumButton_trailing_p"
-        albumButton_trailing_p.isActive = false
-        portraitConstraints.append(albumButton_trailing_p)
-        
-        let albumButton_bot_p = albumButton.topAnchor.constraint(equalTo: zoomableImageView.topAnchor, constant: 10)
-        albumButton_bot_p.identifier = "albumButton_bot_p"
-        albumButton_bot_p.isActive = false
-        portraitConstraints.append(albumButton_bot_p)
-        
-             
-        
-        // MARK: - landscape constraints
-        
-        let cameraButton_width_l = cameraButton.widthAnchor.constraint(equalToConstant: Constants.ROUND_BUTTON_DIAMETER)
-        cameraButton_width_l.identifier = "cameraButton_width_l"
-        cameraButton_width_l.isActive = false
-        landscapeConstraints.append(cameraButton_width_l)
-        
-        let cameraButton_height_l = cameraButton.heightAnchor.constraint(equalToConstant: Constants.ROUND_BUTTON_DIAMETER)
-        cameraButton_height_l.identifier = "cameraButton_height_l"
-        cameraButton_height_l.isActive = false
-        landscapeConstraints.append(cameraButton_height_l)
+        //  camera ...... search_text ....... search_btn ........ album
+        NSLayoutConstraint.activate([
+            cameraButton.widthAnchor.constraint(equalToConstant: Constants.ROUND_BUTTON_DIAMETER),
+            cameraButton.heightAnchor.constraint(equalToConstant: Constants.ROUND_BUTTON_DIAMETER),
+            cameraButton.leadingAnchor.constraint(equalTo: searchView.leadingAnchor),
+            cameraButton.centerYAnchor.constraint(equalTo: searchView.centerYAnchor),
+            
+            
+            searchTextInput.centerYAnchor.constraint(equalTo: searchView.centerYAnchor),
+            searchTextInput.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
+            // gw: let searchTextInput define the constraints to the left side, and let searchButton define the constrains to the right side
+            searchTextInput.widthAnchor.constraint(equalTo: searchButton.widthAnchor, multiplier: 3),
+            searchTextInput.leadingAnchor.constraint(equalTo: cameraButton.trailingAnchor, constant: 10),
+
+            
+            searchButton.centerYAnchor.constraint(equalTo: searchTextInput.centerYAnchor),
+            searchButton.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
+            // gw: let searchTextInput define the constraints to the left side, and let searchButton define the constrains to the right side
+            searchButton.trailingAnchor.constraint(equalTo:albumButton.leadingAnchor,  constant: -10),
+            // combine with the width ratio split defined in searchTextInput's constraints above
+            searchButton.leadingAnchor.constraint(equalTo: searchTextInput.trailingAnchor, constant: 5),
+            
+            
+            albumButton.widthAnchor.constraint(equalToConstant: Constants.ROUND_BUTTON_DIAMETER),
+            albumButton.heightAnchor.constraint(equalToConstant: Constants.ROUND_BUTTON_DIAMETER),
+            albumButton.trailingAnchor.constraint(equalTo: searchView.trailingAnchor),
+            albumButton.centerYAnchor.constraint(equalTo: searchView.centerYAnchor)
+            
+            
+            ])
         
         
-        let cameraButton_lead_l = cameraButton.leadingAnchor.constraint(equalTo: zoomableImageView.leadingAnchor, constant: 10)
-        cameraButton_lead_l.identifier = "cameraButton_lead_l"
-        cameraButton_lead_l.isActive = false
-        landscapeConstraints.append(cameraButton_lead_l)
-        
-        let cameraButton_bot_l = cameraButton.topAnchor.constraint(equalTo: zoomableImageView.topAnchor, constant: 10)
-        cameraButton_bot_l.identifier = "cameraButton_bot_l"
-        cameraButton_bot_l.isActive = false
-        landscapeConstraints.append(cameraButton_bot_l)
-        
-        
-        let albumButton_width_l = albumButton.widthAnchor.constraint(equalToConstant: Constants.ROUND_BUTTON_DIAMETER)
-        albumButton_width_l.identifier = "albumButton_width_l"
-        albumButton_width_l.isActive = false
-        landscapeConstraints.append(albumButton_width_l)
-        
-        let albumButton_height_l = albumButton.heightAnchor.constraint(equalToConstant: Constants.ROUND_BUTTON_DIAMETER)
-        albumButton_height_l.identifier = "albumButton_height_l"
-        albumButton_height_l.isActive = false
-        landscapeConstraints.append(albumButton_height_l)
-        
-        let albumButton_trailing_l = albumButton.trailingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor, constant: -10)
-        albumButton_trailing_l.identifier = "albumButton_trailing_l"
-        albumButton_trailing_l.isActive = false
-        landscapeConstraints.append(albumButton_trailing_l)
-        
-        let albumButton_bot_l = albumButton.topAnchor.constraint(equalTo: zoomableImageView.topAnchor, constant: 10)
-        albumButton_bot_l.identifier = "albumButton_bot_l"
-        albumButton_bot_l.isActive = false
-        landscapeConstraints.append(albumButton_bot_l)
     }
     
     

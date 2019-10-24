@@ -59,6 +59,7 @@ class ViewController:  UIViewController {
     
     
     // gw: container of detailsContainerView and signStatusView, taking up 0.444 of the screen area
+    // this is a view group
     let splitScreenView: UIView = {
         let _view = UIView()
         _view.translatesAutoresizingMaskIntoConstraints = false
@@ -75,11 +76,50 @@ class ViewController:  UIViewController {
     } ()
     
     
-    
+    // ----------------- view group [searchView] begins -----------------
+    // this is a view group
+    let searchView: UIView = {
+        let _view = UIView()
+        _view.translatesAutoresizingMaskIntoConstraints = false
+        _view.backgroundColor = UIColor.clear
+        return _view
+    } ()
     let cameraButton = CameraButton()
     let albumButton = AlbumButton()
+    let searchTextInput: UITextField = {
+        
+        let _input = UITextField(frame: CGRect())
+        _input.translatesAutoresizingMaskIntoConstraints = false
+        _input.placeholder = "..."
+        _input.alpha = 0.6
+        _input.backgroundColor = UIColor.white
+        _input.textColor = UIColor.black
+        _input.layer.cornerRadius = Constants.RECT_BUTTON_CORNER_RADIUS
+        
+        
+        return _input
+    } ()
+    
+    let searchButton: UIButton = {
+        let _button = UIButton()
+        _button.translatesAutoresizingMaskIntoConstraints = false
+        _button.backgroundColor = UIColor.lightGray
+        
+        _button.setTitle("Find", for: .normal)
+        _button.setTitleColor(.darkGray, for: .normal)
+        _button.alpha = 0.7
+        // set corner radius: https://stackoverflow.com/a/34506379/8328365
+        _button.layer.cornerRadius = Constants.RECT_BUTTON_CORNER_RADIUS
+        
+        return _button
+    } ()
+    
+    // ----------------- view group [searchView] ends -----------------
+    
+
     
     // backround view for sign in button
+    // this is a view group
     let signInView: UIView = {
         let _view = UIView()
         _view.translatesAutoresizingMaskIntoConstraints = false
@@ -94,6 +134,10 @@ class ViewController:  UIViewController {
 
     } ()
     
+    
+    
+    
+    // this is a view group
     let signStatusView: UIView = {
         let _view = UIView()
         _view.translatesAutoresizingMaskIntoConstraints = false
@@ -131,6 +175,8 @@ class ViewController:  UIViewController {
         return _label
     } ()
     
+    
+    
     let bannerView: GADBannerView = {
         let _bannerView = GADBannerView(adSize: kGADAdSizeBanner)
         _bannerView.translatesAutoresizingMaskIntoConstraints = false
@@ -138,34 +184,6 @@ class ViewController:  UIViewController {
         return _bannerView
     } ()
     
-    let searchTextInput: UITextField = {
-        
-        let _input = UITextField(frame: CGRect())
-        _input.translatesAutoresizingMaskIntoConstraints = false
-        _input.placeholder = "..."
-        _input.alpha = 0.6
-        _input.backgroundColor = UIColor.white
-        _input.textColor = UIColor.black
-        _input.layer.cornerRadius = Constants.RECT_BUTTON_CORNER_RADIUS
-        
-        
-        return _input
-    } ()
-    
-    
-    let searchButton: UIButton = {
-        let _button = UIButton()
-        _button.translatesAutoresizingMaskIntoConstraints = false
-        _button.backgroundColor = UIColor.lightGray
-        
-        _button.setTitle("Find", for: .normal)
-        _button.setTitleColor(.darkGray, for: .normal)
-        _button.alpha = 0.7
-        // set corner radius: https://stackoverflow.com/a/34506379/8328365
-        _button.layer.cornerRadius = Constants.RECT_BUTTON_CORNER_RADIUS
-        
-        return _button
-    } ()
     
     
     var isSignedIn: Bool = false
@@ -237,29 +255,48 @@ class ViewController:  UIViewController {
         
         // MARK: - further setup of field properties
         
-        // make VC hierachy and view hierachy separately
+
+        
+        // ------------------------- make VC hierarchy ------------------------------------
         // stack views
         // gw: setting up view hierachy across multiple VC's, (should be OK per: )
         // https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/TheViewControllerHierarchy.html
         // also note we set the autolayout constraints in this main VC
         self.addChild(peopleCollectionVC)
-        //  view.addSubview(peopleCollectionVC.view)
-        
         self.addChild(zoomableImageVC)
+        self.addChild(detailPagedVC)
+        
+        
+        // ---------------- make view hierachy ------------------------
         view.addSubview(zoomableImageVC.view)
+        view.addSubview(canvas)
         
-        
-        // make view hierachy
         detailsContainerView.addSubview(peopleCollectionVC.view)
         detailsContainerView.addSubview(detailPagedVC.view)
         splitScreenView.addSubview(detailsContainerView)
+
+        signStatusView.addSubview(signInStatusText)
+        signStatusView.addSubview(signOutButton)
         splitScreenView.addSubview(signStatusView)
+
         view.addSubview(splitScreenView)
 
+        // searchView
+        searchView.addSubview(cameraButton)
+        searchView.addSubview(albumButton)
+        searchView.addSubview(searchTextInput)
+        searchView.addSubview(searchButton)
+        view.addSubview(searchView)
         
-        view.addSubview(canvas)
+        // google sign in
+        signInView.addSubview(signInButton)
+        view.addSubview(signInView)
         
-        self.addChild(detailPagedVC)
+        
+        // ads
+        view.addSubview(bannerView)
+        
+        
         //view.addSubview(detailPagedVC.view)
         
         
@@ -307,24 +344,6 @@ class ViewController:  UIViewController {
         // TODO:temp
         detailPagedVC.view.isHidden = true
         
-        // button
-        
-        view.addSubview(cameraButton)
-        view.addSubview(albumButton)
-        view.addSubview(searchTextInput)
-        view.addSubview(searchButton)
-        
-        // google sign in
-        view.addSubview(signInView)
-        signInView.addSubview(signInButton)
-        
-        
-        signStatusView.addSubview(signInStatusText)
-        signStatusView.addSubview(signOutButton)
-        //view.addSubview(signStatusView)
-               
-        // ads
-        view.addSubview(bannerView)
         
         
         if (isFirstTime) {
@@ -348,14 +367,14 @@ class ViewController:  UIViewController {
         view.bringSubviewToFront(canvas)
         view.bringSubviewToFront(bannerView)
         view.bringSubviewToFront(signInView)
-        view.bringSubviewToFront(signOutButton)
-        view.bringSubviewToFront(signInStatusText)
+//        view.bringSubviewToFront(signOutButton)
+//        view.bringSubviewToFront(signInStatusText)
         
-        if(isFirstTime) {
-            self.view.bringSubviewToFront(tooltipVC!.view)
-            self.view.bringSubviewToFront(self.cameraButton)
-            self.view.bringSubviewToFront(self.albumButton)
-        }
+//        if(isFirstTime) {
+//            self.view.bringSubviewToFront(tooltipVC!.view)
+////            self.view.bringSubviewToFront(self.cameraButton)
+////            self.view.bringSubviewToFront(self.albumButton)
+//        }
         
         
         
