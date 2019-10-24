@@ -20,6 +20,8 @@ class ViewController:  UIViewController {
         static let RECT_BUTTON_WIDTH: CGFloat = 80
         static let RECT_BUTTON_HEIGHT: CGFloat = 35
         static let RECT_BUTTON_CORNER_RADIUS: CGFloat = 5
+        static let CONTEXT_WORD_LIMIT = 10
+        static let CONTEXT_SYMBOL_LIMIT = 30
         static let launchedBeforeKey: String = "launchedBefore8"
         //static let tooltipSize: CGFloat = 100
     }
@@ -63,7 +65,7 @@ class ViewController:  UIViewController {
     let splitScreenView: UIView = {
         let _view = UIView()
         _view.translatesAutoresizingMaskIntoConstraints = false
-        _view.backgroundColor = UIColor.lightGray
+        _view.backgroundColor = Colors.lightGrey
         return _view
     } ()
     
@@ -71,7 +73,7 @@ class ViewController:  UIViewController {
     let detailsContainerView: UIView = {
         let _view = UIView()
         _view.translatesAutoresizingMaskIntoConstraints = false
-        _view.backgroundColor = UIColor.lightGray
+        _view.backgroundColor = Colors.lightGrey
         return _view
     } ()
     
@@ -95,6 +97,7 @@ class ViewController:  UIViewController {
         _input.backgroundColor = UIColor.white
         _input.textColor = UIColor.black
         _input.layer.cornerRadius = Constants.RECT_BUTTON_CORNER_RADIUS
+        _input.textAlignment = .center
         
         
         return _input
@@ -103,11 +106,11 @@ class ViewController:  UIViewController {
     let searchButton: UIButton = {
         let _button = UIButton()
         _button.translatesAutoresizingMaskIntoConstraints = false
-        _button.backgroundColor = UIColor.lightGray
+        _button.backgroundColor = UIColor.yellow
         
         _button.setTitle("Find", for: .normal)
         _button.setTitleColor(.darkGray, for: .normal)
-        _button.alpha = 0.7
+        _button.alpha = 0.9
         // set corner radius: https://stackoverflow.com/a/34506379/8328365
         _button.layer.cornerRadius = Constants.RECT_BUTTON_CORNER_RADIUS
         
@@ -141,18 +144,20 @@ class ViewController:  UIViewController {
     let signStatusView: UIView = {
         let _view = UIView()
         _view.translatesAutoresizingMaskIntoConstraints = false
-        _view.backgroundColor = UIColor.white
+        _view.backgroundColor = UIColor.lightGray
         return _view
     } ()
 
     let signOutButton: UIButton = {
         let _button = UIButton()
         _button.translatesAutoresizingMaskIntoConstraints = false
-        _button.backgroundColor = UIColor.lightGray
+        _button.backgroundColor = UIColor.red
         _button.alpha = 0.7
         _button.setTitle("Sign Out", for: .normal)
-        _button.setTitleColor(.darkGray, for: .normal)
-        
+
+        _button.setTitleColor(.white, for: .normal)
+        _button.layer.cornerRadius = Constants.RECT_BUTTON_CORNER_RADIUS
+        _button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .subheadline).withSize(14)
 
         return _button
     } ()
@@ -166,9 +171,9 @@ class ViewController:  UIViewController {
         
         // fit size dynamically
         //https://stackoverflow.com/questions/4865458/dynamically-changing-font-size-of-uilabel
-        _label.numberOfLines = 1;
+        _label.numberOfLines = 2;
         // _label.minimumFontSize = 8;// deprecated
-        _label.minimumScaleFactor = 0.1
+        _label.minimumScaleFactor = 0.4
         _label.adjustsFontSizeToFitWidth = true;
         _label.textAlignment = .center
         // _label.font = UIFont.preferredFont(forTextStyle: .subheadline).withSize(12)
@@ -512,7 +517,7 @@ class ViewController:  UIViewController {
                                                name: NSNotification.Name(rawValue: "ToggleAuthUINotification"),
                                                object: nil)
         
-        signInStatusText.text = "Initialized Swift app..."
+        signInStatusText.text = "Initialized app ..."
         toggleAuthUI()
         
         
@@ -740,6 +745,9 @@ class ViewController:  UIViewController {
                     let searchText: String = value as! String
                     
                     
+                   
+
+                    var symbolIndex: Int = 0
                     for _response in googleResponse.responses {
                         for _page in _response.fullTextAnnotation.pages {
                             blockLoop: for _block in _page.blocks {
@@ -747,13 +755,24 @@ class ViewController:  UIViewController {
                                 // pointer of matched up to which char in the searchText
                                 
                                 var symbols: [Symbol] = []
-                                
+                                 // a list of bools which mark whether the index is a wordboundary
+                                //var wordBoundaries: [Bool] = []
+//                                var contexts: [Word] = []
                                 // compose a list for strStr search
-                                for _paragraph in _block.paragraphs {
+                                var symbolToParagraphIndex: [Int] = []
+                                for (pIndex, _paragraph) in _block.paragraphs.enumerated() {
                                     for _word in _paragraph.words {
+//                                        var isFirstSymbol: Bool = true
                                         for _symbol in _word.symbols {
+//                                            if isFirstSymbol {
+//                                                wordBoundaries.append(true)
+//                                                isFirstSymbol = false
+//                                            } else {
+//                                                wordBoundaries.append(false)
+//                                            }
                                             symbols.append(_symbol)
-                                            
+                                            symbolToParagraphIndex.append(pIndex)
+                                            symbolIndex += 1
                                             
                                         }
                                     }
@@ -780,7 +799,8 @@ class ViewController:  UIViewController {
                                                 var dupMatchedSymbols : [Symbol] = matchedSymbols
                                                 matchedSymbols = []
                                                 
-                                                let match = MatchedString(searchText: searchText, symbols: dupMatchedSymbols)
+                                                let paragraphIndex: Int = symbolToParagraphIndex[i]
+                                                let match = MatchedString(searchText: searchText, symbols: dupMatchedSymbols, context: _block.paragraphs[paragraphIndex])
                                                 matchedStrings.append(match)
                                                 
                                             } else {

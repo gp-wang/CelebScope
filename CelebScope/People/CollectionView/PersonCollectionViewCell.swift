@@ -41,10 +41,15 @@ class PersonCollectionViewCell: UICollectionViewCell {
             guard let _matchedString = self.matchedString else {
                 gw_log("error: matchedString unwrap failed at setter")
                 return
-                
+              
             }
             
-            // gw: for now donothing
+            // update context text
+            let attrString = NSMutableAttributedString(string: _matchedString.context.text)
+            attrString.addAttribute(.paragraphStyle, value: PersonCollectionViewCell.nameLabelParagraphStyle, range:NSMakeRange(0, attrString.length))
+            
+            //self.nameLabel.text = _identification.person.name
+            self.nameLabel.attributedText = attrString
         }
     }
     
@@ -82,33 +87,33 @@ class PersonCollectionViewCell: UICollectionViewCell {
 //    }
     
     //
-    let croppedFaceView: UIImageView = {
-        let _imageView = UIImageView()
-        _imageView.translatesAutoresizingMaskIntoConstraints = false
-        //_imageView.backgroundColor = UIColor.green
-        _imageView.backgroundColor = UIColor.clear
-        _imageView.contentMode = .scaleAspectFit
-        //_imageView.image = UIImage(imageLiteralResourceName: "mary")
-        return _imageView
-    } ()
-    
-    let avartarView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .clear
-        imageView.contentMode = .scaleAspectFit
-        //imageView.image = UIImage(imageLiteralResourceName: "jlaw")
-        return imageView
-    } ()
-    
-    // gw: wrapper to center nameLabel
-    let nameLabelWrapperView : UIView = {
-        let _view = UIView()
-        _view.translatesAutoresizingMaskIntoConstraints = false
-        //_view.backgroundColor = .red
-        _view.backgroundColor = .clear
-        return _view
-    } ()
+//    let croppedFaceView: UIImageView = {
+//        let _imageView = UIImageView()
+//        _imageView.translatesAutoresizingMaskIntoConstraints = false
+//        //_imageView.backgroundColor = UIColor.green
+//        _imageView.backgroundColor = UIColor.clear
+//        _imageView.contentMode = .scaleAspectFit
+//        //_imageView.image = UIImage(imageLiteralResourceName: "mary")
+//        return _imageView
+//    } ()
+//
+//    let avartarView: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.translatesAutoresizingMaskIntoConstraints = false
+//        imageView.backgroundColor = .clear
+//        imageView.contentMode = .scaleAspectFit
+//        //imageView.image = UIImage(imageLiteralResourceName: "jlaw")
+//        return imageView
+//    } ()
+//
+//    // gw: wrapper to center nameLabel
+//    let nameLabelWrapperView : UIView = {
+//        let _view = UIView()
+//        _view.translatesAutoresizingMaskIntoConstraints = false
+//        //_view.backgroundColor = .red
+//        _view.backgroundColor = .clear
+//        return _view
+//    } ()
     
     
     let nameLabel : UILabel = {
@@ -144,30 +149,32 @@ class PersonCollectionViewCell: UICollectionViewCell {
 //        return _label
 //    } ()
     
-    let confidenceLabel: UILabel = {
-        let _label = UILabel()
-        _label.translatesAutoresizingMaskIntoConstraints = false
-        _label.backgroundColor = .clear
-        // _label.font = UIFont.preferredFont(forTextStyle: .headline)
-       
-     
-        _label.font =   UIFont.preferredFont(forTextStyle: .headline).withSize(19)
-        _label.text = "0%"
-        _label.adjustsFontSizeToFitWidth = true
-        _label.textColor = Constants.textColor
-        return _label
-    } ()
+//    let confidenceLabel: UILabel = {
+//        let _label = UILabel()
+//        _label.translatesAutoresizingMaskIntoConstraints = false
+//        _label.backgroundColor = .clear
+//        // _label.font = UIFont.preferredFont(forTextStyle: .headline)
+//
+//
+//        _label.font =   UIFont.preferredFont(forTextStyle: .headline).withSize(19)
+//        _label.text = "0%"
+//        _label.adjustsFontSizeToFitWidth = true
+//        _label.textColor = Constants.textColor
+//        return _label
+//    } ()
     
     // MARK: - constructors
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         self.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(croppedFaceView)
-        addSubview(nameLabelWrapperView)
-        nameLabelWrapperView.addSubview(nameLabel)
-        addSubview(avartarView)
-        addSubview(confidenceLabel)
+//        addSubview(croppedFaceView)
+//        addSubview(nameLabelWrapperView)
+//        nameLabelWrapperView.addSubview(nameLabel)
+//        addSubview(avartarView)
+//        addSubview(confidenceLabel)
+        
+        addSubview(nameLabel)
         
         // self.backgroundColor = UIColor(red: CGFloat(15.0/255), green: CGFloat(163.0/255), blue: CGFloat(241.0/255), alpha: 1)
         self.backgroundColor = Colors.blue
@@ -217,103 +224,17 @@ class PersonCollectionViewCell: UICollectionViewCell {
     
     
     func setupInternalConstraints() {
-        let views: [String: Any] = [
-            "croppedFaceView": croppedFaceView,
-            "avartarView": avartarView,
-            "nameLabelWrapperView": nameLabelWrapperView,
-            "nameLabel": nameLabel,
-            "confidenceLabel": confidenceLabel
-        ]
-        
-        var allConstraints: [NSLayoutConstraint] = []
         
         
-        // cell constraints is done in: extension CollectionViewController: UICollectionViewDelegateFlowLayout
-
-        // croppedFaceView
-        var croppedFaceView_V = [
-            croppedFaceView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
-            croppedFaceView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.5),
-        ]
-        var croppedFaceView_H = [
-            croppedFaceView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-            croppedFaceView.widthAnchor.constraint(equalTo: croppedFaceView.heightAnchor, multiplier: Constants.faceViewWHRatio)
-        ]
-        allConstraints += croppedFaceView_V
-        allConstraints += croppedFaceView_H
-        
-        
-        // confidenceLabel
-        var confidenceLabel_H = [NSLayoutConstraint]()
-        confidenceLabel_H += NSLayoutConstraint.constraints(
-            withVisualFormat: "H:[croppedFaceView]-[confidenceLabel]-[avartarView]",
-            metrics: nil,
-            //options: []
-            views: views)
-        
-        var confidenceLabel_V = [
-            confidenceLabel.centerYAnchor.constraint(equalTo: croppedFaceView.centerYAnchor)
-        ]
-        allConstraints += confidenceLabel_H
-        allConstraints += confidenceLabel_V
-        
-        // avartarView
-        var avartarView_H = [NSLayoutConstraint]()
-        avartarView_H += NSLayoutConstraint.constraints(
-            withVisualFormat: "H:[avartarView]-|",
-            metrics: nil,
-            //options: []
-            views: views)
-        avartarView_H += [
-            avartarView.widthAnchor.constraint(equalTo: avartarView.heightAnchor, multiplier: Constants.avartarViewWHRatio)
-        ]
-
-        var avartarView_V = [NSLayoutConstraint]()
-        avartarView_V += NSLayoutConstraint.constraints(
-            withVisualFormat: "V:|-[avartarView]-|",
-            metrics: nil,
-            //options: []
-            views: views)
-        allConstraints += avartarView_H
-        allConstraints += avartarView_V
-        
-        
-        
-        // nameLabel
-        var nameLabelWrapper_V = NSLayoutConstraint.constraints(
-            //withVisualFormat: "V:|-[nameLabel]-|",
-            withVisualFormat: "V:[croppedFaceView]-[nameLabelWrapperView]|", // gw: has to reduce padding, otherwise full name won't show
-            metrics: nil,
-            //options: []
-            views: views)
-        //        var nameLabel_H = [
-        //            nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-        //            nameLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 20), // gw: to allow multiple lines: https://stackoverflow.com/a/6518460/8328365
-        //        ]
-        var nameLabelWrapper_H = [NSLayoutConstraint]()
-        nameLabelWrapper_H += NSLayoutConstraint.constraints(
-            withVisualFormat: "H:|-[nameLabelWrapperView]-[avartarView]",
-            metrics: nil,
-            //options: []
-            views: views)
-        
-
-        allConstraints += nameLabelWrapper_V
-        allConstraints += nameLabelWrapper_H
-
-        var nameLabel_All = NSLayoutConstraint.constraints(
-            withVisualFormat: "H:|[nameLabel]|",
-            options: [.alignAllCenterY], metrics: nil,
+        NSLayoutConstraint.activate([
+            //nameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            //nameLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant:  30),
+            nameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30),
+            nameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 30),
+            nameLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -30)
             
-            views: views)
-        nameLabel_All += NSLayoutConstraint.constraints(
-            withVisualFormat: "V:|[nameLabel]|", metrics: nil,
-            views: views)
-        
-        allConstraints += nameLabel_All
-        
-        
-        NSLayoutConstraint.activate(allConstraints)
+            ])
         
         
        

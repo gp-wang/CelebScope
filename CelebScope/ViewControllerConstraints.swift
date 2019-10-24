@@ -169,13 +169,13 @@ extension ViewController {
             signOutButton.widthAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_WIDTH),
             signOutButton.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
             signOutButton.centerYAnchor.constraint(equalTo: signStatusView.centerYAnchor),
-            signOutButton.trailingAnchor.constraint(equalTo: signStatusView.trailingAnchor, constant: -10),
+            signOutButton.trailingAnchor.constraint(equalTo: signStatusView.trailingAnchor, constant: -5),
             
             
             signInStatusText.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
             signInStatusText.centerYAnchor.constraint(equalTo: signStatusView.centerYAnchor),
-            signInStatusText.leadingAnchor.constraint(equalTo: signStatusView.leadingAnchor, constant: 10),
-            signInStatusText.trailingAnchor.constraint(equalTo: signOutButton.leadingAnchor, constant: 10),
+            signInStatusText.leadingAnchor.constraint(equalTo: signStatusView.leadingAnchor, constant: 5),
+            signInStatusText.trailingAnchor.constraint(equalTo: signOutButton.leadingAnchor, constant: -5),
             
             ])
     }
@@ -249,7 +249,7 @@ extension ViewController {
                 
                 // top constraint is already above
                 signStatusView.bottomAnchor.constraint(equalTo: splitScreenView.bottomAnchor),
-                signStatusView.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT*1.5),
+                signStatusView.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT*1.2),
                 signStatusView.leadingAnchor.constraint(equalTo: splitScreenView.leadingAnchor),
                 signStatusView.trailingAnchor.constraint(equalTo: splitScreenView.trailingAnchor),
 

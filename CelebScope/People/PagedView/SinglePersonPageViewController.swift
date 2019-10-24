@@ -71,8 +71,10 @@ class SinglePersonPageViewController: UIViewController, UIGestureRecognizerDeleg
         copyrightLabelView.font = UIFont.preferredFont(forTextStyle: .subheadline).withSize(10)
         copyrightLabelView.textColor = .black
         copyrightLabelView.textAlignment = .center
-        copyrightLabelView.backgroundColor = .white
-        copyrightLabelView.text = "© Wikipedia"
+        //gw: commented out to hide in text_search app
+        //copyrightLabelView.backgroundColor = .white
+        //gw: commented out to hide in text_search app
+        //copyrightLabelView.text = "© Wikipedia"
         copyrightLabelView.tag = Constants.avartarCopyrightSubviewTag
         
         containerView.addSubview(imageView)
@@ -188,6 +190,8 @@ class SinglePersonPageViewController: UIViewController, UIGestureRecognizerDeleg
         
         gesture.delegate = self
         view.addGestureRecognizer(gesture)
+        bioLabel.text = matchedString.context.text
+        
         // label
         //        self.view.addSubview(labelInst)
         //        labelInst.text = identification.person.name

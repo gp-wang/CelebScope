@@ -32,4 +32,12 @@ public struct Paragraph: Codable {
     let boundingBox: BoundingPoly
     
     let words: [Word]
+    
+    var text: String {
+        get {
+            let wordTextArray: [String] = words.map{ $0.text }
+            // TODO: later // if language is CN, no separator
+            return wordTextArray.joined(separator: " ")
+        }
+    }
 }

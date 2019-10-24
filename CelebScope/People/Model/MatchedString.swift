@@ -20,6 +20,9 @@ public class MatchedString {
     // we don't consider "" case
     let symbols: [Symbol]
     
+    // gw: store the context
+    let context: Paragraph
+    
     // gw: TODO, is there a way to calc once and store the result
     var boundingBox: BoundingPoly {
         get {
@@ -52,8 +55,9 @@ public class MatchedString {
     
     
     
-    public init(searchText: String, symbols: [Symbol]) {
+    public init(searchText: String, symbols: [Symbol], context: Paragraph) {
         self.searchText = searchText
         self.symbols = symbols
+        self.context = context
     }
 }
