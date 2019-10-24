@@ -17,8 +17,9 @@ class ViewController:  UIViewController {
         // the ratio of the content (e..g face) taken inside the entire view
         static let contentSpanRatio: CGFloat = 0.8
         static let ROUND_BUTTON_DIAMETER: CGFloat = 60
-        static let RECT_BUTTON_WIDTH: CGFloat = 150
-        static let RECT_BUTTON_HEIGHT: CGFloat = 50
+        static let RECT_BUTTON_WIDTH: CGFloat = 80
+        static let RECT_BUTTON_HEIGHT: CGFloat = 35
+        static let RECT_BUTTON_CORNER_RADIUS: CGFloat = 5
         static let launchedBeforeKey: String = "launchedBefore8"
         //static let tooltipSize: CGFloat = 100
     }
@@ -56,6 +57,25 @@ class ViewController:  UIViewController {
     // var pages = [UIViewController]()
     // let pageControl = UIPageControl()
     
+    
+    // gw: container of detailsContainerView and signStatusView, taking up 0.444 of the screen area
+    let splitScreenView: UIView = {
+        let _view = UIView()
+        _view.translatesAutoresizingMaskIntoConstraints = false
+        _view.backgroundColor = UIColor.lightGray
+        return _view
+    } ()
+    
+    // gw: this is the container view for details, it can be either the paged view (portrait), or the collection view (landscape)
+    let detailsContainerView: UIView = {
+        let _view = UIView()
+        _view.translatesAutoresizingMaskIntoConstraints = false
+        _view.backgroundColor = UIColor.lightGray
+        return _view
+    } ()
+    
+    
+    
     let cameraButton = CameraButton()
     let albumButton = AlbumButton()
     
@@ -63,7 +83,7 @@ class ViewController:  UIViewController {
     let signInView: UIView = {
         let _view = UIView()
         _view.translatesAutoresizingMaskIntoConstraints = false
-        _view.backgroundColor = UIColor.yellow
+        _view.backgroundColor = UIColor.lightGray
         return _view
     } ()
     let signInButton: GIDSignInButton = {
@@ -73,11 +93,22 @@ class ViewController:  UIViewController {
         return _button
 
     } ()
+    
+    let signStatusView: UIView = {
+        let _view = UIView()
+        _view.translatesAutoresizingMaskIntoConstraints = false
+        _view.backgroundColor = UIColor.white
+        return _view
+    } ()
 
     let signOutButton: UIButton = {
         let _button = UIButton()
         _button.translatesAutoresizingMaskIntoConstraints = false
-        _button.backgroundColor = UIColor.green
+        _button.backgroundColor = UIColor.lightGray
+        _button.alpha = 0.7
+        _button.setTitle("Sign Out", for: .normal)
+        _button.setTitleColor(.darkGray, for: .normal)
+        
 
         return _button
     } ()
@@ -85,10 +116,57 @@ class ViewController:  UIViewController {
     let signInStatusText: UILabel = {
         let _label = UILabel()
         _label.translatesAutoresizingMaskIntoConstraints = false
-        _label.backgroundColor = UIColor.red
-        _label.font = UIFont.preferredFont(forTextStyle: .subheadline).withSize(12)
+        _label.backgroundColor = UIColor.lightGray
+        _label.alpha = 0.6
+        _label.textColor = UIColor.black
+        
+        // fit size dynamically
+        //https://stackoverflow.com/questions/4865458/dynamically-changing-font-size-of-uilabel
+        _label.numberOfLines = 1;
+        // _label.minimumFontSize = 8;// deprecated
+        _label.minimumScaleFactor = 0.1
+        _label.adjustsFontSizeToFitWidth = true;
+        _label.textAlignment = .center
+        // _label.font = UIFont.preferredFont(forTextStyle: .subheadline).withSize(12)
         return _label
     } ()
+    
+    let bannerView: GADBannerView = {
+        let _bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+        _bannerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return _bannerView
+    } ()
+    
+    let searchTextInput: UITextField = {
+        
+        let _input = UITextField(frame: CGRect())
+        _input.translatesAutoresizingMaskIntoConstraints = false
+        _input.placeholder = "..."
+        _input.alpha = 0.6
+        _input.backgroundColor = UIColor.white
+        _input.textColor = UIColor.black
+        _input.layer.cornerRadius = Constants.RECT_BUTTON_CORNER_RADIUS
+        
+        
+        return _input
+    } ()
+    
+    
+    let searchButton: UIButton = {
+        let _button = UIButton()
+        _button.translatesAutoresizingMaskIntoConstraints = false
+        _button.backgroundColor = UIColor.lightGray
+        
+        _button.setTitle("Find", for: .normal)
+        _button.setTitleColor(.darkGray, for: .normal)
+        _button.alpha = 0.7
+        // set corner radius: https://stackoverflow.com/a/34506379/8328365
+        _button.layer.cornerRadius = Constants.RECT_BUTTON_CORNER_RADIUS
+        
+        return _button
+    } ()
+    
     
     var isSignedIn: Bool = false
     // TODO
@@ -148,38 +226,7 @@ class ViewController:  UIViewController {
     
     var demoManager : DemoManager? = nil
     
-    let bannerView: GADBannerView = {
-        let _bannerView = GADBannerView(adSize: kGADAdSizeBanner)
-        _bannerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return _bannerView
-    } ()
-    
-    let searchTextInput: UITextField = {
-
-        let _input = UITextField(frame: CGRect())
-        _input.translatesAutoresizingMaskIntoConstraints = false
-        _input.backgroundColor = UIColor.yellow
-       
-        return _input
-    } ()
-    
-//    let searchTextInput: UIButton = {
-//        let _button = UIButton()
-//        _button.translatesAutoresizingMaskIntoConstraints = false
-//        _button.backgroundColor = UIColor.red
-//
-//        return _button
-//    } ()
-    
-    let searchButton: UIButton = {
-        let _button = UIButton()
-        _button.translatesAutoresizingMaskIntoConstraints = false
-        _button.backgroundColor = UIColor.red
-        
-        return _button
-    } ()
-    
+ 
     
     //var pageViewDelegate: PeoplePageViewDelegate?
     init() {
@@ -190,21 +237,30 @@ class ViewController:  UIViewController {
         
         // MARK: - further setup of field properties
         
+        // make VC hierachy and view hierachy separately
         // stack views
         // gw: setting up view hierachy across multiple VC's, (should be OK per: )
         // https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/TheViewControllerHierarchy.html
         // also note we set the autolayout constraints in this main VC
         self.addChild(peopleCollectionVC)
-        view.addSubview(peopleCollectionVC.view)
+        //  view.addSubview(peopleCollectionVC.view)
         
         self.addChild(zoomableImageVC)
         view.addSubview(zoomableImageVC.view)
         
         
+        // make view hierachy
+        detailsContainerView.addSubview(peopleCollectionVC.view)
+        detailsContainerView.addSubview(detailPagedVC.view)
+        splitScreenView.addSubview(detailsContainerView)
+        splitScreenView.addSubview(signStatusView)
+        view.addSubview(splitScreenView)
+
+        
         view.addSubview(canvas)
         
         self.addChild(detailPagedVC)
-        view.addSubview(detailPagedVC.view)
+        //view.addSubview(detailPagedVC.view)
         
         
         // ---------------------
@@ -262,10 +318,11 @@ class ViewController:  UIViewController {
         view.addSubview(signInView)
         signInView.addSubview(signInButton)
         
-        view.addSubview(signOutButton)
-        view.addSubview(signInStatusText)
         
-        
+        signStatusView.addSubview(signInStatusText)
+        signStatusView.addSubview(signOutButton)
+        //view.addSubview(signStatusView)
+               
         // ads
         view.addSubview(bannerView)
         
@@ -286,7 +343,7 @@ class ViewController:  UIViewController {
         
         
         // view sequence setup
-        view.bringSubviewToFront(detailPagedVC.view)
+        // view.bringSubviewToFront(detailPagedVC.view)
         view.bringSubviewToFront(zoomableImageVC.zoomableImageView)
         view.bringSubviewToFront(canvas)
         view.bringSubviewToFront(bannerView)
