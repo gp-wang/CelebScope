@@ -390,7 +390,9 @@ class ViewController:  UIViewController {
 
         // buttons
         self.albumButton.addTarget(self, action: #selector(pickImage), for: .touchUpInside)
-        self.cameraButton.addTarget(self, action: #selector(takePhoto), for: .touchUpInside)
+//        self.cameraButton.addTarget(self, action: #selector(takePhoto), for: .touchUpInside)
+        
+         self.cameraButton.addTarget(self, action: #selector(handleMore), for: .touchUpInside)
         self.searchButton.addTarget(self, action: #selector(startSearch), for: .touchUpInside)
         self.signOutButton.addTarget(self, action: #selector(didTapSignOut), for: .touchUpInside)
         
@@ -498,6 +500,26 @@ class ViewController:  UIViewController {
         
         
         searchTextInImage(self.searchTextInput.text!, self.zoomableImageVC.zoomableImageView.imageView.image!, completionHandler: searchForTextInOcrResult, accessToken: GIDSignIn.sharedInstance()!.currentUser!.authentication.accessToken)
+    }
+    
+    
+    lazy var settingsLauncher: SettingsLauncher = {
+        let launcher = SettingsLauncher()
+        launcher.homeController = self
+        return launcher
+    }()
+    
+    @objc func handleMore() {
+        settingsLauncher.showSettings()
+    }
+    
+    func showControllerForSetting(setting: Setting) {
+        let dummySettingsViewController = UIViewController()
+        dummySettingsViewController.view.backgroundColor = UIColor.white
+        dummySettingsViewController.navigationItem.title = setting.name
+        navigationController?.navigationBar.tintColor = UIColor.white
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        navigationController?.pushViewController(dummySettingsViewController, animated: true)
     }
     
     
