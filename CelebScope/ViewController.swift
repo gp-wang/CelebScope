@@ -310,6 +310,7 @@ class ViewController:  UIViewController {
         // buttons
         self.albumButton.addTarget(self, action: #selector(pickImage), for: .touchUpInside)
         self.cameraButton.addTarget(self, action: #selector(takePhoto), for: .touchUpInside)
+        self.searchButton.addTarget(self, action: #selector(startSearch), for: .touchUpInside)
         self.signOutButton.addTarget(self, action: #selector(didTapSignOut), for: .touchUpInside)
         
        
@@ -411,6 +412,12 @@ class ViewController:  UIViewController {
         // self.demoManager = nil
     }
     
+    
+    @objc func startSearch() {
+        
+        
+        searchTextInImage(self.searchTextInput.text!, self.zoomableImageVC.zoomableImageView.imageView.image!, completionHandler: searchForTextInOcrResult, accessToken: GIDSignIn.sharedInstance()!.currentUser!.authentication.accessToken)
+    }
     
     
     override func viewDidLoad() {
@@ -610,7 +617,7 @@ class ViewController:  UIViewController {
     //
     
     
-    func processOCRResult(_ ocrRespData: Data?, _ ocrRespResponse: URLResponse?, _ ocrRespError: Error?, _ image: UIImage) {
+    func searchForTextInOcrResult(_ ocrRespData: Data?, _ ocrRespResponse: URLResponse?, _ ocrRespError: Error?, _ text: String, _ image: UIImage) {
         // TODO
         
         // 5
@@ -643,11 +650,18 @@ class ViewController:  UIViewController {
                     var matchedStrings: [MatchedString] = []
                     
                     
-                    let rawSearchText = "TURN OFF"
+                    let rawSearchText = text
                     
-                    // TODO: regex replacement
-                    //let searchText = rawSearchText.replacingOccurrences(of: , with: )
-                    let searchText: String = "TURNOFF"
+                    var value = NSMutableString(string:rawSearchText)
+                    let pattern = "\\s"
+                    let regex = try? NSRegularExpression(pattern: pattern)
+                    regex?.replaceMatches(in: value, options: .reportProgress, range: NSRange(location: 0,length: value.length), withTemplate: "")
+                    // This will print We are big now lot of sales the money and cards Rober Langdon and Ambra Vidal.
+                    //print(value)
+                    
+                    // regex replacement
+
+                    let searchText: String = value as! String
                     
                     
                     for _response in googleResponse.responses {
@@ -815,7 +829,9 @@ extension ViewController {
         
         //gw: for identifying texts
         
-       identifyText(image, completionHandler: processOCRResult, accessToken: GIDSignIn.sharedInstance()!.currentUser!.authentication.accessToken)
+        
+        // gw: moved out as separate method
+        //       searchTextInImage(text, image, completionHandler: processOCRResult, accessToken: GIDSignIn.sharedInstance()!.currentUser!.authentication.accessToken)
         /*
         
         // gw code notes: in FaceCropper Framework, he makes all CGImage as FaceCroppable by extending them all.
@@ -948,6 +964,8 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
             }
             
             
+            
+            // gw: text_search: comment this out and move to clicking "search" button
             // put time-consuming task in the last
             self.configure(image: image)
             

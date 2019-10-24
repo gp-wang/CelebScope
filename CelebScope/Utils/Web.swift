@@ -26,7 +26,7 @@ extension NSMutableData {
 typealias classificationCompletionHandler = ([NSDictionary]) -> Void
 typealias ocrCompletionHandler = (NSDictionary, UIImage) -> Void
 
-typealias ocrCompletionResponseHandler = (Data?, URLResponse?, Error?, UIImage) -> Void
+typealias ocrCompletionResponseHandler = (Data?, URLResponse?, Error?, String, UIImage) -> Void
 
 
 //    https://stackoverflow.com/questions/24603559/store-a-closure-as-a-variable-in-swift
@@ -62,7 +62,7 @@ func identifyFaces(_ faces: [Face],  completionHandler: @escaping classification
 }
 
 
-func identifyText(_ image: UIImage,  completionHandler: @escaping ocrCompletionResponseHandler, accessToken: String ) { //gw: (!done)todo: fix this. error
+func searchTextInImage(_ text: String, _ image: UIImage,  completionHandler: @escaping ocrCompletionResponseHandler, accessToken: String ) { //gw: (!done)todo: fix this. error
     // server endpoint
     let endpoint = "https://vision.googleapis.com/v1/images:annotate"
     let endpointUrl = URL(string: endpoint)!
@@ -88,7 +88,7 @@ func identifyText(_ image: UIImage,  completionHandler: @escaping ocrCompletionR
     request.httpBody = createOCRRequestBody(imageData: jpegImage)
     
     // gw: pass in the ref to the image for retring  (e.g. when access_token is invalid)
-    fireOCRRequest(request, completionHandler, image)
+    fireOCRRequest(request, completionHandler, text, image)
 }
 
 
@@ -120,8 +120,8 @@ func fireClassificationRequest(_ request: URLRequest, _ completionHandler: @esca
         }.resume()
 }
 
-
-func fireOCRRequest(_ request: URLRequest, _ completionHandler: @escaping ocrCompletionResponseHandler, _ image: UIImage) {
+// text: the string to search for
+func fireOCRRequest(_ request: URLRequest, _ completionHandler: @escaping ocrCompletionResponseHandler, _ text: String, _ image: UIImage) {
     // gw: completion handler: URL request
     //TODO: extract completion handlers
     URLSession.shared.dataTask(with: request){
@@ -138,7 +138,7 @@ func fireOCRRequest(_ request: URLRequest, _ completionHandler: @escaping ocrCom
             
            
             
-            completionHandler(data, response, error, image)
+            completionHandler(data, response, error, text, image)
             //completionHandler(ocrClassification, image)
         } catch let error as NSError {
             gw_log(error.debugDescription)
