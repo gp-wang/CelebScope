@@ -55,9 +55,9 @@ extension ViewController {
             
             
             signOutButton.leadingAnchor.constraint(equalTo: zoomableImageView.leadingAnchor, constant: 10),
-            signOutButton.topAnchor.constraint(equalTo: zoomableImageView.topAnchor, constant: 10),
+            signOutButton.bottomAnchor.constraint(equalTo: zoomableImageView.bottomAnchor, constant: -10),
             signInStatusText.trailingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor, constant: -10),
-            signInStatusText.topAnchor.constraint(equalTo: zoomableImageView.topAnchor, constant: 10)
+            signInStatusText.bottomAnchor.constraint(equalTo: zoomableImageView.bottomAnchor, constant: -10)
             
             
             
@@ -130,7 +130,7 @@ extension ViewController {
         
         
         NSLayoutConstraint.activate([
-           bannerView.topAnchor.constraint(equalTo: zoomableImageVCView.topAnchor, constant: 10),
+           bannerView.bottomAnchor.constraint(equalTo: zoomableImageVCView.bottomAnchor, constant: -10),
 //            bannerView.centerYAnchor.constraint(equalTo: self.cameraButton.centerYAnchor),
             
             bannerView.centerXAnchor.constraint(equalTo: zoomableImageVCView.centerXAnchor),
@@ -152,7 +152,7 @@ extension ViewController {
         NSLayoutConstraint.activate([
             
             searchTextInput.centerYAnchor.constraint(equalTo: self.cameraButton.centerYAnchor),
-            
+            searchTextInput.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
             //searchTextInput.centerXAnchor.constraint(equalTo: zoomableImageVCView.centerXAnchor),
 
 
@@ -166,7 +166,7 @@ extension ViewController {
         NSLayoutConstraint.activate([
             
             searchButton.centerYAnchor.constraint(equalTo: self.searchTextInput.centerYAnchor),
-            
+            searchButton.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
             
             
             // gw: let searchTextInput define the constraints to the left side, and let searchButton define the constrains to the right side
@@ -464,7 +464,7 @@ extension ViewController {
         cameraButton_lead_p.isActive = false
         portraitConstraints.append(cameraButton_lead_p)
         
-        let cameraButton_bot_p = cameraButton.bottomAnchor.constraint(equalTo: zoomableImageView.bottomAnchor, constant: -10)
+        let cameraButton_bot_p = cameraButton.topAnchor.constraint(equalTo: zoomableImageView.topAnchor, constant: 10)
         cameraButton_bot_p.identifier = "cameraButton_bot_p"
         cameraButton_bot_p.isActive = false
         portraitConstraints.append(cameraButton_bot_p)
@@ -485,7 +485,7 @@ extension ViewController {
         albumButton_trailing_p.isActive = false
         portraitConstraints.append(albumButton_trailing_p)
         
-        let albumButton_bot_p = albumButton.bottomAnchor.constraint(equalTo: zoomableImageView.bottomAnchor, constant: -10)
+        let albumButton_bot_p = albumButton.topAnchor.constraint(equalTo: zoomableImageView.topAnchor, constant: 10)
         albumButton_bot_p.identifier = "albumButton_bot_p"
         albumButton_bot_p.isActive = false
         portraitConstraints.append(albumButton_bot_p)
@@ -510,7 +510,7 @@ extension ViewController {
         cameraButton_lead_l.isActive = false
         landscapeConstraints.append(cameraButton_lead_l)
         
-        let cameraButton_bot_l = cameraButton.bottomAnchor.constraint(equalTo: zoomableImageView.bottomAnchor, constant: -10)
+        let cameraButton_bot_l = cameraButton.topAnchor.constraint(equalTo: zoomableImageView.topAnchor, constant: 10)
         cameraButton_bot_l.identifier = "cameraButton_bot_l"
         cameraButton_bot_l.isActive = false
         landscapeConstraints.append(cameraButton_bot_l)
@@ -531,7 +531,7 @@ extension ViewController {
         albumButton_trailing_l.isActive = false
         landscapeConstraints.append(albumButton_trailing_l)
         
-        let albumButton_bot_l = albumButton.bottomAnchor.constraint(equalTo: zoomableImageView.bottomAnchor, constant: -10)
+        let albumButton_bot_l = albumButton.topAnchor.constraint(equalTo: zoomableImageView.topAnchor, constant: 10)
         albumButton_bot_l.identifier = "albumButton_bot_l"
         albumButton_bot_l.isActive = false
         landscapeConstraints.append(albumButton_bot_l)

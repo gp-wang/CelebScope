@@ -160,6 +160,7 @@ class ViewController:  UIViewController {
         let _input = UITextField(frame: CGRect())
         _input.translatesAutoresizingMaskIntoConstraints = false
         _input.backgroundColor = UIColor.yellow
+       
         return _input
     } ()
     
@@ -245,7 +246,7 @@ class ViewController:  UIViewController {
         canvas.zoomableImageView = zoomableImageVC.zoomableImageView
         
         
-        
+         searchTextInput.delegate = self
         
         // TODO:temp
         detailPagedVC.view.isHidden = true
@@ -722,6 +723,73 @@ class ViewController:  UIViewController {
         }
         
     }
+    
+}
+
+extension ViewController: UITextFieldDelegate {
+    
+    
+
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        print("Editing is about to begin")
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.backgroundColor = UIColor.green
+        print("Editing is began")
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        print("Editing is about to end")
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        print("Editing ended")
+        textField.backgroundColor = UIColor.white
+        
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if string == "$" {
+            
+            return false
+        }
+            
+        else {
+            
+            return true
+        }
+        
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        print("Clear Button pressed")
+        return true
+    }
+  
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        if self.searchTextInput.isFirstResponder {
+//
+//            self.searchTextInput.becomeFirstResponder()
+//        }
+//        else {
+//
+//            self.searchTextInput.resignFirstResponder()
+//        }
+        
+        
+        
+        self.searchTextInput.resignFirstResponder()
+        
+        // alt way to dismiss keyboard
+        //          https://stackoverflow.com/questions/29882775/resignfirstresponder-vs-endediting-for-keyboard-dismissal
+        // self.searchTextInput.endEditing(true)
+        return true
+    }
+    
     
 }
 
