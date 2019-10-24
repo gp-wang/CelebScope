@@ -21,6 +21,7 @@ extension ViewController {
         setupButtonViewConstraints()
         setupSignInViewConstraints()
         setupBannerViewConstraints()
+        setupSearchTextAndButtonConstraints()
         
     }
     
@@ -129,11 +130,52 @@ extension ViewController {
         
         
         NSLayoutConstraint.activate([
-//            bannerView.bottomAnchor.constraint(equalTo: zoomableImageVCView.bottomAnchor, constant: -10),
-            bannerView.centerYAnchor.constraint(equalTo: self.cameraButton.centerYAnchor),
+           bannerView.topAnchor.constraint(equalTo: zoomableImageVCView.topAnchor, constant: 10),
+//            bannerView.centerYAnchor.constraint(equalTo: self.cameraButton.centerYAnchor),
+            
             bannerView.centerXAnchor.constraint(equalTo: zoomableImageVCView.centerXAnchor),
             bannerView.leadingAnchor.constraint(equalTo: self.cameraButton.trailingAnchor, constant: 10),
             bannerView.trailingAnchor.constraint(equalTo: self.albumButton.leadingAnchor, constant: -10)
+            
+            ])
+    }
+    
+    func setupSearchTextAndButtonConstraints() {
+        // convinence vars
+        guard let zoomableImageVCView = self.zoomableImageVC.view else {
+            NSLog("failed to unwrap zoomableImageVCView")
+            return
+        }
+        
+        
+        
+        NSLayoutConstraint.activate([
+            
+            searchTextInput.centerYAnchor.constraint(equalTo: self.cameraButton.centerYAnchor),
+            
+            //searchTextInput.centerXAnchor.constraint(equalTo: zoomableImageVCView.centerXAnchor),
+
+
+            // gw: let searchTextInput define the constraints to the left side, and let searchButton define the constrains to the right side
+            searchTextInput.widthAnchor.constraint(equalTo: searchButton.widthAnchor, multiplier: 3),
+            searchTextInput.leadingAnchor.constraint(equalTo: self.cameraButton.trailingAnchor, constant: 10),
+            //            searchTextInput.trailingAnchor.constraint(equalTo: self.albumButton.leadingAnchor, constant: -10)
+            
+            ])
+        
+        NSLayoutConstraint.activate([
+            
+            searchButton.centerYAnchor.constraint(equalTo: self.searchTextInput.centerYAnchor),
+            
+            
+            
+            // gw: let searchTextInput define the constraints to the left side, and let searchButton define the constrains to the right side
+
+            searchButton.trailingAnchor.constraint(equalTo:self.albumButton.leadingAnchor,  constant: -10),
+            
+            // combine with the width ratio split defined in searchTextInput's constraints above
+            searchButton.leadingAnchor.constraint(equalTo: self.searchTextInput.trailingAnchor, constant: 5),
+            //            searchTextInput.trailingAnchor.constraint(equalTo: self.albumButton.leadingAnchor, constant: -10)
             
             ])
     }

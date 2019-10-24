@@ -154,6 +154,32 @@ class ViewController:  UIViewController {
         
         return _bannerView
     } ()
+    
+    let searchTextInput: UITextField = {
+
+        let _input = UITextField(frame: CGRect())
+        _input.translatesAutoresizingMaskIntoConstraints = false
+        _input.backgroundColor = UIColor.yellow
+        return _input
+    } ()
+    
+//    let searchTextInput: UIButton = {
+//        let _button = UIButton()
+//        _button.translatesAutoresizingMaskIntoConstraints = false
+//        _button.backgroundColor = UIColor.red
+//
+//        return _button
+//    } ()
+    
+    let searchButton: UIButton = {
+        let _button = UIButton()
+        _button.translatesAutoresizingMaskIntoConstraints = false
+        _button.backgroundColor = UIColor.red
+        
+        return _button
+    } ()
+    
+    
     //var pageViewDelegate: PeoplePageViewDelegate?
     init() {
         self.matchedStrings = []
@@ -228,7 +254,8 @@ class ViewController:  UIViewController {
         
         view.addSubview(cameraButton)
         view.addSubview(albumButton)
-
+        view.addSubview(searchTextInput)
+        view.addSubview(searchButton)
         
         // google sign in
         view.addSubview(signInView)
@@ -236,7 +263,7 @@ class ViewController:  UIViewController {
         
         view.addSubview(signOutButton)
         view.addSubview(signInStatusText)
-
+        
         
         // ads
         view.addSubview(bannerView)
