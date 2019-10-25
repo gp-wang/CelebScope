@@ -16,12 +16,8 @@
 		6B28FBB8220B5CA000BAC099 /* SummaryPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B28FBB7220B5C9F00BAC099 /* SummaryPageViewController.swift */; };
 		6B28FBBE220BA2E600BAC099 /* ViewControllerConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B28FBBD220BA2E600BAC099 /* ViewControllerConstraints.swift */; };
 		6B28FBC0220D475500BAC099 /* PeoplePageViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B28FBBF220D475500BAC099 /* PeoplePageViewDelegate.swift */; };
-		6B28FBC2220DD4FF00BAC099 /* Demos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B28FBC1220DD4FF00BAC099 /* Demos.swift */; };
-		6B2AF15F21FC9E7B005F39EE /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2AF15E21FC9E7B005F39EE /* Person.swift */; };
-		6B2AF16321FCA566005F39EE /* Identification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2AF16221FCA566005F39EE /* Identification.swift */; };
 		6B2FF99222074D050095E4DA /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2FF99122074D050095E4DA /* Web.swift */; };
 		6B2FF99422074D2D0095E4DA /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2FF99322074D2D0095E4DA /* Log.swift */; };
-		6B2FF996220B34990095E4DA /* DemoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B2FF995220B34990095E4DA /* DemoManager.swift */; };
 		6B31D2B721F38D55000CFA44 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B31D2B621F38D55000CFA44 /* AppDelegate.swift */; };
 		6B31D2B921F38D55000CFA44 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B31D2B821F38D55000CFA44 /* ViewController.swift */; };
 		6B31D2BE21F38D58000CFA44 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B31D2BD21F38D58000CFA44 /* Assets.xcassets */; };
@@ -75,12 +71,8 @@
 		6B28FBB7220B5C9F00BAC099 /* SummaryPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryPageViewController.swift; sourceTree = "<group>"; };
 		6B28FBBD220BA2E600BAC099 /* ViewControllerConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerConstraints.swift; sourceTree = "<group>"; };
 		6B28FBBF220D475500BAC099 /* PeoplePageViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeoplePageViewDelegate.swift; sourceTree = "<group>"; };
-		6B28FBC1220DD4FF00BAC099 /* Demos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demos.swift; sourceTree = "<group>"; };
-		6B2AF15E21FC9E7B005F39EE /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
-		6B2AF16221FCA566005F39EE /* Identification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identification.swift; sourceTree = "<group>"; };
 		6B2FF99122074D050095E4DA /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
 		6B2FF99322074D2D0095E4DA /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
-		6B2FF995220B34990095E4DA /* DemoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoManager.swift; sourceTree = "<group>"; };
 		6B31D2B321F38D55000CFA44 /* TextSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B31D2B621F38D55000CFA44 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6B31D2B821F38D55000CFA44 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -209,8 +201,6 @@
 				6B2574AF21F75EB30039FAC9 /* Utils.swift */,
 				6B2FF99122074D050095E4DA /* Web.swift */,
 				6B2FF99322074D2D0095E4DA /* Log.swift */,
-				6B2FF995220B34990095E4DA /* DemoManager.swift */,
-				6B28FBC1220DD4FF00BAC099 /* Demos.swift */,
 				6B6BAC0A2210D94500245973 /* Colors.swift */,
 			);
 			path = Utils;
@@ -227,8 +217,6 @@
 		6B2AF15D21FC9E5D005F39EE /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				6B2AF15E21FC9E7B005F39EE /* Person.swift */,
-				6B2AF16221FCA566005F39EE /* Identification.swift */,
 				6B61FC90235E4C3E0035F6F1 /* AnnotateImageResponse.swift */,
 				6B61FC92235E4CAF0035F6F1 /* EntityAnnotation.swift */,
 				6B61FC94235E4F530035F6F1 /* BoundingPoly.swift */,
@@ -444,7 +432,6 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-TextSearch/Pods-TextSearch-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
-				"${BUILT_PRODUCTS_DIR}/FaceCropper/FaceCropper.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 			);
@@ -453,7 +440,6 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FaceCropper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 			);
@@ -479,9 +465,7 @@
 				6BD7CA552362702E00418131 /* SettingsLauncher.swift in Sources */,
 				6B20977021FB5E9A0066CDD8 /* SinglePersonPageViewController.swift in Sources */,
 				6BD7CA532362702E00418131 /* SettingCell.swift in Sources */,
-				6B2AF16321FCA566005F39EE /* Identification.swift in Sources */,
 				6B559338220F9D000074DDF4 /* TooltipViewController.swift in Sources */,
-				6B2AF15F21FC9E7B005F39EE /* Person.swift in Sources */,
 				6BB235F121FF5C9000BC35E9 /* ZoomableImageViewDelegate.swift in Sources */,
 				6B61FC91235E4C3E0035F6F1 /* AnnotateImageResponse.swift in Sources */,
 				6BC7A012235FB925006678E1 /* MatchedString.swift in Sources */,
@@ -502,7 +486,6 @@
 				6B61FC99235E507E0035F6F1 /* TextAnnotation.swift in Sources */,
 				6B28FBBE220BA2E600BAC099 /* ViewControllerConstraints.swift in Sources */,
 				6B61FCA3235E52CB0035F6F1 /* Block.swift in Sources */,
-				6B2FF996220B34990095E4DA /* DemoManager.swift in Sources */,
 				6BD4741A21FA468400163D0C /* ZoomableImageView.swift in Sources */,
 				6B61FC9B235E50C30035F6F1 /* Page.swift in Sources */,
 				6B28FBC0220D475500BAC099 /* PeoplePageViewDelegate.swift in Sources */,
@@ -516,7 +499,6 @@
 				6BD7CA582362705F00418131 /* VideoCell.swift in Sources */,
 				6BB235EF21FF5C3100BC35E9 /* PeopleCollectionViewDelegate.swift in Sources */,
 				6B20977A21FB76B10066CDD8 /* CollectionViewController.swift in Sources */,
-				6B28FBC2220DD4FF00BAC099 /* Demos.swift in Sources */,
 				6B61FC9F235E51A90035F6F1 /* DetectedLanguage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,7 +8,7 @@
 
 import UIKit
 import GoogleMobileAds
-import FaceCropper
+
 import GoogleSignIn
 
 class ViewController:  UIViewController {
@@ -257,7 +257,7 @@ class ViewController:  UIViewController {
     
     // MARK: - Constructor
     
-    var demoManager : DemoManager? = nil
+
     
  
     
@@ -411,7 +411,7 @@ class ViewController:  UIViewController {
         
         matchedStrings = []
         
-        self.demoManager = DemoManager(actionTaker: self)
+
         
     }
     
@@ -506,7 +506,8 @@ class ViewController:  UIViewController {
         // self.demoManager = nil
     }
     
-    
+    // note: currently this cache hashes by UIImage object, not its content
+    // TODO: hash by content
     let cache = Cache()
     
     @objc func startSearch() {
@@ -1079,7 +1080,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     
   
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        self.demoManager = nil
+        
         self.tooltipVC?.view.removeFromSuperview()
         self.tooltipVC?.removeFromParent()
         self.tooltipVC = nil
@@ -1138,12 +1139,6 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         self.tooltipVC = nil
         gw_log("gw: img pick 2")
         picker.dismiss(animated: true) {
-            if let demoManager = self.demoManager {
-                // let it continue demo
-            } else {
-                // create one
-                self.demoManager = DemoManager(actionTaker: self)
-            }
             
             //self.cleanUpForEmptyPhotoSelection()
             gw_log("picked 3")

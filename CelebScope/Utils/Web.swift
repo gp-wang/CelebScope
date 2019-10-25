@@ -8,7 +8,7 @@
 
 
 import Foundation
-import FaceCropper
+import UIKit
 
 // gw: for image identification
 extension NSMutableData {
@@ -125,48 +125,6 @@ func fireOCRRequest(_ request: URLRequest, _ completionHandler: @escaping ocrCom
 
 func generateBoundaryString() -> String {
     return "Boundary-\(NSUUID().uuidString)"
-}
-
-
-
-func createBodyWithParameters(parameters: [String: String]?, filePathKey: String?, dataItems: [Data], boundary: String) -> NSData {
-    
-    
-    let body = NSMutableData();
-    
-    if parameters != nil {
-        for (key, value) in parameters! {
-            body.appendString(string:"--\(boundary)\r\n")
-            body.appendString(string:"Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
-            body.appendString(string:"\(value)\r\n")
-        }
-    }
-    
-    let mimetype = "image/jpg"
-    
-    
-    // boundary notes:
-    
-    // boundary #1
-    //  image #1
-    // bondary #2
-    // image #2
-    //    .... (one boundary before each image)
-    
-    // boundary in the very end of all images (last)
-    
-    for (idx, item) in dataItems.enumerated() {
-        body.appendString(string:"--\(boundary)\r\n")
-        body.appendString(string: "Content-Disposition: form-data; name=\"\(filePathKey!)\"; filename=\"\(idx).jpg\"\r\n")  //TODO: might not work, then need to research how to upload a (variable) list of files/photos, https://stackoverflow.com/a/26639822/8328365
-        body.appendString(string: "Content-Type: \(mimetype)\r\n\r\n")
-        body.append(item)
-        body.appendString(string: "\r\n")
-    }
-    
-    body.appendString(string: "--\(boundary)--\r\n")
-    
-    
-    return body
 }
 
 /*
