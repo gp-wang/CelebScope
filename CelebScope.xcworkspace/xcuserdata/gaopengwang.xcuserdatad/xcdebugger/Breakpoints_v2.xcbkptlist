@@ -15,8 +15,8 @@
             timestampString = "593636872.835647"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
             landmarkName = "canvas"
             landmarkType = "24">
          </BreakpointContent>
@@ -240,9 +240,9 @@
             timestampString = "593636872.836354"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "661"
-            endingLineNumber = "661"
-            landmarkName = "adjustLayout(_:)"
+            startingLineNumber = "672"
+            endingLineNumber = "672"
+            landmarkName = "pagingAndZoomingToFaceIndexed(at:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -308,8 +308,8 @@
             timestampString = "593636872.836812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1010"
-            endingLineNumber = "1010"
+            startingLineNumber = "1046"
+            endingLineNumber = "1046"
             landmarkName = "configure(image:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -325,8 +325,8 @@
             timestampString = "593636872.837131"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "309"
-            endingLineNumber = "309"
+            startingLineNumber = "327"
+            endingLineNumber = "327"
             landmarkName = "setupDetailsContainerViewConstraints()"
             landmarkType = "7">
          </BreakpointContent>
@@ -359,8 +359,8 @@
             timestampString = "593636872.837209"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "434"
-            endingLineNumber = "434"
+            startingLineNumber = "445"
+            endingLineNumber = "445"
             landmarkName = "ViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -376,8 +376,8 @@
             timestampString = "593636872.83754"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "515"
-            endingLineNumber = "515"
+            startingLineNumber = "526"
+            endingLineNumber = "526"
             landmarkName = "ViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -393,8 +393,8 @@
             timestampString = "593636872.837859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "514"
-            endingLineNumber = "514"
+            startingLineNumber = "525"
+            endingLineNumber = "525"
             landmarkName = "handleMore()"
             landmarkType = "7">
          </BreakpointContent>
@@ -427,8 +427,8 @@
             timestampString = "593636872.838192"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "152"
-            endingLineNumber = "152"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
             landmarkName = "signOutButton"
             landmarkType = "24">
          </BreakpointContent>
@@ -444,8 +444,8 @@
             timestampString = "593636872.8384939"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "623"
-            endingLineNumber = "623"
+            startingLineNumber = "634"
+            endingLineNumber = "634"
             landmarkName = "pagingAndZoomingToFaceIndexed(at:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -461,9 +461,9 @@
             timestampString = "593636872.838791"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "892"
-            endingLineNumber = "892"
-            landmarkName = "textFieldShouldClear(_:)"
+            startingLineNumber = "928"
+            endingLineNumber = "928"
+            landmarkName = "textField(_:shouldChangeCharactersIn:replacementString:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

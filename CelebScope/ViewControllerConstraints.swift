@@ -38,10 +38,10 @@ extension ViewController {
             searchView.heightAnchor.constraint(equalTo: cameraButton.heightAnchor),
             
 
-            bannerView.bottomAnchor.constraint(equalTo: zoomableImageView.bottomAnchor, constant: -10),
-            bannerView.centerXAnchor.constraint(equalTo: zoomableImageView.centerXAnchor),
-            bannerView.leadingAnchor.constraint(equalTo: zoomableImageView.leadingAnchor, constant: 10),
-            bannerView.trailingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor, constant: -10)
+            bottomViewGroup.bottomAnchor.constraint(equalTo: zoomableImageView.bottomAnchor, constant: -10),
+            //            bottomViewGroup.centerXAnchor.constraint(equalTo: zoomableImageView.centerXAnchor),
+            bottomViewGroup.leadingAnchor.constraint(equalTo: zoomableImageView.leadingAnchor, constant: 10),
+            bottomViewGroup.trailingAnchor.constraint(equalTo: zoomableImageView.trailingAnchor, constant: -10)
             
             ])
         
@@ -151,15 +151,35 @@ extension ViewController {
         
         
         // each method only sets internal constrains, organize them in a tree structure
+        setupBottomViewGroupConstraints()
         setupCanvasConstraints()
         setupSplitScreenViewConstraints()
-
+        
 
         setupSearchViewGroupConstraints()
         
 
 
         
+    }
+    
+    private func setupBottomViewGroupConstraints() {
+        NSLayoutConstraint.activate([
+            // in order to let superview wrap the subview's content
+            bottomViewGroup.topAnchor.constraint(equalTo: menuButton.topAnchor),
+            bottomViewGroup.bottomAnchor.constraint(equalTo: menuButton.bottomAnchor),
+            
+            menuButton.widthAnchor.constraint(equalToConstant: Constants.ROUND_BUTTON_DIAMETER),
+            menuButton.heightAnchor.constraint(equalToConstant: Constants.ROUND_BUTTON_DIAMETER),
+            menuButton.centerYAnchor.constraint(equalTo: bottomViewGroup.centerYAnchor),
+            menuButton.leadingAnchor.constraint(equalTo: bottomViewGroup.leadingAnchor),
+            
+            bannerView.leadingAnchor.constraint(equalTo: menuButton.trailingAnchor, constant: 10),
+            bannerView.trailingAnchor.constraint(equalTo: bottomViewGroup.trailingAnchor),
+            bannerView.centerYAnchor.constraint(equalTo: bottomViewGroup.centerYAnchor)
+            
+        
+        ])
     }
     
     private func setupSignStatusGroupConstraints() {

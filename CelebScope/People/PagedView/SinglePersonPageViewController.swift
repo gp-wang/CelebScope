@@ -190,7 +190,7 @@ class SinglePersonPageViewController: UIViewController, UIGestureRecognizerDeleg
         
         gesture.delegate = self
         view.addGestureRecognizer(gesture)
-        bioLabel.text = matchedString.context.text
+        bioLabel.text = matchedString.context
         
         // label
         //        self.view.addSubview(labelInst)

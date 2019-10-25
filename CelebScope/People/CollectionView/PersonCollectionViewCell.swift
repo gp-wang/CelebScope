@@ -45,7 +45,7 @@ class PersonCollectionViewCell: UICollectionViewCell {
             }
             
             // update context text
-            let attrString = NSMutableAttributedString(string: _matchedString.context.text)
+            let attrString = NSMutableAttributedString(string: _matchedString.context)
             attrString.addAttribute(.paragraphStyle, value: PersonCollectionViewCell.nameLabelParagraphStyle, range:NSMakeRange(0, attrString.length))
             
             //self.nameLabel.text = _identification.person.name

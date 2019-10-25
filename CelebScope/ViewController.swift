@@ -19,8 +19,9 @@ class ViewController:  UIViewController {
         static let ROUND_BUTTON_DIAMETER: CGFloat = 60
         static let RECT_BUTTON_WIDTH: CGFloat = 80
         static let RECT_BUTTON_HEIGHT: CGFloat = 35
+
         static let RECT_BUTTON_CORNER_RADIUS: CGFloat = 5
-        static let CONTEXT_WORD_LIMIT = 10
+        static let HALF_CONTEXT_WORD_LIMIT: Int = 5 // half: forward and backward
         static let CONTEXT_SYMBOL_LIMIT = 30
         static let launchedBeforeKey: String = "launchedBefore8"
         //static let tooltipSize: CGFloat = 100
@@ -86,8 +87,8 @@ class ViewController:  UIViewController {
         _view.backgroundColor = UIColor.clear
         return _view
     } ()
-    let cameraButton = CameraButton()
-    let albumButton = AlbumButton()
+    let cameraButton = RoundButton(UIImage(imageLiteralResourceName: "camera"))
+    let albumButton = RoundButton(UIImage(imageLiteralResourceName: "album"))
     let searchTextInput: UITextField = {
         
         let _input = UITextField(frame: CGRect())
@@ -147,15 +148,18 @@ class ViewController:  UIViewController {
         _view.backgroundColor = UIColor.lightGray
         return _view
     } ()
+    
 
     let signOutButton: UIButton = {
         let _button = UIButton()
         _button.translatesAutoresizingMaskIntoConstraints = false
         _button.backgroundColor = UIColor.red
         _button.alpha = 0.7
-        _button.setTitle("Sign Out", for: .normal)
+        _button.setTitle(NSLocalizedString("signOutLabel", comment: ""), for: .normal)
 
         _button.setTitleColor(.white, for: .normal)
+        
+        
         _button.layer.cornerRadius = Constants.RECT_BUTTON_CORNER_RADIUS
         _button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .subheadline).withSize(14)
 
@@ -181,7 +185,13 @@ class ViewController:  UIViewController {
     } ()
     
     
-    
+    let bottomViewGroup: UIView = {
+        let _view = UIView()
+        _view.translatesAutoresizingMaskIntoConstraints = false
+        _view.backgroundColor = UIColor.clear
+        return _view
+    } ()
+    let menuButton = RoundButton(UIImage(imageLiteralResourceName: "menu"))
     let bannerView: GADBannerView = {
         let _bannerView = GADBannerView(adSize: kGADAdSizeBanner)
         _bannerView.translatesAutoresizingMaskIntoConstraints = false
@@ -299,7 +309,9 @@ class ViewController:  UIViewController {
         
         
         // ads
-        view.addSubview(bannerView)
+        bottomViewGroup.addSubview(menuButton)
+        bottomViewGroup.addSubview(bannerView)
+        view.addSubview(bottomViewGroup)
         
         
         //view.addSubview(detailPagedVC.view)
@@ -390,9 +402,8 @@ class ViewController:  UIViewController {
 
         // buttons
         self.albumButton.addTarget(self, action: #selector(pickImage), for: .touchUpInside)
-//        self.cameraButton.addTarget(self, action: #selector(takePhoto), for: .touchUpInside)
-        
-         self.cameraButton.addTarget(self, action: #selector(handleMore), for: .touchUpInside)
+        self.cameraButton.addTarget(self, action: #selector(takePhoto), for: .touchUpInside)
+         self.menuButton.addTarget(self, action: #selector(handleMore), for: .touchUpInside)
         self.searchButton.addTarget(self, action: #selector(startSearch), for: .touchUpInside)
         self.signOutButton.addTarget(self, action: #selector(didTapSignOut), for: .touchUpInside)
         
@@ -778,22 +789,17 @@ class ViewController:  UIViewController {
                                 
                                 var symbols: [Symbol] = []
                                  // a list of bools which mark whether the index is a wordboundary
-                                //var wordBoundaries: [Bool] = []
+                                var wordBoundaries: [Bool] = []
 //                                var contexts: [Word] = []
                                 // compose a list for strStr search
                                 var symbolToParagraphIndex: [Int] = []
                                 for (pIndex, _paragraph) in _block.paragraphs.enumerated() {
                                     for _word in _paragraph.words {
-//                                        var isFirstSymbol: Bool = true
-                                        for _symbol in _word.symbols {
-//                                            if isFirstSymbol {
-//                                                wordBoundaries.append(true)
-//                                                isFirstSymbol = false
-//                                            } else {
-//                                                wordBoundaries.append(false)
-//                                            }
+
+                                        for (sIndex, _symbol) in _word.symbols.enumerated() {
+                                            // mark first symbol as word boundary
+                                            wordBoundaries.append(sIndex  == 0)
                                             symbols.append(_symbol)
-                                            symbolToParagraphIndex.append(pIndex)
                                             symbolIndex += 1
                                             
                                         }
@@ -811,7 +817,7 @@ class ViewController:  UIViewController {
                                         var jIndex = searchText.index(searchText.startIndex, offsetBy: j)
                                         var jChar: Character = searchText[jIndex]
                                         
-                                        inner: while jChar == symbols[i+j].text.first {
+                                        inner: while jChar.lowercased() == symbols[i+j].text.first?.lowercased() {
                                             matchedSymbols.append(symbols[i+j])
                                             j += 1
                                             if j == searchText.count {
@@ -822,7 +828,37 @@ class ViewController:  UIViewController {
                                                 matchedSymbols = []
                                                 
                                                 let paragraphIndex: Int = symbolToParagraphIndex[i]
-                                                let match = MatchedString(searchText: searchText, symbols: dupMatchedSymbols, context: _block.paragraphs[paragraphIndex])
+                                                
+                                                // make context
+                                                var k = i + j
+                                               //var context: [String] = []  // a list of words
+                                                //var currWord: [String] = []
+                                                var context: [Character] = []
+                                                var wordCnt: Int = 0
+                                                // search backward
+                                                while k > 0 && wordCnt < Constants.HALF_CONTEXT_WORD_LIMIT {
+                                                    context.insert(symbols[k].text.first!, at: 0)
+                                                    if wordBoundaries[k] {
+                                                        context.insert(" ", at: 0)
+                                                        wordCnt += 1
+                                                    }
+                                                    k -= 1
+                                                }
+                                                
+                                                // search forward
+                                                k = i + j + 1
+                                                wordCnt = 0
+                                                while k < symbols.count && wordCnt < Constants.HALF_CONTEXT_WORD_LIMIT {
+                                                    context.append(symbols[k].text.first!)
+                                                    if wordBoundaries[k] {
+                                                        context.insert(" ", at: 0)
+                                                        wordCnt += 1
+                                                    }
+                                                    k += 1
+                                                }
+                                                
+                                                
+                                                let match = MatchedString(searchText: searchText, symbols: dupMatchedSymbols, context: String(context))
                                                 matchedStrings.append(match)
                                                 
                                             } else {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CameraButton: UIButton {
+public class RoundButton: UIButton {
 
     /*
     // Only override draw() if you perform custom drawing.
@@ -19,7 +19,7 @@ class CameraButton: UIButton {
     */
     
 
-    init() {
+    init(_ image: UIImage) {
         super.init(frame: CGRect.zero)
         translatesAutoresizingMaskIntoConstraints = false
 //        let halfWidth: CGFloat = frame.width / 2.0
@@ -31,7 +31,7 @@ class CameraButton: UIButton {
         // tintColor = UIColor.white
         
         
-        let image = UIImage(imageLiteralResourceName: "camera") as UIImage?
+        //let image = UIImage(imageLiteralResourceName: "camera") as UIImage?
        //self.imageEdgeInsets = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         setImage(image, for: .normal)
         //imageView?.tintColor = UIColor.white
