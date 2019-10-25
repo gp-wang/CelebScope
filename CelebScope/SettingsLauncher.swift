@@ -10,11 +10,14 @@ import UIKit
 
 class Setting: NSObject {
     let name: String
+    let content: String
     let imageName: String
     
-    init(name: String, imageName: String) {
+    init(name: String, content: String, imageName: String) {
         self.name = name
+        self.content = content
         self.imageName = imageName
+
     }
 }
 
@@ -37,7 +40,11 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
     let settings: [Setting] = {
 //        return [Setting(name: "Settings", imageName: "settings"), Setting(name: "Terms & privacy policy", imageName: "privacy"), Setting(name: "Send Feedback", imageName: "feedback"), Setting(name: "Help", imageName: "help"), Setting(name: "Switch Account", imageName: "switch_account"), Setting(name: "Cancel", imageName: "cancel")]
         
-        return [Setting(name: NSLocalizedString("termPrivacyLabel", comment: ""), imageName: "privacy"), Setting(name: NSLocalizedString("feedbackLabel", comment: ""), imageName: "feedback"), Setting(name: NSLocalizedString("helpLabel", comment: ""), imageName: "help"), Setting(name: NSLocalizedString("cancelLabel", comment: ""), imageName: "cancel")]
+        return [
+            Setting(name: NSLocalizedString("termPrivacyLabel", comment: ""), content: NSLocalizedString("privacyPolicyHTML", comment: ""), imageName: "privacy"),
+            Setting(name: NSLocalizedString("feedbackLabel", comment: ""), content: NSLocalizedString("feedbackContentHTML", comment: ""), imageName: "feedback"),
+            Setting(name: NSLocalizedString("helpLabel", comment: ""), content: NSLocalizedString("helpContentHTML", comment: ""), imageName: "help"),
+            Setting(name: NSLocalizedString("cancelLabel", comment: ""), content: "", imageName: "cancel")]
     }()
     
     func showSettings() {
@@ -47,7 +54,9 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
             
             blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
             
-            blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+            //blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+            //handleDismissNoCompletionHandler
+            blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismissNoCompletionHandler(setting:))))
             
             window.addSubview(blackView)
             
@@ -70,23 +79,39 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
         }
     }
     
+    // gw: hack to avoid relased pointer when tapping blackView
+    @objc func handleDismissNoCompletionHandler(setting: Setting) {
+        
+         UIView.animate(withDuration: 0.5, animations: {
+                   self.blackView.alpha = 0
+                   
+                   if let window = UIApplication.shared.keyWindow {
+                       self.collectionView.frame = CGRect(x: 0, y: window.frame.height, width: self.collectionView.frame.width, height: self.collectionView.frame.height)
+                   }
+               }, completion: nil)
+        
+    }
+    
     @objc func handleDismiss(setting: Setting) {
         
+         UIView.animate(withDuration: 0.5, animations: {
+                   self.blackView.alpha = 0
+                   
+                   if let window = UIApplication.shared.keyWindow {
+                       self.collectionView.frame = CGRect(x: 0, y: window.frame.height, width: self.collectionView.frame.width, height: self.collectionView.frame.height)
+                   }
+               }, completion: { (_) in
+
+                    
+                   // TODO: below code has access err (likely the settings object is released )
+                // it happens only when user tap the whitespace area
+                   if setting.name != "" && setting.name != "Cancel" {
+                       self.homeController?.showControllerForSetting(setting: setting)
+                   }
+               })
         
-        UIView.animate(withDuration: 0.5, animations: {
-            self.blackView.alpha = 0
-            
-            if let window = UIApplication.shared.keyWindow {
-                self.collectionView.frame = CGRect(x: 0, y: window.frame.height, width: self.collectionView.frame.width, height: self.collectionView.frame.height)
-            }
-        }, completion: { (_) in
-            
-            // TODO: below code has access err (likely the settings object is released )
-            if setting.name != "" && setting.name != "Cancel" {
-                self.homeController?.showControllerForSetting(setting: setting)
-            }
-        })
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         

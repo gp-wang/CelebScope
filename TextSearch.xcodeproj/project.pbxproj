@@ -42,6 +42,7 @@
 		6B6BAC0B2210D94500245973 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6BAC0A2210D94500245973 /* Colors.swift */; };
 		6B6BAC0D2210D97300245973 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6BAC0C2210D97300245973 /* UIView+Extension.swift */; };
 		6B6BAC102211328900245973 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6BAC0F2211328900245973 /* WebViewController.swift */; };
+		6B85AFDD23637A880001FF19 /* SettingDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B85AFDC23637A880001FF19 /* SettingDetailVC.swift */; };
 		6BB235EF21FF5C3100BC35E9 /* PeopleCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB235EE21FF5C3100BC35E9 /* PeopleCollectionViewDelegate.swift */; };
 		6BB235F121FF5C9000BC35E9 /* ZoomableImageViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB235F021FF5C9000BC35E9 /* ZoomableImageViewDelegate.swift */; };
 		6BC7A012235FB925006678E1 /* MatchedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BC7A011235FB925006678E1 /* MatchedString.swift */; };
@@ -55,6 +56,7 @@
 		6BD7CA5A2363139900418131 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD7CA592363139900418131 /* RoundButton.swift */; };
 		6BD7CA682363241700418131 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6BD7CA6A2363241700418131 /* Localizable.strings */; };
 		6BD7CA6D236339AC00418131 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD7CA6C236339AC00418131 /* Cache.swift */; };
+		6BD7CA6F236378B100418131 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD7CA6E236378B100418131 /* String+Extension.swift */; };
 		6BFE4D9121F9A18200B7A50D /* PersonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFE4D9021F9A18200B7A50D /* PersonCollectionViewCell.swift */; };
 		9EE308AE4CBDF7E20C69326E /* Pods_TextSearch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF87F04B5E97548372E5515 /* Pods_TextSearch.framework */; };
 /* End PBXBuildFile section */
@@ -99,6 +101,7 @@
 		6B6BAC0A2210D94500245973 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		6B6BAC0C2210D97300245973 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		6B6BAC0F2211328900245973 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		6B85AFDC23637A880001FF19 /* SettingDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingDetailVC.swift; sourceTree = "<group>"; };
 		6BB235EE21FF5C3100BC35E9 /* PeopleCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		6BB235F021FF5C9000BC35E9 /* ZoomableImageViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableImageViewDelegate.swift; sourceTree = "<group>"; };
 		6BC7A011235FB925006678E1 /* MatchedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchedString.swift; sourceTree = "<group>"; };
@@ -113,6 +116,7 @@
 		6BD7CA692363241700418131 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6BD7CA6B2363241D00418131 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		6BD7CA6C236339AC00418131 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		6BD7CA6E236378B100418131 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		6BFE4D9021F9A18200B7A50D /* PersonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCollectionViewCell.swift; sourceTree = "<group>"; };
 		7CF87F04B5E97548372E5515 /* Pods_TextSearch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TextSearch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C33F32DA77DD2A0C43AF7ECA /* Pods-TextSearch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TextSearch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TextSearch/Pods-TextSearch.debug.xcconfig"; sourceTree = "<group>"; };
@@ -202,6 +206,7 @@
 				6B2FF99122074D050095E4DA /* Web.swift */,
 				6B2FF99322074D2D0095E4DA /* Log.swift */,
 				6B6BAC0A2210D94500245973 /* Colors.swift */,
+				6BD7CA6E236378B100418131 /* String+Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -278,6 +283,7 @@
 				6BD0CE54220169560052B2C0 /* Button */,
 				6BD7CA6A2363241700418131 /* Localizable.strings */,
 				6BD7CA6C236339AC00418131 /* Cache.swift */,
+				6B85AFDC23637A880001FF19 /* SettingDetailVC.swift */,
 			);
 			path = CelebScope;
 			sourceTree = "<group>";
@@ -467,6 +473,7 @@
 				6BD7CA532362702E00418131 /* SettingCell.swift in Sources */,
 				6B559338220F9D000074DDF4 /* TooltipViewController.swift in Sources */,
 				6BB235F121FF5C9000BC35E9 /* ZoomableImageViewDelegate.swift in Sources */,
+				6BD7CA6F236378B100418131 /* String+Extension.swift in Sources */,
 				6B61FC91235E4C3E0035F6F1 /* AnnotateImageResponse.swift in Sources */,
 				6BC7A012235FB925006678E1 /* MatchedString.swift in Sources */,
 				6BC7A014236084EB006678E1 /* MatchedSymbol.swift in Sources */,
@@ -491,6 +498,7 @@
 				6B28FBC0220D475500BAC099 /* PeoplePageViewDelegate.swift in Sources */,
 				6B31D2CF21F3ED41000CFA44 /* Canvas.swift in Sources */,
 				6B61FC9D235E51390035F6F1 /* TextProperty.swift in Sources */,
+				6B85AFDD23637A880001FF19 /* SettingDetailVC.swift in Sources */,
 				6B2FF99422074D2D0095E4DA /* Log.swift in Sources */,
 				6B2574B021F75EB30039FAC9 /* Utils.swift in Sources */,
 				6B6BAC102211328900245973 /* WebViewController.swift in Sources */,
