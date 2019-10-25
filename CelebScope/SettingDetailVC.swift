@@ -36,6 +36,7 @@ public class SettingDetailVC: UIViewController {
     var contentString: String  {
         didSet {
             contentView.attributedText = contentString.htmlToAttributedString
+           
         }
         
     }

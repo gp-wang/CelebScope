@@ -538,6 +538,7 @@ class ViewController:  UIViewController {
         let dummySettingsViewController = SettingDetailVC(name: setting.name, contentString: setting.content)
         dummySettingsViewController.view.backgroundColor = UIColor.white
         dummySettingsViewController.navigationItem.title = setting.name
+        dummySettingsViewController.contentView.setContentOffset(.zero, animated: false)
         
         navigationController?.navigationBar.barTintColor = Colors.brightOrange
         navigationController?.navigationBar.tintColor = UIColor.white

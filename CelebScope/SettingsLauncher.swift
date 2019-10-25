@@ -105,7 +105,7 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
                     
                    // TODO: below code has access err (likely the settings object is released )
                 // it happens only when user tap the whitespace area
-                   if setting.name != "" && setting.name != "Cancel" {
+                   if setting.name != "" && setting.name != NSLocalizedString("cancelLabel", comment: "") {
                        self.homeController?.showControllerForSetting(setting: setting)
                    }
                })

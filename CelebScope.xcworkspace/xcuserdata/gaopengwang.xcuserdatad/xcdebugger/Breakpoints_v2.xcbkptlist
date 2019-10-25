@@ -240,8 +240,8 @@
             timestampString = "593636872.836354"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "681"
-            endingLineNumber = "681"
+            startingLineNumber = "682"
+            endingLineNumber = "682"
             landmarkName = "pagingAndZoomingToFaceIndexed(at:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -308,8 +308,8 @@
             timestampString = "593636872.836812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1037"
-            endingLineNumber = "1037"
+            startingLineNumber = "1038"
+            endingLineNumber = "1038"
             landmarkName = "configure(image:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -444,8 +444,8 @@
             timestampString = "593636872.8384939"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "643"
-            endingLineNumber = "643"
+            startingLineNumber = "644"
+            endingLineNumber = "644"
             landmarkName = "setImage(image:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -461,8 +461,8 @@
             timestampString = "593636872.838791"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "919"
-            endingLineNumber = "919"
+            startingLineNumber = "920"
+            endingLineNumber = "920"
             landmarkName = "textField(_:shouldChangeCharactersIn:replacementString:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -477,8 +477,8 @@
             filePath = "CelebScope/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "543"
-            endingLineNumber = "543"
+            startingLineNumber = "544"
+            endingLineNumber = "544"
             landmarkName = "showControllerForSetting(setting:)"
             landmarkType = "7">
          </BreakpointContent>
