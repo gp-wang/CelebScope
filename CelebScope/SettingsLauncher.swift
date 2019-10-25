@@ -35,7 +35,9 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
     let cellHeight: CGFloat = 50
     
     let settings: [Setting] = {
-        return [Setting(name: "Settings", imageName: "settings"), Setting(name: "Terms & privacy policy", imageName: "privacy"), Setting(name: "Send Feedback", imageName: "feedback"), Setting(name: "Help", imageName: "help"), Setting(name: "Switch Account", imageName: "switch_account"), Setting(name: "Cancel", imageName: "cancel")]
+//        return [Setting(name: "Settings", imageName: "settings"), Setting(name: "Terms & privacy policy", imageName: "privacy"), Setting(name: "Send Feedback", imageName: "feedback"), Setting(name: "Help", imageName: "help"), Setting(name: "Switch Account", imageName: "switch_account"), Setting(name: "Cancel", imageName: "cancel")]
+        
+        return [Setting(name: NSLocalizedString("termPrivacyLabel", comment: ""), imageName: "privacy"), Setting(name: NSLocalizedString("feedbackLabel", comment: ""), imageName: "feedback"), Setting(name: NSLocalizedString("helpLabel", comment: ""), imageName: "help"), Setting(name: NSLocalizedString("cancelLabel", comment: ""), imageName: "cancel")]
     }()
     
     func showSettings() {
@@ -69,6 +71,8 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
     }
     
     @objc func handleDismiss(setting: Setting) {
+        
+        
         UIView.animate(withDuration: 0.5, animations: {
             self.blackView.alpha = 0
             
@@ -76,6 +80,8 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
                 self.collectionView.frame = CGRect(x: 0, y: window.frame.height, width: self.collectionView.frame.width, height: self.collectionView.frame.height)
             }
         }, completion: { (_) in
+            
+            // TODO: below code has access err (likely the settings object is released )
             if setting.name != "" && setting.name != "Cancel" {
                 self.homeController?.showControllerForSetting(setting: setting)
             }

@@ -6,3 +6,8 @@
   Copyright © 2019 Gaopeng Wang. All rights reserved.
 */
 "signOutLabel" = "登出" ;
+"findLabel" = "搜索" ;
+"termPrivacyLabel" = "隐私条款";
+"feedbackLabel" = "提供反馈";
+"helpLabel" = "帮助";
+"cancleLabel" = "取消"

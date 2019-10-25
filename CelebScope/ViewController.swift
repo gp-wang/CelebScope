@@ -109,7 +109,7 @@ class ViewController:  UIViewController {
         _button.translatesAutoresizingMaskIntoConstraints = false
         _button.backgroundColor = UIColor.yellow
         
-        _button.setTitle("Find", for: .normal)
+        _button.setTitle(NSLocalizedString("findLabel", comment: ""), for: .normal)
         _button.setTitleColor(.darkGray, for: .normal)
         _button.alpha = 0.9
         // set corner radius: https://stackoverflow.com/a/34506379/8328365
