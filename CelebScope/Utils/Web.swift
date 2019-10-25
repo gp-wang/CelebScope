@@ -26,7 +26,7 @@ extension NSMutableData {
 typealias classificationCompletionHandler = ([NSDictionary]) -> Void
 typealias ocrCompletionHandler = (NSDictionary, UIImage) -> Void
 
-typealias ocrCompletionResponseHandler = (Data?, URLResponse?, Error?, String, UIImage) -> Void
+typealias ocrCompletionResponseHandler = (String, GoogleCloudVisionApiResponses) -> Void
 
 
 //    https://stackoverflow.com/questions/24603559/store-a-closure-as-a-variable-in-swift
@@ -34,35 +34,11 @@ typealias ocrCompletionResponseHandler = (Data?, URLResponse?, Error?, String, U
 //        (arg: Any) -> Void in
 //    }
 
-// completionHandler: the handler to pass down, it is supplied at the top entry point of the nested handler call
-func identifyFaces(_ faces: [Face],  completionHandler: @escaping classificationCompletionHandler ) { //gw: (!done)todo: fix this. error
-    // server endpoint
-    let endpoint = "https://vision.googleapis.com/v1/images:annotate"
-    let endpointUrl = URL(string: endpoint)!
-    
-    var request = URLRequest(url: endpointUrl)
-    request.httpMethod = "POST"
-    
-    let boundary = generateBoundaryString()
-    
-    request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-    
-    let jpegDataImages = faces.map({ (face: Face) -> Data in
-        guard let jpegImage = UIImage(cgImage: face.image).jpegData(compressionQuality: 1) else {
-            fatalError("Could not retrieve person's photo")
-        }
-        
-        return jpegImage
-    })
-    
-    request.httpBody = createBodyWithParameters(parameters: nil, filePathKey: "images[]", dataItems: jpegDataImages, boundary: boundary) as Data
-    
-    
-    fireClassificationRequest(request, completionHandler)
-}
 
 
-func searchTextInImage(_ text: String, _ image: UIImage,  completionHandler: @escaping ocrCompletionResponseHandler, accessToken: String ) { //gw: (!done)todo: fix this. error
+// pass in a reference of Viewcontroller to update cache dict
+// TODO: is there better way?
+func searchTextInImage(_ text: String, _ image: UIImage,  completionHandler: @escaping ocrCompletionResponseHandler, accessToken: String, cache: Cache ) { //gw: (!done)todo: fix this. error
     // server endpoint
     let endpoint = "https://vision.googleapis.com/v1/images:annotate"
     let endpointUrl = URL(string: endpoint)!
@@ -88,40 +64,12 @@ func searchTextInImage(_ text: String, _ image: UIImage,  completionHandler: @es
     request.httpBody = createOCRRequestBody(imageData: jpegImage)
     
     // gw: pass in the ref to the image for retring  (e.g. when access_token is invalid)
-    fireOCRRequest(request, completionHandler, text, image)
+    fireOCRRequest(request, completionHandler, text, image, cache: cache)
 }
 
-
-func fireClassificationRequest(_ request: URLRequest, _ completionHandler: @escaping classificationCompletionHandler) {
-    // gw: completion handler: URL request
-    //TODO: extract completion handlers
-    URLSession.shared.dataTask(with: request){
-        (data: Data?, response: URLResponse?, error: Error?) in
-        
-        
-        guard let data = data else { return }
-        guard let outputStr  = String(data: data, encoding: String.Encoding.utf8) as String? else {
-            fatalError("could not get classification result ")
-        }
-        // gw_log(outputStr)
-        
-        do {
-            
-            guard let peopleClassification = try JSONSerialization.jsonObject(with: data, options: []) as? [NSDictionary] else {
-                fatalError("could not parse result as json")
-            }
-            
-            completionHandler(peopleClassification)
-        } catch let error as NSError {
-            gw_log(error.debugDescription)
-        }
-        
-        
-        }.resume()
-}
 
 // text: the string to search for
-func fireOCRRequest(_ request: URLRequest, _ completionHandler: @escaping ocrCompletionResponseHandler, _ text: String, _ image: UIImage) {
+func fireOCRRequest(_ request: URLRequest, _ completionHandler: @escaping ocrCompletionResponseHandler, _ text: String, _ image: UIImage, cache: Cache) {
     // gw: completion handler: URL request
     //TODO: extract completion handlers
     URLSession.shared.dataTask(with: request){
@@ -130,22 +78,49 @@ func fireOCRRequest(_ request: URLRequest, _ completionHandler: @escaping ocrCom
         
         //guard let data = data else { return }
         /* guard let outputStr  = String(data: data, encoding: String.Encoding.utf8) as String? else {
-            fatalError("could not get classification result ")
-        } */
+         fatalError("could not get classification result ")
+         } */
         // gw_log(outputStr)
         
         do {
             
-           
+            if let error = error {
+                print("dataTask response has error: \(error.localizedDescription)")
+            } else {
+                guard  let data = data,
+                    let response = response as? HTTPURLResponse else {
+                        fatalError("dataTask reports no error but could not cast data and response")
+                }
+                
+                
+                if response.statusCode != 200 {
+                    
+                } else {
+                    
+                    do {
+                        gw_log("success getting google response")
+                        let googleResponse = try JSONDecoder().decode(GoogleCloudVisionApiResponses.self, from: data)
+                        cache.cachedResponses[image] = googleResponse
+                        
+                        completionHandler(text, googleResponse)
+                    } catch let jsonErr {
+                        print(jsonErr)
+                    }
+                    
+                }
+            }
             
-            completionHandler(data, response, error, text, image)
+            
+            
+            
+            //completionHandler(data, response, error, text, image)
             //completionHandler(ocrClassification, image)
         } catch let error as NSError {
             gw_log(error.debugDescription)
         }
         
         
-        }.resume()
+    }.resume()
 }
 
 func generateBoundaryString() -> String {

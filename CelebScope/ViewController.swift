@@ -507,10 +507,18 @@ class ViewController:  UIViewController {
     }
     
     
+    let cache = Cache()
+    
     @objc func startSearch() {
-        
-        
-        searchTextInImage(self.searchTextInput.text!, self.zoomableImageVC.zoomableImageView.imageView.image!, completionHandler: searchForTextInOcrResult, accessToken: GIDSignIn.sharedInstance()!.currentUser!.authentication.accessToken)
+        let image =  self.zoomableImageVC.zoomableImageView.imageView.image!
+        let text = self.searchTextInput.text!
+        if let cachedResponse =  cache.cachedResponses[image] {
+            gw_log("reuse cached response")
+            searchForTextInOcrResult(text,cachedResponse)
+        } else {
+            gw_log("fire new API request")
+            searchTextInImage(text,image, completionHandler: searchForTextInOcrResult, accessToken: GIDSignIn.sharedInstance()!.currentUser!.authentication.accessToken, cache: cache)
+        }
     }
     
     
@@ -731,166 +739,148 @@ class ViewController:  UIViewController {
     //
     
     
-    func searchForTextInOcrResult(_ ocrRespData: Data?, _ ocrRespResponse: URLResponse?, _ ocrRespError: Error?, _ text: String, _ image: UIImage) {
-        // TODO
+    //func searchForTextInOcrResult(_ ocrRespData: Data?, _ ocrRespResponse: URLResponse?, _ ocrRespError: Error?, _ text: String, _ image: UIImage) {
+    func searchForTextInOcrResult(_ text: String, _ googleApiResponse: GoogleCloudVisionApiResponses) {
         
-        // 5
-        if let error = ocrRespError {
-            print("dataTask response has error: \(error.localizedDescription)")
-        } else {
-            guard  let data = ocrRespData,
-                let response = ocrRespResponse as? HTTPURLResponse else {
-                    fatalError("dataTask reports no error but could not cast data and response")
-            }
-            
-            
-            if response.statusCode != 200 {
-                
-            } else {
-                
-                do {
-                    let googleResponse = try JSONDecoder().decode(GoogleCloudVisionApiResponses.self, from: data)
-                    print(googleResponse)
+                        
+        
+        
+        
+        // TODO
+        // create text_matching_identification and populate into pageDetail view and collection view for display
+        
+        // gw: naive search algorithm:
+        // search text: remove all whitespaces / breaks
+        // then, in the detected text, match above search text symbol by symbol
+        // this should work for both CN and EN
+        
+        
+        var matchedStrings: [MatchedString] = []
+        
+        
+        let rawSearchText = text
+        
+        var value = NSMutableString(string:rawSearchText)
+        let pattern = "\\s"
+        let regex = try? NSRegularExpression(pattern: pattern)
+        regex?.replaceMatches(in: value, options: .reportProgress, range: NSRange(location: 0,length: value.length), withTemplate: "")
+        // This will print We are big now lot of sales the money and cards Rober Langdon and Ambra Vidal.
+        //print(value)
+        
+        // regex replacement
+        
+        let searchText: String = value as! String
+        
+        
+        
+        
+        var symbolIndex: Int = 0
+        for _response in googleApiResponse.responses {
+            for _page in _response.fullTextAnnotation.pages {
+                blockLoop: for _block in _page.blocks {
+                    // gw: search within the max unit of block, so for each block we reinit the match pointer
+                    // pointer of matched up to which char in the searchText
                     
-                    // TODO
-                    // create text_matching_identification and populate into pageDetail view and collection view for display
-                    
-                    // gw: naive search algorithm:
-                    // search text: remove all whitespaces / breaks
-                    // then, in the detected text, match above search text symbol by symbol
-                    // this should work for both CN and EN
-                    
-                    
-                    var matchedStrings: [MatchedString] = []
-                    
-                    
-                    let rawSearchText = text
-                    
-                    var value = NSMutableString(string:rawSearchText)
-                    let pattern = "\\s"
-                    let regex = try? NSRegularExpression(pattern: pattern)
-                    regex?.replaceMatches(in: value, options: .reportProgress, range: NSRange(location: 0,length: value.length), withTemplate: "")
-                    // This will print We are big now lot of sales the money and cards Rober Langdon and Ambra Vidal.
-                    //print(value)
-                    
-                    // regex replacement
-
-                    let searchText: String = value as! String
-                    
-                    
-                   
-
-                    var symbolIndex: Int = 0
-                    for _response in googleResponse.responses {
-                        for _page in _response.fullTextAnnotation.pages {
-                            blockLoop: for _block in _page.blocks {
-                                // gw: search within the max unit of block, so for each block we reinit the match pointer
-                                // pointer of matched up to which char in the searchText
+                    var symbols: [Symbol] = []
+                    // a list of bools which mark whether the index is a wordboundary
+                    var wordBoundaries: [Bool] = []
+                    //                                var contexts: [Word] = []
+                    // compose a list for strStr search
+                    var symbolToParagraphIndex: [Int] = []
+                    for (pIndex, _paragraph) in _block.paragraphs.enumerated() {
+                        for _word in _paragraph.words {
+                            
+                            for (sIndex, _symbol) in _word.symbols.enumerated() {
+                                // mark first symbol as word boundary
+                                wordBoundaries.append(sIndex  == 0)
+                                symbols.append(_symbol)
+                                symbolIndex += 1
                                 
-                                var symbols: [Symbol] = []
-                                 // a list of bools which mark whether the index is a wordboundary
-                                var wordBoundaries: [Bool] = []
-//                                var contexts: [Word] = []
-                                // compose a list for strStr search
-                                var symbolToParagraphIndex: [Int] = []
-                                for (pIndex, _paragraph) in _block.paragraphs.enumerated() {
-                                    for _word in _paragraph.words {
-
-                                        for (sIndex, _symbol) in _word.symbols.enumerated() {
-                                            // mark first symbol as word boundary
-                                            wordBoundaries.append(sIndex  == 0)
-                                            symbols.append(_symbol)
-                                            symbolIndex += 1
-                                            
-                                        }
-                                    }
-                                }
-                                
-                                // strStr search
-                                // swift way to guarantee non-empty range
-                                if symbols.count >= searchText.count {
-                                    var matchedSymbols : [Symbol] = []
-                                    outer: for i in 0..<(symbols.count - searchText.count) {
-                                        let _symbol = symbols[i]
-                                        
-                                        var j: Int = 0
-                                        var jIndex = searchText.index(searchText.startIndex, offsetBy: j)
-                                        var jChar: Character = searchText[jIndex]
-                                        
-                                        inner: while jChar.lowercased() == symbols[i+j].text.first?.lowercased() {
-                                            matchedSymbols.append(symbols[i+j])
-                                            j += 1
-                                            if j == searchText.count {
-                                                // mark complete and ends current loop
-                                                
-                                                // make copy for constructing matched String
-                                                var dupMatchedSymbols : [Symbol] = matchedSymbols
-                                                matchedSymbols = []
-                                                
-                                                let paragraphIndex: Int = symbolToParagraphIndex[i]
-                                                
-                                                // make context
-                                                var k = i + j
-                                               //var context: [String] = []  // a list of words
-                                                //var currWord: [String] = []
-                                                var context: [Character] = []
-                                                var wordCnt: Int = 0
-                                                // search backward
-                                                while k > 0 && wordCnt < Constants.HALF_CONTEXT_WORD_LIMIT {
-                                                    context.insert(symbols[k].text.first!, at: 0)
-                                                    if wordBoundaries[k] {
-                                                        context.insert(" ", at: 0)
-                                                        wordCnt += 1
-                                                    }
-                                                    k -= 1
-                                                }
-                                                
-                                                // search forward
-                                                k = i + j + 1
-                                                wordCnt = 0
-                                                while k < symbols.count && wordCnt < Constants.HALF_CONTEXT_WORD_LIMIT {
-                                                    context.append(symbols[k].text.first!)
-                                                    if wordBoundaries[k] {
-                                                        context.insert(" ", at: 0)
-                                                        wordCnt += 1
-                                                    }
-                                                    k += 1
-                                                }
-                                                
-                                                
-                                                let match = MatchedString(searchText: searchText, symbols: dupMatchedSymbols, context: String(context))
-                                                matchedStrings.append(match)
-                                                
-                                            } else {
-                                                
-                                                
-                                                jIndex = searchText.index(searchText.startIndex, offsetBy: j)
-                                                jChar = searchText[jIndex]
-                                            }
-                                            
-                                            
-                                            
-                                        }
-                                    }
-                                    
-                                }
                             }
                         }
                     }
                     
-                    // TODO: construct the pageDetails and collectionView from match matchIdentifications
-                    self.matchedStrings = matchedStrings
-                    
-                    
-                } catch let jsonErr {
-                    print(jsonErr)
+                    // strStr search
+                    // swift way to guarantee non-empty range
+                    if symbols.count >= searchText.count {
+                        var matchedSymbols : [Symbol] = []
+                        outer: for i in 0..<(symbols.count - searchText.count) {
+                            let _symbol = symbols[i]
+                            
+                            var j: Int = 0
+                            var jIndex = searchText.index(searchText.startIndex, offsetBy: j)
+                            var jChar: Character = searchText[jIndex]
+                            
+                            inner: while jChar.lowercased() == symbols[i+j].text.first?.lowercased() {
+                                matchedSymbols.append(symbols[i+j])
+                                j += 1
+                                if j == searchText.count {
+                                    // mark complete and ends current loop
+                                    
+                                    // make copy for constructing matched String
+                                    var dupMatchedSymbols : [Symbol] = matchedSymbols
+                                    matchedSymbols = []
+                                    
+                                    //let paragraphIndex: Int = symbolToParagraphIndex[i]
+                                    
+                                    // make context
+                                    var k = i + j
+                                    //var context: [String] = []  // a list of words
+                                    //var currWord: [String] = []
+                                    var context: [Character] = []
+                                    var wordCnt: Int = 0
+                                    // search backward
+                                    while k > 0 && wordCnt < Constants.HALF_CONTEXT_WORD_LIMIT {
+                                        context.insert(symbols[k].text.first!, at: 0)
+                                        if wordBoundaries[k] {
+                                            context.insert(" ", at: 0)
+                                            wordCnt += 1
+                                        }
+                                        k -= 1
+                                    }
+                                    
+                                    // search forward
+                                    k = i + j + 1
+                                    wordCnt = 0
+                                    while k < symbols.count && wordCnt < Constants.HALF_CONTEXT_WORD_LIMIT {
+                                        context.append(symbols[k].text.first!)
+                                        if wordBoundaries[k] {
+                                            context.insert(" ", at: 0)
+                                            wordCnt += 1
+                                        }
+                                        k += 1
+                                    }
+                                    
+                                    
+                                    let match = MatchedString(searchText: searchText, symbols: dupMatchedSymbols, context: String(context))
+                                    matchedStrings.append(match)
+                                    
+                                } else {
+                                    
+                                    
+                                    jIndex = searchText.index(searchText.startIndex, offsetBy: j)
+                                    jChar = searchText[jIndex]
+                                }
+                                
+                                
+                                
+                            }
+                        }
+                        
+                    }
                 }
-                
             }
-            
         }
         
+        // TODO: construct the pageDetails and collectionView from match matchIdentifications
+        self.matchedStrings = matchedStrings
+        
+        
+        
+        
     }
+    
+    
     
 }
 
