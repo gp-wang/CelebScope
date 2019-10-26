@@ -18,9 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     override init() {
         super.init()
         
+        
+        //TODO remove before relase
+        //GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = ["7daecb8a5eeb07a54b457cfe9de99788"]
+        
         // gw: hack to solve that viewDidload is called BEFORE didFinishLaunchingWithOptions
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().clientID = "399591616840-7ogh03vhapiqcaudu76vp0g1aili57k3.apps.googleusercontent.com"
+        
         GIDSignIn.sharedInstance()?.scopes.append(contentsOf: ["https://www.googleapis.com/auth/cloud-platform", "https://www.googleapis.com/auth/cloud-vision"])
     }
 
@@ -50,6 +55,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         //window?.rootViewController = UINavigationController(rootViewController: customCollectionViewController)
        let rootViewController = UINavigationController(rootViewController: customCollectionViewController)
         window?.rootViewController = rootViewController
+        
+        
+        
         GADMobileAds.configure(withApplicationID: "ca-app-pub-4230599911798280~4105662515")
         
         

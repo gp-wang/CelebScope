@@ -176,7 +176,9 @@ extension ViewController {
             
             bannerView.leadingAnchor.constraint(equalTo: menuButton.trailingAnchor, constant: 10),
             bannerView.trailingAnchor.constraint(equalTo: bottomViewGroup.trailingAnchor),
-            bannerView.centerYAnchor.constraint(equalTo: bottomViewGroup.centerYAnchor)
+//            bannerView.centerYAnchor.constraint(equalTo: bottomViewGroup.centerYAnchor)
+            bannerView.topAnchor.constraint(equalTo: menuButton.topAnchor),
+            bannerView.bottomAnchor.constraint(equalTo: menuButton.bottomAnchor)
             
         
         ])

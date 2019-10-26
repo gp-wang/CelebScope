@@ -118,7 +118,7 @@ class PersonCollectionViewCell: UICollectionViewCell {
     
     let nameLabel : UILabel = {
       
-        let attrString = NSMutableAttributedString(string: "Jeniffer Lawrence")
+        let attrString = NSMutableAttributedString(string: "")
         attrString.addAttribute(.paragraphStyle, value: nameLabelParagraphStyle, range:NSMakeRange(0, attrString.length))
 
         let _label = UILabel()
@@ -229,10 +229,10 @@ class PersonCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             //nameLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             //nameLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant:  30),
-            nameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30),
-            nameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 30),
-            nameLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -30)
+            nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant:  5),
+            nameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
+            nameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            nameLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
             
             ])
         

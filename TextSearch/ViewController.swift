@@ -382,7 +382,7 @@ class ViewController:  UIViewController {
         // view.bringSubviewToFront(detailPagedVC.view)
         view.bringSubviewToFront(zoomableImageVC.zoomableImageView)
         view.bringSubviewToFront(canvas)
-        view.bringSubviewToFront(bannerView)
+        view.bringSubviewToFront(bottomViewGroup)
         view.bringSubviewToFront(signInView)
 //        view.bringSubviewToFront(signOutButton)
 //        view.bringSubviewToFront(signInStatusText)
