@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		58DBD3B7B638811B9BF86FBC /* Pods_CelebScope.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F3A852C3FDFCA8C4D3F4596 /* Pods_CelebScope.framework */; };
 		6B20977021FB5E9A0066CDD8 /* SinglePersonPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B20976F21FB5E9A0066CDD8 /* SinglePersonPageViewController.swift */; };
 		6B20977A21FB76B10066CDD8 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B20977921FB76B10066CDD8 /* CollectionViewController.swift */; };
 		6B20977C21FB76F30066CDD8 /* ZoomableImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B20977B21FB76F30066CDD8 /* ZoomableImageViewController.swift */; };
@@ -62,7 +61,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1F3A852C3FDFCA8C4D3F4596 /* Pods_CelebScope.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CelebScope.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6507CDD34E474BB43F458AB3 /* Pods-TextSearch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TextSearch.release.xcconfig"; path = "Pods/Target Support Files/Pods-TextSearch/Pods-TextSearch.release.xcconfig"; sourceTree = "<group>"; };
 		6B1B0E475A139E229783DBDB /* Pods-CelebScope.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CelebScope.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CelebScope/Pods-CelebScope.debug.xcconfig"; sourceTree = "<group>"; };
 		6B20976F21FB5E9A0066CDD8 /* SinglePersonPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePersonPageViewController.swift; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				58DBD3B7B638811B9BF86FBC /* Pods_CelebScope.framework in Frameworks */,
 				9EE308AE4CBDF7E20C69326E /* Pods_TextSearch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -150,7 +147,6 @@
 		38412B87F39AA4F34ACA931F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1F3A852C3FDFCA8C4D3F4596 /* Pods_CelebScope.framework */,
 				7CF87F04B5E97548372E5515 /* Pods_TextSearch.framework */,
 			);
 			name = Frameworks;
