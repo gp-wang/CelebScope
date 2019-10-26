@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>text_search</string>
+	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -71,11 +71,11 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Take photos of TV screen and identify the names of the celebrities in the photo.</string>
+	<string>Take photos to search for text</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Please allow access to save photo in your photo library</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Select previously taken photos and identify the names of the celibrities in the photo.</string>
+	<string>Select photos to search for text</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

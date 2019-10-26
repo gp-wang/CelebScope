@@ -75,7 +75,7 @@
 		6B28FBBF220D475500BAC099 /* PeoplePageViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeoplePageViewDelegate.swift; sourceTree = "<group>"; };
 		6B2FF99122074D050095E4DA /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
 		6B2FF99322074D2D0095E4DA /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
-		6B31D2B321F38D55000CFA44 /* TextSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B31D2B321F38D55000CFA44 /* HawkEye - Image Text Search.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HawkEye - Image Text Search.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B31D2B621F38D55000CFA44 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6B31D2B821F38D55000CFA44 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6B31D2BD21F38D58000CFA44 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -245,7 +245,7 @@
 		6B31D2AA21F38D55000CFA44 = {
 			isa = PBXGroup;
 			children = (
-				6B31D2B521F38D55000CFA44 /* CelebScope */,
+				6B31D2B521F38D55000CFA44 /* TextSearch */,
 				6B31D2B421F38D55000CFA44 /* Products */,
 				0BDA207D80BA0CF913CA6DD1 /* Pods */,
 				38412B87F39AA4F34ACA931F /* Frameworks */,
@@ -255,12 +255,12 @@
 		6B31D2B421F38D55000CFA44 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6B31D2B321F38D55000CFA44 /* TextSearch.app */,
+				6B31D2B321F38D55000CFA44 /* HawkEye - Image Text Search.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6B31D2B521F38D55000CFA44 /* CelebScope */ = {
+		6B31D2B521F38D55000CFA44 /* TextSearch */ = {
 			isa = PBXGroup;
 			children = (
 				6B28FBBD220BA2E600BAC099 /* ViewControllerConstraints.swift */,
@@ -285,7 +285,7 @@
 				6BD7CA6C236339AC00418131 /* Cache.swift */,
 				6B85AFDC23637A880001FF19 /* SettingDetailVC.swift */,
 			);
-			path = CelebScope;
+			path = TextSearch;
 			sourceTree = "<group>";
 		};
 		6B559336220F9CE30074DDF4 /* Tooltip */ = {
@@ -333,7 +333,7 @@
 			);
 			name = TextSearch;
 			productName = CelebScope;
-			productReference = 6B31D2B321F38D55000CFA44 /* TextSearch.app */;
+			productReference = 6B31D2B321F38D55000CFA44 /* HawkEye - Image Text Search.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -659,13 +659,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 64ZX9KS46Y;
-				INFOPLIST_FILE = CelebScope/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/TextSearch/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = www.gwang.textsearch;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "HawkEye - Image Text Search";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -678,13 +678,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 64ZX9KS46Y;
-				INFOPLIST_FILE = CelebScope/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/TextSearch/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = www.gwang.textsearch;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "HawkEye - Image Text Search";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
