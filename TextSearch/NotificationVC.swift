@@ -23,8 +23,8 @@ public class NotificationVC: UIViewController {
     let progressView: UIView = {
         let _view = UIView()
         _view.translatesAutoresizingMaskIntoConstraints = false
-        
-        _view.backgroundColor =  UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+        _view.backgroundColor = .lightGray
+        //_view.backgroundColor =  UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
         return _view
     } ()
     
@@ -59,8 +59,8 @@ public class NotificationVC: UIViewController {
     let errorView: UIView = {
         let _view = UIView()
         _view.translatesAutoresizingMaskIntoConstraints = false
-        
-        _view.backgroundColor =  UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+        _view.backgroundColor = .lightGray
+        //_view.backgroundColor =  UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
         return _view
     } ()
     let errorText: UILabel = {
@@ -145,6 +145,10 @@ public class NotificationVC: UIViewController {
         errorView.addSubview(dismissButton)
         view.addSubview(errorView)
         
+        
+        // gw: don't set super view's background, let it be transparent, use it as a logical grouping container
+        // modify each subview's background separately (finer control)
+        //view.backgroundColor = .lightGray
         
         
         self.view.translatesAutoresizingMaskIntoConstraints = false         // gw: note to add this

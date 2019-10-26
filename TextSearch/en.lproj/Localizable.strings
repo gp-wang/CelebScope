@@ -12,6 +12,8 @@
 "helpLabel" = "Help" ;
 "cancelLabel" = "Cancel" ;
 "dismissLabel" = "Dismiss" ;
+"progressLabel" = "Processing text in the provided image ... ";
+"errorDefaultLabel" = "Something went wrong...";
 
 "statusAppInitLabel" = "Initialized app ...";
 "statusUserLabel" = "Signed in user: " ;

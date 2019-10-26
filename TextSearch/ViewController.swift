@@ -534,6 +534,8 @@ class ViewController:  UIViewController {
                 gw_log(msg)
             }
         }
+        // first clear prev results
+        self.matchedStrings = []
         
         self.searchTextInput.endEditing(true)
         
