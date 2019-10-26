@@ -9,7 +9,7 @@
 import UIKit
 
 public enum NotificationType {
-    case PROGRESS, ERROR, NONE
+    case SIGNIN, PROGRESS, ERROR, NONE
 }
 
 
@@ -91,6 +91,40 @@ public class NotificationVC: UIViewController {
         
         return _button
     } ()
+    
+    
+    // screen 3
+    // sign in indicator
+    // screen 2
+    // this is a view group, contains error text
+//    let signInView: UIView = {
+//        let _view = UIView()
+//        _view.translatesAutoresizingMaskIntoConstraints = false
+//        _view.backgroundColor = UIColor.lightGray
+//        return _view
+//    } ()
+//    let signInPromote: UILabel = {
+//        let _label = UILabel()
+//        _label.text = "Please Sign in with Google Account to continue."
+//
+//        _label.textColor = Colors.brightOrange
+//        _label.translatesAutoresizingMaskIntoConstraints = false
+//        _label.textAlignment = .center
+//        _label.numberOfLines = 2;
+//
+//        _label.minimumScaleFactor = 0.4
+//        _label.adjustsFontSizeToFitWidth = true;
+//        //        _label.font = UIFont.preferredFont(forTextStyle: .subheadline).withSize(12)
+//        return _label
+//    } ()
+//
+//    let signInButton: GIDSignInButton = {
+//        let _button = GIDSignInButton()
+//        _button.translatesAutoresizingMaskIntoConstraints = false
+//
+//        return _button
+//
+//    } ()
     
     
 

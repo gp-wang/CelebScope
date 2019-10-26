@@ -130,6 +130,20 @@ class ViewController:  UIViewController {
         _view.backgroundColor = UIColor.lightGray
         return _view
     } ()
+    let signInPrompt: UILabel = {
+        let _label = UILabel()
+        _label.text = "Please Sign in with Google Account to continue."
+        
+        _label.textColor = UIColor.white
+        _label.translatesAutoresizingMaskIntoConstraints = false
+        _label.textAlignment = .center
+        _label.numberOfLines = 2;
+        
+        _label.minimumScaleFactor = 0.4
+        _label.adjustsFontSizeToFitWidth = true;
+        //        _label.font = UIFont.preferredFont(forTextStyle: .subheadline).withSize(12)
+        return _label
+    } ()
     let signInButton: GIDSignInButton = {
         let _button = GIDSignInButton()
         _button.translatesAutoresizingMaskIntoConstraints = false
@@ -294,6 +308,7 @@ class ViewController:  UIViewController {
         
         // google sign in
         signInView.addSubview(signInButton)
+        signInView.addSubview(signInPrompt)
         view.addSubview(signInView)
         
         
@@ -446,7 +461,7 @@ class ViewController:  UIViewController {
             searchView.isHidden = true
             signStatusView.isHidden = true
             // disconnectButton.isHidden = true
-            signInStatusText.text = "Google Sign in\niOS Demo"
+            signInStatusText.text = ""
         }
     }
     // [END toggle_auth]
@@ -582,7 +597,13 @@ class ViewController:  UIViewController {
                                                name: NSNotification.Name(rawValue: "ToggleAuthUINotification"),
                                                object: nil)
         
+        // TODO, gw: is there a way to know who is the signed in user from prev sign-in
         signInStatusText.text = "Initialized app ..."
+        
+        if let fullName =         GIDSignIn.sharedInstance()?.currentUser?.profile?.name {
+            signInStatusText.text = "Signed in user:\n\(fullName)"
+        }
+
         toggleAuthUI()
         
         //TODO
@@ -1127,126 +1148,6 @@ extension ViewController: UITextFieldDelegate {
 
 
 
-// MARK: - face classifier
-// gw: I put the classifn responsibility in main VC, instead of zoomVC, is because the later one should be only responsible for image display, not for other fn
-extension ViewController {
-    
-    func configure(image: UIImage?) {
-        guard let image = image else {
-            
-            gw_log("invalid image for configure/classifn")
-            return
-        }
-        
-        
-        gw_log("imageOrientation: \(image.imageOrientation)")
-//        gw_log("frame: \(self.photoView.frame)")
-//        gw_log("bounds: \(self.photoView.bounds)")
-        
-        
-        
-        //gw: for identifying texts
-        
-        
-        // gw: moved out as separate method
-        //       searchTextInImage(text, image, completionHandler: processOCRResult, accessToken: GIDSignIn.sharedInstance()!.currentUser!.authentication.accessToken)
-        /*
-        
-        // gw code notes: in FaceCropper Framework, he makes all CGImage as FaceCroppable by extending them all.
-        // gw: you need to import FaceCropper to let UIImage have this face property
-        image.face.crop { (faceCropResult: FaceCropResult<Face>) in
-            switch faceCropResult {
-                //case .success(var faces: [Face]):
-                // gw: type here is faces: [Face]
-            // gw: TODO, read futher why cannot specify type here
-            case .success(var faces):
-                let epsilonY : CGFloat = 20  // gw: use an larger value to mean that if two points are close enough in this direction, then ignore it and use the ordering in the other direction
-                let epsilonX : CGFloat = 0.1
-                
-                for face in faces{
-                    gw_log("gw: found face at: \(face.position)")
-                }
-                
-                // sort faces by their positino in photo
-                // this sort is for list in ppl coll view
-                // goal: less cross over from photo to ppl coll view annotations
-                let sortedFacesByPosition = faces.sorted(by: { (face1: Face, face2: Face) -> Bool in
-                    // gw: note, the sorting should be w.r.t. the UIView location (not original face location in cgImage)
-
-                    // TODO: think about rotated photo or face -------------------
-                    //let _p1 = self.transformPointByOrientation(face1.position, image.imageOrientation)
-                    //let _p2 = self.transformPointByOrientation(face2.position, image.imageOrientation)
-                    let _p1 = face1.position
-                    let _p2 = face2.position
-
-
-                    // gw: ordering criteria: compare y, then x (UI Kit coord, top to bottom, left to right)
-                    return _p1.y - _p2.y < -epsilonY || ( _p1.y - _p2.y < epsilonY && _p1.x - _p2.x < -epsilonX)
-                })
-                
-                // disable sort as it has bugs
-                //let sortedFacesByPosition = faces
-                
-         
-                
-                // gw: completion handler: face classification
-                // a list of known types as response, is better than using a object (unknown dict) as response type
-                identifyFaces(sortedFacesByPosition,
-                              completionHandler:  { (peopleClassificationResults : [NSDictionary]) in
-                                
-                                
-                                // gw: inside completion handler, you have reference to other variable in the same scope. (closure)
-                                //gw_log(sortedFacesByPosition)
-                                
-                                
-                                
-                                // gw: construct identificationResults from sortedFacesByPosition and peopleClassificationResults
-                                var identificationResults = [Identification]()
-                                
-                                for (idx, (face, personClassification)) in zip(sortedFacesByPosition, peopleClassificationResults).enumerated() {
-                                    let identification = Identification(face: face,
-                                                                        person: Person(
-                                                                            id: idx,
-                                                                            name: ((personClassification["best"]
-                                                                                as? NSDictionary)? ["name"]) as? String ?? "unknown",
-                                                                            avartar:
-                                                                            {
-                                                                                guard let image_b64_str: String = (personClassification["best"] as? NSDictionary)? ["avartar"] as? String else { return nil}
-                                                                                
-                                                                                // https://stackoverflow.com/questions/46304641/base64-image-encoding-swift-4-ios
-                                                                                return base64ToImage(base64: image_b64_str)
-                                                                                
-                                                                        } () ?? UIImage(imageLiteralResourceName: "unknown"),
-                                                                            birthDate: (personClassification["best"] as? NSDictionary)? ["birthYear"] as? String,
-                                                                            deathDate: (personClassification["best"] as? NSDictionary)? ["deathYear"] as? String,
-                                                                            bio: (personClassification["best"] as? NSDictionary)? ["bio_cn"] as? String,
-                                                                            //bio: String(data:((personClassification["best"] as! [String: Data]) ["bio_cn"])!, encoding: .utf8),
-                                                                            
-                                                                            profession: (personClassification["best"] as? NSDictionary)? ["professions_cn"] as? String),
-                                                                        confidence: (personClassification["best"] as? NSDictionary)? ["prob"] as? Double
-                                                                        )
-                                    
-                                    identificationResults.append(identification)
-                                }
-                                
-                                // gw: updating logic is inside setter
-                                self.identificationResults = identificationResults
-                                
-      
-                })
-                
-            case .notFound:
-                //self.showAlert("couldn't find any face")
-                gw_log("cannot find any face!")
-            case .failure(let error):
-                //self.showAlert(error.localizedDescription)
-                gw_log("failure!!!")
-            }
-        } */
-    }
-}
-
-
 // MARK: - image picker delegate
 // gw: action after picking meage
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -1285,7 +1186,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
             
             // gw: text_search: comment this out and move to clicking "search" button
             // put time-consuming task in the last
-            self.configure(image: image)
+            //self.configure(image: image)
             
             
             

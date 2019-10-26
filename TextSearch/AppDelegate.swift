@@ -93,9 +93,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
               withError error: Error!) {
         if let error = error {
             if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
-                print("The user has not signed in before or they have since signed out.")
+                gw_log("The user has not signed in before or they have since signed out.")
             } else {
-                print("\(error.localizedDescription)")
+                gw_log("\(error.localizedDescription)")
             }
             // [START_EXCLUDE silent]
             NotificationCenter.default.post(

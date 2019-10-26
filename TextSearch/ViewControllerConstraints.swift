@@ -236,15 +236,15 @@ extension ViewController {
         // setup constraints common to portrait and landscape
         
         NSLayoutConstraint.activate([
+            signInPrompt.topAnchor.constraint(equalTo: signInView.topAnchor, constant: 10),
+            signInPrompt.leadingAnchor.constraint(equalTo: signInView.leadingAnchor, constant: 10),
+            signInPrompt.trailingAnchor.constraint(equalTo: signInView.trailingAnchor, constant: -10),
+            
+            signInButton.topAnchor.constraint(equalTo: signInPrompt.bottomAnchor, constant: 10),
             signInButton.widthAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_WIDTH),
             signInButton.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
             signInButton.centerXAnchor.constraint(equalTo: signInView.centerXAnchor),
-            signInButton.centerYAnchor.constraint(equalTo: signInView.centerYAnchor),
-            
-            signInView.leadingAnchor.constraint(equalTo: splitScreenView.leadingAnchor),
-            signInView.trailingAnchor.constraint(equalTo: splitScreenView.trailingAnchor),
-            signInView.topAnchor.constraint(equalTo: splitScreenView.topAnchor),
-            signInView.bottomAnchor.constraint(equalTo: splitScreenView.bottomAnchor),
+            //signInButton.centerYAnchor.constraint(equalTo: signInView.centerYAnchor),
             
 
             
@@ -292,7 +292,12 @@ extension ViewController {
                 signStatusView.trailingAnchor.constraint(equalTo: splitScreenView.trailingAnchor),
 
             
-            
+
+                signInView.leadingAnchor.constraint(equalTo: splitScreenView.leadingAnchor),
+                signInView.trailingAnchor.constraint(equalTo: splitScreenView.trailingAnchor),
+                signInView.topAnchor.constraint(equalTo: splitScreenView.topAnchor),
+                signInView.bottomAnchor.constraint(equalTo: splitScreenView.bottomAnchor),
+                
             
             
             ])
