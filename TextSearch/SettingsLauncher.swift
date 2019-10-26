@@ -41,9 +41,11 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
 //        return [Setting(name: "Settings", imageName: "settings"), Setting(name: "Terms & privacy policy", imageName: "privacy"), Setting(name: "Send Feedback", imageName: "feedback"), Setting(name: "Help", imageName: "help"), Setting(name: "Switch Account", imageName: "switch_account"), Setting(name: "Cancel", imageName: "cancel")]
         
         return [
-            Setting(name: NSLocalizedString("termPrivacyLabel", comment: ""), content: NSLocalizedString("privacyPolicyHTML", comment: ""), imageName: "privacy"),
-            Setting(name: NSLocalizedString("feedbackLabel", comment: ""), content: NSLocalizedString("feedbackContentHTML", comment: ""), imageName: "feedback"),
             Setting(name: NSLocalizedString("helpLabel", comment: ""), content: NSLocalizedString("helpContentHTML", comment: ""), imageName: "help"),
+            Setting(name: NSLocalizedString("termPrivacyLabel", comment: ""), content: NSLocalizedString("privacyPolicyHTML", comment: ""), imageName: "privacy"),
+            Setting(name: NSLocalizedString("termOfUseLabel", comment: ""), content: NSLocalizedString("termOfUseHTML", comment: ""), imageName: "settings"),
+            Setting(name: NSLocalizedString("feedbackLabel", comment: ""), content: NSLocalizedString("feedbackContentHTML", comment: ""), imageName: "feedback"),
+            
             Setting(name: NSLocalizedString("cancelLabel", comment: ""), content: "", imageName: "cancel")]
     }()
     

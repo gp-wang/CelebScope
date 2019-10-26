@@ -132,7 +132,7 @@ class ViewController:  UIViewController {
     } ()
     let signInPrompt: UILabel = {
         let _label = UILabel()
-        _label.text = "Please Sign in with Google Account to continue."
+        _label.text = NSLocalizedString("signInPromptLabel", comment: "")//"Please Sign in with Google Account to continue."
         
         _label.textColor = UIColor.white
         _label.translatesAutoresizingMaskIntoConstraints = false
@@ -534,13 +534,13 @@ class ViewController:  UIViewController {
         
         
         guard let image =  self.zoomableImageVC.zoomableImageView.imageView.image else {
-            err = "Please select an image first "
+            err = NSLocalizedString("errorSelectImageLabel", comment: "")//"Please select an image first "
             return
         }
         
         
         guard let text = self.searchTextInput.text else {
-            err = "Please input search text first "
+            err = NSLocalizedString( "errorInputSearchStringLabel", comment: "")// "errorInputSearchStringLabel" = "Please input search text first ";
             return
         }
         if let cachedResponse =  cache.cachedResponses[image] {
@@ -598,10 +598,11 @@ class ViewController:  UIViewController {
                                                object: nil)
         
         // TODO, gw: is there a way to know who is the signed in user from prev sign-in
-        signInStatusText.text = "Initialized app ..."
+        signInStatusText.text = NSLocalizedString("statusAppInitLabel", comment: "") //"statusAppInitLabel" = "Initialized app ...";
         
         if let fullName =         GIDSignIn.sharedInstance()?.currentUser?.profile?.name {
-            signInStatusText.text = "Signed in user:\n\(fullName)"
+            let prefix = NSLocalizedString("statusUserLabel", comment: "") // "statusUserLabel" = "Signed in user: "
+            signInStatusText.text = "\(prefix) \(fullName)"
         }
 
         toggleAuthUI()
@@ -829,7 +830,7 @@ class ViewController:  UIViewController {
         
         guard let jpegImage = image.jpegData(compressionQuality: 1) else {
             //fatalError("Could not retrieve person's photo")
-            err = "Could not retrieve person's photo"
+            err = NSLocalizedString("errorEmptyImage", comment: "") // "errorEmptyImage" = "Could not retrieve person's photo";
             
             
             return
@@ -841,13 +842,15 @@ class ViewController:  UIViewController {
        do {
             try request.httpBody = createOCRRequestBody(imageData: jpegImage)
         } catch JsonDataError.runtimeError(let errorMessage) {
-            
-            err = "failed to generate request body: \(errorMessage)"
+            gw_log(errorMessage)
+            err = NSLocalizedString("errorReqBodyLabel", comment: "") // "errorReqBodyLabel" = "Failed to generate request body.";
             
             
             return
        } catch let otherError {
-           err = "failed to generate request body: \(otherError)"
+        
+            gw_log("\(otherError)")
+           err = NSLocalizedString("errorReqBodyLabel", comment: "") // "Failed to generate request body.";
 
 
             return
@@ -880,7 +883,8 @@ class ViewController:  UIViewController {
             do {
                 
                 if let error = error {
-                    err = "dataTask response has error: \(error.localizedDescription)"
+                    gw_log( "\(error.localizedDescription)")
+                    err = NSLocalizedString("errorNetworkResponseLabel", comment: "")// "errorNetworkResponseLabel" = "Network response error. ";
                     return
                     
                     
@@ -910,11 +914,11 @@ class ViewController:  UIViewController {
                             }
                             
                         } else {
-                            err = "response != 200"
+                            err = NSLocalizedString("errorNot200Label", comment: "")// "errorNot200Label" = "Network response is unsuccessful. ";
                             return
                         }
                     }else {
-                        err = "!!!dataTask reports no error but could not cast data and response"
+                        err = NSLocalizedString("errorRespBadFormatLabel", comment: "")// "errorRespBadFormatLabel" = "Network response or data is not in good format" ;
                         return
                         
                     }
@@ -1084,22 +1088,22 @@ extension ViewController: UITextFieldDelegate {
     
 
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        print("Editing is about to begin")
+//        print("Editing is about to begin")
         return true
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.backgroundColor = UIColor.green
-        print("Editing is began")
+//        print("Editing is began")
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        print("Editing is about to end")
+//        print("Editing is about to end")
         return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        print("Editing ended")
+//        print("Editing ended")
         textField.backgroundColor = UIColor.white
         
     }

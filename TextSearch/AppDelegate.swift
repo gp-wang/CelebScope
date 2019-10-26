@@ -117,10 +117,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         
         //GIDSignIn.sharedInstance()?.scopes.append(contentsOf: ["https://www.googleapis.com/auth/cloud-platform", "https://www.googleapis.com/auth/cloud-vision"])
         // [START_EXCLUDE]
+        let userStatusPrefix = NSLocalizedString("statusUserLabel", comment: "")
+        
         NotificationCenter.default.post(
             name: Notification.Name(rawValue: "ToggleAuthUINotification"),
             object: nil,
-            userInfo: ["statusText": "Signed in user:\n\(fullName!)"])
+            userInfo: ["statusText": "\(userStatusPrefix) \(fullName!)"])
         // [END_EXCLUDE]
     }
     // [END signin_handler]
@@ -133,7 +135,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         NotificationCenter.default.post(
             name: Notification.Name(rawValue: "ToggleAuthUINotification"),
             object: nil,
-            userInfo: ["statusText": "User has disconnected."])
+            userInfo: ["statusText": NSLocalizedString("statusDisconnectLabel", comment: "")]) // "statusDisconnectLabel" = "User has disconnected." ;
         // [END_EXCLUDE]
     }
     // [END disconnect_handler]

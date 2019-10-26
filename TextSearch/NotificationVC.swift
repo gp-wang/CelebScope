@@ -83,7 +83,7 @@ public class NotificationVC: UIViewController {
         _button.translatesAutoresizingMaskIntoConstraints = false
         _button.backgroundColor = UIColor.white
         
-        _button.setTitle(NSLocalizedString("Dismiss", comment: ""), for: .normal)
+        _button.setTitle(NSLocalizedString("dismissLabel", comment: ""), for: .normal)
         _button.setTitleColor(.darkGray, for: .normal)
         _button.alpha = 0.9
         // set corner radius: https://stackoverflow.com/a/34506379/8328365
@@ -304,7 +304,7 @@ public class NotificationVC: UIViewController {
              // -------------
              
              
-            dismissButton.topAnchor.constraint(equalTo:  errorText.bottomAnchor),
+            dismissButton.topAnchor.constraint(equalTo:  errorText.bottomAnchor, constant: 10),
 //             dismissButton.bottomAnchor.constraint(equalTo: errorView.bottomAnchor),
              dismissButton.widthAnchor.constraint(equalToConstant: ViewController.Constants.RECT_BUTTON_WIDTH),
               dismissButton.heightAnchor.constraint(equalToConstant: ViewController.Constants.RECT_BUTTON_HEIGHT),
