@@ -164,7 +164,7 @@ extension ViewController {
     }
     
     private func setupProgressViewConstraints() {
-        guard let progressView = progressVC.view else {
+        guard let progressView = notificationVC.view else {
             fatalError("progress view missing")
         }
         NSLayoutConstraint.activate([

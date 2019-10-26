@@ -48,10 +48,10 @@ func generateBoundaryString() -> String {
  ]
  }
  */
-func createOCRRequestBody(imageData: Data) -> Data {
+func createOCRRequestBody(imageData: Data) throws -> Data  {
     
-    
-    
+    //TODO: for testing
+    //throw JsonDataError.runtimeError("Cannot convert image to jsonData in createOCRRequestBody")
     
     
     var messageDictionary : [String: Any] = [ "requests":
@@ -70,7 +70,8 @@ func createOCRRequestBody(imageData: Data) -> Data {
     
     
     guard let jsonData = jsonDataOpt else {
-        fatalError("Cannot convert image to jsonData in createOCRRequestBody")
+        // fatalError("Cannot convert image to jsonData in createOCRRequestBody")
+        throw JsonDataError.runtimeError("Cannot convert image to jsonData in createOCRRequestBody")
     }
     //let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)!
     //print (jsonString)

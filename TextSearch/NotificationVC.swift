@@ -8,7 +8,14 @@
 
 import UIKit
 
-public class ProgressVC: UIViewController {
+public enum NotificationType {
+    case PROGRESS, ERROR, NONE
+}
+
+
+public class NotificationVC: UIViewController {
+    
+    var notificationType: NotificationType = .NONE
     
     // screen 1
     
@@ -58,7 +65,7 @@ public class ProgressVC: UIViewController {
     } ()
     let errorText: UILabel = {
         let _label = UILabel()
-        _label.text = "sample error. something went wrong in the progress"
+        _label.text = "something went wrong..."
         
         _label.textColor = Colors.brightOrange
         _label.translatesAutoresizingMaskIntoConstraints = false
@@ -85,6 +92,8 @@ public class ProgressVC: UIViewController {
         return _button
     } ()
     
+    
+
     
     
     // MARK: - Constructors
@@ -115,46 +124,49 @@ public class ProgressVC: UIViewController {
     }
     
     @objc func handleDismiss() {
-        self.isInProgress = false
-        self.isEndedWithError = false
-        updateViewStatus()
+        showNone()
     }
-    
-    public func reset() {
-        self.isInProgress = false
-        self.isEndedWithError = false
-        updateViewStatus()
-    }
+  
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public var isInProgress: Bool = false
+    public func showProgress() {
+        notificationType = .PROGRESS
+        updateViewStatus()
+    }
     
-    public var isEndedWithError: Bool = false
+    public func showError(_ msg: String) {
+        notificationType = .ERROR
+        errorText.text = msg
+        updateViewStatus()
+    }
+    
+    public func showNone() {
+        notificationType = .NONE
+        updateViewStatus()
+    }
+    
+    public func reset() {
+        showNone()
+    }
     
     public func updateViewStatus() {
-        if isInProgress {
-            view.isHidden = false
-            // hide error view
-            errorView.isHidden = true
-            
-            // activate progress view
-            //progressView.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+        // hide all
+        errorView.isHidden = true
+        progressView.isHidden = true
+        
+        switch notificationType {
+        case .ERROR:
+            errorView.isHidden = false
+            break
+        case .PROGRESS:
             progressView.isHidden = false
-        } else {
-            if isEndedWithError {
-                view.isHidden = false
-                // hide progress view
-                progressView.isHidden = true
-                
-                
-                // activate  error view
-                errorView.isHidden = false
-            } else {
-                view.isHidden = true
-            }
+            break
+        default:
+            // NONE. keep all hidden
+            break
         }
     }
     
@@ -247,8 +259,8 @@ public class ProgressVC: UIViewController {
              errorText.topAnchor.constraint(equalTo: errorView.topAnchor),
 
              
-             errorText.leadingAnchor.constraint(equalTo: errorView.leadingAnchor),
-             errorText.trailingAnchor.constraint(equalTo: errorView.trailingAnchor),
+             errorText.leadingAnchor.constraint(equalTo: errorView.leadingAnchor, constant: 10),
+             errorText.trailingAnchor.constraint(equalTo: errorView.trailingAnchor, constant: -10),
              
              
              

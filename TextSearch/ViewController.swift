@@ -140,7 +140,7 @@ class ViewController:  UIViewController {
     
    
     // VC for showing progress / error
-    let progressVC = ProgressVC()
+    let notificationVC = NotificationVC()
     
     
     
@@ -206,26 +206,10 @@ class ViewController:  UIViewController {
     
     
     var isSignedIn: Bool = false
-    // TODO
-//    @IBOutlet weak var disconnectButton: UIButton!
-//    @IBOutlet weak var statusText: UILabel!
+  
     
     var tooltipVC: TooltipViewController?
     
-    
-//    var identificationResults: [Identification]  {
-//        didSet {
-//            DispatchQueue.main.async {
-//                // gw: updating logic for annotations etc
-//                self.detailPagedVC.populate(identificationResults: self.identificationResults)
-//                self.peopleCollectionVC.populate(identifications: self.identificationResults)
-//
-//                self.canvas.isLandscape = UIDevice.current.orientation.isLandscape
-//                self.canvas.identifications = self.identificationResults
-//            }
-//
-//        }
-//    }
     
     var matchedStrings: [MatchedString]  {
         didSet {
@@ -284,7 +268,7 @@ class ViewController:  UIViewController {
         self.addChild(peopleCollectionVC)
         self.addChild(zoomableImageVC)
         self.addChild(detailPagedVC)
-        self.addChild(progressVC)
+        self.addChild(notificationVC)
         
         
         // ---------------- make view hierachy ------------------------
@@ -319,7 +303,7 @@ class ViewController:  UIViewController {
         view.addSubview(bottomViewGroup)
         
         // progress view
-        view.addSubview(progressVC.view)
+        view.addSubview(notificationVC.view)
         
         //view.addSubview(detailPagedVC.view)
         
@@ -390,16 +374,7 @@ class ViewController:  UIViewController {
         view.bringSubviewToFront(canvas)
         view.bringSubviewToFront(bottomViewGroup)
         view.bringSubviewToFront(signInView)
-//        view.bringSubviewToFront(signOutButton)
-//        view.bringSubviewToFront(signInStatusText)
-        
-//        if(isFirstTime) {
-//            self.view.bringSubviewToFront(tooltipVC!.view)
-////            self.view.bringSubviewToFront(self.cameraButton)
-////            self.view.bringSubviewToFront(self.albumButton)
-//        }
-        
-        
+
         
         // -- constraints
         
@@ -419,10 +394,6 @@ class ViewController:  UIViewController {
 //        self.zoomableImageVC.zoomableImageView.addGestureRecognizer(tapGesture)
         
         
-        
-
-       
-        
         matchedStrings = []
         
 
@@ -434,9 +405,7 @@ class ViewController:  UIViewController {
         // do something here
     }
     
-    //let tapOutSearchBoxDelegate = TapOutSearchBoxDelegate()
-    
-    
+
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -534,11 +503,31 @@ class ViewController:  UIViewController {
     let cache = Cache()
     
     @objc func startSearch() {
+        var err: String? = nil
+        
+        
+        // gw: likely thie finally block for the catch blocks below
+        defer {
+            // print err msg, if any
+            if let msg = err {
+                self.notificationVC.showError(msg)
+                gw_log(msg)
+            }
+        }
+        
         self.searchTextInput.endEditing(true)
         
         
-        let image =  self.zoomableImageVC.zoomableImageView.imageView.image!
-        let text = self.searchTextInput.text!
+        guard let image =  self.zoomableImageVC.zoomableImageView.imageView.image else {
+            err = "Please select an image first "
+            return
+        }
+        
+        
+        guard let text = self.searchTextInput.text else {
+            err = "Please input search text first "
+            return
+        }
         if let cachedResponse =  cache.cachedResponses[image] {
             gw_log("reuse cached response")
             searchForTextInOcrResult(text,cachedResponse)
@@ -565,15 +554,15 @@ class ViewController:  UIViewController {
     
     func showControllerForSetting(setting: Setting) {
         // VC for each page
-        let dummySettingsViewController = SettingDetailVC(name: setting.name, contentString: setting.content)
-        dummySettingsViewController.view.backgroundColor = UIColor.white
-        dummySettingsViewController.navigationItem.title = setting.name
-        dummySettingsViewController.contentView.setContentOffset(.zero, animated: false)
+        let settingsViewController = SettingDetailVC(name: setting.name, contentString: setting.content)
+        settingsViewController.view.backgroundColor = UIColor.white
+        settingsViewController.navigationItem.title = setting.name
+        settingsViewController.contentView.setContentOffset(.zero, animated: false)
         
         navigationController?.navigationBar.barTintColor = Colors.brightOrange
         navigationController?.navigationBar.tintColor = UIColor.white
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        navigationController?.pushViewController(dummySettingsViewController, animated: true)
+        navigationController?.pushViewController(settingsViewController, animated: true)
     }
     
     
@@ -597,7 +586,7 @@ class ViewController:  UIViewController {
         toggleAuthUI()
         
         //TODO
-        //progressVC.showError()
+        //notificationVC.showError("abc")
         
         
         // test id: ca-app-pub-3940256099942544/2934735716
@@ -790,6 +779,18 @@ class ViewController:  UIViewController {
     // pass in a reference of Viewcontroller to update cache dict
     // TODO: is there better way?
     func searchTextInImage(_ text: String, _ image: UIImage,  completionHandler: @escaping ocrCompletionResponseHandler, accessToken: String, cache: Cache ) { //gw: (!done)todo: fix this. error
+        
+        var err : String? = nil
+        
+        // gw: likely thie finally block for the catch blocks below
+        defer {
+            // print err msg, if any
+            if let msg = err {
+                self.notificationVC.showError(msg)
+                gw_log(msg)
+            }
+        }
+        
         // server endpoint
         let endpoint = "https://vision.googleapis.com/v1/images:annotate"
         let endpointUrl = URL(string: endpoint)!
@@ -804,15 +805,33 @@ class ViewController:  UIViewController {
         //request.setValue("Bearer 02b18437e04ca4c531539129ab5d49d0983c9677", forHTTPHeaderField: "Authorization")
         request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
 
+        
         guard let jpegImage = image.jpegData(compressionQuality: 1) else {
-            fatalError("Could not retrieve person's photo")
+            //fatalError("Could not retrieve person's photo")
+            err = "Could not retrieve person's photo"
+            
+            
+            return
         }
         
 
 
-
         
-        request.httpBody = createOCRRequestBody(imageData: jpegImage)
+       do {
+            try request.httpBody = createOCRRequestBody(imageData: jpegImage)
+        } catch JsonDataError.runtimeError(let errorMessage) {
+            
+            err = "failed to generate request body: \(errorMessage)"
+            
+            
+            return
+       } catch let otherError {
+           err = "failed to generate request body: \(otherError)"
+
+
+            return
+        }
+        
         
         // gw: pass in the ref to the image for retring  (e.g. when access_token is invalid)
         fireOCRRequest(request, completionHandler, text, image, cache: cache)
@@ -821,22 +840,27 @@ class ViewController:  UIViewController {
     // text: the string to search for
     func fireOCRRequest(_ request: URLRequest, _ completionHandler: @escaping ocrCompletionResponseHandler, _ text: String, _ image: UIImage, cache: Cache) {
         
-        self.progressVC.isInProgress = true
-        self.progressVC.isEndedWithError = false
-        self.progressVC.updateViewStatus()
+       self.notificationVC.showProgress()
         
         // gw: completion handler: URL request
         //TODO: extract completion handlers
         URLSession.shared.dataTask(with: request){
             (data: Data?, response: URLResponse?, error: Error?) in
-            var err : String?
-        
+            var err : String? = nil
+            // gw: likely thie finally block for the catch blocks below
+            defer {
+                // print err msg, if any
+                if let msg = err {
+                    self.notificationVC.showError(msg)
+                    gw_log(msg)
+                }
+            }
             
             do {
                 
                 if let error = error {
                     err = "dataTask response has error: \(error.localizedDescription)"
-                 
+                    return
                     
                     
                 } else {
@@ -850,9 +874,8 @@ class ViewController:  UIViewController {
                                 let googleResponse = try JSONDecoder().decode(GoogleCloudVisionApiResponses.self, from: data)
                                 cache.cachedResponses[image] = googleResponse
                                 
-                                self.progressVC.isInProgress = false
-                                self.progressVC.isEndedWithError = false
-                                self.progressVC.updateViewStatus()
+                                // dismiss progress loader
+                                self.notificationVC.showNone()
                                        
                                 
                                 completionHandler(text, googleResponse)
@@ -862,15 +885,16 @@ class ViewController:  UIViewController {
                                 
                             } catch let jsonErr {
                                 err = String("\(jsonErr)")
+                                return
                             }
                             
                         } else {
                             err = "response != 200"
-                            
+                            return
                         }
                     }else {
                         err = "!!!dataTask reports no error but could not cast data and response"
-                        
+                        return
                         
                     }
                 }
@@ -882,16 +906,10 @@ class ViewController:  UIViewController {
                 //completionHandler(ocrClassification, image)
             } catch let error as NSError {
                 err = error.debugDescription
+                return
             }
             
-            // IF reached here, must be an error
-            if let err = err {
-                             gw_log(err)
-            }
-                             
-             self.progressVC.isInProgress = false
-            self.progressVC.isEndedWithError = true
-            self.progressVC.updateViewStatus()
+           
         }.resume()
     }
     
