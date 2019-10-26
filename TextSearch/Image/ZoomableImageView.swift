@@ -144,7 +144,7 @@ class ZoomableImageView: UIScrollView {
         // gw: there is no super.init(), you have to use this constructor as hack
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0)) // gw: relies on autolayout constraint later
         
-        
+        //self.isUserInteractionEnabled = true
         
         addSubview(imageView)
         

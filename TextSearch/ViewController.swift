@@ -138,6 +138,10 @@ class ViewController:  UIViewController {
 
     } ()
     
+   
+    // VC for showing progress / error
+    let progressVC = ProgressVC()
+    
     
     
     
@@ -280,6 +284,7 @@ class ViewController:  UIViewController {
         self.addChild(peopleCollectionVC)
         self.addChild(zoomableImageVC)
         self.addChild(detailPagedVC)
+        self.addChild(progressVC)
         
         
         // ---------------- make view hierachy ------------------------
@@ -313,6 +318,8 @@ class ViewController:  UIViewController {
         bottomViewGroup.addSubview(bannerView)
         view.addSubview(bottomViewGroup)
         
+        // progress view
+        view.addSubview(progressVC.view)
         
         //view.addSubview(detailPagedVC.view)
         
@@ -362,7 +369,6 @@ class ViewController:  UIViewController {
         detailPagedVC.view.isHidden = true
         
         
-        
         if (isFirstTime) {
             self.tooltipVC = TooltipViewController(cameraButton: cameraButton, albumButton: albumButton, zoomableImageView: zoomableImageVC.view, peopleCollectionView: peopleCollectionVC.collectionView, peoplePageView: detailPagedVC.view)
             self.addChild(self.tooltipVC!)
@@ -407,6 +413,14 @@ class ViewController:  UIViewController {
         self.searchButton.addTarget(self, action: #selector(startSearch), for: .touchUpInside)
         self.signOutButton.addTarget(self, action: #selector(didTapSignOut), for: .touchUpInside)
         
+        
+// gw: not working, disable for now
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+//        self.zoomableImageVC.zoomableImageView.addGestureRecognizer(tapGesture)
+        
+        
+        
+
        
         
         matchedStrings = []
@@ -414,6 +428,13 @@ class ViewController:  UIViewController {
 
         
     }
+    
+
+    @objc func doubleTapped() {
+        // do something here
+    }
+    
+    //let tapOutSearchBoxDelegate = TapOutSearchBoxDelegate()
     
     
     
@@ -448,11 +469,13 @@ class ViewController:  UIViewController {
         if let _ = GIDSignIn.sharedInstance()?.currentUser?.authentication {
             // Signed in
             signInView.isHidden = true
-            signOutButton.isHidden = false
+            searchView.isHidden = false
+            signStatusView.isHidden = false
             // disconnectButton.isHidden = false
         } else {
             signInView.isHidden = false
-            signOutButton.isHidden = true
+            searchView.isHidden = true
+            signStatusView.isHidden = true
             // disconnectButton.isHidden = true
             signInStatusText.text = "Google Sign in\niOS Demo"
         }
@@ -511,6 +534,9 @@ class ViewController:  UIViewController {
     let cache = Cache()
     
     @objc func startSearch() {
+        self.searchTextInput.endEditing(true)
+        
+        
         let image =  self.zoomableImageVC.zoomableImageView.imageView.image!
         let text = self.searchTextInput.text!
         if let cachedResponse =  cache.cachedResponses[image] {
@@ -531,6 +557,10 @@ class ViewController:  UIViewController {
     
     @objc func handleMore() {
         settingsLauncher.showSettings()
+    }
+    
+    @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
+        searchTextInput.resignFirstResponder()
     }
     
     func showControllerForSetting(setting: Setting) {
@@ -565,6 +595,9 @@ class ViewController:  UIViewController {
         
         signInStatusText.text = "Initialized app ..."
         toggleAuthUI()
+        
+        //TODO
+        //progressVC.showError()
         
         
         // test id: ca-app-pub-3940256099942544/2934735716
@@ -742,7 +775,125 @@ class ViewController:  UIViewController {
     }
     
     //
-    
+
+    // gw: take classificationResult, see in the face.crop.success for usage example
+    // gw: 02032019: change to array
+
+
+
+
+    //    https://stackoverflow.com/questions/24603559/store-a-closure-as-a-variable-in-swift
+    //    var userCompletionHandler: (Any)->Void = {
+    //        (arg: Any) -> Void in
+    //    }
+
+    // pass in a reference of Viewcontroller to update cache dict
+    // TODO: is there better way?
+    func searchTextInImage(_ text: String, _ image: UIImage,  completionHandler: @escaping ocrCompletionResponseHandler, accessToken: String, cache: Cache ) { //gw: (!done)todo: fix this. error
+        // server endpoint
+        let endpoint = "https://vision.googleapis.com/v1/images:annotate"
+        let endpointUrl = URL(string: endpoint)!
+        
+        var request = URLRequest(url: endpointUrl)
+        request.httpMethod = "POST"
+        
+       
+        
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        //"Authorization: Bearer "$(gcloud auth application-default print-access-token)
+        //request.setValue("Bearer 02b18437e04ca4c531539129ab5d49d0983c9677", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+
+        guard let jpegImage = image.jpegData(compressionQuality: 1) else {
+            fatalError("Could not retrieve person's photo")
+        }
+        
+
+
+
+        
+        request.httpBody = createOCRRequestBody(imageData: jpegImage)
+        
+        // gw: pass in the ref to the image for retring  (e.g. when access_token is invalid)
+        fireOCRRequest(request, completionHandler, text, image, cache: cache)
+    }
+
+    // text: the string to search for
+    func fireOCRRequest(_ request: URLRequest, _ completionHandler: @escaping ocrCompletionResponseHandler, _ text: String, _ image: UIImage, cache: Cache) {
+        
+        self.progressVC.isInProgress = true
+        self.progressVC.isEndedWithError = false
+        self.progressVC.updateViewStatus()
+        
+        // gw: completion handler: URL request
+        //TODO: extract completion handlers
+        URLSession.shared.dataTask(with: request){
+            (data: Data?, response: URLResponse?, error: Error?) in
+            var err : String?
+        
+            
+            do {
+                
+                if let error = error {
+                    err = "dataTask response has error: \(error.localizedDescription)"
+                 
+                    
+                    
+                } else {
+                    if  let data = data, let response = response as? HTTPURLResponse {
+                        
+                        
+                        if response.statusCode == 200 {
+                            
+                            do {
+                                gw_log("success getting google response")
+                                let googleResponse = try JSONDecoder().decode(GoogleCloudVisionApiResponses.self, from: data)
+                                cache.cachedResponses[image] = googleResponse
+                                
+                                self.progressVC.isInProgress = false
+                                self.progressVC.isEndedWithError = false
+                                self.progressVC.updateViewStatus()
+                                       
+                                
+                                completionHandler(text, googleResponse)
+                                
+                                // SUCCESS !!
+                                return
+                                
+                            } catch let jsonErr {
+                                err = String("\(jsonErr)")
+                            }
+                            
+                        } else {
+                            err = "response != 200"
+                            
+                        }
+                    }else {
+                        err = "!!!dataTask reports no error but could not cast data and response"
+                        
+                        
+                    }
+                }
+                
+                
+                
+                
+                //completionHandler(data, response, error, text, image)
+                //completionHandler(ocrClassification, image)
+            } catch let error as NSError {
+                err = error.debugDescription
+            }
+            
+            // IF reached here, must be an error
+            if let err = err {
+                             gw_log(err)
+            }
+                             
+             self.progressVC.isInProgress = false
+            self.progressVC.isEndedWithError = true
+            self.progressVC.updateViewStatus()
+        }.resume()
+    }
     
     //func searchForTextInOcrResult(_ ocrRespData: Data?, _ ocrRespResponse: URLResponse?, _ ocrRespError: Error?, _ text: String, _ image: UIImage) {
     func searchForTextInOcrResult(_ text: String, _ googleApiResponse: GoogleCloudVisionApiResponses) {

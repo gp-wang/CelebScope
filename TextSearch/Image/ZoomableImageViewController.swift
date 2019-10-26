@@ -18,6 +18,7 @@ class ZoomableImageViewController: UIViewController {
         super.init(nibName: nil
             , bundle: nil)
         view.translatesAutoresizingMaskIntoConstraints = false
+
         view.addSubview(zoomableImageView)
         
         setupInternalLayoutConstraints()

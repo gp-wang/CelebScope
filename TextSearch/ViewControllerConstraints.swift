@@ -163,6 +163,22 @@ extension ViewController {
         
     }
     
+    private func setupProgressViewConstraints() {
+        guard let progressView = progressVC.view else {
+            fatalError("progress view missing")
+        }
+        NSLayoutConstraint.activate([
+            
+            progressView.topAnchor.constraint(equalTo: detailsContainerView.topAnchor),
+            progressView.bottomAnchor.constraint(equalTo: detailsContainerView.bottomAnchor),
+            progressView.leadingAnchor.constraint(equalTo: detailsContainerView.leadingAnchor),
+            progressView.trailingAnchor.constraint(equalTo: detailsContainerView.trailingAnchor)
+                          
+            
+            ])
+        
+    }
+    
     private func setupBottomViewGroupConstraints() {
         NSLayoutConstraint.activate([
             // in order to let superview wrap the subview's content
@@ -285,7 +301,7 @@ extension ViewController {
         // these two further splits the splitScreen in normal logged in status
         setupDetailsContainerViewConstraints()
         setupSignStatusGroupConstraints()
-        
+      
         
         // this view will cover the entire splitScreen if logged out
         setupSignInViewConstraints()
@@ -328,7 +344,7 @@ extension ViewController {
             ])
         
      
-        
+          setupProgressViewConstraints()
     }
     
     
