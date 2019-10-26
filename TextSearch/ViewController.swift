@@ -450,18 +450,23 @@ class ViewController:  UIViewController {
     
     // [START toggle_auth]
     func toggleAuthUI() {
+       
         if let _ = GIDSignIn.sharedInstance()?.currentUser?.authentication {
             // Signed in
-            signInView.isHidden = true
-            searchView.isHidden = false
-            signStatusView.isHidden = false
-            // disconnectButton.isHidden = false
+            DispatchQueue.main.async {
+                self.signInView.isHidden = true
+                self.searchView.isHidden = false
+                self.signStatusView.isHidden = false
+                // disconnectButton.isHidden = false
+            }
         } else {
-            signInView.isHidden = false
-            searchView.isHidden = true
-            signStatusView.isHidden = true
-            // disconnectButton.isHidden = true
-            signInStatusText.text = ""
+            DispatchQueue.main.async {
+                self.signInView.isHidden = false
+                self.searchView.isHidden = true
+                self.signStatusView.isHidden = true
+                // disconnectButton.isHidden = true
+                self.signInStatusText.text = ""
+            }
         }
     }
     // [END toggle_auth]

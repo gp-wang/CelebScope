@@ -13,6 +13,8 @@
 "helpLabel" = "帮助";
 "cancelLabel" = "取消";
 "dismissLabel" = "继续" ;
+"progressLabel" = "搜索进行中 ... ";
+"errorDefaultLabel" = "出现未知错误...";
 
 "statusAppInitLabel" = "初始化应用";
 "statusUserLabel" = "用户：" ;

@@ -40,7 +40,7 @@ public class NotificationVC: UIViewController {
     
     let progressText: UILabel = {
         let _label = UILabel()
-        _label.text = "Processing text in the provided image ... "
+        _label.text = NSLocalizedString("progressLabel", comment: "") // "progressLabel" = "Processing text in the provided image ... ";
         _label.textColor = .darkText
         _label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -65,7 +65,7 @@ public class NotificationVC: UIViewController {
     } ()
     let errorText: UILabel = {
         let _label = UILabel()
-        _label.text = "something went wrong..."
+        _label.text = NSLocalizedString("errorDefaultLabel", comment: "") // "errorDefaultLabel" = "Something went wrong...";
         
         _label.textColor = Colors.brightOrange
         _label.translatesAutoresizingMaskIntoConstraints = false
@@ -187,20 +187,23 @@ public class NotificationVC: UIViewController {
     }
     
     public func updateViewStatus() {
-        // hide all
-        errorView.isHidden = true
-        progressView.isHidden = true
         
-        switch notificationType {
-        case .ERROR:
-            errorView.isHidden = false
-            break
-        case .PROGRESS:
-            progressView.isHidden = false
-            break
-        default:
-            // NONE. keep all hidden
-            break
+        DispatchQueue.main.async {
+            // hide all
+            self.errorView.isHidden = true
+            self.progressView.isHidden = true
+            
+            switch self.notificationType {
+            case .ERROR:
+                self.errorView.isHidden = false
+                break
+            case .PROGRESS:
+                self.progressView.isHidden = false
+                break
+            default:
+                // NONE. keep all hidden
+                break
+            }
         }
     }
     
