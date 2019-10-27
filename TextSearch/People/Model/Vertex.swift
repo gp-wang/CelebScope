@@ -13,9 +13,29 @@
 import Foundation
 
 
-public struct Vertex: Codable {
+public class Vertex: Codable {
    
     
     let x: Int
     let y: Int
+    
+    public init(x: Int, y: Int) {
+        self.x = x
+        self.y = y
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        if let x = try container.decodeIfPresent(Int.self, forKey: .x) {
+            self.x = x
+        } else {
+            self.x = 0
+        }
+        
+        if let y = try container.decodeIfPresent(Int.self, forKey: .y) {
+                   self.y = y
+               } else {
+                   self.y = 0
+               }
+    }
 }

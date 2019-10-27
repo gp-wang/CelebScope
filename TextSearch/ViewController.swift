@@ -24,6 +24,7 @@ class ViewController:  UIViewController {
         static let HALF_CONTEXT_WORD_LIMIT: Int = 5 // half: forward and backward
         static let CONTEXT_SYMBOL_LIMIT = 30
         static let launchedBeforeKey: String = "launchedBefore8"
+        static let GOOGLE_API_REQ_BODY_LIMIT = Int(0.8 * 1024*1024*10)
         //static let tooltipSize: CGFloat = 100
     }
     
@@ -834,35 +835,49 @@ class ViewController:  UIViewController {
         //request.setValue("Bearer 02b18437e04ca4c531539129ab5d49d0983c9677", forHTTPHeaderField: "Authorization")
         request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
 
+        // loop to downsize the req body to smaller than 10MB * 0.8 (10MB is google API official limit, 0.8 is threshold percentage))
+        // further TODO can put large file (up to 20MB) on google storage
         
-        guard let jpegImage = image.jpegData(compressionQuality: 1) else {
-            //fatalError("Could not retrieve person's photo")
-            err = NSLocalizedString("errorEmptyImage", comment: "") // "errorEmptyImage" = "Could not retrieve person's photo";
+        // multiplier for reducing compressionQuality
+        let multiplier: Double = 0.8
+        var compressionQuality: Double = 1.0
+        
+        repeat{
+            // gw: TODO
+            guard let jpegImage = image.jpegData(compressionQuality: CGFloat(compressionQuality)) else {
+                //fatalError("Could not retrieve person's photo")
+                err = NSLocalizedString("errorEmptyImage", comment: "") // "errorEmptyImage" = "Could not retrieve person's photo";
+                
+                
+                return
+            }
             
             
-            return
-        }
-        
-
-
-        
-       do {
-            try request.httpBody = createOCRRequestBody(imageData: jpegImage)
-        } catch JsonDataError.runtimeError(let errorMessage) {
-            gw_log(errorMessage)
-            err = NSLocalizedString("errorReqBodyLabel", comment: "") // "errorReqBodyLabel" = "Failed to generate request body.";
             
             
-            return
-       } catch let otherError {
+            do {
+                try request.httpBody = createOCRRequestBody(imageData: jpegImage)
+            } catch JsonDataError.runtimeError(let errorMessage) {
+                gw_log(errorMessage)
+                err = NSLocalizedString("errorReqBodyLabel", comment: "") // "errorReqBodyLabel" = "Failed to generate request body.";
+                
+                
+                return
+            } catch let otherError {
+                
+                gw_log("\(otherError)")
+                err = NSLocalizedString("errorReqBodyLabel", comment: "") // "Failed to generate request body.";
+                
+                
+                return
+            }
+            
+            compressionQuality *= multiplier
+          
+            
+        } while  request.httpBody!.count > Constants.GOOGLE_API_REQ_BODY_LIMIT
         
-            gw_log("\(otherError)")
-           err = NSLocalizedString("errorReqBodyLabel", comment: "") // "Failed to generate request body.";
-
-
-            return
-        }
-        
+        assert(request.httpBody!.count < Constants.GOOGLE_API_REQ_BODY_LIMIT, "req body too large ")
         
         // gw: pass in the ref to the image for retring  (e.g. when access_token is invalid)
         fireOCRRequest(request, completionHandler, text, image, cache: cache)
