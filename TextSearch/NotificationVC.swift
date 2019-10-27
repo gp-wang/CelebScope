@@ -191,17 +191,20 @@ public class NotificationVC: UIViewController {
     }
     
     public func updateViewStatus() {
-        
+        //likely needed to set the self.view hidden in order to pass the touch to views below it
         DispatchQueue.main.async {
             // hide all
+            self.view.isHidden = true
             self.errorView.isHidden = true
             self.progressView.isHidden = true
             
             switch self.notificationType {
             case .ERROR:
+                self.view.isHidden = false
                 self.errorView.isHidden = false
                 break
             case .PROGRESS:
+                self.view.isHidden = false
                 self.progressView.isHidden = false
                 break
             default:

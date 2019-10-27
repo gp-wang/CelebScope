@@ -1040,7 +1040,9 @@ class ViewController:  UIViewController {
                                     
                                     // make copy for constructing matched String
                                     var dupMatchedSymbols : [Symbol] = matchedSymbols
-                                    matchedSymbols = []
+                                    
+                                    // gw: ***** don put here, put at after inner loop
+                                    // matchedSymbols = []
                                     
                                     //let paragraphIndex: Int = symbolToParagraphIndex[i]
                                     
@@ -1086,6 +1088,9 @@ class ViewController:  UIViewController {
                                 
                                 
                             }
+                            // either inner loop ends prematurely, or it reached one complete match, matchedSymbols need to be cleared as well
+                            // ***** I forgot this earlier
+                            matchedSymbols = []
                         }
                         
                     }
