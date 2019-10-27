@@ -1066,11 +1066,13 @@ class ViewController:  UIViewController {
                                     k = i + j + 1
                                     wordCnt = 0
                                     while k < symbols.count && wordCnt < Constants.HALF_CONTEXT_WORD_LIMIT {
-                                        context.append(symbols[k].text.first!)
+                                        // note that the first char of each word is marked as boundary,
+                                        // if a char is boundary, add separator before appending the char
                                         if wordBoundaries[k] {
-                                            context.insert(" ", at: 0)
+                                            context.append(" ")
                                             wordCnt += 1
                                         }
+                                        context.append(symbols[k].text.first!)
                                         k += 1
                                     }
                                     

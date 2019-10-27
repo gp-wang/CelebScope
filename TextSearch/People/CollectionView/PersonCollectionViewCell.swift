@@ -45,11 +45,13 @@ class PersonCollectionViewCell: UICollectionViewCell {
             }
             
             // update context text
-            let attrString = NSMutableAttributedString(string: _matchedString.context)
-            attrString.addAttribute(.paragraphStyle, value: PersonCollectionViewCell.nameLabelParagraphStyle, range:NSMakeRange(0, attrString.length))
-            
-            //self.nameLabel.text = _identification.person.name
-            self.nameLabel.attributedText = attrString
+//            let attrString = NSMutableAttributedString(string: _matchedString.context)
+//            attrString.addAttribute(.paragraphStyle, value: PersonCollectionViewCell.nameLabelParagraphStyle, range:NSMakeRange(0, attrString.length))
+//
+//            //self.nameLabel.text = _identification.person.name
+//            self.nameLabel.attributedText = attrString
+//
+            self.nameLabel.text = _matchedString.context
         }
     }
     
@@ -132,8 +134,9 @@ class PersonCollectionViewCell: UICollectionViewCell {
         _label.backgroundColor = UIColor.clear
         _label.lineBreakMode = .byWordWrapping
         _label.adjustsFontSizeToFitWidth = true
+        _label.minimumScaleFactor = 0.4
         _label.textAlignment = .center
-        _label.numberOfLines = 2
+        _label.numberOfLines = 3
         _label.textColor = Constants.textColor
         //_label.backgroundColor = .red
         return _label
