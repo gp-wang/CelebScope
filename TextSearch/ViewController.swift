@@ -23,7 +23,7 @@ class ViewController:  UIViewController {
         static let RECT_BUTTON_CORNER_RADIUS: CGFloat = 5
         static let HALF_CONTEXT_WORD_LIMIT: Int = 5 // half: forward and backward
         static let CONTEXT_SYMBOL_LIMIT = 30
-        static let launchedBeforeKey: String = "launchedBefore8"
+        static let launchedBeforeKey: String = "launchedBefore9"
         static let GOOGLE_API_REQ_BODY_LIMIT = Int(0.8 * 1024*1024*10)
         //static let tooltipSize: CGFloat = 100
     }
@@ -611,7 +611,7 @@ class ViewController:  UIViewController {
         // bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         
         // gw: id. yanhua.wang.rz
-        bannerView.adUnitID = "ca-app-pub-4230599911798280/8783274120"
+        bannerView.adUnitID = "ca-app-pub-4230599911798280~8617701325"
         
         bannerView.rootViewController = self
         

@@ -7,7 +7,8 @@
 */
 "signOutLabel" = "Sign Out" ;
 "findLabel" = "Find" ;
-"termPrivacyLabel" = "Terms & privacy policy" ;
+"termPrivacyLabel" = "Privacy policy" ;
+"termOfUseLabel" = "Term of use" ;
 "feedbackLabel" = "Send Feedback" ;
 "helpLabel" = "Help" ;
 "cancelLabel" = "Cancel" ;
@@ -30,9 +31,9 @@
 
 
 "privacyPolicyHTML" = "<div id=\"privacy_content\"><h2>Privacy Policy</h2> <p>
-                    Gaopeng Wang built the HawkEye - Image Text Search app as
+                    Yanhua Wang built the HawkEye - Image Text Search app as
                     an Ad Supported app. This SERVICE is provided by
-                    Gaopeng Wang at no cost and is intended for
+                    Yanhua Wang at no cost and is intended for
                     use as is.
                   </p> <p>
                     This page is used to inform visitors regarding
