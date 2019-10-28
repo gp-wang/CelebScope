@@ -31,7 +31,9 @@ class SummaryPageViewController: UIViewController {
     init(_ count: Int) {
         
         self.count = count
-        nameLabel.text = "图片中检测到\(count)个结果"
+        let prefix = NSLocalizedString("summaryCountLabelPrefix", comment: "")
+        let suffix = NSLocalizedString("summaryCountLabelSuffix", comment: "")
+        nameLabel.text = "\(prefix) \(count) \(suffix)"
 
         // gw: boilerplate
         super.init(nibName: nil, bundle: nil)

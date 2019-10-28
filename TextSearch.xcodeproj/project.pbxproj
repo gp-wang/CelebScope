@@ -23,7 +23,6 @@
 		6B31D2C121F38D58000CFA44 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B31D2BF21F38D58000CFA44 /* LaunchScreen.storyboard */; };
 		6B31D2CF21F3ED41000CFA44 /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B31D2CE21F3ED41000CFA44 /* Canvas.swift */; };
 		6B354CD421F617DE00C6176C /* UIImageViewPointConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B354CD321F617DE00C6176C /* UIImageViewPointConversion.swift */; };
-		6B559338220F9D000074DDF4 /* TooltipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B559337220F9D000074DDF4 /* TooltipViewController.swift */; };
 		6B61FC91235E4C3E0035F6F1 /* AnnotateImageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B61FC90235E4C3E0035F6F1 /* AnnotateImageResponse.swift */; };
 		6B61FC93235E4CAF0035F6F1 /* EntityAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B61FC92235E4CAF0035F6F1 /* EntityAnnotation.swift */; };
 		6B61FC95235E4F530035F6F1 /* BoundingPoly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B61FC94235E4F530035F6F1 /* BoundingPoly.swift */; };
@@ -83,7 +82,6 @@
 		6B31D2C221F38D58000CFA44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6B31D2CE21F3ED41000CFA44 /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
 		6B354CD321F617DE00C6176C /* UIImageViewPointConversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewPointConversion.swift; sourceTree = "<group>"; };
-		6B559337220F9D000074DDF4 /* TooltipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TooltipViewController.swift; sourceTree = "<group>"; };
 		6B61FC90235E4C3E0035F6F1 /* AnnotateImageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotateImageResponse.swift; sourceTree = "<group>"; };
 		6B61FC92235E4CAF0035F6F1 /* EntityAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityAnnotation.swift; sourceTree = "<group>"; };
 		6B61FC94235E4F530035F6F1 /* BoundingPoly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundingPoly.swift; sourceTree = "<group>"; };
@@ -275,7 +273,6 @@
 				6B31D2BF21F38D58000CFA44 /* LaunchScreen.storyboard */,
 				6B31D2C221F38D58000CFA44 /* Info.plist */,
 				6B6BAC0E2211326100245973 /* Web */,
-				6B559336220F9CE30074DDF4 /* Tooltip */,
 				6B2AF15C21FC2B09005F39EE /* Canvas */,
 				6B2AF15B21FC2AFC005F39EE /* Utils */,
 				6B2AF15721FC2949005F39EE /* People */,
@@ -288,14 +285,6 @@
 				6B85AFE02364C6C10001FF19 /* TapOutSearchBoxDelegate.swift */,
 			);
 			path = TextSearch;
-			sourceTree = "<group>";
-		};
-		6B559336220F9CE30074DDF4 /* Tooltip */ = {
-			isa = PBXGroup;
-			children = (
-				6B559337220F9D000074DDF4 /* TooltipViewController.swift */,
-			);
-			path = Tooltip;
 			sourceTree = "<group>";
 		};
 		6B6BAC0E2211326100245973 /* Web */ = {
@@ -474,7 +463,6 @@
 				6BD7CA552362702E00418131 /* SettingsLauncher.swift in Sources */,
 				6B20977021FB5E9A0066CDD8 /* SinglePersonPageViewController.swift in Sources */,
 				6BD7CA532362702E00418131 /* SettingCell.swift in Sources */,
-				6B559338220F9D000074DDF4 /* TooltipViewController.swift in Sources */,
 				6BB235F121FF5C9000BC35E9 /* ZoomableImageViewDelegate.swift in Sources */,
 				6BD7CA6F236378B100418131 /* String+Extension.swift in Sources */,
 				6B61FC91235E4C3E0035F6F1 /* AnnotateImageResponse.swift in Sources */,
@@ -668,7 +656,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = www.gwang.textsearch;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = www.yhwang.textsearch;
 				PRODUCT_NAME = "HawkEye - Image Text Search";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -687,7 +676,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = www.gwang.textsearch;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = www.yhwang.textsearch;
 				PRODUCT_NAME = "HawkEye - Image Text Search";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -223,7 +223,7 @@ class ViewController:  UIViewController {
     var isSignedIn: Bool = false
   
     
-    var tooltipVC: TooltipViewController?
+
     
     
     var matchedStrings: [MatchedString]  {
@@ -369,19 +369,7 @@ class ViewController:  UIViewController {
         detailPagedVC.view.isHidden = true
         
         
-        if (isFirstTime) {
-            self.tooltipVC = TooltipViewController(cameraButton: cameraButton, albumButton: albumButton, zoomableImageView: zoomableImageVC.view, peopleCollectionView: peopleCollectionVC.collectionView, peoplePageView: detailPagedVC.view)
-            self.addChild(self.tooltipVC!)
-            self.view.addSubview(self.tooltipVC!.view!)
-            NSLayoutConstraint.activate([
-                view.topAnchor.constraint(equalTo: self.tooltipVC!.view!.topAnchor),
-                view.bottomAnchor.constraint(equalTo: self.tooltipVC!.view!.bottomAnchor),
-                view.leadingAnchor.constraint(equalTo: self.tooltipVC!.view!.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: self.tooltipVC!.view!.trailingAnchor),
-                ])
-            
-            self.tooltipVC?.setupTooltipLayoutConstraints()
-        }
+
         
         
         // view sequence setup
@@ -1188,9 +1176,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
   
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        self.tooltipVC?.view.removeFromSuperview()
-        self.tooltipVC?.removeFromParent()
-        self.tooltipVC = nil
+      
         gw_log("gw: img pick 1")
         picker.dismiss(animated: true) {
             guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
@@ -1241,9 +1227,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        self.tooltipVC?.view.removeFromSuperview()
-        self.tooltipVC?.removeFromParent()
-        self.tooltipVC = nil
+        
         gw_log("gw: img pick 2")
         picker.dismiss(animated: true) {
             
