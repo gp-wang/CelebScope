@@ -650,7 +650,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 64ZX9KS46Y;
+				DEVELOPMENT_TEAM = XLWP3D7JS7;
 				INFOPLIST_FILE = "$(SRCROOT)/TextSearch/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -670,7 +670,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 64ZX9KS46Y;
+				DEVELOPMENT_TEAM = XLWP3D7JS7;
 				INFOPLIST_FILE = "$(SRCROOT)/TextSearch/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
