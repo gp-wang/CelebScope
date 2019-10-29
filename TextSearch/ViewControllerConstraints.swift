@@ -218,42 +218,42 @@ extension ViewController {
             ])
     }
     
-    private func setupSignInViewConstraints() {
-        
-        // convinence vars
-        let zoomableImageView = self.zoomableImageVC.zoomableImageView
-        
-        
-        guard let pagedView = self.detailPagedVC.view else {
-            NSLog("failed to unwrap detailPagedVC")
-            return
-        }
-        guard let collectionView = self.peopleCollectionVC.collectionView else {
-            NSLog("failed to unwrap self.peopleCollectionVC.collectionView")
-            return
-        }
-        
-        // setup constraints common to portrait and landscape
-        
-        NSLayoutConstraint.activate([
-            signInPrompt.topAnchor.constraint(equalTo: signInView.topAnchor, constant: 10),
-            signInPrompt.leadingAnchor.constraint(equalTo: signInView.leadingAnchor, constant: 10),
-            signInPrompt.trailingAnchor.constraint(equalTo: signInView.trailingAnchor, constant: -10),
-            
-            signInButton.topAnchor.constraint(equalTo: signInPrompt.bottomAnchor, constant: 10),
-            signInButton.widthAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_WIDTH),
-            signInButton.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
-            signInButton.centerXAnchor.constraint(equalTo: signInView.centerXAnchor),
-            //signInButton.centerYAnchor.constraint(equalTo: signInView.centerYAnchor),
-            
-
-            
-            
-            
-            ])
-        
-        
-    }
+//    private func setupSignInViewConstraints() {
+//
+//        // convinence vars
+//        let zoomableImageView = self.zoomableImageVC.zoomableImageView
+//
+//
+//        guard let pagedView = self.detailPagedVC.view else {
+//            NSLog("failed to unwrap detailPagedVC")
+//            return
+//        }
+//        guard let collectionView = self.peopleCollectionVC.collectionView else {
+//            NSLog("failed to unwrap self.peopleCollectionVC.collectionView")
+//            return
+//        }
+//
+//        // setup constraints common to portrait and landscape
+//
+//        NSLayoutConstraint.activate([
+//            signInPrompt.topAnchor.constraint(equalTo: signInView.topAnchor, constant: 10),
+//            signInPrompt.leadingAnchor.constraint(equalTo: signInView.leadingAnchor, constant: 10),
+//            signInPrompt.trailingAnchor.constraint(equalTo: signInView.trailingAnchor, constant: -10),
+//
+//            signInButton.topAnchor.constraint(equalTo: signInPrompt.bottomAnchor, constant: 10),
+//            signInButton.widthAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_WIDTH),
+//            signInButton.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
+//            signInButton.centerXAnchor.constraint(equalTo: signInView.centerXAnchor),
+//            //signInButton.centerYAnchor.constraint(equalTo: signInView.centerYAnchor),
+//
+//
+//
+//
+//
+//            ])
+//
+//
+//    }
     
     
   
@@ -293,10 +293,10 @@ extension ViewController {
 
             
 
-                signInView.leadingAnchor.constraint(equalTo: splitScreenView.leadingAnchor),
-                signInView.trailingAnchor.constraint(equalTo: splitScreenView.trailingAnchor),
-                signInView.topAnchor.constraint(equalTo: splitScreenView.topAnchor),
-                signInView.bottomAnchor.constraint(equalTo: splitScreenView.bottomAnchor),
+//                signInView.leadingAnchor.constraint(equalTo: splitScreenView.leadingAnchor),
+//                signInView.trailingAnchor.constraint(equalTo: splitScreenView.trailingAnchor),
+//                signInView.topAnchor.constraint(equalTo: splitScreenView.topAnchor),
+//                signInView.bottomAnchor.constraint(equalTo: splitScreenView.bottomAnchor),
                 
             
             
@@ -309,7 +309,7 @@ extension ViewController {
       
         
         // this view will cover the entire splitScreen if logged out
-        setupSignInViewConstraints()
+        //setupSignInViewConstraints()
     }
     
     private func setupDetailsContainerViewConstraints() {

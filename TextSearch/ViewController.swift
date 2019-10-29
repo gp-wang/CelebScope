@@ -9,7 +9,7 @@
 import UIKit
 import GoogleMobileAds
 
-import GoogleSignIn
+//import GoogleSignIn
 
 class ViewController:  UIViewController {
     struct Constants {
@@ -125,33 +125,33 @@ class ViewController:  UIViewController {
     
     // backround view for sign in button
     // this is a view group
-    let signInView: UIView = {
-        let _view = UIView()
-        _view.translatesAutoresizingMaskIntoConstraints = false
-        _view.backgroundColor = UIColor.lightGray
-        return _view
-    } ()
-    let signInPrompt: UILabel = {
-        let _label = UILabel()
-        _label.text = NSLocalizedString("signInPromptLabel", comment: "")//"Please Sign in with Google Account to continue."
-        
-        _label.textColor = UIColor.white
-        _label.translatesAutoresizingMaskIntoConstraints = false
-        _label.textAlignment = .center
-        _label.numberOfLines = 2;
-        
-        _label.minimumScaleFactor = 0.4
-        _label.adjustsFontSizeToFitWidth = true;
-        //        _label.font = UIFont.preferredFont(forTextStyle: .subheadline).withSize(12)
-        return _label
-    } ()
-    let signInButton: GIDSignInButton = {
-        let _button = GIDSignInButton()
-        _button.translatesAutoresizingMaskIntoConstraints = false
-        
-        return _button
-
-    } ()
+//    let signInView: UIView = {
+//        let _view = UIView()
+//        _view.translatesAutoresizingMaskIntoConstraints = false
+//        _view.backgroundColor = UIColor.lightGray
+//        return _view
+//    } ()
+//    let signInPrompt: UILabel = {
+//        let _label = UILabel()
+//        _label.text = NSLocalizedString("signInPromptLabel", comment: "")//"Please Sign in with Google Account to continue."
+//
+//        _label.textColor = UIColor.white
+//        _label.translatesAutoresizingMaskIntoConstraints = false
+//        _label.textAlignment = .center
+//        _label.numberOfLines = 2;
+//
+//        _label.minimumScaleFactor = 0.4
+//        _label.adjustsFontSizeToFitWidth = true;
+//        //        _label.font = UIFont.preferredFont(forTextStyle: .subheadline).withSize(12)
+//        return _label
+//    } ()
+//    let signInButton: GIDSignInButton = {
+//        let _button = GIDSignInButton()
+//        _button.translatesAutoresizingMaskIntoConstraints = false
+//
+//        return _button
+//
+//    } ()
     
    
     // VC for showing progress / error
@@ -308,9 +308,9 @@ class ViewController:  UIViewController {
         view.addSubview(searchView)
         
         // google sign in
-        signInView.addSubview(signInButton)
-        signInView.addSubview(signInPrompt)
-        view.addSubview(signInView)
+//        signInView.addSubview(signInButton)
+//        signInView.addSubview(signInPrompt)
+//        view.addSubview(signInView)
         
         
         // ads
@@ -377,7 +377,7 @@ class ViewController:  UIViewController {
         view.bringSubviewToFront(zoomableImageVC.zoomableImageView)
         view.bringSubviewToFront(canvas)
         view.bringSubviewToFront(bottomViewGroup)
-        view.bringSubviewToFront(signInView)
+        //view.bringSubviewToFront(signInView)
 
         
         // -- constraints
@@ -390,7 +390,7 @@ class ViewController:  UIViewController {
         self.cameraButton.addTarget(self, action: #selector(takePhoto), for: .touchUpInside)
          self.menuButton.addTarget(self, action: #selector(handleMore), for: .touchUpInside)
         self.searchButton.addTarget(self, action: #selector(startSearch), for: .touchUpInside)
-        self.signOutButton.addTarget(self, action: #selector(didTapSignOut), for: .touchUpInside)
+        //self.signOutButton.addTarget(self, action: #selector(didTapSignOut), for: .touchUpInside)
         
         
 // gw: not working, disable for now
@@ -429,35 +429,35 @@ class ViewController:  UIViewController {
     }
     
     
-    @objc func didTapSignOut(_ sender: AnyObject) {
-        GIDSignIn.sharedInstance().signOut()
-        // [START_EXCLUDE silent]
-        signInStatusText.text = "Signed out."
-        toggleAuthUI()
-        // [END_EXCLUDE]
-    }
+//    @objc func didTapSignOut(_ sender: AnyObject) {
+//        GIDSignIn.sharedInstance().signOut()
+//        // [START_EXCLUDE silent]
+//        signInStatusText.text = "Signed out."
+//        toggleAuthUI()
+//        // [END_EXCLUDE]
+//    }
     
     // [START toggle_auth]
-    func toggleAuthUI() {
-       
-        if let _ = GIDSignIn.sharedInstance()?.currentUser?.authentication {
-            // Signed in
-            DispatchQueue.main.async {
-                self.signInView.isHidden = true
-                self.searchView.isHidden = false
-                self.signStatusView.isHidden = false
-                // disconnectButton.isHidden = false
-            }
-        } else {
-            DispatchQueue.main.async {
-                self.signInView.isHidden = false
-                self.searchView.isHidden = true
-                self.signStatusView.isHidden = true
-                // disconnectButton.isHidden = true
-                self.signInStatusText.text = ""
-            }
-        }
-    }
+//    func toggleAuthUI() {
+//
+//        if let _ = GIDSignIn.sharedInstance()?.currentUser?.authentication {
+//            // Signed in
+//            DispatchQueue.main.async {
+//                self.signInView.isHidden = true
+//                self.searchView.isHidden = false
+//                self.signStatusView.isHidden = false
+//                // disconnectButton.isHidden = false
+//            }
+//        } else {
+//            DispatchQueue.main.async {
+//                self.signInView.isHidden = false
+//                self.searchView.isHidden = true
+//                self.signStatusView.isHidden = true
+//                // disconnectButton.isHidden = true
+//                self.signInStatusText.text = ""
+//            }
+//        }
+//    }
     // [END toggle_auth]
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -470,15 +470,15 @@ class ViewController:  UIViewController {
                                                   object: nil)
     }
     
-    @objc func receiveToggleAuthUINotification(_ notification: NSNotification) {
-        if notification.name.rawValue == "ToggleAuthUINotification" {
-            self.toggleAuthUI()
-            if notification.userInfo != nil {
-                guard let userInfo = notification.userInfo as? [String:String] else { return }
-                self.signInStatusText.text = userInfo["statusText"]!
-            }
-        }
-    }
+//    @objc func receiveToggleAuthUINotification(_ notification: NSNotification) {
+//        if notification.name.rawValue == "ToggleAuthUINotification" {
+//            self.toggleAuthUI()
+//            if notification.userInfo != nil {
+//                guard let userInfo = notification.userInfo as? [String:String] else { return }
+//                self.signInStatusText.text = userInfo["statusText"]!
+//            }
+//        }
+//    }
 
     // MARK: - pick photos from album
     
@@ -544,7 +544,9 @@ class ViewController:  UIViewController {
             searchForTextInOcrResult(text,cachedResponse)
         } else {
             gw_log("fire new API request")
-            searchTextInImage(text,image, completionHandler: searchForTextInOcrResult, accessToken: GIDSignIn.sharedInstance()!.currentUser!.authentication.accessToken, cache: cache)
+            //searchTextInImage(text,image, completionHandler: searchForTextInOcrResult, accessToken: GIDSignIn.sharedInstance()!.currentUser!.authentication.accessToken, cache: cache)
+            
+            searchTextInImage(text,image, completionHandler: searchForTextInOcrResult, accessToken: "NIL", cache: cache)
         }
     }
     
@@ -581,27 +583,27 @@ class ViewController:  UIViewController {
         super.viewDidLoad()
         
         
-        GIDSignIn.sharedInstance()?.presentingViewController = self
+        //GIDSignIn.sharedInstance()?.presentingViewController = self
         // gw: see AppDelegate.init()
         //GIDSignIn.sharedInstance().clientID = "399591616840-7ogh03vhapiqcaudu76vp0g1aili57k3.apps.googleusercontent.com"
         // Automatically sign in the user.
-        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+        //GIDSignIn.sharedInstance()?.restorePreviousSignIn()
         
         // [START_EXCLUDE]
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(ViewController.receiveToggleAuthUINotification(_:)),
-                                               name: NSNotification.Name(rawValue: "ToggleAuthUINotification"),
-                                               object: nil)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(ViewController.receiveToggleAuthUINotification(_:)),
+//                                               name: NSNotification.Name(rawValue: "ToggleAuthUINotification"),
+//                                               object: nil)
         
         // TODO, gw: is there a way to know who is the signed in user from prev sign-in
         signInStatusText.text = NSLocalizedString("statusAppInitLabel", comment: "") //"statusAppInitLabel" = "Initialized app ...";
         
-        if let fullName =         GIDSignIn.sharedInstance()?.currentUser?.profile?.name {
-            let prefix = NSLocalizedString("statusUserLabel", comment: "") // "statusUserLabel" = "Signed in user: "
-            signInStatusText.text = "\(prefix) \(fullName)"
-        }
+//        if let fullName =         GIDSignIn.sharedInstance()?.currentUser?.profile?.name {
+//            let prefix = NSLocalizedString("statusUserLabel", comment: "") // "statusUserLabel" = "Signed in user: "
+//            signInStatusText.text = "\(prefix) \(fullName)"
+//        }
 
-        toggleAuthUI()
+        //toggleAuthUI()
         
         //TODO
         //notificationVC.showError("abc")
