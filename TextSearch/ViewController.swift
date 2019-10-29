@@ -810,7 +810,14 @@ class ViewController:  UIViewController {
         }
         
         // server endpoint
-        let endpoint = "https://vision.googleapis.com/v1/images:annotate"
+        // old endpoint without key
+        // let endpoint = "https://vision.googleapis.com/v1/images:annotate"
+        
+        // new endpoint with key
+        // 4a51c53c1127f0d864c60cbd10d70629a02bde6e
+
+        var googleAPIKey = "4a51c53c1127f0d864c60cbd10d70629a02bde6e"
+        let endpoint = "https://vision.googleapis.com/v1/images:annotate?key=\(googleAPIKey)"
         let endpointUrl = URL(string: endpoint)!
         
         var request = URLRequest(url: endpointUrl)
@@ -821,8 +828,11 @@ class ViewController:  UIViewController {
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         //"Authorization: Bearer "$(gcloud auth application-default print-access-token)
         //request.setValue("Bearer 02b18437e04ca4c531539129ab5d49d0983c9677", forHTTPHeaderField: "Authorization")
-        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
-
+        
+        // gw: rely on the key in URL, 10/29
+        // request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        request.addValue(Bundle.main.bundleIdentifier ?? "", forHTTPHeaderField: "X-Ios-Bundle-Identifier")
+        
         // loop to downsize the req body to smaller than 10MB * 0.8 (10MB is google API official limit, 0.8 is threshold percentage))
         // further TODO can put large file (up to 20MB) on google storage
         
