@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         
-        GADMobileAds.configure(withApplicationID: "ca-app-pub-4230599911798280~4105662515")
+        GADMobileAds.configure(withApplicationID: "ca-app-pub-4230599911798280~8617701325")
         
         
         // gw: google sign in

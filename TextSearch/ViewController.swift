@@ -677,7 +677,7 @@ class ViewController:  UIViewController {
         // bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         
         // gw: id. yanhua.wang.rz
-        bannerView.adUnitID = "ca-app-pub-4230599911798280~8617701325"
+        bannerView.adUnitID = "ca-app-pub-4230599911798280/4562906240"
         
         bannerView.rootViewController = self
         
