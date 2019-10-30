@@ -151,7 +151,6 @@
 "helpContentHTML" = "<div><h2>Help</h2>
 <h3>Start a Search</h3>
   <ol>
-    <li> If you are using this app for the first time, click the <span><b>Sign In</b></span> button to login with your google account </li>
     <li> Select a photo either from  album or using camera</li>
     <li> Type the text string to search, and press the <span><b>Find</b></span> button</li>
   </ol>

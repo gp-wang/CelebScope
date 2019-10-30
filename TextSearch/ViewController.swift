@@ -165,7 +165,7 @@ class ViewController:  UIViewController {
             let _label = UILabel()
             _label.text = NSLocalizedString("selectPhotoPromptLabel", comment: "")//"Please Sign in with Google Account to continue."
     
-            _label.textColor = UIColor.white
+            _label.textColor = UIColor.darkText
             _label.translatesAutoresizingMaskIntoConstraints = false
             _label.textAlignment = .center
             _label.numberOfLines = 2;
@@ -179,7 +179,7 @@ class ViewController:  UIViewController {
                 let _label = UILabel()
                 _label.text = NSLocalizedString("enterTextPromptLabel", comment: "")//"Please Sign in with Google Account to continue."
         
-                _label.textColor = UIColor.white
+                _label.textColor = UIColor.darkText
                 _label.translatesAutoresizingMaskIntoConstraints = false
                 _label.textAlignment = .center
                 _label.numberOfLines = 2;
