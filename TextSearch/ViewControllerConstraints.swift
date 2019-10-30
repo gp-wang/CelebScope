@@ -200,60 +200,61 @@ extension ViewController {
         ])
     }
     
-    private func setupSignStatusGroupConstraints() {
-        NSLayoutConstraint.activate([
-            
-            
-            signOutButton.widthAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_WIDTH),
-            signOutButton.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
-            signOutButton.centerYAnchor.constraint(equalTo: signStatusView.centerYAnchor),
-            signOutButton.trailingAnchor.constraint(equalTo: signStatusView.trailingAnchor, constant: -5),
-            
-            
-            signInStatusText.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
-            signInStatusText.centerYAnchor.constraint(equalTo: signStatusView.centerYAnchor),
-            signInStatusText.leadingAnchor.constraint(equalTo: signStatusView.leadingAnchor, constant: 5),
-            signInStatusText.trailingAnchor.constraint(equalTo: signOutButton.leadingAnchor, constant: -5),
-            
-            ])
-    }
-    
-//    private func setupSignInViewConstraints() {
-//
-//        // convinence vars
-//        let zoomableImageView = self.zoomableImageVC.zoomableImageView
-//
-//
-//        guard let pagedView = self.detailPagedVC.view else {
-//            NSLog("failed to unwrap detailPagedVC")
-//            return
-//        }
-//        guard let collectionView = self.peopleCollectionVC.collectionView else {
-//            NSLog("failed to unwrap self.peopleCollectionVC.collectionView")
-//            return
-//        }
-//
-//        // setup constraints common to portrait and landscape
-//
+//    private func setupSignStatusGroupConstraints() {
 //        NSLayoutConstraint.activate([
-//            signInPrompt.topAnchor.constraint(equalTo: signInView.topAnchor, constant: 10),
-//            signInPrompt.leadingAnchor.constraint(equalTo: signInView.leadingAnchor, constant: 10),
-//            signInPrompt.trailingAnchor.constraint(equalTo: signInView.trailingAnchor, constant: -10),
-//
-//            signInButton.topAnchor.constraint(equalTo: signInPrompt.bottomAnchor, constant: 10),
-//            signInButton.widthAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_WIDTH),
-//            signInButton.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
-//            signInButton.centerXAnchor.constraint(equalTo: signInView.centerXAnchor),
-//            //signInButton.centerYAnchor.constraint(equalTo: signInView.centerYAnchor),
-//
-//
-//
-//
-//
+//            
+//            
+//            signOutButton.widthAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_WIDTH),
+//            signOutButton.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
+//            signOutButton.centerYAnchor.constraint(equalTo: signStatusView.centerYAnchor),
+//            signOutButton.trailingAnchor.constraint(equalTo: signStatusView.trailingAnchor, constant: -5),
+//            
+//            
+//            signInStatusText.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT),
+//            signInStatusText.centerYAnchor.constraint(equalTo: signStatusView.centerYAnchor),
+//            signInStatusText.leadingAnchor.constraint(equalTo: signStatusView.leadingAnchor, constant: 5),
+//            signInStatusText.trailingAnchor.constraint(equalTo: signOutButton.leadingAnchor, constant: -5),
+//            
 //            ])
-//
-//
 //    }
+    
+    private func setupPromptViewConstraints() {
+
+        // convinence vars
+        let zoomableImageView = self.zoomableImageVC.zoomableImageView
+
+
+        guard let pagedView = self.detailPagedVC.view else {
+            NSLog("failed to unwrap detailPagedVC")
+            return
+        }
+        guard let collectionView = self.peopleCollectionVC.collectionView else {
+            NSLog("failed to unwrap self.peopleCollectionVC.collectionView")
+            return
+        }
+
+        // setup constraints common to portrait and landscape
+
+        NSLayoutConstraint.activate([
+            selectPhotoPrompt.topAnchor.constraint(equalTo: promptView.topAnchor),
+            selectPhotoPrompt.heightAnchor.constraint(equalTo: promptView.heightAnchor, multiplier: 0.5),
+            selectPhotoPrompt.leadingAnchor.constraint(equalTo: promptView.leadingAnchor, constant: 10),
+            selectPhotoPrompt.trailingAnchor.constraint(equalTo: promptView.trailingAnchor, constant: -10),
+
+            enterTextPrompt.bottomAnchor.constraint(equalTo: promptView.bottomAnchor),
+            enterTextPrompt.heightAnchor.constraint(equalTo: promptView.heightAnchor, multiplier: 0.5),
+            enterTextPrompt.leadingAnchor.constraint(equalTo: promptView.leadingAnchor, constant: 10),
+            enterTextPrompt.trailingAnchor.constraint(equalTo: promptView.trailingAnchor, constant: -10),
+            //signInButton.centerYAnchor.constraint(equalTo: signInView.centerYAnchor),
+
+
+
+
+
+            ])
+
+
+    }
     
     
   
@@ -281,22 +282,23 @@ extension ViewController {
     private func setupSplitScreenViewConstraints() {
         NSLayoutConstraint.activate([
                 detailsContainerView.topAnchor.constraint(equalTo: splitScreenView.topAnchor),
-                detailsContainerView.bottomAnchor.constraint(equalTo: signStatusView.topAnchor),
+                //detailsContainerView.bottomAnchor.constraint(equalTo: signStatusView.topAnchor),
+            detailsContainerView.bottomAnchor.constraint(equalTo: splitScreenView.bottomAnchor),
                 detailsContainerView.leadingAnchor.constraint(equalTo: splitScreenView.leadingAnchor),
                 detailsContainerView.trailingAnchor.constraint(equalTo: splitScreenView.trailingAnchor),
                 
                 // top constraint is already above
-                signStatusView.bottomAnchor.constraint(equalTo: splitScreenView.bottomAnchor),
-                signStatusView.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT*1.2),
-                signStatusView.leadingAnchor.constraint(equalTo: splitScreenView.leadingAnchor),
-                signStatusView.trailingAnchor.constraint(equalTo: splitScreenView.trailingAnchor),
+//                signStatusView.bottomAnchor.constraint(equalTo: splitScreenView.bottomAnchor),
+//                signStatusView.heightAnchor.constraint(equalToConstant: Constants.RECT_BUTTON_HEIGHT*1.2),
+//                signStatusView.leadingAnchor.constraint(equalTo: splitScreenView.leadingAnchor),
+//                signStatusView.trailingAnchor.constraint(equalTo: splitScreenView.trailingAnchor),
 
             
 
-//                signInView.leadingAnchor.constraint(equalTo: splitScreenView.leadingAnchor),
-//                signInView.trailingAnchor.constraint(equalTo: splitScreenView.trailingAnchor),
-//                signInView.topAnchor.constraint(equalTo: splitScreenView.topAnchor),
-//                signInView.bottomAnchor.constraint(equalTo: splitScreenView.bottomAnchor),
+                promptView.leadingAnchor.constraint(equalTo: splitScreenView.leadingAnchor),
+                promptView.trailingAnchor.constraint(equalTo: splitScreenView.trailingAnchor),
+                promptView.topAnchor.constraint(equalTo: splitScreenView.topAnchor),
+                promptView.bottomAnchor.constraint(equalTo: splitScreenView.bottomAnchor),
                 
             
             
@@ -305,11 +307,11 @@ extension ViewController {
         
         // these two further splits the splitScreen in normal logged in status
         setupDetailsContainerViewConstraints()
-        setupSignStatusGroupConstraints()
+        //setupSignStatusGroupConstraints()
       
         
         // this view will cover the entire splitScreen if logged out
-        //setupSignInViewConstraints()
+        setupPromptViewConstraints()
     }
     
     private func setupDetailsContainerViewConstraints() {

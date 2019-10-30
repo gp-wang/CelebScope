@@ -14,6 +14,8 @@
 "cancelLabel" = "取消";
 "dismissLabel" = "继续" ;
 "progressLabel" = "搜索进行中 ... ";
+"selectPhotoPromptLabel" = "一、请拍摄或选择照片";
+"enterTextPromptLabel" = "二、请输入文字以搜索";
 "errorDefaultLabel" = "出现未知错误...";
 "summaryCountLabelPrefix" = "图片中检测到" ;
 "summaryCountLabelSuffix" = "个结果" ;

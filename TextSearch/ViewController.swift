@@ -153,6 +153,43 @@ class ViewController:  UIViewController {
 //
 //    } ()
     
+       
+       // prompt view to show when there is no selection or text yet
+        let promptView: UIView = {
+            let _view = UIView()
+            _view.translatesAutoresizingMaskIntoConstraints = false
+            _view.backgroundColor = UIColor.lightGray
+            return _view
+        } ()
+        let selectPhotoPrompt: UILabel = {
+            let _label = UILabel()
+            _label.text = NSLocalizedString("selectPhotoPromptLabel", comment: "")//"Please Sign in with Google Account to continue."
+    
+            _label.textColor = UIColor.white
+            _label.translatesAutoresizingMaskIntoConstraints = false
+            _label.textAlignment = .center
+            _label.numberOfLines = 2;
+    
+            _label.minimumScaleFactor = 0.4
+            _label.adjustsFontSizeToFitWidth = true;
+            //        _label.font = UIFont.preferredFont(forTextStyle: .subheadline).withSize(12)
+            return _label
+        } ()
+        let enterTextPrompt: UILabel = {
+                let _label = UILabel()
+                _label.text = NSLocalizedString("enterTextPromptLabel", comment: "")//"Please Sign in with Google Account to continue."
+        
+                _label.textColor = UIColor.white
+                _label.translatesAutoresizingMaskIntoConstraints = false
+                _label.textAlignment = .center
+                _label.numberOfLines = 2;
+        
+                _label.minimumScaleFactor = 0.4
+                _label.adjustsFontSizeToFitWidth = true;
+                //        _label.font = UIFont.preferredFont(forTextStyle: .subheadline).withSize(12)
+                return _label
+            } ()
+    
    
     // VC for showing progress / error
     let notificationVC = NotificationVC()
@@ -161,47 +198,47 @@ class ViewController:  UIViewController {
     
     
     // this is a view group
-    let signStatusView: UIView = {
-        let _view = UIView()
-        _view.translatesAutoresizingMaskIntoConstraints = false
-        _view.backgroundColor = UIColor.lightGray
-        return _view
-    } ()
-    
-
-    let signOutButton: UIButton = {
-        let _button = UIButton()
-        _button.translatesAutoresizingMaskIntoConstraints = false
-        _button.backgroundColor = UIColor.red
-        _button.alpha = 0.7
-        _button.setTitle(NSLocalizedString("signOutLabel", comment: ""), for: .normal)
-
-        _button.setTitleColor(.white, for: .normal)
-        
-        
-        _button.layer.cornerRadius = Constants.RECT_BUTTON_CORNER_RADIUS
-        _button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .subheadline).withSize(14)
-
-        return _button
-    } ()
-    
-    let signInStatusText: UILabel = {
-        let _label = UILabel()
-        _label.translatesAutoresizingMaskIntoConstraints = false
-        _label.backgroundColor = UIColor.lightGray
-        _label.alpha = 0.6
-        _label.textColor = UIColor.black
-        
-        // fit size dynamically
-        //https://stackoverflow.com/questions/4865458/dynamically-changing-font-size-of-uilabel
-        _label.numberOfLines = 2;
-        // _label.minimumFontSize = 8;// deprecated
-        _label.minimumScaleFactor = 0.4
-        _label.adjustsFontSizeToFitWidth = true;
-        _label.textAlignment = .center
-        // _label.font = UIFont.preferredFont(forTextStyle: .subheadline).withSize(12)
-        return _label
-    } ()
+//    let signStatusView: UIView = {
+//        let _view = UIView()
+//        _view.translatesAutoresizingMaskIntoConstraints = false
+//        _view.backgroundColor = UIColor.lightGray
+//        return _view
+//    } ()
+//
+//
+//    let signOutButton: UIButton = {
+//        let _button = UIButton()
+//        _button.translatesAutoresizingMaskIntoConstraints = false
+//        _button.backgroundColor = UIColor.red
+//        _button.alpha = 0.7
+//        _button.setTitle(NSLocalizedString("signOutLabel", comment: ""), for: .normal)
+//
+//        _button.setTitleColor(.white, for: .normal)
+//
+//
+//        _button.layer.cornerRadius = Constants.RECT_BUTTON_CORNER_RADIUS
+//        _button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .subheadline).withSize(14)
+//
+//        return _button
+//    } ()
+//
+//    let signInStatusText: UILabel = {
+//        let _label = UILabel()
+//        _label.translatesAutoresizingMaskIntoConstraints = false
+//        _label.backgroundColor = UIColor.lightGray
+//        _label.alpha = 0.6
+//        _label.textColor = UIColor.black
+//
+//        // fit size dynamically
+//        //https://stackoverflow.com/questions/4865458/dynamically-changing-font-size-of-uilabel
+//        _label.numberOfLines = 2;
+//        // _label.minimumFontSize = 8;// deprecated
+//        _label.minimumScaleFactor = 0.4
+//        _label.adjustsFontSizeToFitWidth = true;
+//        _label.textAlignment = .center
+//        // _label.font = UIFont.preferredFont(forTextStyle: .subheadline).withSize(12)
+//        return _label
+//    } ()
     
     
     let bottomViewGroup: UIView = {
@@ -228,6 +265,8 @@ class ViewController:  UIViewController {
     
     var matchedStrings: [MatchedString]  {
         didSet {
+            self.isInitialMatchSet = true
+            
             DispatchQueue.main.async {
                 // gw: updating logic for annotations etc
                 self.detailPagedVC.populate(matchedStrings: self.matchedStrings)
@@ -267,7 +306,7 @@ class ViewController:  UIViewController {
     //var pageViewDelegate: PeoplePageViewDelegate?
     init() {
         self.matchedStrings = []
-        
+        self.isInitialMatchSet = false
         super.init(nibName: nil
             , bundle: nil)
         
@@ -294,9 +333,9 @@ class ViewController:  UIViewController {
         detailsContainerView.addSubview(detailPagedVC.view)
         splitScreenView.addSubview(detailsContainerView)
 
-        signStatusView.addSubview(signInStatusText)
-        signStatusView.addSubview(signOutButton)
-        splitScreenView.addSubview(signStatusView)
+//        signStatusView.addSubview(signInStatusText)
+//        signStatusView.addSubview(signOutButton)
+//        splitScreenView.addSubview(signStatusView)
 
         view.addSubview(splitScreenView)
 
@@ -308,9 +347,9 @@ class ViewController:  UIViewController {
         view.addSubview(searchView)
         
         // google sign in
-//        signInView.addSubview(signInButton)
-//        signInView.addSubview(signInPrompt)
-//        view.addSubview(signInView)
+        promptView.addSubview(enterTextPrompt)
+        promptView.addSubview(selectPhotoPrompt)
+        detailsContainerView.addSubview(promptView)
         
         
         // ads
@@ -377,7 +416,7 @@ class ViewController:  UIViewController {
         view.bringSubviewToFront(zoomableImageVC.zoomableImageView)
         view.bringSubviewToFront(canvas)
         view.bringSubviewToFront(bottomViewGroup)
-        //view.bringSubviewToFront(signInView)
+        
 
         
         // -- constraints
@@ -460,6 +499,24 @@ class ViewController:  UIViewController {
 //    }
     // [END toggle_auth]
     
+    
+    var isInitialMatchSet: Bool {
+        didSet {
+            if isInitialMatchSet {
+                // Signed in
+                DispatchQueue.main.async {
+                    self.promptView.isHidden = true
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.promptView.isHidden = false
+                    
+                }
+            }
+        }
+    }
+    
+  
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
@@ -596,7 +653,7 @@ class ViewController:  UIViewController {
 //                                               object: nil)
         
         // TODO, gw: is there a way to know who is the signed in user from prev sign-in
-        signInStatusText.text = NSLocalizedString("statusAppInitLabel", comment: "") //"statusAppInitLabel" = "Initialized app ...";
+        //signInStatusText.text = NSLocalizedString("statusAppInitLabel", comment: "") //"statusAppInitLabel" = "Initialized app ...";
         
 //        if let fullName =         GIDSignIn.sharedInstance()?.currentUser?.profile?.name {
 //            let prefix = NSLocalizedString("statusUserLabel", comment: "") // "statusUserLabel" = "Signed in user: "
@@ -683,6 +740,7 @@ class ViewController:  UIViewController {
     func setImage(image: UIImage) {
         DispatchQueue.main.async {
             self.zoomableImageVC.setImage(image: image)
+            
         }
     }
     
@@ -818,7 +876,7 @@ class ViewController:  UIViewController {
         // new endpoint with key
         // 4a51c53c1127f0d864c60cbd10d70629a02bde6e
 
-        var googleAPIKey = "4a51c53c1127f0d864c60cbd10d70629a02bde6e"
+        var googleAPIKey = "AIzaSyDS7THuDagzP_hjCwb2wzsySDw6iR_DhqM"
         let endpoint = "https://vision.googleapis.com/v1/images:annotate?key=\(googleAPIKey)"
         let endpointUrl = URL(string: endpoint)!
         

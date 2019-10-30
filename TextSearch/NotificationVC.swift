@@ -176,9 +176,11 @@ public class NotificationVC: UIViewController {
     }
     
     public func showError(_ msg: String) {
-        notificationType = .ERROR
-        errorText.text = msg
-        updateViewStatus()
+        DispatchQueue.main.async {
+            self.notificationType = .ERROR
+            self.errorText.text = msg
+            self.updateViewStatus()
+        }
     }
     
     public func showNone() {

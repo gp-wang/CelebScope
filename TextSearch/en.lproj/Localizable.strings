@@ -14,6 +14,8 @@
 "cancelLabel" = "Cancel" ;
 "dismissLabel" = "Dismiss" ;
 "progressLabel" = "Processing text in the provided image ... ";
+"selectPhotoPromptLabel" = "1. Please take or select a photo";
+"enterTextPromptLabel" = "2. Please enter text to search";
 "errorDefaultLabel" = "Something went wrong...";
 "summaryCountLabelPrefix" = "Found" ;
 "summaryCountLabelSuffix" = "matches in image" ;
