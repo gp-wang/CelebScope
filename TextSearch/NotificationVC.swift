@@ -301,7 +301,7 @@ public class NotificationVC: UIViewController {
         NSLayoutConstraint.activate([
             
 
-             errorText.heightAnchor.constraint(equalTo: dismissButton.heightAnchor, multiplier: 1),
+            errorText.heightAnchor.constraint(equalTo: errorView.heightAnchor, multiplier: 0.5),
              errorText.topAnchor.constraint(equalTo: errorView.topAnchor),
 
              

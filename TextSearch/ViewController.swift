@@ -596,6 +596,13 @@ class ViewController:  UIViewController {
             err = NSLocalizedString( "errorInputSearchStringLabel", comment: "")// "errorInputSearchStringLabel" = "Please input search text first ";
             return
         }
+        
+        let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmedText.count == 0 {
+            err = NSLocalizedString( "errorInputSearchStringLabel", comment: "")// "errorInputSearchStringLabel" = "Please input search text first ";
+            return
+        }
+        
         if let cachedResponse =  cache.cachedResponses[image] {
             gw_log("reuse cached response")
             searchForTextInOcrResult(text,cachedResponse)
@@ -603,7 +610,7 @@ class ViewController:  UIViewController {
             gw_log("fire new API request")
             //searchTextInImage(text,image, completionHandler: searchForTextInOcrResult, accessToken: GIDSignIn.sharedInstance()!.currentUser!.authentication.accessToken, cache: cache)
             
-            searchTextInImage(text,image, completionHandler: searchForTextInOcrResult, accessToken: "NIL", cache: cache)
+            searchTextInImage(trimmedText, image, completionHandler: searchForTextInOcrResult, accessToken: "NIL", cache: cache)
         }
     }
     
@@ -1081,7 +1088,7 @@ class ViewController:  UIViewController {
                     
                     // strStr search
                     // swift way to guarantee non-empty range
-                    if symbols.count >= searchText.count {
+                    if searchText.count > 0 && symbols.count >= searchText.count {
                         var matchedSymbols : [Symbol] = []
                         outer: for i in 0..<(symbols.count - searchText.count) {
                             let _symbol = symbols[i]
