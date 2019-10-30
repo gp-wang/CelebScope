@@ -268,7 +268,7 @@ public class NotificationVC: UIViewController {
     func setupProgressViewConstraint() {
         NSLayoutConstraint.activate([
 
-            progressText.heightAnchor.constraint(equalTo: spinnerView.heightAnchor, multiplier: 1),
+            progressText.heightAnchor.constraint(equalTo: progressView.heightAnchor, multiplier: 0.5),
             progressText.topAnchor.constraint(equalTo: progressView.topAnchor),
 
             
@@ -284,7 +284,7 @@ public class NotificationVC: UIViewController {
             
             
            spinnerView.topAnchor.constraint(equalTo:  progressText.bottomAnchor),
-            spinnerView.bottomAnchor.constraint(equalTo: progressView.bottomAnchor),
+            //spinnerView.bottomAnchor.constraint(equalTo: progressView.bottomAnchor),
             
             
             // spinner h:w = 1:1
