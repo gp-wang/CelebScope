@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  TextSearch
+
+  Created by Gaopeng Wang on 10/30/19.
+  Copyright © 2019 Yanhua Wang. All rights reserved.
+*/
+"CFBundleDisplayName" = "HawkEye - Image Text Search";
+"NSCameraUsageDescription" = "The app uses camera to take photos for text detection.";
+"NSPhotoLibraryAddUsageDescription" = "The app saves captured photo into album for reuse later.";
+"NSPhotoLibraryUsageDescription" = "The app lets you select photos from album for text detection.";

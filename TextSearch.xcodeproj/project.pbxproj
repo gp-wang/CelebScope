@@ -57,6 +57,7 @@
 		6BD7CA682363241700418131 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6BD7CA6A2363241700418131 /* Localizable.strings */; };
 		6BD7CA6D236339AC00418131 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD7CA6C236339AC00418131 /* Cache.swift */; };
 		6BD7CA6F236378B100418131 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD7CA6E236378B100418131 /* String+Extension.swift */; };
+		6BFD2416236A7C890032B7A2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6BFD2418236A7C890032B7A2 /* InfoPlist.strings */; };
 		6BFE4D9121F9A18200B7A50D /* PersonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFE4D9021F9A18200B7A50D /* PersonCollectionViewCell.swift */; };
 		9EE308AE4CBDF7E20C69326E /* Pods_TextSearch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CF87F04B5E97548372E5515 /* Pods_TextSearch.framework */; };
 /* End PBXBuildFile section */
@@ -117,6 +118,8 @@
 		6BD7CA6B2363241D00418131 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		6BD7CA6C236339AC00418131 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		6BD7CA6E236378B100418131 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		6BFD2417236A7C890032B7A2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		6BFD2419236A7C8D0032B7A2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		6BFE4D9021F9A18200B7A50D /* PersonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCollectionViewCell.swift; sourceTree = "<group>"; };
 		7CF87F04B5E97548372E5515 /* Pods_TextSearch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TextSearch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C33F32DA77DD2A0C43AF7ECA /* Pods-TextSearch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TextSearch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TextSearch/Pods-TextSearch.debug.xcconfig"; sourceTree = "<group>"; };
@@ -283,6 +286,7 @@
 				6B85AFDC23637A880001FF19 /* SettingDetailVC.swift */,
 				6B85AFDE236490920001FF19 /* NotificationVC.swift */,
 				6B85AFE02364C6C10001FF19 /* TapOutSearchBoxDelegate.swift */,
+				6BFD2418236A7C890032B7A2 /* InfoPlist.strings */,
 			);
 			path = TextSearch;
 			sourceTree = "<group>";
@@ -367,6 +371,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6BD7CA682363241700418131 /* Localizable.strings in Resources */,
+				6BFD2416236A7C890032B7A2 /* InfoPlist.strings in Resources */,
 				6B31D2C121F38D58000CFA44 /* LaunchScreen.storyboard in Resources */,
 				6B31D2BE21F38D58000CFA44 /* Assets.xcassets in Resources */,
 			);
@@ -523,6 +528,15 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
+		6BFD2418236A7C890032B7A2 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6BFD2417236A7C890032B7A2 /* en */,
+				6BFD2419236A7C8D0032B7A2 /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -650,7 +664,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = XLWP3D7JS7;
 				INFOPLIST_FILE = "$(SRCROOT)/TextSearch/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -671,7 +685,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = XLWP3D7JS7;
 				INFOPLIST_FILE = "$(SRCROOT)/TextSearch/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (

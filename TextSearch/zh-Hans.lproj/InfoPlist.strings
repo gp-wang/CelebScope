@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  TextSearch
+
+  Created by Gaopeng Wang on 10/30/19.
+  Copyright © 2019 Yanhua Wang. All rights reserved.
+*/
+"CFBundleDisplayName" = "鹰眼图文搜索";
+"NSCameraUsageDescription" = "该应用需要相机许可以便拍摄图片进行文字识别";
+"NSPhotoLibraryAddUsageDescription" = "该应用将拍摄的图片存入相册供以后再次使用";
+"NSPhotoLibraryUsageDescription" = "该应用需要相册许可以便选取图片进行文字识别";
